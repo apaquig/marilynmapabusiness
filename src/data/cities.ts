@@ -1,0 +1,138 @@
+// src/data/cities.ts
+// Ciudades de New Jersey donde MAPA Business ofrece servicios
+
+export interface City {
+  slug: string;
+  name: string;
+  county: string;
+  population: number;
+  lat: number;
+  lng: number;
+  zipCodes: string[];
+  nearbyAreas: string[];
+  wikidataId: string;
+  localCommunityDescription: string; // FASE 2: Contenido único de valor local
+}
+
+export const cities: City[] = [
+  {
+    slug: "newark",
+    name: "Newark",
+    county: "Essex County",
+    population: 311549,
+    lat: 40.7357,
+    lng: -74.1724,
+    zipCodes: ["07101", "07102", "07103", "07104", "07105"],
+    nearbyAreas: ["Irvington", "East Orange", "Belleville"],
+    wikidataId: "Q25395",
+    localCommunityDescription: "Atendemos con orgullo a la diversa comunidad hispana y lusófona en Newark, especialmente en el vibrante distrito de Ironbound. Como el centro económico de Essex County, ofrecemos asesoramiento cercano en trámites migratorios y financieros en español a familias y pequeños empresarios locales.",
+  },
+  {
+    slug: "elizabeth",
+    name: "Elizabeth",
+    county: "Union County",
+    population: 137298,
+    lat: 40.6640,
+    lng: -74.2107,
+    zipCodes: ["07201", "07202", "07206", "07208"],
+    nearbyAreas: ["Linden", "Roselle", "Union"],
+    wikidataId: "Q205889",
+    localCommunityDescription: "En Elizabeth, Union County, brindamos apoyo directo a una de las comunidades hispanas más activas de New Jersey. Nos especializamos en la creación de LLCs, bookkeeping y seguros de auto adaptados para empresarios colombianos, peruanos y cubanos del área.",
+  },
+  {
+    slug: "paterson",
+    name: "Paterson",
+    county: "Passaic County",
+    population: 159732,
+    lat: 40.9176,
+    lng: -74.1719,
+    zipCodes: ["07501", "07502", "07503", "07504", "07505"],
+    nearbyAreas: ["Clifton", "Passaic", "Haledon"],
+    wikidataId: "Q138391",
+    localCommunityDescription: "Paterson, conocida históricamente como la Ciudad de la Seda en Passaic County, alberga una de las mayores concentraciones de familias de origen dominicano y peruano. Te asesoramos con confianza en notaría pública, ITIN y preparación de taxes sin salir de tu comunidad.",
+  },
+  {
+    slug: "jersey-city",
+    name: "Jersey City",
+    county: "Hudson County",
+    population: 292449,
+    lat: 40.7178,
+    lng: -74.0431,
+    zipCodes: ["07302", "07304", "07305", "07306", "07307"],
+    nearbyAreas: ["Hoboken", "Bayonne", "Secaucus"],
+    wikidataId: "Q68313",
+    localCommunityDescription: "Atendemos a la multicultural y creciente población hispana de Jersey City, Hudson County. Ofrecemos soluciones ágiles en seguros de salud, traducción de documentos y asistencia de crédito a profesionales y familias que residen frente al río Hudson.",
+  },
+  {
+    slug: "union-city",
+    name: "Union City",
+    county: "Hudson County",
+    population: 68247,
+    lat: 40.7651,
+    lng: -74.0263,
+    zipCodes: ["07087"],
+    nearbyAreas: ["West New York", "North Bergen", "Weehawken"],
+    wikidataId: "Q1006505",
+    localCommunityDescription: "Union City, conocida cariñosamente como la 'Habana en el Hudson' en Hudson County, tiene una rica tradición hispana. Marilyn Paladinez te acompaña paso a paso en trámites de doble nacionalidad, permisos de trabajo y licencias de conducir para la comunidad latina local.",
+  },
+  {
+    slug: "trenton",
+    name: "Trenton",
+    county: "Mercer County",
+    population: 90871,
+    lat: 40.2171,
+    lng: -74.7429,
+    zipCodes: ["08601", "08602", "08603", "08604", "08605"],
+    nearbyAreas: ["Hamilton", "Ewing", "Lawrence"],
+    wikidataId: "Q25330",
+    localCommunityDescription: "Como la capital del estado de New Jersey en Mercer County, Trenton cuenta con una administración pública clave y una comunidad migrante en constante crecimiento. Brindamos servicios accesibles de contabilidad de negocios y asistencia legal de divorcios sin disputas.",
+  },
+  {
+    slug: "camden",
+    name: "Camden",
+    county: "Camden County",
+    population: 71791,
+    lat: 39.9259,
+    lng: -75.1196,
+    zipCodes: ["08101", "08102", "08103", "08104", "08105"],
+    nearbyAreas: ["Cherry Hill", "Pennsauken", "Gloucester City"],
+    wikidataId: "Q138367",
+    localCommunityDescription: "Servimos con dedicación a las familias y pequeños comercios hispanos en Camden y todo el sur de New Jersey. Ofrecemos asesoramiento integral en español para la solicitud del número ITIN, seguros de vida y planes de crédito para comprar vivienda en Camden County.",
+  },
+  {
+    slug: "clifton",
+    name: "Clifton",
+    county: "Passaic County",
+    population: 92965,
+    lat: 40.8584,
+    lng: -74.1638,
+    zipCodes: ["07011", "07012", "07013", "07014"],
+    nearbyAreas: ["Passaic", "Paterson", "Nutley"],
+    wikidataId: "Q254428",
+    localCommunityDescription: "En Clifton, Passaic County, apoyamos a familias residenciales y negocios locales ubicados cerca de la Ruta 3. Te ayudamos a preparar tus taxes anuales, redactar poderes notariales y tramitar tu licencia de conducir ante el MVC de forma rápida y sin complicaciones.",
+  },
+  {
+    slug: "passaic",
+    name: "Passaic",
+    county: "Passaic County",
+    population: 72362,
+    lat: 40.8568,
+    lng: -74.1285,
+    zipCodes: ["07055"],
+    nearbyAreas: ["Clifton", "Paterson", "Garfield"],
+    wikidataId: "Q170433",
+    localCommunityDescription: "Atendemos a la vibrante y densa población mexicana y centroamericana del centro comercial de Passaic. Ofrecemos servicios confiables de notaría, apostillas de actas de matrimonio y traducciones certificadas oficiales aceptadas por cortes y escuelas locales.",
+  },
+  {
+    slug: "east-orange",
+    name: "East Orange",
+    county: "Essex County",
+    population: 69824,
+    lat: 40.7673,
+    lng: -74.2049,
+    zipCodes: ["07017", "07018", "07019"],
+    nearbyAreas: ["Newark", "Orange", "Montclair"],
+    wikidataId: "Q988515",
+    localCommunityDescription: "Brindamos atención personalizada en español a la comunidad del área metropolitana de East Orange en Essex County. Te orientamos en la obtención de seguros de automóvil accesibles, renovación de permisos de trabajo (I-765) y planificación de crédito familiar.",
+  },
+];

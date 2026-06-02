@@ -1,0 +1,465 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About Us",
+    "process": "Process",
+    "testimonials": "Testimonials",
+    "location": "Location",
+    "contact": "Contact",
+    "coverage": "Service Areas",
+    "cta": "📞 Appt"
+  },
+  "hero": {
+    "tag_migrant": "✦ Financial Strategist for Migrants",
+    "tag_business": "✦ MAPA Business & Financial Services",
+    "slide_notaria": {
+      "title": "Notary Public",
+      "desc": "Certified Notary Public services in New Jersey. Authentication of legal documents, contracts, and affidavits."
+    },
+    "slide_traducciones": {
+      "title": "Translations",
+      "desc": "Certified translation of official documents from Spanish to English and vice versa, accepted by government institutions and agencies."
+    },
+    "slide_poderes": {
+      "title": "Powers of Attorney",
+      "desc": "Drafting and notarization of powers of attorney for legal representation, banking, real estate, and more."
+    },
+    "slide_permisos": {
+      "title": "Work Permits",
+      "desc": "Complete management of work permit applications (I-765), tracking, and renewals for migrants in New Jersey."
+    },
+    "slide_licencias": {
+      "title": "Driver's Licenses",
+      "desc": "Guidance and assistance to obtain your driver's license in New Jersey, including required documentation and step-by-step process."
+    },
+    "slide_itin": {
+      "title": "ITINs",
+      "desc": "Processing of the Individual Taxpayer Identification Number (ITIN) to comply with your tax obligations."
+    },
+    "slide_taxes": {
+      "title": "Taxes",
+      "desc": "Preparation and filing of federal and state tax returns for individuals, families, and small businesses."
+    },
+    "slide_bookkeeping": {
+      "title": "Bookkeeping",
+      "desc": "Monthly accounting, income and expense tracking, financial statements, and ledger preparation for your business."
+    },
+    "slide_seguros_auto": {
+      "title": "Auto Insurance",
+      "desc": "Affordable auto insurance quotes and management for migrants in New Jersey, with or without a local license."
+    },
+    "slide_seguros_salud": {
+      "title": "Health Insurance",
+      "desc": "Guidance to obtain suitable medical coverage tailored to your budget and immigration status in the United States."
+    },
+    "slide_seguros_vida": {
+      "title": "Life Insurance",
+      "desc": "Protect your family's future with life insurance. We help you find the ideal plan according to your needs."
+    },
+    "slide_doble_nacionalidad": {
+      "title": "Dual Citizenship",
+      "desc": "Comprehensive guidance for the dual citizenship process, required documentation, and consulate/embassy coordination."
+    },
+    "slide_divorcios": {
+      "title": "Divorces",
+      "desc": "Assistance in uncontested divorce processes, document preparation, and guidance on required legal steps in New Jersey."
+    },
+    "slide_matrimonios": {
+      "title": "Marriages",
+      "desc": "Guidance and document preparation for civil marriages, including apostilles and foreign registrations."
+    },
+    "btn_book": "📅 Book an appointment",
+    "btn_whatsapp": "💬 WhatsApp"
+  },
+  "stats": {
+    "clients": "Clients Served",
+    "experience": "Years of Experience",
+    "coverage": "Service Areas",
+    "satisfaction": "Satisfaction"
+  },
+  "services": {
+    "tag": "Our Services",
+    "title_html": "Everything you <span>need</span><br>in one single place",
+    "desc": "We offer comprehensive solutions for migrants and entrepreneurs in the United States.",
+    "btn_details": "View Cities & More →",
+    "view_general_co": "View general coverage of",
+    "in_nj": "in New Jersey",
+    "service_of": "Service of",
+    "in_city": "in",
+    "and_surroundings": "and surrounding areas",
+    "we_serve": "We serve",
+    "and_following_areas": "and the following areas of",
+    "faq_title_prefix": "Frequently asked questions about",
+    "cta_ready": "Ready to get started?",
+    "cities_where": "Cities where we offer",
+    "cities_desc": "Select your city to view local coverage details and how we help you in your area.",
+    "local_attention": "Local service →",
+    "cta_doubts_prefix": "Do you have questions about",
+    "cta_doubts_desc": "Contact us today for a free initial consultation. We handle all your processes in your own language.",
+    "notaria": {
+      "title": "Notary Public",
+      "desc": "Certified Notary Public services in New Jersey. Authentication of legal documents, contracts, and affidavits.",
+      "spoke_title": "Notary Public in",
+      "faqs": [
+        {
+          "q": "Where can I find a notary public in {city}, NJ?",
+          "a": "At MAPA Business & Financial Services LLC, we serve Newark and the entire New Jersey area. Call us at (862) 622-8339 for an appointment."
+        },
+        {
+          "q": "How much does a notary service cost in New Jersey?",
+          "a": "Our fees are affordable. Contact us for a quote based on the type of document you need."
+        }
+      ]
+    },
+    "traducciones": {
+      "title": "Certified Translations",
+      "desc": "Certified translation of official documents from Spanish to English and vice versa, accepted by government institutions and agencies.",
+      "spoke_title": "Certified Translations in",
+      "faqs": [
+        {
+          "q": "What documents can I translate?",
+          "a": "Birth certificates, diplomas, contracts, immigration documents, and any official document requiring certified translation."
+        },
+        {
+          "q": "Are the translations accepted in {city}, NJ?",
+          "a": "Yes, our translations are certified and accepted by government agencies, courts, and schools throughout New Jersey."
+        }
+      ]
+    },
+    "poderes-notariales": {
+      "title": "Powers of Attorney",
+      "desc": "Drafting and notarization of powers of attorney for legal representation, banking, real estate, and more.",
+      "spoke_title": "Powers of Attorney in",
+      "faqs": [
+        {
+          "q": "What is a power of attorney used for?",
+          "a": "It allows another person to act on your behalf in legal, banking, real estate, or immigration matters when you cannot be present."
+        },
+        {
+          "q": "Where do I process a power of attorney in {city}, NJ?",
+          "a": "At MAPA Business, we help you draft and notarize your power of attorney quickly. Call us at (862) 622-8339."
+        }
+      ]
+    },
+    "permisos-de-trabajo": {
+      "title": "Work Permits",
+      "desc": "Complete management of work permit applications (I-765), tracking, and renewals for migrants in New Jersey.",
+      "spoke_title": "Work Permits in",
+      "faqs": [
+        {
+          "q": "What is Form I-765?",
+          "a": "It is the Application for Employment Authorization (EAD) that allows migrants to work legally in the United States."
+        },
+        {
+          "q": "How long does a work permit take in New Jersey?",
+          "a": "Processing times vary, but USCIS currently takes 3-6 months. We help you file correctly to avoid delays."
+        }
+      ]
+    },
+    "licencias-de-conducir": {
+      "title": "Driver's Licenses",
+      "desc": "Guidance and assistance to obtain your driver's license in New Jersey, including required documentation and step-by-step process.",
+      "spoke_title": "Driver's License in",
+      "faqs": [
+        {
+          "q": "Can a migrant get a driver's license in NJ?",
+          "a": "Yes. New Jersey allows migrants without legal status to obtain a driver's license with the proper documents under the inclusive license law."
+        },
+        {
+          "q": "What documents do I need for a driver's license in NJ?",
+          "a": "You need 6 points of identification, proof of NJ address, and a Social Security number or ITIN. We help you gather everything."
+        }
+      ]
+    },
+    "itin": {
+      "title": "ITIN",
+      "desc": "Processing of the Individual Taxpayer Identification Number (ITIN) to comply with your tax obligations.",
+      "spoke_title": "ITIN in",
+      "faqs": [
+        {
+          "q": "What is the ITIN used for?",
+          "a": "It is used to file taxes, open bank accounts, build credit, apply for ITINs for dependents, and apply for certain loans."
+        },
+        {
+          "q": "How do I get my ITIN in {city}, NJ?",
+          "a": "At MAPA Business, we are certified Acceptance Agents. We help you complete the W-7 form and send it correctly to the IRS."
+        }
+      ]
+    },
+    "taxes": {
+      "title": "Taxes / Impuestos",
+      "desc": "Preparation and filing of federal and state tax returns for individuals, families, and small businesses.",
+      "spoke_title": "Tax Preparation in",
+      "faqs": [
+        {
+          "q": "Can a migrant file their tax return in NJ?",
+          "a": "Yes. Everyone working in the US must file taxes, regardless of immigration status. You can do it with an ITIN if you don't have a Social Security number."
+        },
+        {
+          "q": "How much does it cost to prepare taxes in New Jersey?",
+          "a": "Our fees are affordable. Contact us at (862) 622-8339 for a quote based on your situation."
+        }
+      ]
+    },
+    "bookkeeping": {
+      "title": "Bookkeeping",
+      "desc": "Monthly accounting, income and expense tracking, financial statements, and ledger preparation for your business.",
+      "spoke_title": "Bookkeeping in",
+      "faqs": [
+        {
+          "q": "What does the bookkeeping service include?",
+          "a": "It includes monthly tracking of income and expenses, bank reconciliation, financial statements, and ledger preparation for your accountant or taxes."
+        },
+        {
+          "q": "Why do I need bookkeeping for my business in {city}?",
+          "a": "To understand the financial health of your business, prepare for tax filing, apply for loans, and comply with NJ regulations."
+        }
+      ]
+    },
+    "seguros-de-auto": {
+      "title": "Auto Insurance",
+      "desc": "Affordable auto insurance quotes and management for migrants in New Jersey, with or without a local license.",
+      "spoke_title": "Auto Insurance in",
+      "faqs": [
+        {
+          "q": "Can I insure my car without an NJ license?",
+          "a": "Yes. There are insurance options available for drivers with a foreign license or in the process of obtaining an NJ driver's license."
+        },
+        {
+          "q": "How much does auto insurance cost in {city}, NJ?",
+          "a": "The price varies based on your vehicle, driving history, and coverage. We get you multiple quotes so you can choose the best option."
+        }
+      ]
+    },
+    "seguros-de-salud": {
+      "title": "Health Insurance",
+      "desc": "Guidance to obtain suitable medical coverage tailored to your budget and immigration status in the United States.",
+      "spoke_title": "Health Insurance in",
+      "faqs": [
+        {
+          "q": "Can migrants get health insurance in NJ?",
+          "a": "Yes. There are options available based on your status, which can include Medicaid, the marketplace, or private plans. We advise you free of charge."
+        },
+        {
+          "q": "When can I enroll in a health plan in NJ?",
+          "a": "New Jersey has open enrollment year-round for certain programs. We help you determine when and how to enroll."
+        }
+      ]
+    },
+    "seguros-de-vida": {
+      "title": "Life Insurance",
+      "desc": "Protect your family's future with life insurance. We help you find the ideal plan according to your needs.",
+      "spoke_title": "Life Insurance in",
+      "faqs": [
+        {
+          "q": "Can migrants get life insurance in NJ?",
+          "a": "Yes. Many insurance companies offer life plans for migrants with or without a Social Security number. We help you find the most suitable one."
+        },
+        {
+          "q": "How much does a life insurance policy cost in New Jersey?",
+          "a": "Plans can start from as low as $20 per month depending on your age and coverage. We get you multiple quotes."
+        }
+      ]
+    },
+    "doble-nacionalidad": {
+      "title": "Dual Citizenship",
+      "desc": "Comprehensive guidance for the dual citizenship process, required documentation, and consulate/embassy coordination.",
+      "spoke_title": "Dual Citizenship in",
+      "faqs": [
+        {
+          "q": "How do I obtain dual citizenship from New Jersey?",
+          "a": "The process varies by country of origin. We help you identify the requirements and process the necessary paperwork at the corresponding consulate."
+        },
+        {
+          "q": "How long does the dual citizenship process take?",
+          "a": "It depends on the country of origin. We guide you on estimated times and the steps to follow for your specific case."
+        }
+      ]
+    },
+    "divorcios": {
+      "title": "Divorces",
+      "desc": "Assistance in uncontested divorce processes, document preparation, and guidance on required legal steps in New Jersey.",
+      "spoke_title": "Divorces in",
+      "faqs": [
+        {
+          "q": "How long does a divorce take in New Jersey?",
+          "a": "An uncontested divorce can be resolved in 3-6 months in NJ. We help you prepare all documents correctly to speed up the process."
+        },
+        {
+          "q": "Do I need a lawyer to get a divorce in NJ?",
+          "a": "For uncontested divorces, you can file without a lawyer. We help you prepare and organize all the required documentation."
+        }
+      ]
+    },
+    "matrimonios": {
+      "title": "Marriages",
+      "desc": "Guidance and document preparation for civil marriages, including apostilles and foreign registrations.",
+      "spoke_title": "Marriages in",
+      "faqs": [
+        {
+          "q": "What documents do I need to get married in New Jersey?",
+          "a": "You need a valid ID, a divorce certificate if applicable, and in some cases, apostilled documents. We help you gather everything."
+        },
+        {
+          "q": "Can I register my NJ marriage in my country of origin?",
+          "a": "Yes. We help you apostille the NJ marriage certificate so that it is valid in your country of origin."
+        }
+      ]
+    }
+  },
+  "about": {
+    "tag": "About Us",
+    "title_html": "Marilyn <span>Paladinez</span><br>Your Financial Ally",
+    "desc": "I am Marilyn Paladinez, Financial Strategist for Migrants. My mission is to help you navigate the financial and immigration system of the United States with confidence, clarity, and strategy. At MAPA, we believe that everyone deserves a roadmap to their stability and growth.",
+    "years_exp": "Years of Experience",
+    "feat_community_title": "Hispanic Community",
+    "feat_community": "Financial specialist for Latino migrants",
+    "feat_notary_title": "Notary Public",
+    "feat_notary": "Certified in New Jersey",
+    "feat_immigration_title": "Immigration Processing",
+    "feat_immigration": "Corporate and immigration processes expert",
+    "feat_families_title": "+500 Families",
+    "feat_families": "Families advised with proven success",
+    "feat_language_title": "Your Language",
+    "feat_language": "Personalized support in Spanish and English",
+    "feat_plan_title": "Your MAP",
+    "feat_plan": "Strategic plan tailored just for you",
+    "btn_whatsapp": "💬 Text me now",
+    "btn_schedule": "📅 Book appt"
+  },
+  "process": {
+    "tag": "How It Works",
+    "title_html": "Our <span>Process</span>",
+    "desc": "Simple, transparent, and focused on your results.",
+    "step1_title": "Initial Consultation",
+    "step1_desc": "We talk about your situation, your goals, and specific needs at no cost.",
+    "step2_title": "Your Custom MAP",
+    "step2_desc": "We design a strategic plan adapted to your reality and financial goals.",
+    "step3_title": "Execute Together",
+    "step3_desc": "We guide you step-by-step in every procedure, document, and important decision.",
+    "step4_title": "Real Results",
+    "step4_desc": "You see the progress in your financial, immigration, and business situation."
+  },
+  "testimonials": {
+    "tag": "Testimonials",
+    "title_html": "What <span>our clients say</span>",
+    "desc": "Families and entrepreneurs who trusted MAPA and transformed their future.",
+    "google_review": "A week ago",
+    "google_review_3d": "3 days ago",
+    "google_review_1d": "Yesterday",
+    "google_review_2w": "2 weeks ago",
+    "google_review_1m": "1 month ago",
+    "response_owner": "Response from owner:",
+    "jose_text": "\"Marilyn helped me organize all my immigration documents. Thanks to her, I have my work permit. I recommend her 100%!\"",
+    "jose_response": "Thank you very much for your kind words, José! It was a pleasure to guide you in your immigration process to obtain your work permit.",
+    "ana_text": "\"I opened my LLC and got my EIN in record time. Marilyn explained everything step by step. Now my business is legally established.\"",
+    "ana_response": "Thanks, Ana! Your business success is our priority. I'm very glad your LLC is already up and running. Best of luck!",
+    "carlos_text": "\"I was able to buy my first home thanks to the credit plan Marilyn designed. I thought it was impossible, but she found the way.\"",
+    "carlos_response": "Congratulations on your new home, Carlos! With discipline and the right credit strategy, everything is possible. Big hug!",
+    "lucia_text": "\"The credit repair process was incredible. In 6 months my score went up more than 100 points. Marilyn works miracles!\"",
+    "lucia_response": "Excellent result, Lucía! It gives me immense joy to see how your credit score has recovered. Let's keep growing!",
+    "maria_text": "\"Marilyn helped us with my husband's family petition. She was always available and answered every question. Excellent service!\"",
+    "maria_response": "Thank you so much, María! Uniting families is the most rewarding work we do. Blessings to you and your husband.",
+    "read_more": "View more testimonials"
+  },
+  "contact": {
+    "tag": "Contact Us",
+    "title_html": "Schedule your<br><span>consultation today</span>",
+    "desc": "Have questions? Ready to take the first step? Write to us and we will respond as soon as possible.",
+    "phone": "Phone / WhatsApp",
+    "address": "Address",
+    "hours": "Hours",
+    "hours_val": "Mon–Fri 9am–6pm · Sat 9am–2pm",
+    "btn_whatsapp": "💬 Direct WhatsApp",
+    "btn_call": "📞 Call now",
+    "social_title": "Follow us on social media",
+    "placeholder_name": "Your name",
+    "placeholder_phone": "Your phone",
+    "placeholder_email": "Your email address",
+    "placeholder_service": "What service do you need?",
+    "placeholder_message": "Tell us briefly about your situation or question...",
+    "btn_submit": "📩 Send message",
+    "sub_whatsapp": "Or contact us directly via WhatsApp at (862) 622-8339",
+    "success_title": "Message Sent!",
+    "success_msg": "Thank you for contacting us. Marilyn will review your message and contact you very soon.<br>If you prefer an immediate response, please write to us via WhatsApp.",
+    "success_wa": "💬 Continue on WhatsApp",
+    "opt_mig": "Immigration & Notary",
+    "opt_corp": "Corporate & Entrepreneurship",
+    "opt_tax": "Accounting & Pre-Tax",
+    "opt_mkt": "Digital Marketing",
+    "opt_insurance": "Protection & Credit",
+    "opt_home": "Home & Wealth Building",
+    "opt_other": "Other / Not sure"
+  },
+  "coverage": {
+    "tag": "Service Areas",
+    "title_html": "Our <span>Service Areas</span>",
+    "desc": "We offer in-person assistance in multiple counties of New Jersey. Select your city or search for it to find the direct route.",
+    "sidebar_title": "Available Cities",
+    "sidebar_desc": "Select your city to view coverage and available services.",
+    "search_placeholder": "Search city in NJ..."
+  },
+  "location": {
+    "tag": "Location",
+    "title_html": "Visit us in <span>Newark, NJ</span>",
+    "desc": "20 Bloomfield Pl, Newark, NJ 07104",
+    "btn_get_directions": "📍 Get Directions — 20 Bloomfield Pl, Newark, NJ 07104",
+    "tap_gps": "Tap to open in Google Maps"
+  },
+  "footer": {
+    "desc": "Business & Financial Services LLC"
+  },
+  "city": {
+    "hero_title": "Financial and immigration services<br/>in <span>{city}, NJ</span>",
+    "hero_title_prefix": "Financial and immigration services in",
+    "services_title_prefix": "Our services in",
+    "services_sub_prefix": "Select the service you need to see detailed information and how we help you in",
+    "info_title_prefix": "Service in",
+    "info_text_1": "We serve the entire Hispanic community of",
+    "info_text_2": "and its surroundings. Our goal is that you never have to go far to solve your procedures — we advise you in Spanish with the confidence and experience of over 10 years helping families in New Jersey.",
+    "zip_codes_prefix": "Zip codes we serve in",
+    "nearby_title": "We also serve <span>nearby areas</span>",
+    "nearby_desc_prefix": "In addition to",
+    "nearby_desc_suffix": "we cover these communities in",
+    "other_coverage_title": "Other <span>service areas</span> in New Jersey",
+    "other_coverage_desc": "We also offer all our financial and immigration services in the following cities of the state:",
+    "cta_title_prefix": "Do you live in",
+    "cta_title_suffix": "? We help you today",
+    "cta_desc": "First consultation at no cost. Personalized support in Spanish and English.",
+    "view_more": "View more →",
+    "back_home": "← Back to home"
+  },
+  "cities": {
+    "newark": {
+      "desc": "We proudly serve the diverse Hispanic and Lusophone community in Newark, especially in the vibrant Ironbound district. As the economic center of Essex County, we offer close advice on immigration and financial procedures in Spanish to local families and small business owners."
+    },
+    "elizabeth": {
+      "desc": "In Elizabeth, Union County, we provide direct support to one of the most active Hispanic communities in New Jersey. We specialize in the creation of LLCs, bookkeeping, and auto insurance tailored for Colombian, Peruvian, and Cuban entrepreneurs in the area."
+    },
+    "paterson": {
+      "desc": "Paterson, historically known as the Silk City in Passaic County, is home to one of the largest concentrations of families of Dominican and Peruvian origin. We confidently advise you on public notary, ITIN, and tax preparation without leaving your community."
+    },
+    "jersey-city": {
+      "desc": "We serve the multicultural and growing Hispanic population of Jersey City, Hudson County. We offer agile solutions in health insurance, document translation, and credit assistance to professionals and families residing in front of the Hudson River."
+    },
+    "union-city": {
+      "desc": "Union City, affectionately known as the 'Habana on the Hudson' in Hudson County, has a rich Hispanic tradition. Marilyn Paladinez guides you step-by-step through dual citizenship, work permits, and driver's licenses for the local Latino community."
+    },
+    "trenton": {
+      "desc": "As the capital of the state of New Jersey in Mercer County, Trenton has a key public administration and a constantly growing migrant community. We provide affordable business accounting services and legal assistance for uncontested divorces."
+    },
+    "camden": {
+      "desc": "We dedicatedly serve Hispanic families and small businesses in Camden and throughout southern New Jersey. We offer comprehensive advice in Spanish for ITIN applications, life insurance, and credit plans to buy a home in Camden County."
+    },
+    "clifton": {
+      "desc": "In Clifton, Passaic County, we support residential families and local businesses located near Route 3. We help you prepare your annual taxes, draft powers of attorney, and process your driver's license with the MVC quickly and hassle-free."
+    },
+    "passaic": {
+      "desc": "We serve the vibrant and dense Mexican and Central American population of the commercial center of Passaic. We offer reliable notary services, marriage certificate apostilles, and official certified translations accepted by local courts and schools."
+    },
+    "east-orange": {
+      "desc": "We provide personalized attention in Spanish to the community of the metropolitan area of East Orange in Essex County. We guide you in obtaining affordable automobile insurance, renewing work permits (I-765), and family credit planning."
+    }
+  }
+}

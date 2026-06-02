@@ -1,0 +1,324 @@
+---
+// src/pages/[city]/index.astro
+// Genera una página por ciudad: /jersey-city/ · /elizabeth/ · /paterson/ etc.
+
+import { cities } from "../../../data/cities";
+import { services } from "../../../data/services";
+import '../../../styles/global.css';
+
+export async function getStaticPaths() {
+  return cities.map((city) => ({
+    params: { city: city.slug },
+    props: { city },
+  }));
+}
+
+const { city } = Astro.props;
+
+const PHONE      = "(862) 622-8339";
+const PHONE_HREF = "+18626228339";
+const WEBSITE    = "https://marilynmapabusiness.com";
+
+const title       = `Servicios Financieros y Migratorios en ${city.name}, NJ | MAPA Business`;
+const description = `MAPA Business & Financial Services en ${city.name}, New Jersey. Notaría, taxes, permisos de trabajo, seguros, ITIN y más. Marilyn Paladinez: ${PHONE}.`;
+const canonical   = `${WEBSITE}/service-areas/${city.slug}/`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FinancialService",
+  name: "MAPA Business & Financial Services LLC",
+  description: description,
+  url: canonical,
+  telephone: `+1${PHONE_HREF}`,
+  image: `${WEBSITE}/marilin2.webp`,
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "20 Bloomfield Pl",
+    addressLocality: "Newark",
+    addressRegion: "NJ",
+    postalCode: "07104",
+    addressCountry: "US",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: city.lat,
+    longitude: city.lng,
+  },
+  areaServed: { "@type": "City", name: city.name, addressRegion: "NJ" },
+  sameAs: [
+    `https://www.wikidata.org/wiki/${city.wikidataId}`
+  ],
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url"         content={canonical} />
+    <meta property="og:image"       content={`${WEBSITE}/marilin2.webp`} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+    <!-- i18n Translation Engine -->
+    <script src="/js/i18n.js" is:inline></script>
+
+    <style>
+      :root { --red: #cc0000; --black: #0a0a0a; }
+      * { margin:0; padding:0; box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { font-family:'Lato',sans-serif; background:var(--black); color:#fff; }
+
+      nav#mainNav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(10,10,10,0.97); border-bottom:2px solid var(--red); display:flex; align-items:center; justify-content:space-between; padding:0 40px; height:70px; }
+      .nav-logo { font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.4rem; color:#fff; letter-spacing:4px; text-decoration:none; }
+      .nav-logo span { color:var(--red); }
+      .nav-cta { background:var(--red); color:#fff; padding:10px 20px; border-radius:4px; font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.8rem; text-decoration:none; text-transform:uppercase; letter-spacing:1px; }
+
+      .breadcrumb { max-width:1100px; margin:70px auto 0; padding:16px 40px 0; display:flex; gap:8px; font-size:0.8rem; color:rgba(255,255,255,0.4); flex-wrap:wrap; }
+      .breadcrumb a { color:rgba(255,255,255,0.4); text-decoration:none; }
+      .breadcrumb a:hover { color:var(--red); }
+
+      /* HERO DE CIUDAD */
+      .city-hero {
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);
+        padding: 60px 40px 70px;
+        position: relative;
+        overflow: hidden;
+      }
+      .city-hero::before {
+        content:'';
+        position:absolute; inset:0;
+        background: radial-gradient(ellipse 50% 80% at 80% 50%, rgba(204,0,0,0.15) 0%, transparent 70%);
+      }
+      .city-hero-inner { max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+      .city-tag { display:inline-block; background:var(--red); color:#fff; font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:5px 14px; border-radius:2px; margin-bottom:20px; }
+      .city-hero h1 { font-family:'Montserrat',sans-serif; font-weight:900; font-size:clamp(2rem,4vw,3.2rem); line-height:1.1; margin-bottom:16px; }
+      .city-hero h1 span { color:var(--red); }
+      .city-hero p { font-size:1.05rem; color:rgba(255,255,255,0.65); line-height:1.7; max-width:600px; margin-bottom:32px; }
+      .btn-group { display:flex; gap:14px; flex-wrap:wrap; }
+      .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:4px; font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:1px; text-transform:uppercase; text-decoration:none; transition:all 0.25s; }
+      .btn-red { background:var(--red); color:#fff; }
+      .btn-red:hover { background:#ff2222; transform:translateY(-2px); }
+      .btn-wa { background:#25d366; color:#fff; }
+      .btn-wa:hover { background:#1da851; transform:translateY(-2px); }
+
+      /* SERVICIOS GRID */
+      .services-section { max-width:1100px; margin:0 auto; padding:60px 40px; }
+      .section-title { font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.8rem; margin-bottom:8px; }
+      .section-title span { color:var(--red); }
+      .section-sub { color:rgba(255,255,255,0.5); font-size:0.95rem; margin-bottom:40px; line-height:1.6; }
+      .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+      .service-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:28px; text-decoration:none; color:#fff; transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s; position:relative; overflow:hidden; display:block; }
+      .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--red); transform:scaleX(0); transition:transform 0.3s; transform-origin:left; }
+      .service-card:hover { transform:translateY(-6px); border-color:rgba(204,0,0,0.3); box-shadow:0 20px 50px rgba(0,0,0,0.4); }
+      .service-card:hover::before { transform:scaleX(1); }
+      .card-icon { font-size:2rem; margin-bottom:14px; display:block; }
+      .card-title { font-family:'Montserrat',sans-serif; font-weight:700; font-size:1rem; margin-bottom:8px; color:#fff; }
+      .card-desc { font-size:0.83rem; color:rgba(255,255,255,0.5); line-height:1.65; margin-bottom:14px; }
+      .card-link { color:var(--red); font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+
+      /* INFO CIUDAD */
+      .city-info { background:#0f0f0f; border-top:1px solid rgba(255,255,255,0.05); padding:50px 40px; }
+      .city-info-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start; }
+      .info-title { font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.3rem; margin-bottom:16px; }
+      .info-title span { color:var(--red); }
+      .info-text { font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.75; margin-bottom:16px; }
+      .zip-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+      .zip-pill { background:rgba(204,0,0,0.12); border:1px solid rgba(204,0,0,0.3); border-radius:4px; padding:4px 12px; font-size:0.8rem; color:rgba(255,255,255,0.7); font-family:'Montserrat',sans-serif; font-weight:700; }
+      .nearby-list { display:flex; flex-direction:column; gap:8px; }
+      .nearby-item { display:flex; align-items:center; gap:10px; font-size:0.88rem; color:rgba(255,255,255,0.65); }
+      .nearby-item::before { content:'📍'; font-size:0.85rem; }
+
+      /* OTRAS AREAS COBERTURA */
+      .coverage-section { background:#0f0f0f; border-top:1px solid rgba(255,255,255,0.05); padding:60px 40px; }
+      .coverage-inner { max-width:1100px; margin:0 auto; }
+      .coverage-title { font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.6rem; margin-bottom:8px; }
+      .coverage-title span { color:var(--red); }
+      .coverage-desc { color:rgba(255,255,255,0.5); font-size:0.95rem; margin-bottom:30px; line-height:1.6; }
+      .coverage-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:16px; }
+      .coverage-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:18px; text-decoration:none; color:#fff; display:flex; align-items:center; gap:12px; transition:transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+      .coverage-card:hover { transform:translateY(-4px); border-color:rgba(204,0,0,0.35); box-shadow:0 10px 25px rgba(0,0,0,0.4); }
+      .coverage-icon { font-size:1.2rem; }
+      .coverage-info { display:flex; flex-direction:column; }
+      .coverage-city { font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.95rem; }
+      .coverage-county { font-size:0.75rem; color:rgba(255,255,255,0.4); margin-top:2px; }
+
+      /* CTA */
+      .cta-section { background:var(--red); padding:60px 40px; text-align:center; }
+      .cta-section h2 { font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.8rem; margin-bottom:12px; }
+      .cta-section p { color:rgba(255,255,255,0.85); margin-bottom:28px; }
+      .btn-white { background:#fff; color:var(--red); font-family:'Montserrat',sans-serif; font-weight:700; padding:14px 32px; border-radius:4px; text-decoration:none; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; transition:transform 0.2s; display:inline-block; }
+      .btn-white:hover { transform:translateY(-2px); }
+
+      footer { background:#050505; border-top:2px solid var(--red); padding:30px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+      .footer-logo { font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.2rem; color:#fff; letter-spacing:3px; }
+      .footer-logo span { color:var(--red); }
+      footer p { font-size:0.8rem; color:rgba(255,255,255,0.35); }
+      footer a { color:rgba(255,255,255,0.4); text-decoration:none; font-size:0.8rem; }
+      footer a:hover { color:var(--red); }
+
+      .wa-float { position:fixed; bottom:28px; right:28px; z-index:999; background:#25d366; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 6px 25px rgba(37,211,102,0.5); animation:pulse-wa 2.5s infinite; }
+      @keyframes pulse-wa { 0%,100%{box-shadow:0 6px 25px rgba(37,211,102,.5);}50%{box-shadow:0 6px 35px rgba(37,211,102,.8),0 0 0 12px rgba(37,211,102,.12);} }
+      .wa-float svg { width:28px; height:28px; }
+
+      @media(max-width:700px){
+        nav#mainNav{padding:0 20px;}
+        .breadcrumb,.services-section,.city-hero,.coverage-section{padding-left:20px;padding-right:20px;}
+        .city-info-inner{grid-template-columns:1fr;}
+        .city-info,.coverage-section{padding:40px 20px;}
+        .cta-section{padding:40px 20px;}
+        footer{padding:24px 20px;flex-direction:column;text-align:center;}
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <a href={`https://wa.me/${PHONE_HREF}`} target="_blank" class="wa-float" aria-label="WhatsApp">
+      <svg viewBox="0 0 32 32" fill="white"><path d="M16 1C7.716 1 1 7.716 1 16c0 2.628.68 5.1 1.872 7.25L1 31l7.95-1.85A14.952 14.952 0 0016 31c8.284 0 15-6.716 15-15S24.284 1 16 1zm0 27.5a12.46 12.46 0 01-6.37-1.75l-.456-.27-4.72 1.1 1.12-4.6-.3-.47A12.44 12.44 0 013.5 16C3.5 9.096 9.096 3.5 16 3.5S28.5 9.096 28.5 16 22.904 28.5 16 28.5zM22.34 19.1c-.34-.17-2.01-1-2.33-1.1-.32-.12-.56-.17-.79.17s-.9 1.1-1.1 1.34-.41.25-.76.08c-.34-.17-1.45-.54-2.76-1.72a10.3 10.3 0 01-1.91-2.4c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.22-.34.34-.57.11-.22.06-.42-.03-.59-.08-.17-.79-1.9-1.08-2.6-.28-.68-.57-.59-.79-.6h-.68c-.22 0-.59.08-.9.4-.31.32-1.18 1.15-1.18 2.8s1.21 3.25 1.38 3.47c.17.22 2.38 3.64 5.77 5.1.81.35 1.44.56 1.93.72.81.26 1.55.22 2.13.13.65-.1 2.01-.82 2.29-1.62.28-.79.28-1.47.2-1.62-.09-.14-.33-.22-.68-.39z"/></svg>
+    </a>
+
+    <!-- NAVBAR -->
+    <nav id="mainNav">
+      <div class="nav-logo">M<span>A</span>PA</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#hero" data-i18n="nav.home">Inicio</a></li>
+        <li><a href="/#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="/#nosotros" data-i18n="nav.about">Nosotros</a></li>
+        <li><a href="/#proceso" data-i18n="nav.process">Proceso</a></li>
+        <li><a href="/#testimonios" data-i18n="nav.testimonials">Testimonios</a></li>
+        <li><a href="/#ubicacion" data-i18n="nav.location">Ubicación</a></li>
+        <li><a href="/#contacto" data-i18n="nav.contact">Contacto</a></li>
+        <li><a href="/#areas-de-servicio" data-i18n="nav.coverage">Áreas de Servicio</a></li>
+        <li><a href={`tel:${PHONE_HREF}`} class="nav-cta" data-i18n="nav.cta">📞 Cita</a></li>
+        <li class="lang-selector-li">
+          <div class="lang-selector">
+            <button class="lang-btn active" data-lang="es" onclick="window.i18n.changeLanguage('es')" aria-label="Cambiar a Español" aria-pressed="true">ES</button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" data-lang="en" onclick="window.i18n.changeLanguage('en')" aria-label="Switch to English" aria-pressed="false">EN</button>
+          </div>
+        </li>
+      </ul>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+
+    <div class="breadcrumb" aria-label="Ruta de navegación">
+      <a href="/" data-i18n="nav.home">Inicio</a>
+      <span>›</span>
+      <span>{city.name}, NJ</span>
+    </div>
+
+    <!-- Hero de ciudad -->
+    <div class="city-hero">
+      <div class="city-hero-inner">
+        <div class="city-tag">📍 {city.name}, New Jersey</div>
+        <h1 data-i18n-html="city.hero_title">Servicios financieros y migratorios<br/>en <span>{city.name}, NJ</span></h1>
+        <p data-i18n={`cities.${city.slug}.desc`}>
+          {city.localCommunityDescription}
+        </p>
+        <div class="btn-group">
+          <a href={`tel:${PHONE_HREF}`} class="btn btn-red"><span data-i18n="contact.btn_call">📞 Llamar:</span> {PHONE}</a>
+          <a href={`https://wa.me/${PHONE_HREF}`} target="_blank" class="btn btn-wa" data-i18n="hero.btn_whatsapp">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Servicios disponibles en esta ciudad -->
+    <div class="services-section">
+      <h2 class="section-title"><span data-i18n="city.services_title_prefix">Nuestros servicios en</span> <span>{city.name}</span></h2>
+      <p class="section-sub" data-i18n="city.services_sub_prefix">
+        Selecciona el servicio que necesitas para ver información detallada y cómo te ayudamos en {city.name}, NJ.
+      </p>
+      <div class="services-grid">
+        {services.map((service) => (
+          <a href={`/service-areas/${city.slug}/${service.slug}/`} class="service-card">
+            <span class="card-icon">{service.icon}</span>
+            <div class="card-title" data-i18n={`services.${service.slug}.title`}>{service.name}</div>
+            <p class="card-desc" data-i18n={`services.${service.slug}.desc`}>{service.intro(city.name).slice(0, 100)}...</p>
+            <span class="card-link" data-i18n="city.view_more">Ver más →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Info de la ciudad -->
+    <div class="city-info">
+      <div class="city-info-inner">
+        <div>
+          <h2 class="info-title"><span data-i18n="city.info_title_prefix">Servicio en</span> <span>{city.name}</span>, {city.county}</h2>
+          <p class="info-text">
+            <span data-i18n="city.info_text_1">Atendemos a toda la comunidad hispana de</span> {city.name} <span data-i18n="city.info_text_2">y sus alrededores. Nuestro objetivo es que nunca tengas que ir lejos para resolver tus trámites — te asesoramos en español con la confianza y experiencia de más de 10 años ayudando a familias en New Jersey.</span>
+          </p>
+          <p class="info-text"><span data-i18n="city.zip_codes_prefix">Zip codes que atendemos en</span> {city.name}:</p>
+          <div class="zip-pills">
+            {city.zipCodes.map((zip) => (
+              <span class="zip-pill">{zip}</span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="info-title" data-i18n-html="city.nearby_title">También atendemos <span>áreas cercanas</span></h3>
+          <p class="info-text">
+            <span data-i18n="city.nearby_desc_prefix">Además de</span> {city.name}, <span data-i18n="city.nearby_desc_suffix">cubrimos estas comunidades de</span> {city.county}:
+          </p>
+          <div class="nearby-list">
+            {city.nearbyAreas.map((area) => (
+              <div class="nearby-item">{area}, NJ</div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Otras áreas de cobertura (Inter-linking Cruzado) -->
+    <div class="coverage-section">
+      <div class="coverage-inner">
+        <h2 class="coverage-title" data-i18n-html="city.other_coverage_title">Otras áreas de <span>cobertura</span> en New Jersey</h2>
+        <p class="coverage-desc" data-i18n="city.other_coverage_desc">
+          También ofrecemos todos nuestros servicios financieros y migratorios en las siguientes ciudades del estado:
+        </p>
+        <div class="coverage-grid">
+          {cities.filter(c => c.slug !== city.slug).map((c) => (
+            <a href={`/service-areas/${c.slug}/`} class="coverage-card">
+              <span class="coverage-icon">📍</span>
+              <div class="coverage-info">
+                <span class="coverage-city">{c.name}</span>
+                <span class="coverage-county">{c.county}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA final -->
+    <div class="cta-section">
+      <h2><span data-i18n="city.cta_title_prefix">¿Vives en</span> {city.name}? <span data-i18n="city.cta_title_suffix">Te ayudamos hoy</span></h2>
+      <p data-i18n="city.cta_desc">Primera consulta sin costo. Atención personalizada en español.</p>
+      <a href={`tel:${PHONE_HREF}`} class="btn-white">📞 {PHONE}</a>
+    </div>
+
+    <footer>
+      <div class="footer-logo">M<span>A</span>PA</div>
+      <p>© {new Date().getFullYear()} <span data-i18n="footer.desc">MAPA Business & Financial Services LLC</span> · Newark, NJ</p>
+      <a href="/" data-i18n="city.back_home">← Volver al inicio</a>
+    </footer>
+
+    <script define:vars={{ cityName: city.name }}>
+      window.currentCity = cityName;
+    </script>
+
+    <script src="/js/script.js" is:inline></script>
+  </body>
+</html>
