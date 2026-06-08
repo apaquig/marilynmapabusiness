@@ -5,6 +5,7 @@
     "about": "About Us",
     "process": "Process",
     "testimonials": "Testimonials",
+    "blog": "Blog",
     "location": "Location",
     "contact": "Contact",
     "coverage": "Service Areas",
@@ -363,7 +364,10 @@
     "maria_response": "Thank you so much, María! Uniting families is the most rewarding work we do. Blessings to you and your husband.",
     "read_more": "View more testimonials",
     "status_success": "Google reviews updated in real-time",
-    "status_error": "Could not load real-time reviews. Showing featured testimonials."
+    "status_error": "Could not load reviews information, we will solve it soon.",
+    "read_more_comment": "Read more",
+    "read_less_comment": "Read less",
+    "view_on_google": "View on Google"
   },
   "contact": {
     "tag": "Contact Us",
@@ -462,10 +466,39 @@
     },
     "east-orange": {
       "desc": "We provide personalized attention in Spanish to the community of the metropolitan area of East Orange in Essex County. We guide you in obtaining affordable automobile insurance, renewing work permits (I-765), and family credit planning."
+    },
+    "west-new-york": {
+      "desc": "We offer personalized support in Spanish for the Hispanic community in West New York, Hudson County, with a direct focus on Bergenline Avenue. We assist you in tax preparation, driver's licenses, and auto insurance for the entire area."
+    },
+    "perth-amboy": {
+      "desc": "In Perth Amboy, Middlesex County, we actively support the local Hispanic community (Dominican, Puerto Rican, and South American). We help you with the creation of LLCs, bookkeeping, and immigration services such as work permits and official certified translations."
+    },
+    "plainfield": {
+      "desc": "In Plainfield, Union County, known as the Queen City, we assist the vibrant Central American and Latino population. We offer reliable public notary, document apostille, ITIN, and life insurance services in your own language."
     }
   },
   "whatsapp_widget": {
     "title": "MARILYN - MAPA BUSINESS",
     "message": "Welcome, how can we help you today?"
+  },
+  "blog": {
+    "hub_title": "Blog & Guides",
+    "tag": "Educational Resources",
+    "title_html": "News and <span>Practical Guides</span>",
+    "intro": "We keep you informed on tax, immigration, and business finance topics to help you succeed in the United States.",
+    "cta_title": "Need Personalized Advice?",
+    "cta_desc": "At MAPA we help you with your immigration, tax, and business procedures. Schedule your first consultation today and resolve all your doubts.",
+    "back_to_blog": "← Back to list",
+    "cta_btn": "📞 Schedule Appointment",
+    "read_article": "Read article →",
+    "search_placeholder": "Search articles...",
+    "filter_all": "All",
+    "filter_taxes": "Taxes & ITIN",
+    "filter_llc": "Business & LLC",
+    "filter_transit": "Transit Procedures",
+    "read_time": "min read",
+    "related_posts": "Related Articles",
+    "tip_title": "Marilyn's Tip",
+    "share_title": "Share this article"
   }
 }

@@ -7,7 +7,7 @@ import GoogleReviews from '../components/GoogleReviews.astro';
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
+<link rel="icon" type="image/jpeg" href="/favicon.jpg" />
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MAPA Business & Financial Services LLC | Estratega Financiera para Migrantes</title>
@@ -393,6 +393,7 @@ nav.scrolled {
     <li><a href="#nosotros" data-i18n="nav.about">Nosotros</a></li>
     <li><a href="#proceso" data-i18n="nav.process">Proceso</a></li>
     <li><a href="#testimonios" data-i18n="nav.testimonials">Testimonios</a></li>
+    <li><a href="/blog/" data-i18n="nav.blog">Blog</a></li>
     <li><a href="#ubicacion" data-i18n="nav.location">Ubicación</a></li>
     <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
     <li><a href="#areas-de-servicio" data-i18n="nav.coverage">Áreas de Servicio</a></li>
@@ -625,7 +626,7 @@ nav.scrolled {
 <div class="stats-bar">
   <div class="stat-item reveal rv1"><span class="stat-num">500+</span><span class="stat-label" data-i18n="stats.clients">Clientes atendidos</span></div>
   <div class="stat-item reveal rv2"><span class="stat-num">10+</span><span class="stat-label" data-i18n="stats.experience">Años de experiencia</span></div>
-  <div class="stat-item reveal rv3"><span class="stat-num">6</span><span class="stat-label" data-i18n="stats.coverage">Áreas de servicio</span></div>
+  <div class="stat-item reveal rv3"><span class="stat-num">{cities.length}</span><span class="stat-label" data-i18n="stats.coverage">Áreas de servicio</span></div>
   <div class="stat-item reveal rv4"><span class="stat-num">98%</span><span class="stat-label" data-i18n="stats.satisfaction">Satisfacción</span></div>
 </div>
 
@@ -802,7 +803,7 @@ nav.scrolled {
     <div class="slider-controls-bottom">
       <div class="slider-dots" id="sliderDots"></div>
       <div class="read-more-wrap">
-        <a href="https://www.google.com/maps/place/20+Bloomfield+Pl,+Newark,+NJ+07104" target="_blank" rel="noopener" class="read-more-link" data-i18n="testimonials.read_more">Ver más testimonios</a>
+        <a href="https://www.google.com/maps/place/MAPA+Business+%26+Financial+Services+LLC/@40.7534611,-74.1696199,17z/data=!3m1!4b1!4m6!3m5!1s0x89c255b932165583:0xad092a1ffae4519f!8m2!3d40.7534611!4d-74.1696199!16s%2Fg%2F11z8gmwt4n?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="read-more-link" data-i18n="testimonials.read_more">Ver más testimonios</a>
       </div>
     </div>
   </div>

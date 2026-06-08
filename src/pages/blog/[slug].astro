@@ -1,0 +1,654 @@
+---
+// src/pages/blog/[slug].astro
+// Individual blog post page template
+
+import '../../styles/global.css';
+import { posts } from '../../data/posts';
+import WhatsAppWidget from '../../components/WhatsAppWidget.astro';
+
+export async function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const PHONE      = "(862) 622-8339";
+const PHONE_HREF = "+18626228339";
+const WEBSITE    = "https://marilynmapabusiness.com";
+
+const canonical   = `${WEBSITE}/blog/${post.slug}/`;
+
+// Filter related posts (exclude current)
+const relatedPosts = posts.filter(p => p.slug !== post.slug).slice(0, 2);
+
+// BlogPosting Schema JSON-LD
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title.es,
+  "alternativeHeadline": post.title.en,
+  "image": `${WEBSITE}${post.image}`,
+  "genre": post.category.es,
+  "url": canonical,
+  "datePublished": post.date,
+  "dateCreated": post.date,
+  "dateModified": post.date,
+  "description": post.excerpt.es,
+  "author": {
+    "@type": "Person",
+    "name": post.author,
+    "jobTitle": "Estratega Financiera para Inmigrantes",
+    "url": WEBSITE
+  },
+  "publisher": {
+    "@type": "FinancialService",
+    "name": "MAPA Business & Financial Services LLC",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${WEBSITE}/favicon.jpg`
+    }
+  }
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{post.title.es} | Blog MAPA Business</title>
+    <meta name="description" content={post.excerpt.es} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="article" />
+    <meta property="og:title"       content={post.title.es} />
+    <meta property="og:description" content={post.excerpt.es} />
+    <meta property="og:url"         content={canonical} />
+    <meta property="og:image"       content={`${WEBSITE}${post.image}`} />
+    <meta property="og:locale"      content="es_US" />
+    <meta property="article:published_time" content={post.date} />
+    <meta property="article:author" content={post.author} />
+
+    <!-- Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+    
+    <!-- i18n Translation Engine -->
+    <script src="/js/i18n.js" is:inline></script>
+
+    <style>
+      /* READING PROGRESS BAR */
+      .progress-container {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: transparent;
+        z-index: 999;
+      }
+      .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--red);
+        box-shadow: 0 0 8px var(--red);
+        transition: width 0.1s ease;
+      }
+
+      /* BREADCRUMB */
+      .breadcrumb { 
+        max-width: 900px; 
+        margin: 85px auto 0; 
+        padding: 16px 20px 0; 
+        display: flex; 
+        gap: 8px; 
+        font-size: 0.8rem; 
+        color: rgba(255,255,255,0.4); 
+        flex-wrap: wrap; 
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        position: relative;
+        z-index: 10;
+      }
+      .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+      .breadcrumb a:hover { color: var(--red); }
+      .breadcrumb span { color: rgba(255,255,255,0.6); }
+
+      /* ARTICLE PAGE */
+      .article-container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+      
+      .article-header { margin-bottom: 35px; text-align: left; }
+      
+      .article-badge { 
+        display: inline-block; 
+        background: var(--red); 
+        color: #fff; 
+        font-family: 'Montserrat', sans-serif; 
+        font-weight: 700; 
+        font-size: 0.7rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        padding: 5px 14px; 
+        border-radius: 4px; 
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(204, 0, 0, 0.15);
+      }
+      
+      .article-title { 
+        font-family: 'Montserrat', sans-serif; 
+        font-weight: 900; 
+        font-size: clamp(2rem, 5vw, 2.8rem); 
+        line-height: 1.15; 
+        color: #fff; 
+        margin-bottom: 20px; 
+      }
+      
+      .article-meta { 
+        display: flex; 
+        flex-wrap: wrap;
+        gap: 20px; 
+        font-size: 0.82rem; 
+        color: rgba(255,255,255,0.5); 
+        border-bottom: 1px solid rgba(255,255,255,0.08); 
+        padding-bottom: 20px;
+      }
+      .article-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .article-meta svg {
+        color: var(--red);
+        flex-shrink: 0;
+      }
+      
+      .article-image-wrap { 
+        width: 100%; 
+        height: clamp(250px, 45vw, 450px); 
+        border-radius: 16px; 
+        overflow: hidden; 
+        margin-bottom: 45px; 
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4); 
+      }
+      .article-image { width: 100%; height: 100%; object-fit: cover; }
+      
+      /* ARTICLE CONTENT */
+      .article-body { 
+        font-size: 1.1rem; 
+        line-height: 1.85; 
+        color: rgba(255, 255, 255, 0.85); 
+        font-family: 'Lato', sans-serif;
+      }
+      .article-body :global(h2) { 
+        font-family: 'Montserrat', sans-serif; 
+        font-weight: 700; 
+        font-size: 1.7rem; 
+        color: #fff; 
+        margin: 45px 0 20px; 
+        line-height: 1.3; 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 8px;
+      }
+      .article-body :global(h3) { 
+        font-family: 'Montserrat', sans-serif; 
+        font-weight: 700; 
+        font-size: 1.35rem; 
+        color: #fff; 
+        margin: 35px 0 16px; 
+      }
+      .article-body :global(p) { margin-bottom: 26px; }
+      .article-body :global(ul), .article-body :global(ol) { margin-bottom: 26px; padding-left: 26px; }
+      .article-body :global(li) { margin-bottom: 10px; }
+      .article-body :global(strong) { color: #fff; font-weight: 700; }
+      
+      /* TIP BOX */
+      .tip-box {
+        background: rgba(204, 0, 0, 0.03);
+        border-left: 4px solid var(--red);
+        border-radius: 0 12px 12px 0;
+        padding: 24px;
+        margin: 40px 0;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        border-right: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .tip-box-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        color: #fff;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .tip-box-title svg {
+        color: var(--red);
+      }
+      .tip-box-content {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* SHARE BUTTONS */
+      .share-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 24px 0;
+        margin: 35px 0 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .share-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .share-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .share-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+      .share-btn:hover {
+        transform: translateY(-3px);
+        color: #fff;
+      }
+      .share-wa:hover {
+        background: #25d366;
+        border-color: #25d366;
+        box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
+      }
+      .share-fb:hover {
+        background: #1877f2;
+        border-color: #1877f2;
+        box-shadow: 0 6px 15px rgba(24, 119, 242, 0.3);
+      }
+      .share-copy:hover {
+        background: var(--red);
+        border-color: var(--red);
+        box-shadow: 0 6px 15px rgba(204, 0, 0, 0.3);
+      }
+
+      /* AUTHOR PROFILE */
+      .author-profile {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        background: rgba(255, 255, 255, 0.015);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 28px;
+        margin: 50px auto;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .author-img {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--red);
+        flex-shrink: 0;
+        box-shadow: 0 5px 15px rgba(204, 0, 0, 0.25);
+      }
+      .author-info {
+        flex-grow: 1;
+      }
+      .author-name {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+      .author-desc-es, .author-desc-en {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.55);
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      /* CTA BOX */
+      .article-cta { 
+        margin-top: 55px; 
+        padding: 35px 30px; 
+        background: rgba(204, 0, 0, 0.03); 
+        border: 1px solid rgba(204, 0, 0, 0.22); 
+        border-radius: 12px; 
+        text-align: center;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .article-cta h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.4rem; margin-bottom: 12px; }
+      .article-cta p { font-size: 0.95rem; color: rgba(255,255,255,0.7); margin-bottom: 24px; line-height: 1.65; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 30px; border-radius: 4px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: all 0.25s; }
+      .btn-red { background: var(--red); color: #fff; }
+      .btn-red:hover { background: #ff2222; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(204,0,0,0.45); }
+
+      /* RELATED SECTION */
+      .related-section {
+        margin-top: 60px;
+        padding-top: 50px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .related-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 1.4rem;
+        margin-bottom: 30px;
+        color: #fff;
+      }
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+      }
+      .related-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        overflow: hidden;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .related-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(204, 0, 0, 0.25);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .related-image-wrap {
+        height: 150px;
+        overflow: hidden;
+      }
+      .related-image-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+      .related-card:hover .related-image-wrap img {
+        transform: scale(1.06);
+      }
+      .related-content {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .related-content h4 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        line-height: 1.35;
+        color: #fff;
+        margin-bottom: 12px;
+      }
+      .related-link-text {
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      @media (max-width: 700px) {
+        .breadcrumb { padding-left: 20px; padding-right: 20px; margin-top: 80px; }
+        .article-container { padding-left: 20px; padding-right: 20px; padding-top: 20px; }
+        .article-meta { gap: 12px 16px; }
+        .author-profile { flex-direction: column; text-align: center; padding: 24px 20px; }
+        .article-cta { padding: 30px 20px; }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Reading Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- WhatsApp flotante -->
+    <WhatsAppWidget phoneHref={PHONE_HREF} text={`Hola Marilyn, leí tu artículo sobre "${post.title.es}" y me gustaría agendar una asesoría.`} />
+
+    <!-- NAVBAR -->
+    <nav id="mainNav">
+      <a href="/" class="nav-logo">M<span>A</span>PA</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#hero" data-i18n="nav.home">Inicio</a></li>
+        <li><a href="/#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="/#nosotros" data-i18n="nav.about">Nosotros</a></li>
+        <li><a href="/#proceso" data-i18n="nav.process">Proceso</a></li>
+        <li><a href="/#testimonios" data-i18n="nav.testimonials">Testimonios</a></li>
+        <li><a href="/blog/" data-i18n="nav.blog">Blog</a></li>
+        <li><a href="/#ubicacion" data-i18n="nav.location">Ubicación</a></li>
+        <li><a href="/#contacto" data-i18n="nav.contact">Contacto</a></li>
+        <li><a href="/#areas-de-servicio" data-i18n="nav.coverage">Áreas de Servicio</a></li>
+        <li><a href={`tel:${PHONE_HREF}`} class="nav-cta" data-i18n="nav.cta">📞 Cita</a></li>
+        <li class="lang-selector-li">
+          <div class="lang-selector">
+            <button class="lang-btn active" data-lang="es" onclick="window.i18n.changeLanguage('es')" aria-label="Cambiar a Español" aria-pressed="true">ES</button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" data-lang="en" onclick="window.i18n.changeLanguage('en')" aria-label="Switch to English" aria-pressed="false">EN</button>
+          </div>
+        </li>
+      </ul>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" aria-label="Ruta de navegación">
+      <a href="/" data-i18n="nav.home">Inicio</a>
+      <span>›</span>
+      <a href="/blog/" data-i18n="blog.hub_title">Blog & Guías</a>
+      <span>›</span>
+      <span class="post-title-es">{post.title.es}</span>
+      <span class="post-title-en" style="display: none;">{post.title.en}</span>
+    </div>
+
+    <!-- Article Container -->
+    <article class="article-container">
+      <header class="article-header">
+        <span class="article-badge post-category-es">{post.category.es}</span>
+        <span class="article-badge post-category-en" style="display: none;">{post.category.en}</span>
+        
+        <h1 class="article-title post-title-es">{post.title.es}</h1>
+        <h1 class="article-title post-title-en" style="display: none;">{post.title.en}</h1>
+        
+        <div class="article-meta">
+          <div class="article-meta-item">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <span>{post.date}</span>
+          </div>
+          <div class="article-meta-item">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>{post.author}</span>
+          </div>
+          <div class="article-meta-item">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>{post.readingTime} <span data-i18n="blog.read_time">min de lectura</span></span>
+          </div>
+        </div>
+      </header>
+
+      <div class="article-image-wrap">
+        <img class="article-image" src={post.image} alt={post.title.es} />
+      </div>
+
+      <!-- Content sections loaded depending on active language -->
+      <div class="article-body post-content-es" set:html={post.content.es} />
+      <div class="article-body post-content-en" style="display: none;" set:html={post.content.en} />
+
+      <!-- Marilyn's Custom Tip Callout -->
+      {post.tip && (
+        <div class="tip-box">
+          <div class="tip-box-title">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span data-i18n="blog.tip_title">Consejo de Marilyn</span>
+          </div>
+          <div class="tip-box-content">
+            <p class="post-content-es">{post.tip.es}</p>
+            <p class="post-content-en" style="display: none;">{post.tip.en}</p>
+          </div>
+        </div>
+      )}
+
+      <!-- Share Buttons -->
+      <div class="share-container">
+        <span class="share-title" data-i18n="blog.share_title">Compartir este artículo</span>
+        <div class="share-buttons">
+          <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title.es + ' - ' + canonical)}`} target="_blank" class="share-btn share-wa" aria-label="Compartir en WhatsApp">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.704 1.459h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonical)}`} target="_blank" class="share-btn share-fb" aria-label="Compartir en Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <button class="share-btn share-copy" onclick="copyArticleLink(this)" aria-label="Copiar Enlace">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Author Bio -->
+      <div class="author-profile">
+        <img src="/marilin.webp" alt="Marilyn Paladinez" class="author-img" />
+        <div class="author-info">
+          <h4 class="author-name">Marilyn Paladinez</h4>
+          <p class="author-desc-es">Estratega Financiera para Migrantes en New Jersey. Fundadora de MAPA Business, dedicada a capacitar y asesorar a nuestra comunidad hispana en finanzas, contabilidad comercial y trámites legales.</p>
+          <p class="author-desc-en" style="display: none;">Financial Strategist for Migrants in New Jersey. Founder of MAPA Business, dedicated to empowering and advising our Hispanic community on finance, business accounting, and legal procedures.</p>
+        </div>
+      </div>
+
+      <!-- Call to action -->
+      <div class="article-cta">
+        <h3 data-i18n="blog.cta_title">¿Necesitas asesoramiento personalizado?</h3>
+        <p data-i18n="blog.cta_desc">
+          En MAPA te ayudamos con tus trámites migratorios, fiscales y comerciales. Agenda tu primera consulta hoy mismo y resuelve todas tus dudas.
+        </p>
+        <a href={`tel:${PHONE_HREF}`} class="btn btn-red" data-i18n="contact.btn_call">📞 Agendar cita</a>
+      </div>
+
+      <!-- Related articles section -->
+      {relatedPosts.length > 0 && (
+        <section class="related-section">
+          <h3 class="related-title" data-i18n="blog.related_posts">Artículos Relacionados</h3>
+          <div class="related-grid">
+            {relatedPosts.map((rPost) => (
+              <a href={`/blog/${rPost.slug}/`} class="related-card">
+                <div class="related-image-wrap">
+                  <img src={rPost.image} alt={rPost.title.es} loading="lazy" />
+                </div>
+                <div class="related-content">
+                  <h4 class="post-title-es">{rPost.title.es}</h4>
+                  <h4 class="post-title-en" style="display: none;">{rPost.title.en}</h4>
+                  <span class="related-link-text">
+                    <span class="post-link-es" data-i18n="blog.read_article">Leer artículo →</span>
+                    <span class="post-link-en" style="display: none;">Read article →</span>
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-logo">M<span>A</span>PA</div>
+      <p>© {new Date().getFullYear()} <span data-i18n="footer.desc">MAPA Business & Financial Services LLC</span> · Newark, NJ</p>
+      <a href="/blog/" data-i18n="blog.back_to_blog">← Volver al listado</a>
+    </footer>
+
+    <!-- Reading Progress Bar Scroll Script -->
+    <script is:inline>
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+        const bar = document.getElementById('progressBar');
+        if (bar) bar.style.width = scrolled + '%';
+      });
+
+      function copyArticleLink(btn) {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          const originalInner = btn.innerHTML;
+          btn.innerHTML = `<span style="font-size:0.68rem;font-weight:700;color:#25d366;font-family:'Montserrat',sans-serif;">COPIED!</span>`;
+          setTimeout(() => {
+            btn.innerHTML = originalInner;
+          }, 2000);
+        });
+      }
+    </script>
+
+    <!-- Sync languages script -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        function syncLanguage(lang) {
+          const isEn = lang === 'en';
+          
+          document.querySelectorAll('.post-title-es, .post-category-es, .post-content-es, .post-link-es, .author-desc-es').forEach(el => {
+            el.style.display = isEn ? 'none' : '';
+          });
+          document.querySelectorAll('.post-title-en, .post-category-en, .post-content-en, .post-link-en, .author-desc-en').forEach(el => {
+            el.style.display = isEn ? '' : 'none';
+          });
+        }
+
+        // Listen for language changes from i18n
+        document.addEventListener('langChanged', (e) => {
+          syncLanguage(e.detail);
+        });
+
+        // Initialize with active language
+        if (window.i18n) {
+          syncLanguage(window.i18n.currentLang);
+        }
+      });
+    </script>
+
+    <!-- Hamburguer Menu Script -->
+    <script src="/js/script.js" is:inline></script>
+  </body>
+</html>

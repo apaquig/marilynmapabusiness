@@ -1,0 +1,584 @@
+---
+// src/pages/blog/index.astro
+// Blog Hub Page for MAPA Business & Financial Services LLC
+
+import '../../styles/global.css';
+import { posts } from '../../data/posts';
+import WhatsAppWidget from '../../components/WhatsAppWidget.astro';
+
+const PHONE      = "(862) 622-8339";
+const PHONE_HREF = "+18626228339";
+const WEBSITE    = "https://marilynmapabusiness.com";
+
+const title       = "Blog y Guías de Asistencia Financiera | MAPA Business";
+const description = "Recursos y guías en New Jersey sobre preparación de taxes, creación de LLC, número ITIN y licencias de conducir para la comunidad inmigrante.";
+const canonical   = `${WEBSITE}/blog/`;
+
+// Blog Schema JSON-LD
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog de MAPA Business",
+  "description": description,
+  "url": canonical,
+  "publisher": {
+    "@type": "FinancialService",
+    "name": "MAPA Business & Financial Services LLC",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${WEBSITE}/favicon.jpg`
+    }
+  }
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url"         content={canonical} />
+    <meta property="og:image"       content={`${WEBSITE}/images/blog/itin-guide.png`} />
+    <meta property="og:locale"      content="es_US" />
+
+    <!-- Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+    
+    <!-- i18n Translation Engine -->
+    <script src="/js/i18n.js" is:inline></script>
+
+    <style>
+      /* BREADCRUMB */
+      .breadcrumb { 
+        max-width: 1100px; 
+        margin: 85px auto 0; 
+        padding: 16px 40px 0; 
+        display: flex; 
+        gap: 8px; 
+        font-size: 0.8rem; 
+        color: rgba(255,255,255,0.4); 
+        flex-wrap: wrap; 
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        position: relative;
+        z-index: 10;
+      }
+      .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+      .breadcrumb a:hover { color: var(--red); }
+      .breadcrumb span { color: rgba(255,255,255,0.6); }
+
+      /* HERO */
+      .blog-hero { 
+        background: radial-gradient(circle at 10% 20%, rgba(204, 0, 0, 0.15) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.1) 0%, transparent 50%), #0a0a0a;
+        padding: 60px 40px 60px; 
+        position: relative; 
+        overflow: hidden; 
+        text-align: center;
+      }
+      .blog-hero::before {
+        content: '';
+        position: absolute; 
+        inset: 0;
+        background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(204,0,0,0.02) 40px, rgba(204,0,0,0.02) 41px);
+        pointer-events: none;
+      }
+      .blog-hero-inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 2; }
+      .blog-tag { 
+        display: inline-block; 
+        background: rgba(204,0,0,0.12); 
+        border: 1px solid rgba(204,0,0,0.35); 
+        color: var(--red); 
+        font-family: 'Montserrat', sans-serif; 
+        font-size: 0.68rem; 
+        font-weight: 700; 
+        letter-spacing: 3px; 
+        text-transform: uppercase; 
+        padding: 6px 14px; 
+        border-radius: 4px; 
+        margin-bottom: 20px; 
+        animation: fadeUp 0.65s ease both;
+      }
+      .blog-hero h1 { 
+        font-family: 'Montserrat', sans-serif; 
+        font-weight: 900; 
+        font-size: clamp(2.2rem, 5vw, 3.6rem); 
+        line-height: 1.1; 
+        margin-bottom: 20px; 
+        animation: fadeUp 0.65s ease both;
+        animation-delay: 0.15s;
+      }
+      .blog-hero h1 span { color: var(--red); }
+      .blog-intro { 
+        font-size: 1.1rem; 
+        color: rgba(255,255,255,0.7); 
+        line-height: 1.7; 
+        font-weight: 300;
+        animation: fadeUp 0.65s ease both;
+        animation-delay: 0.3s;
+      }
+
+      /* SEARCH BAR */
+      .search-container {
+        max-width: 600px;
+        margin: -28px auto 35px;
+        padding: 0 40px;
+        position: relative;
+        z-index: 15;
+      }
+      .search-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: rgba(20, 20, 20, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 50px;
+        padding: 4px 20px;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .search-wrapper:focus-within {
+        border-color: var(--red);
+        box-shadow: 0 15px 35px rgba(204, 0, 0, 0.15), 0 0 0 1px rgba(204, 0, 0, 0.1) inset;
+        background: rgba(30, 10, 10, 0.7);
+        transform: translateY(-2px);
+      }
+      .search-icon {
+        color: rgba(255, 255, 255, 0.4);
+        margin-right: 12px;
+        flex-shrink: 0;
+        transition: color 0.3s;
+      }
+      .search-wrapper:focus-within .search-icon {
+        color: var(--red);
+      }
+      .search-input {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-family: 'Lato', sans-serif;
+        font-size: 0.95rem;
+        width: 100%;
+        height: 48px;
+        outline: none;
+      }
+      .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      /* CATEGORY FILTERS */
+      .filter-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 45px;
+        padding: 0 40px;
+        position: relative;
+        z-index: 10;
+      }
+      .filter-btn {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.65);
+        padding: 10px 22px;
+        border-radius: 30px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .filter-btn:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.18);
+        transform: translateY(-2px);
+      }
+      .filter-btn.active {
+        background: var(--red);
+        color: #fff;
+        border-color: var(--red);
+        box-shadow: 0 8px 20px rgba(204, 0, 0, 0.35);
+      }
+
+      /* GRID & SECTION */
+      .blog-section { max-width: 1100px; margin: 0 auto; padding: 0px 40px 80px; }
+      .blog-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+        gap: 32px; 
+        transition: opacity 0.3s ease;
+      }
+      
+      /* CARD */
+      .blog-card { 
+        background: rgba(255, 255, 255, 0.02); 
+        border: 1px solid rgba(255, 255, 255, 0.06); 
+        border-radius: 16px; 
+        overflow: hidden; 
+        text-decoration: none; 
+        color: #fff; 
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        opacity: 1;
+        transform: scale(1);
+      }
+      .blog-card.hidden {
+        opacity: 0;
+        transform: scale(0.94);
+        pointer-events: none;
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
+      .blog-card:hover { 
+        transform: translateY(-8px); 
+        border-color: rgba(204,0,0,0.35); 
+        box-shadow: 0 20px 45px rgba(204,0,0,0.15), 0 0 0 1px rgba(204,0,0,0.1) inset; 
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .card-image-wrap { position: relative; width: 100%; height: 210px; overflow: hidden; }
+      .card-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+      .blog-card:hover .card-image { transform: scale(1.08); }
+      
+      .card-badge { 
+        position: absolute; 
+        top: 16px; 
+        left: 16px; 
+        background: var(--red); 
+        color: #fff; 
+        font-family: 'Montserrat', sans-serif; 
+        font-weight: 700; 
+        font-size: 0.65rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        padding: 5px 12px; 
+        border-radius: 4px; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 2;
+      }
+      
+      .card-content { padding: 26px; flex-grow: 1; display: flex; flex-direction: column; }
+      
+      .card-meta { 
+        display: flex; 
+        align-items: center;
+        gap: 16px; 
+        font-size: 0.78rem; 
+        color: rgba(255,255,255,0.45); 
+        margin-bottom: 14px; 
+      }
+      .card-meta svg {
+        color: var(--red);
+        flex-shrink: 0;
+      }
+      .card-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      
+      .card-title { 
+        font-family: 'Montserrat', sans-serif; 
+        font-weight: 700; 
+        font-size: 1.25rem; 
+        line-height: 1.35; 
+        color: #fff; 
+        margin-bottom: 12px; 
+        transition: color 0.3s;
+      }
+      .blog-card:hover .card-title {
+        color: #ff2222;
+      }
+      .card-desc { 
+        font-size: 0.9rem; 
+        color: rgba(255,255,255,0.55); 
+        line-height: 1.65; 
+        margin-bottom: 24px; 
+      }
+      .card-link { 
+        color: var(--red); 
+        font-size: 0.8rem; 
+        font-weight: 700; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        margin-top: auto; 
+        display: inline-flex; 
+        align-items: center; 
+        gap: 6px;
+        transition: gap 0.3s;
+      }
+      .blog-card:hover .card-link { 
+        gap: 10px;
+        color: #fff; 
+      }
+
+      /* NO RESULTS */
+      .no-results {
+        text-align: center;
+        padding: 60px 20px;
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px dashed rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        max-width: 600px;
+        margin: 40px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .no-results-icon {
+        color: rgba(255, 255, 255, 0.15);
+        margin-bottom: 16px;
+      }
+      .no-results p {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: 'Lato', sans-serif;
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 700px) {
+        .breadcrumb { padding-left: 20px; padding-right: 20px; margin-top: 80px; }
+        .blog-hero { padding: 50px 20px 50px; }
+        .search-container { padding: 0 20px; }
+        .filter-container { padding: 0 20px; margin-bottom: 30px; gap: 8px; }
+        .blog-section { padding: 0 20px 60px; }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- WhatsApp flotante -->
+    <WhatsAppWidget phoneHref={PHONE_HREF} text="Hola Marilyn, vi tu blog de asistencia financiera y me interesa hacer una consulta." />
+
+    <!-- NAVBAR -->
+    <nav id="mainNav">
+      <a href="/" class="nav-logo">M<span>A</span>PA</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#hero" data-i18n="nav.home">Inicio</a></li>
+        <li><a href="/#servicios" data-i18n="nav.services">Servicios</a></li>
+        <li><a href="/#nosotros" data-i18n="nav.about">Nosotros</a></li>
+        <li><a href="/#proceso" data-i18n="nav.process">Proceso</a></li>
+        <li><a href="/#testimonios" data-i18n="nav.testimonials">Testimonios</a></li>
+        <li><a href="/blog/" class="active" data-i18n="nav.blog">Blog</a></li>
+        <li><a href="/#ubicacion" data-i18n="nav.location">Ubicación</a></li>
+        <li><a href="/#contacto" data-i18n="nav.contact">Contacto</a></li>
+        <li><a href="/#areas-de-servicio" data-i18n="nav.coverage">Áreas de Servicio</a></li>
+        <li><a href={`tel:${PHONE_HREF}`} class="nav-cta" data-i18n="nav.cta">📞 Cita</a></li>
+        <li class="lang-selector-li">
+          <div class="lang-selector">
+            <button class="lang-btn active" data-lang="es" onclick="window.i18n.changeLanguage('es')" aria-label="Cambiar a Español" aria-pressed="true">ES</button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" data-lang="en" onclick="window.i18n.changeLanguage('en')" aria-label="Switch to English" aria-pressed="false">EN</button>
+          </div>
+        </li>
+      </ul>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" aria-label="Ruta de navegación">
+      <a href="/" data-i18n="nav.home">Inicio</a>
+      <span>›</span>
+      <span data-i18n="blog.hub_title">Blog & Guías</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="blog-hero">
+      <div class="blog-hero-inner">
+        <div class="blog-tag" data-i18n="blog.tag">Recursos Educativos</div>
+        <h1 data-i18n-html="blog.title_html">Novedades y <span>Guías Prácticas</span></h1>
+        <p class="blog-intro" data-i18n="blog.intro">
+          Te mantenemos informado sobre temas fiscales, de inmigración y finanzas comerciales para ayudarte a triunfar en los Estados Unidos.
+        </p>
+      </div>
+    </div>
+
+    <!-- Search bar -->
+    <div class="search-container">
+      <div class="search-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="blogSearch" class="search-input" data-i18n-placeholder="blog.search_placeholder" placeholder="Buscar artículos..." />
+      </div>
+    </div>
+
+    <!-- Category filters -->
+    <div class="filter-container">
+      <button class="filter-btn active" data-category="all" data-i18n="blog.filter_all">Todos</button>
+      <button class="filter-btn" data-category="itin" data-i18n="blog.filter_taxes">Impuestos & ITIN</button>
+      <button class="filter-btn" data-category="llc" data-i18n="blog.filter_llc">Emprendimiento & LLC</button>
+      <button class="filter-btn" data-category="transit" data-i18n="blog.filter_transit">Trámites de Tránsito</button>
+    </div>
+
+    <!-- Blog grid section -->
+    <section class="blog-section">
+      <div class="blog-grid" id="blogGrid">
+        {posts.map((post) => (
+          <a href={`/blog/${post.slug}/`} class="blog-card" data-category={post.categoryKey} data-title-es={post.title.es.toLowerCase()} data-title-en={post.title.en.toLowerCase()} data-excerpt-es={post.excerpt.es.toLowerCase()} data-excerpt-en={post.excerpt.en.toLowerCase()}>
+            <div class="card-image-wrap">
+              <img class="card-image" src={post.image} alt={post.title.es} loading="lazy" />
+              <span class="card-badge post-category-es">{post.category.es}</span>
+              <span class="card-badge post-category-en" style="display: none;">{post.category.en}</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta">
+                <div class="card-meta-item">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span>{post.date}</span>
+                </div>
+                <div class="card-meta-item">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>{post.readingTime} <span data-i18n="blog.read_time">min de lectura</span></span>
+                </div>
+              </div>
+              <h2 class="card-title post-title-es">{post.title.es}</h2>
+              <h2 class="card-title post-title-en" style="display: none;">{post.title.en}</h2>
+              
+              <p class="card-desc post-excerpt-es">{post.excerpt.es}</p>
+              <p class="card-desc post-excerpt-en" style="display: none;">{post.excerpt.en}</p>
+              
+              <span class="card-link">
+                <span class="post-link-es" data-i18n="blog.read_article">Leer artículo →</span>
+                <span class="post-link-en" style="display: none;">Read article →</span>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- No results container -->
+      <div id="noResults" class="no-results" style="display: none;">
+        <svg class="no-results-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+        <p class="no-results-text-es">No se encontraron artículos que coincidan con tu búsqueda.</p>
+        <p class="no-results-text-en" style="display: none;">No articles found matching your search.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-logo">M<span>A</span>PA</div>
+      <p>© {new Date().getFullYear()} <span data-i18n="footer.desc">MAPA Business & Financial Services LLC</span> · Newark, NJ</p>
+      <a href="/" data-i18n="city.back_home">← Volver al inicio</a>
+    </footer>
+
+    <!-- Sync languages & Filter & Search scripts -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        let activeCategory = 'all';
+        let searchQuery = '';
+
+        function syncLanguage(lang) {
+          const isEn = lang === 'en';
+          
+          document.querySelectorAll('.post-title-es, .post-excerpt-es, .post-category-es, .post-link-es, .no-results-text-es').forEach(el => {
+            el.style.display = isEn ? 'none' : '';
+          });
+          document.querySelectorAll('.post-title-en, .post-excerpt-en, .post-category-en, .post-link-en, .no-results-text-en').forEach(el => {
+            el.style.display = isEn ? '' : 'none';
+          });
+          
+          filterAndSearch();
+        }
+
+        function filterAndSearch() {
+          const isEn = (window.i18n && window.i18n.currentLang === 'en');
+          const cards = document.querySelectorAll('.blog-card');
+          let visibleCount = 0;
+
+          cards.forEach(card => {
+            const category = card.getAttribute('data-category');
+            const title = isEn ? card.getAttribute('data-title-en') : card.getAttribute('data-title-es');
+            const excerpt = isEn ? card.getAttribute('data-excerpt-en') : card.getAttribute('data-excerpt-es');
+            
+            const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+            const matchesSearch = (!searchQuery || title.includes(searchQuery) || excerpt.includes(searchQuery));
+
+            if (matchesCategory && matchesSearch) {
+              card.classList.remove('hidden');
+              visibleCount++;
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+
+          const noResults = document.getElementById('noResults');
+          if (visibleCount === 0) {
+            noResults.style.display = 'flex';
+          } else {
+            noResults.style.display = 'none';
+          }
+        }
+
+        // Search listener
+        const searchInput = document.getElementById('blogSearch');
+        if (searchInput) {
+          searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            filterAndSearch();
+          });
+        }
+
+        // Filter buttons listener
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeCategory = btn.getAttribute('data-category');
+            filterAndSearch();
+          });
+        });
+
+        // Listen for language changes from i18n
+        document.addEventListener('langChanged', (e) => {
+          syncLanguage(e.detail);
+        });
+
+        // Initialize with active language
+        if (window.i18n) {
+          syncLanguage(window.i18n.currentLang);
+        }
+      });
+    </script>
+
+    <!-- Hamburguer Menu Script -->
+    <script src="/js/script.js" is:inline></script>
+  </body>
+</html>

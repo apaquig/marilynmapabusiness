@@ -5,6 +5,7 @@
     "about": "Nosotros",
     "process": "Proceso",
     "testimonials": "Testimonios",
+    "blog": "Blog",
     "location": "Ubicación",
     "contact": "Contacto",
     "coverage": "Áreas de Servicio",
@@ -363,7 +364,10 @@
     "maria_response": "¡Muchas gracias, María! Unir familias es el trabajo más gratificante que hacemos. Bendiciones para ti y tu esposo.",
     "read_more": "Ver más testimonios",
     "status_success": "Opiniones de Google actualizadas en tiempo real",
-    "status_error": "No se pudieron cargar las opiniones en tiempo real. Mostrando testimonios destacados."
+    "status_error": "No se pudo cargar la información de reseñas, pronto lo solucionaremos.",
+    "read_more_comment": "Leer más",
+    "read_less_comment": "Leer menos",
+    "view_on_google": "Ver en Google"
   },
   "contact": {
     "tag": "Contáctanos",
@@ -462,10 +466,39 @@
     },
     "east-orange": {
       "desc": "Brindamos atención personalizada en español a la comunidad del área metropolitana de East Orange en Essex County. Te orientamos en la obtención de seguros de automóvil accesibles, renovación de permisos de trabajo (I-765) y planificación de crédito familiar."
+    },
+    "west-new-york": {
+      "desc": "Ofrecemos atención personalizada en español para la comunidad hispana en West New York, Hudson County, con un enfoque directo sobre Bergenline Avenue. Te asistimos en la preparación de taxes, obtención de licencias de conducir y seguros de auto para toda el área."
+    },
+    "perth-amboy": {
+      "desc": "En Perth Amboy, Middlesex County, apoyamos activamente a la comunidad hispana local (dominicanos, puertorriqueños y sudamericanos). Te ayudamos con la creación de LLCs, bookkeeping y trámites migratorios como permisos de trabajo y traducciones juradas oficiales."
+    },
+    "plainfield": {
+      "desc": "En Plainfield, Union County, conocida como la Ciudad Reina, asistimos a la vibrante población centroamericana y latina. Ofrecemos servicios de notaría pública, apostilla de documentos, ITIN y seguros de vida confiables en tu propio idioma."
     }
   },
   "whatsapp_widget": {
     "title": "MARILYN - MAPA BUSINESS",
     "message": "¡Hola! ¿Cómo te puedo ayudar hoy?"
+  },
+  "blog": {
+    "hub_title": "Blog y Guías",
+    "tag": "Recursos Educativos",
+    "title_html": "Novedades y <span>Guías Prácticas</span>",
+    "intro": "Te mantenemos informado sobre temas fiscales, de inmigración y finanzas comerciales para ayudarte a triunfar en los Estados Unidos.",
+    "cta_title": "¿Necesitas asesoramiento personalizado?",
+    "cta_desc": "En MAPA te ayudamos con tus trámites migratorios, fiscales y comerciales. Agenda tu primera consulta hoy mismo y resuelve todas tus dudas.",
+    "back_to_blog": "← Volver al listado",
+    "cta_btn": "📞 Agendar cita",
+    "read_article": "Leer artículo →",
+    "search_placeholder": "Buscar artículos...",
+    "filter_all": "Todos",
+    "filter_taxes": "Impuestos & ITIN",
+    "filter_llc": "Emprendimiento & LLC",
+    "filter_transit": "Trámites de Tránsito",
+    "read_time": "min de lectura",
+    "related_posts": "Artículos Relacionados",
+    "tip_title": "Consejo de Marilyn",
+    "share_title": "Compartir este artículo"
   }
 }
