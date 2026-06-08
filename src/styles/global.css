@@ -63,6 +63,13 @@
     white-space: nowrap;
   }
   .nav-links a:hover { background: var(--red); color: #fff; }
+  .nav-links a.active {
+    color: var(--red) !important;
+  }
+  .nav-links a.active:hover {
+    color: #fff !important;
+    background: var(--red) !important;
+  }
 
   .nav-cta {
     background: var(--red) !important;
@@ -759,6 +766,17 @@
     .nav-links a:active::after {
       color: var(--red);
       transform: translateX(4px);
+    }
+
+    .nav-links a.active {
+      background: rgba(255, 255, 255, 0.02) !important;
+      color: #fff !important;
+      border-left-color: var(--red) !important;
+      padding-left: 20px !important;
+    }
+
+    .nav-links a.active::after {
+      color: var(--red) !important;
     }
     
     /* Botón de CITA (CTA) rediseñado para lucir como un botón de acción principal e independiente */
