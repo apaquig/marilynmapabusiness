@@ -1,5 +1,5 @@
 ---
-// Componente de Reseñas de Google Places en Tiempo Real
+// Componente de Reseñas de Google Places usando el SDK oficial de JavaScript (para soportar Referrer restrictions)
 ---
 
 <!-- Contenedor del Estado de Sincronización con la API -->
@@ -436,27 +436,24 @@
   }
 </style>
 
-<!-- Lógica de Cliente para consumir la API de Google Places -->
+<!-- Lógica de Cliente usando el SDK oficial de Google Maps JS -->
 <script is:inline>
   (function() {
-    // Configuración solicitada por el usuario
     const CONFIG = {
-      baseUrl: 'https://googleapis.com', // URL base solicitada
       cid: '12468543360193548703',      // CID de la empresa
-      apiKey: 'AIzaSyDbXTi5_l1bFoSNxmrQFq-vBKm3wQ9-o8w', // API key placeholder
-      language: 'es'                     // Idioma solicitado
+      apiKey: 'AIzaSyDbXTi5_l1bFoSNxmrQFq-vBKm3wQ9-o8w', // API key real del usuario
+      language: 'es'                     // Idioma por defecto
     };
 
     const statusEl = document.getElementById('reviewsStatusText');
     const trackEl = document.getElementById('testiTrack');
 
-    // i18n soporte: Detectar idioma dinámico del sitio si existe para mejor UX
+    // Detectar idioma dinámico del sitio si existe para mejor UX
     let activeLang = CONFIG.language;
     if (window.i18n && window.i18n.currentLang) {
       activeLang = window.i18n.currentLang;
     }
 
-    // Traducir mensajes de estado
     const translations = {
       es: {
         loading: 'Cargando opiniones...',
@@ -485,126 +482,136 @@
       .map(card => card.outerHTML)
       .join('');
 
-    // Función para activar el respaldo (fallback) en caso de fallo
     function applyFallback(errorMessage) {
-      console.warn('Google Places API Fallback activado:', errorMessage);
-      
-      // Mostrar error de manera limpia en el contenedor
+      console.warn('Google Places SDK Fallback activado:', errorMessage);
       if (statusEl) {
         statusEl.className = 'reviews-status-text error';
         statusEl.textContent = getTranslation('error');
       }
-
-      // Asegurar que las tarjetas estáticas estén puestas en el track
       trackEl.innerHTML = fallbackCardsHtml;
 
-      // Re-traducir elementos estáticos por si acaso el motor i18n está activo
       if (window.i18n && typeof window.i18n.translatePage === 'function') {
         window.i18n.translatePage();
       }
 
-      // Re-inicializar el carrusel de testimonios
       if (typeof window.initTestimonialsSlider === 'function') {
         window.initTestimonialsSlider();
       }
     }
 
-    // Si la clave está vacía, no hacer la petición
     if (CONFIG.apiKey.trim() === '') {
-      setTimeout(() => {
-        applyFallback('La API Key está vacía.');
-      }, 1000);
+      applyFallback('La API Key está vacía.');
       return;
     }
 
-    // Construir URL de Google Places Details (Legacy endpoint con soporte cid)
-    const path = '/maps/api/place/details/json';
-    const queryParams = `?cid=${CONFIG.cid}&key=${CONFIG.apiKey}&language=${activeLang}&fields=reviews,name,rating`;
-    const requestUrl = `${CONFIG.baseUrl}${path}${queryParams}`;
-
-    // Realizar la petición
-    fetch(requestUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data.status !== 'OK' || !data.result || !data.result.reviews || data.result.reviews.length === 0) {
-          throw new Error(data.error_message || data.status || 'No se obtuvieron opiniones');
-        }
-
-        // Renderizar las opiniones reales recibidas
-        const reviews = data.result.reviews;
-        let htmlContent = '';
-        const colors = ['green', 'blue', 'orange', 'purple', 'pink'];
-
-        reviews.forEach((review, index) => {
-          const author = review.author_name || 'Usuario de Google';
-          const rating = parseInt(review.rating) || 5;
-          const text = review.text || '';
-          
-          // Generar estrellas
-          const starsHtml = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-
-          // Calcular color y letra para avatar por si no hay foto de perfil
-          const charCode = author.charCodeAt(0) || 0;
-          const colorClass = `avatar-${colors[charCode % colors.length]}`;
-          const initial = author.charAt(0).toUpperCase() || 'G';
-
-          const relativeTime = review.relative_time_description || (activeLang === 'en' ? 'Recently' : 'Recientemente');
-
-          // Contenedor del avatar (imagen o letra inicial con color)
-          let avatarHtml = `<div class="review-avatar ${colorClass}">${initial}</div>`;
-          if (review.profile_photo_url) {
-            avatarHtml = `<img class="review-avatar-img" src="${review.profile_photo_url}" alt="${author}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                          <div class="review-avatar ${colorClass}" style="display:none;">${initial}</div>`;
+    // ════════ Cargador dinámico del SDK de Google Maps JavaScript API ════════
+    window.initGoogleReviewsMap = function() {
+      try {
+        // Inicializar el servicio de Places
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+        
+        // Buscar el Place ID correspondiente al negocio por su nombre y ubicación exacta
+        // Buscamos "MAPA Business & Financial Services LLC Newark NJ"
+        const searchQuery = 'MAPA Business & Financial Services LLC, 20 Bloomfield Pl, Newark, NJ 07104';
+        
+        service.findPlaceFromQuery({
+          query: searchQuery,
+          fields: ['place_id', 'name']
+        }, function(results, status) {
+          if (status !== google.maps.places.PlacesServiceStatus.OK || !results || !results[0]) {
+            applyFallback(`Búsqueda de negocio falló: ${status}`);
+            return;
           }
 
-          htmlContent += `
-            <div class="testimonial-card google-review-card">
-              <div class="review-header">
-                ${avatarHtml}
-                <div class="review-meta">
-                  <h3 class="review-author-name">${author}</h3>
-                  <div class="review-stars-row">
-                    <span class="stars-icon">${starsHtml}</span>
-                    <span class="review-date">${relativeTime}</span>
+          const placeId = results[0].place_id;
+
+          // Obtener los detalles del negocio usando el place_id encontrado
+          service.getDetails({
+            placeId: placeId,
+            fields: ['reviews', 'name', 'rating']
+          }, function(place, status) {
+            if (status !== google.maps.places.PlacesServiceStatus.OK || !place || !place.reviews || place.reviews.length === 0) {
+              applyFallback(`Detalles del negocio fallaron: ${status}`);
+              return;
+            }
+
+            const reviews = place.reviews;
+            let htmlContent = '';
+            const colors = ['green', 'blue', 'orange', 'purple', 'pink'];
+
+            reviews.forEach((review) => {
+              const author = review.author_name || 'Usuario de Google';
+              const rating = parseInt(review.rating) || 5;
+              const text = review.text || '';
+              const starsHtml = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+
+              const charCode = author.charCodeAt(0) || 0;
+              const colorClass = `avatar-${colors[charCode % colors.length]}`;
+              const initial = author.charAt(0).toUpperCase() || 'G';
+
+              const relativeTime = review.relative_time_description || (activeLang === 'en' ? 'Recently' : 'Recientemente');
+
+              let avatarHtml = `<div class="review-avatar ${colorClass}">${initial}</div>`;
+              if (review.profile_photo_url) {
+                avatarHtml = `<img class="review-avatar-img" src="${review.profile_photo_url}" alt="${author}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                              <div class="review-avatar ${colorClass}" style="display:none;">${initial}</div>`;
+              }
+
+              htmlContent += `
+                <div class="testimonial-card google-review-card">
+                  <div class="review-header">
+                    ${avatarHtml}
+                    <div class="review-meta">
+                      <h3 class="review-author-name">${author}</h3>
+                      <div class="review-stars-row">
+                        <span class="stars-icon">${starsHtml}</span>
+                        <span class="review-date">${relativeTime}</span>
+                      </div>
+                    </div>
+                    <div class="google-badge">
+                      <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path fill="#EA4335" d="M12 5.04c1.67 0 3.17.58 4.35 1.71l3.25-3.25C17.63 1.7 14.97 1 12 1 7.37 1 3.4 3.66 1.49 7.55l3.86 3C6.26 7.67 8.89 5.04 12 5.04z"/>
+                        <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.27H12v4.51h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.97 3.39-4.87 3.39-8.63z"/>
+                        <path fill="#FBBC05" d="M5.35 14.55c-.24-.72-.38-1.49-.38-2.55s.14-1.83.38-2.55l-3.86-3C.56 8.35 0 10.11 0 12s.56 3.65 1.49 5.55l3.86-3z"/>
+                        <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.66-2.84c-1.1.74-2.51 1.18-4.3 1.18-3.11 0-5.74-2.63-6.68-5.51l-3.86 3C3.4 20.34 7.37 23 12 23z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="review-body">
+                    <p>"${text}"</p>
                   </div>
                 </div>
-                <div class="google-badge">
-                  <svg viewBox="0 0 24 24" width="18" height="18">
-                    <path fill="#EA4335" d="M12 5.04c1.67 0 3.17.58 4.35 1.71l3.25-3.25C17.63 1.7 14.97 1 12 1 7.37 1 3.4 3.66 1.49 7.55l3.86 3C6.26 7.67 8.89 5.04 12 5.04z"/>
-                    <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.27H12v4.51h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.97 3.39-4.87 3.39-8.63z"/>
-                    <path fill="#FBBC05" d="M5.35 14.55c-.24-.72-.38-1.49-.38-2.55s.14-1.83.38-2.55l-3.86-3C.56 8.35 0 10.11 0 12s.56 3.65 1.49 5.55l3.86-3z"/>
-                    <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.66-2.84c-1.1.74-2.51 1.18-4.3 1.18-3.11 0-5.74-2.63-6.68-5.51l-3.86 3C3.4 20.34 7.37 23 12 23z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="review-body">
-                <p>"${text}"</p>
-              </div>
-            </div>
-          `;
+              `;
+            });
+
+            trackEl.innerHTML = htmlContent;
+
+            if (statusEl) {
+              statusEl.className = 'reviews-status-text success';
+              statusEl.textContent = getTranslation('success');
+            }
+
+            if (typeof window.initTestimonialsSlider === 'function') {
+              window.initTestimonialsSlider();
+            }
+          });
         });
+      } catch (e) {
+        applyFallback(e.message || e);
+      }
+    };
 
-        // Insertar en el DOM
-        trackEl.innerHTML = htmlContent;
+    // Inyectar script de Google Maps API
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.apiKey}&libraries=places&language=${activeLang}&callback=initGoogleReviewsMap`;
+    script.async = true;
+    script.defer = true;
+    
+    // Capturar error de carga del script (ej. clave inválida o referer no autorizado)
+    script.onerror = function() {
+      applyFallback('Error al cargar la librería de Google Maps JavaScript API.');
+    };
 
-        // Mostrar éxito en el estado
-        if (statusEl) {
-          statusEl.className = 'reviews-status-text success';
-          statusEl.textContent = getTranslation('success');
-        }
-
-        // Re-inicializar el carrusel de testimonios con las nuevas tarjetas
-        if (typeof window.initTestimonialsSlider === 'function') {
-          window.initTestimonialsSlider();
-        }
-      })
-      .catch(err => {
-        applyFallback(err.message || err);
-      });
+    document.head.appendChild(script);
   })();
 </script>
