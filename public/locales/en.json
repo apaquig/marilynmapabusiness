@@ -361,7 +361,9 @@
     "lucia_response": "Excellent result, Lucía! It gives me immense joy to see how your credit score has recovered. Let's keep growing!",
     "maria_text": "\"Marilyn helped us with my husband's family petition. She was always available and answered every question. Excellent service!\"",
     "maria_response": "Thank you so much, María! Uniting families is the most rewarding work we do. Blessings to you and your husband.",
-    "read_more": "View more testimonials"
+    "read_more": "View more testimonials",
+    "status_success": "Google reviews updated in real-time",
+    "status_error": "Could not load real-time reviews. Showing featured testimonials."
   },
   "contact": {
     "tag": "Contact Us",

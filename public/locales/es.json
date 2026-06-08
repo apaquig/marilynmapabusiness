@@ -361,7 +361,9 @@
     "lucia_response": "¡Excelente resultado, Lucía! Me da una alegría inmensa ver cómo se ha recuperado tu crédito. ¡A seguir creciendo!",
     "maria_text": "\"Marilyn nos ayudó con la petición familiar de mi esposo. Siempre estuvo disponible y respondió cada duda. ¡Excelente servicio!\"",
     "maria_response": "¡Muchas gracias, María! Unir familias es el trabajo más gratificante que hacemos. Bendiciones para ti y tu esposo.",
-    "read_more": "Ver más testimonios"
+    "read_more": "Ver más testimonios",
+    "status_success": "Opiniones de Google actualizadas en tiempo real",
+    "status_error": "No se pudieron cargar las opiniones en tiempo real. Mostrando testimonios destacados."
   },
   "contact": {
     "tag": "Contáctanos",
