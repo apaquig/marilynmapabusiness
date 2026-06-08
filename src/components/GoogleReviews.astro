@@ -482,7 +482,11 @@
       .map(card => card.outerHTML)
       .join('');
 
+    let fallbackApplied = false;
     function applyFallback(errorMessage) {
+      if (fallbackApplied) return;
+      fallbackApplied = true;
+      clearTimeout(timeoutId);
       console.warn('Google Places SDK Fallback activado:', errorMessage);
       if (statusEl) {
         statusEl.className = 'reviews-status-text error';
@@ -504,14 +508,21 @@
       return;
     }
 
+    // Temporizador de respaldo: si en 4.5 segundos no se completó la carga/renderización exitosa de las opiniones
+    // se activa el fallback estático automáticamente para no dejar la pantalla colgada (ej. error de referer de Google o API deshabilitada)
+    const timeoutId = setTimeout(() => {
+      applyFallback('El SDK de Google Maps o la carga de opiniones no respondió en el tiempo límite (posible error de restricción de clave API, API desactivada o red).');
+    }, 4500);
+
     // ════════ Cargador dinámico del SDK de Google Maps JavaScript API ════════
     window.initGoogleReviewsMap = function() {
+      // NOTA: NO limpiamos el temporizador aquí porque la API podría fallar o colgarse después de cargar.
+      // Solo lo limpiaremos cuando las opiniones se rendericen con éxito o cuando falle explícitamente.
       try {
         // Inicializar el servicio de Places
         const service = new google.maps.places.PlacesService(document.createElement('div'));
         
         // Buscar el Place ID correspondiente al negocio por su nombre y ubicación exacta
-        // Buscamos "MAPA Business & Financial Services LLC Newark NJ"
         const searchQuery = 'MAPA Business & Financial Services LLC, 20 Bloomfield Pl, Newark, NJ 07104';
         
         service.findPlaceFromQuery({
@@ -584,6 +595,9 @@
               `;
             });
 
+            // Éxito: Limpiamos el temporizador ya que las opiniones se renderizaron correctamente
+            clearTimeout(timeoutId);
+
             trackEl.innerHTML = htmlContent;
 
             if (statusEl) {
@@ -609,6 +623,7 @@
     
     // Capturar error de carga del script (ej. clave inválida o referer no autorizado)
     script.onerror = function() {
+      clearTimeout(timeoutId);
       applyFallback('Error al cargar la librería de Google Maps JavaScript API.');
     };
 
