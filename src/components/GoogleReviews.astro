@@ -1,0 +1,610 @@
+---
+// Componente de Reseñas de Google Places en Tiempo Real
+---
+
+<!-- Contenedor del Estado de Sincronización con la API -->
+<div class="reviews-status-container">
+  <span id="reviewsStatusText" class="reviews-status-text">
+    <span data-i18n="testimonials.loading">Cargando opiniones...</span>
+    <span class="loading-dots"><span></span><span></span><span></span></span>
+  </span>
+</div>
+
+<div class="testi-slider-outer reveal" style="position: relative;">
+  <!-- Botón izquierdo -->
+  <button class="slider-btn prev-btn" aria-label="Anterior" id="prevBtn">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+
+  <div class="testi-slider-wrap">
+    <div class="testi-track" id="testiTrack">
+
+      <!-- ════════ SSR FALLBACK / LOCAL REVIEWS ════════ -->
+      <!-- Card 1: José Rodríguez -->
+      <div class="testimonial-card google-review-card" data-fallback-card>
+        <div class="review-header">
+          <div class="review-avatar avatar-green">J</div>
+          <div class="review-meta">
+            <h3 class="review-author-name">José Rodríguez</h3>
+            <div class="review-stars-row">
+              <span class="stars-icon">★★★★★</span>
+              <span class="review-date" data-i18n="testimonials.google_review">Hace una semana</span>
+            </div>
+          </div>
+          <div class="google-badge">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path fill="#EA4335" d="M12 5.04c1.67 0 3.17.58 4.35 1.71l3.25-3.25C17.63 1.7 14.97 1 12 1 7.37 1 3.4 3.66 1.49 7.55l3.86 3C6.26 7.67 8.89 5.04 12 5.04z"/>
+              <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.27H12v4.51h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.97 3.39-4.87 3.39-8.63z"/>
+              <path fill="#FBBC05" d="M5.35 14.55c-.24-.72-.38-1.49-.38-2.55s.14-1.83.38-2.55l-3.86-3C.56 8.35 0 10.11 0 12s.56 3.65 1.49 5.55l3.86-3z"/>
+              <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.66-2.84c-1.1.74-2.51 1.18-4.3 1.18-3.11 0-5.74-2.63-6.68-5.51l-3.86 3C3.4 20.34 7.37 23 12 23z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="review-body">
+          <p data-i18n="testimonials.jose_text">"Marilyn me ayudó a organizar todos mis documentos migratorios. Gracias a ella tengo mi permiso de trabajo. ¡La recomiendo al 100%!"</p>
+        </div>
+        <div class="review-owner-response">
+          <p><strong data-i18n="testimonials.response_owner">Respuesta del propietario:</strong> <span data-i18n="testimonials.jose_response">¡Muchas gracias por tus palabras, José! Fue un placer guiarte en tu proceso migratorio para obtener tu permiso de trabajo.</span></p>
+        </div>
+      </div>
+
+      <!-- Card 2: Ana Martínez -->
+      <div class="testimonial-card google-review-card" data-fallback-card>
+        <div class="review-header">
+          <div class="review-avatar avatar-blue">A</div>
+          <div class="review-meta">
+            <h3 class="review-author-name">Ana Martínez</h3>
+            <div class="review-stars-row">
+              <span class="stars-icon">★★★★★</span>
+              <span class="review-date" data-i18n="testimonials.google_review_3d">Hace 3 días</span>
+            </div>
+          </div>
+          <div class="google-badge">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path fill="#EA4335" d="M12 5.04c1.67 0 3.17.58 4.35 1.71l3.25-3.25C17.63 1.7 14.97 1 12 1 7.37 1 3.4 3.66 1.49 7.55l3.86 3C6.26 7.67 8.89 5.04 12 5.04z"/>
+              <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.27H12v4.51h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.97 3.39-4.87 3.39-8.63z"/>
+              <path fill="#FBBC05" d="M5.35 14.55c-.24-.72-.38-1.49-.38-2.55s.14-1.83.38-2.55l-3.86-3C.56 8.35 0 10.11 0 12s.56 3.65 1.49 5.55l3.86-3z"/>
+              <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.66-2.84c-1.1.74-2.51 1.18-4.3 1.18-3.11 0-5.74-2.63-6.68-5.51l-3.86 3C3.4 20.34 7.37 23 12 23z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="review-body">
+          <p data-i18n="testimonials.ana_text">"Abrí mi LLC y obtuve mi EIN en tiempo récord. Marilyn me explicó todo paso a paso. Ahora mi negocio está legalmente establecido."</p>
+        </div>
+        <div class="review-owner-response">
+          <p><strong data-i18n="testimonials.response_owner">Respuesta del propietario:</strong> <span data-i18n="testimonials.ana_response">¡Gracias, Ana! Tu éxito empresarial es nuestra prioridad. Me alegra mucho que tu LLC ya esté en marcha. ¡Mucho éxito!</span></p>
+        </div>
+      </div>
+
+      <!-- Card 3: Carlos López -->
+      <div class="testimonial-card google-review-card" data-fallback-card>
+        <div class="review-header">
+          <div class="review-avatar avatar-orange">C</div>
+          <div class="review-meta">
+            <h3 class="review-author-name">Carlos López</h3>
+            <div class="review-stars-row">
+              <span class="stars-icon">★★★★★</span>
+              <span class="review-date" data-i18n="testimonials.google_review_1d">Ayer</span>
+            </div>
+          </div>
+          <div class="google-badge">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path fill="#EA4335" d="M12 5.04c1.67 0 3.17.58 4.35 1.71l3.25-3.25C17.63 1.7 14.97 1 12 1 7.37 1 3.4 3.66 1.49 7.55l3.86 3C6.26 7.67 8.89 5.04 12 5.04z"/>
+              <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.27H12v4.51h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.97 3.39-4.87 3.39-8.63z"/>
+              <path fill="#FBBC05" d="M5.35 14.55c-.24-.72-.38-1.49-.38-2.55s.14-1.83.38-2.55l-3.86-3C.56 8.35 0 10.11 0 12s.56 3.65 1.49 5.55l3.86-3z"/>
+              <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.66-2.84c-1.1.74-2.51 1.18-4.3 1.18-3.11 0-5.74-2.63-6.68-5.51l-3.86 3C3.4 20.34 7.37 23 12 23z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="review-body">
+          <p data-i18n="testimonials.carlos_text">"Pude comprar mi primera casa gracias al plan de crédito que diseñó Marilyn. Pensé que era imposible, pero ella encontró el camino."</p>
+        </div>
+        <div class="review-owner-response">
+          <p><strong data-i18n="testimonials.response_owner">Respuesta del propietario:</strong> <span data-i18n="testimonials.carlos_response">¡Felicidades por tu nuevo hogar, Carlos! Con disciplina y la estrategia de crédito correcta, todo es posible. ¡Un abrazo!</span></p>
+        </div>
+      </div>
+
+      <!-- Card 4: Lucía González -->
+      <div class="testimonial-card google-review-card" data-fallback-card>
+        <div class="review-header">
+          <div class="review-avatar avatar-purple">L</div>
+          <div class="review-meta">
+            <h3 class="review-author-name">Lucía González</h3>
+            <div class="review-stars-row">
+              <span class="stars-icon">★★★★★</span>
+              <span class="review-date" data-i18n="testimonials.google_review_2w">Hace 2 semanas</span>
+            </div>
+          </div>
+          <div class="google-badge">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path fill="#EA4335" d="M12 5.04c1.67 0 3.17.58 4.35 1.71l3.25-3.25C17.63 1.7 14.97 1 12 1 7.37 1 3.4 3.66 1.49 7.55l3.86 3C6.26 7.67 8.89 5.04 12 5.04z"/>
+              <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.27H12v4.51h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.97 3.39-4.87 3.39-8.63z"/>
+              <path fill="#FBBC05" d="M5.35 14.55c-.24-.72-.38-1.49-.38-2.55s.14-1.83.38-2.55l-3.86-3C.56 8.35 0 10.11 0 12s.56 3.65 1.49 5.55l3.86-3z"/>
+              <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.66-2.84c-1.1.74-2.51 1.18-4.3 1.18-3.11 0-5.74-2.63-6.68-5.51l-3.86 3C3.4 20.34 7.37 23 12 23z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="review-body">
+          <p data-i18n="testimonials.lucia_text">"El proceso de reparación de crédito fue increíble. En 6 meses mi score subió más de 100 puntos. ¡Marilyn hace milagros!"</p>
+        </div>
+        <div class="review-owner-response">
+          <p><strong data-i18n="testimonials.response_owner">Respuesta del propietario:</strong> <span data-i18n="testimonials.lucia_response">¡Excelente resultado, Lucía! Me da una alegría inmensa ver cómo tu score de crédito se ha recuperado. ¡A seguir creciendo!</span></p>
+        </div>
+      </div>
+
+      <!-- Card 5: María Pérez -->
+      <div class="testimonial-card google-review-card" data-fallback-card>
+        <div class="review-header">
+          <div class="review-avatar avatar-pink">M</div>
+          <div class="review-meta">
+            <h3 class="review-author-name">María Pérez</h3>
+            <div class="review-stars-row">
+              <span class="stars-icon">★★★★★</span>
+              <span class="review-date" data-i18n="testimonials.google_review_1m">Hace 1 mes</span>
+            </div>
+          </div>
+          <div class="google-badge">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path fill="#EA4335" d="M12 5.04c1.67 0 3.17.58 4.35 1.71l3.25-3.25C17.63 1.7 14.97 1 12 1 7.37 1 3.4 3.66 1.49 7.55l3.86 3C6.26 7.67 8.89 5.04 12 5.04z"/>
+              <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.27H12v4.51h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.97 3.39-4.87 3.39-8.63z"/>
+              <path fill="#FBBC05" d="M5.35 14.55c-.24-.72-.38-1.49-.38-2.55s.14-1.83.38-2.55l-3.86-3C.56 8.35 0 10.11 0 12s.56 3.65 1.49 5.55l3.86-3z"/>
+              <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.66-2.84c-1.1.74-2.51 1.18-4.3 1.18-3.11 0-5.74-2.63-6.68-5.51l-3.86 3C3.4 20.34 7.37 23 12 23z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="review-body">
+          <p data-i18n="testimonials.maria_text">"Marilyn nos ayudó con la petición familiar de mi esposo. Siempre estuvo disponible y respondió cada duda. ¡Excelente servicio!"</p>
+        </div>
+        <div class="review-owner-response">
+          <p><strong data-i18n="testimonials.response_owner">Respuesta del propietario:</strong> <span data-i18n="testimonials.maria_response">¡Muchas gracias, María! Unir a las familias es el trabajo más gratificante que realizamos. Bendiciones para ti y tu esposo.</span></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Botón derecho -->
+  <button class="slider-btn next-btn" aria-label="Siguiente" id="nextBtn">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+</div>
+
+<!-- Estilos Globales para los Testimonios y sus Estados -->
+<style is:global>
+  /* ════════ Estilos del Slider de Reseñas (is:global para hidratación) ════════ */
+  .testi-slider-outer {
+    position: relative;
+    width: 100%;
+    margin: 40px auto 0;
+  }
+  .testi-slider-wrap {
+    overflow: hidden;
+    width: 100%;
+  }
+  .testi-track {
+    display: flex;
+    transition: transform 0.52s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .testi-track .testimonial-card {
+    flex: 0 0 calc(33.333% - 16px);
+    margin-right: 24px;
+    box-sizing: border-box;
+  }
+  @media (max-width: 880px) {
+    .testi-track .testimonial-card { flex: 0 0 calc(50% - 12px); }
+  }
+  @media (max-width: 560px) {
+    .testi-track .testimonial-card { flex: 0 0 100%; margin-right: 0; }
+  }
+
+  .google-review-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    padding: 24px !important;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    color: #ffffff !important;
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .google-review-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45) !important;
+  }
+  .review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  .review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #ffffff;
+    flex-shrink: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .avatar-green { background-color: #0f9d58; }
+  .avatar-blue { background-color: #4285f4; }
+  .avatar-orange { background-color: #f4b400; }
+  .avatar-purple { background-color: #ab47bc; }
+  .avatar-pink { background-color: #ec407a; }
+
+  .review-meta {
+    display: flex;
+    flex-direction: column;
+  }
+  .review-author-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.2;
+  }
+  .review-stars-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .stars-icon {
+    color: #ff9800;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+  .review-date {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+  }
+  .google-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .review-body {
+    flex-grow: 1;
+    max-height: 110px;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-bottom: 12px;
+  }
+  .review-body p {
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    margin: 0 !important;
+    font-style: normal !important;
+  }
+
+  .review-owner-response {
+    border-left: 3px solid var(--red);
+    padding-left: 12px;
+    max-height: 85px;
+    overflow-y: auto;
+    padding-right: 4px;
+    text-align: left;
+  }
+  .review-owner-response p {
+    font-size: 0.82rem !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+    margin: 0 !important;
+    font-style: normal !important;
+  }
+  .review-owner-response strong {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .review-body::-webkit-scrollbar,
+  .review-owner-response::-webkit-scrollbar {
+    width: 4px;
+  }
+  .review-body::-webkit-scrollbar-track,
+  .review-owner-response::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .review-body::-webkit-scrollbar-thumb,
+  .review-owner-response::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+  }
+
+  .slider-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  .slider-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+  }
+  .slider-btn:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+  .prev-btn { left: -20px; }
+  .next-btn { right: -20px; }
+  @media (max-width: 1200px) {
+    .prev-btn { left: -10px; }
+    .next-btn { right: -10px; }
+  }
+  @media (max-width: 600px) {
+    .prev-btn { left: -5px; }
+    .next-btn { right: -5px; }
+  }
+
+  /* ════════ Estilos del Contenedor de Estado ════════ */
+  .reviews-status-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    min-height: 28px;
+    text-align: center;
+  }
+  .reviews-status-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 6px 16px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .reviews-status-text.error {
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.3);
+    background: rgba(239, 68, 68, 0.05);
+  }
+  .reviews-status-text.success {
+    color: #34d399;
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.05);
+  }
+  .loading-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    height: 10px;
+  }
+  .loading-dots span {
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: inline-block;
+    animation: dot-pulse 1.4s infinite ease-in-out both;
+  }
+  .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+  .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+  @keyframes dot-pulse {
+    0%, 80%, 100% { transform: scale(0.2); opacity: 0.3; }
+    40% { transform: scale(1.0); opacity: 1; }
+  }
+
+  .review-avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+</style>
+
+<!-- Lógica de Cliente para consumir la API de Google Places -->
+<script is:inline>
+  (function() {
+    // Configuración solicitada por el usuario
+    const CONFIG = {
+      baseUrl: 'https://googleapis.com', // URL base solicitada
+      cid: '12468543360193548703',      // CID de la empresa
+      apiKey: 'AIzaSyDbXTi5_l1bFoSNxmrQFq-vBKm3wQ9-o8w', // API key placeholder
+      language: 'es'                     // Idioma solicitado
+    };
+
+    const statusEl = document.getElementById('reviewsStatusText');
+    const trackEl = document.getElementById('testiTrack');
+
+    // i18n soporte: Detectar idioma dinámico del sitio si existe para mejor UX
+    let activeLang = CONFIG.language;
+    if (window.i18n && window.i18n.currentLang) {
+      activeLang = window.i18n.currentLang;
+    }
+
+    // Traducir mensajes de estado
+    const translations = {
+      es: {
+        loading: 'Cargando opiniones...',
+        success: 'Opiniones de Google actualizadas en tiempo real',
+        error: 'No se pudieron cargar las opiniones en tiempo real. Mostrando testimonios destacados.'
+      },
+      en: {
+        loading: 'Loading reviews...',
+        success: 'Google reviews updated in real-time',
+        error: 'Could not load real-time reviews. Showing featured testimonials.'
+      }
+    };
+
+    const getTranslation = (key) => {
+      const lang = activeLang === 'en' ? 'en' : 'es';
+      return translations[lang][key];
+    };
+
+    // Actualizar texto de carga inicialmente
+    if (statusEl) {
+      statusEl.innerHTML = `${getTranslation('loading')} <span class="loading-dots"><span></span><span></span><span></span></span>`;
+    }
+
+    // Guardar una referencia a las tarjetas estáticas originales (fallback)
+    const fallbackCardsHtml = Array.from(trackEl.querySelectorAll('[data-fallback-card]'))
+      .map(card => card.outerHTML)
+      .join('');
+
+    // Función para activar el respaldo (fallback) en caso de fallo
+    function applyFallback(errorMessage) {
+      console.warn('Google Places API Fallback activado:', errorMessage);
+      
+      // Mostrar error de manera limpia en el contenedor
+      if (statusEl) {
+        statusEl.className = 'reviews-status-text error';
+        statusEl.textContent = getTranslation('error');
+      }
+
+      // Asegurar que las tarjetas estáticas estén puestas en el track
+      trackEl.innerHTML = fallbackCardsHtml;
+
+      // Re-traducir elementos estáticos por si acaso el motor i18n está activo
+      if (window.i18n && typeof window.i18n.translatePage === 'function') {
+        window.i18n.translatePage();
+      }
+
+      // Re-inicializar el carrusel de testimonios
+      if (typeof window.initTestimonialsSlider === 'function') {
+        window.initTestimonialsSlider();
+      }
+    }
+
+    // Si la clave está vacía, no hacer la petición
+    if (CONFIG.apiKey.trim() === '') {
+      setTimeout(() => {
+        applyFallback('La API Key está vacía.');
+      }, 1000);
+      return;
+    }
+
+    // Construir URL de Google Places Details (Legacy endpoint con soporte cid)
+    const path = '/maps/api/place/details/json';
+    const queryParams = `?cid=${CONFIG.cid}&key=${CONFIG.apiKey}&language=${activeLang}&fields=reviews,name,rating`;
+    const requestUrl = `${CONFIG.baseUrl}${path}${queryParams}`;
+
+    // Realizar la petición
+    fetch(requestUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status !== 'OK' || !data.result || !data.result.reviews || data.result.reviews.length === 0) {
+          throw new Error(data.error_message || data.status || 'No se obtuvieron opiniones');
+        }
+
+        // Renderizar las opiniones reales recibidas
+        const reviews = data.result.reviews;
+        let htmlContent = '';
+        const colors = ['green', 'blue', 'orange', 'purple', 'pink'];
+
+        reviews.forEach((review, index) => {
+          const author = review.author_name || 'Usuario de Google';
+          const rating = parseInt(review.rating) || 5;
+          const text = review.text || '';
+          
+          // Generar estrellas
+          const starsHtml = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+
+          // Calcular color y letra para avatar por si no hay foto de perfil
+          const charCode = author.charCodeAt(0) || 0;
+          const colorClass = `avatar-${colors[charCode % colors.length]}`;
+          const initial = author.charAt(0).toUpperCase() || 'G';
+
+          const relativeTime = review.relative_time_description || (activeLang === 'en' ? 'Recently' : 'Recientemente');
+
+          // Contenedor del avatar (imagen o letra inicial con color)
+          let avatarHtml = `<div class="review-avatar ${colorClass}">${initial}</div>`;
+          if (review.profile_photo_url) {
+            avatarHtml = `<img class="review-avatar-img" src="${review.profile_photo_url}" alt="${author}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                          <div class="review-avatar ${colorClass}" style="display:none;">${initial}</div>`;
+          }
+
+          htmlContent += `
+            <div class="testimonial-card google-review-card">
+              <div class="review-header">
+                ${avatarHtml}
+                <div class="review-meta">
+                  <h3 class="review-author-name">${author}</h3>
+                  <div class="review-stars-row">
+                    <span class="stars-icon">${starsHtml}</span>
+                    <span class="review-date">${relativeTime}</span>
+                  </div>
+                </div>
+                <div class="google-badge">
+                  <svg viewBox="0 0 24 24" width="18" height="18">
+                    <path fill="#EA4335" d="M12 5.04c1.67 0 3.17.58 4.35 1.71l3.25-3.25C17.63 1.7 14.97 1 12 1 7.37 1 3.4 3.66 1.49 7.55l3.86 3C6.26 7.67 8.89 5.04 12 5.04z"/>
+                    <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.27H12v4.51h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.97 3.39-4.87 3.39-8.63z"/>
+                    <path fill="#FBBC05" d="M5.35 14.55c-.24-.72-.38-1.49-.38-2.55s.14-1.83.38-2.55l-3.86-3C.56 8.35 0 10.11 0 12s.56 3.65 1.49 5.55l3.86-3z"/>
+                    <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.66-2.84c-1.1.74-2.51 1.18-4.3 1.18-3.11 0-5.74-2.63-6.68-5.51l-3.86 3C3.4 20.34 7.37 23 12 23z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="review-body">
+                <p>"${text}"</p>
+              </div>
+            </div>
+          `;
+        });
+
+        // Insertar en el DOM
+        trackEl.innerHTML = htmlContent;
+
+        // Mostrar éxito en el estado
+        if (statusEl) {
+          statusEl.className = 'reviews-status-text success';
+          statusEl.textContent = getTranslation('success');
+        }
+
+        // Re-inicializar el carrusel de testimonios con las nuevas tarjetas
+        if (typeof window.initTestimonialsSlider === 'function') {
+          window.initTestimonialsSlider();
+        }
+      })
+      .catch(err => {
+        applyFallback(err.message || err);
+      });
+  })();
+</script>

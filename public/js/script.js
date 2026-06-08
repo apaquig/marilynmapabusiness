@@ -62,15 +62,15 @@ const revealObs = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
 /* ── TESTIMONIALS SLIDER ── */
-(function(){
+window.initTestimonialsSlider = function() {
   const track = document.getElementById('testiTrack');
   const dotsWrap = document.getElementById('sliderDots');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
-  if (!track) return;
+  if (!track || !dotsWrap || !prevBtn || !nextBtn) return;
 
   const cards = Array.from(track.querySelectorAll('.testimonial-card'));
-  let cur = 0, perView = 3, total;
+  let cur = 0, perView = 3, total = 0;
 
   function getPer() {
     if (window.innerWidth <= 560) return 1;
@@ -79,6 +79,10 @@ document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
   }
 
   function buildDots() {
+    if (cards.length === 0) {
+      dotsWrap.innerHTML = '';
+      return;
+    }
     perView = getPer();
     total = Math.ceil(cards.length / perView);
     dotsWrap.innerHTML = '';
@@ -92,24 +96,48 @@ document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
   }
 
   function goTo(idx) {
+    if (cards.length === 0 || total === 0) return;
     cur = ((idx % total) + total) % total;
     const gap = 24;
     const cardW = cards[0].offsetWidth + gap;
     track.style.transform = `translateX(-${cur * perView * cardW}px)`;
-    dotsWrap.querySelectorAll('.s-dot').forEach((d,i) => d.classList.toggle('active', i === cur));
+    
+    const dots = dotsWrap.querySelectorAll('.s-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === cur));
   }
 
-  prevBtn.addEventListener('click', () => { goTo(cur - 1); });
-  nextBtn.addEventListener('click', () => { goTo(cur + 1); });
+  // Clone and replace buttons to remove previous click event listeners cleanly
+  const newPrevBtn = prevBtn.cloneNode(true);
+  const newNextBtn = nextBtn.cloneNode(true);
+  prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+  nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+
+  newPrevBtn.addEventListener('click', () => { goTo(cur - 1); });
+  newNextBtn.addEventListener('click', () => { goTo(cur + 1); });
 
   buildDots();
 
+  // Reset offset on resize
   let rTimer;
-  window.addEventListener('resize', () => {
+  const handleResize = () => {
     clearTimeout(rTimer);
     rTimer = setTimeout(() => { cur = 0; buildDots(); goTo(0); }, 200);
-  });
-})();
+  };
+  
+  if (window._testiResizeHandler) {
+    window.removeEventListener('resize', window._testiResizeHandler);
+  }
+  window.addEventListener('resize', handleResize);
+  window._testiResizeHandler = handleResize;
+};
+
+// Run initially
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => window.initTestimonialsSlider());
+} else {
+  window.initTestimonialsSlider();
+}
+
 
 /* ── FORM SUBMIT con EmailJS ── */
 function handleSubmit(e) {
