@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const base = '/marilynmapabusiness';
+const base = '';
 const distDir = path.resolve('dist');
 
 function getFiles(dir) {
