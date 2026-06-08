@@ -1,0 +1,283 @@
+---
+// src/components/WhatsAppWidget.astro
+// Beautiful, interactive WhatsApp float widget with a speech bubble preview
+
+interface Props {
+  phoneHref?: string;
+  text?: string;
+  fullHref?: string;
+}
+
+const { 
+  phoneHref = "+18626228339", 
+  text = "Hola Marilyn, me interesa conocer más sobre sus servicios.",
+  fullHref
+} = Astro.props;
+
+// Normalizing the phone link
+const cleanPhone = phoneHref.replace(/\+/g, '').replace(/[\s\-\(\)]/g, '');
+const finalHref = fullHref || `https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`;
+---
+
+<div class="wa-widget-container">
+  <!-- Dynamic bubble dialog -->
+  <div class="wa-chat-bubble" id="waChatBubble">
+    <button class="wa-close-btn" id="waCloseBtn" aria-label="Cerrar mensaje">
+      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <a href={finalHref} target="_blank" class="wa-chat-link" aria-label="Abrir chat de WhatsApp">
+      <div class="wa-chat-body">
+        <img src="/marilin.webp" alt="Marilyn Paladinez" class="wa-avatar" />
+        <div class="wa-chat-text-content">
+          <span class="wa-chat-title" data-i18n="whatsapp_widget.title">MARILYN - MAPA BUSINESS</span>
+          <p class="wa-chat-message" data-i18n="whatsapp_widget.message">¡Hola! ¿Cómo te puedo ayudar hoy?</p>
+        </div>
+      </div>
+    </a>
+    <div class="wa-chat-arrow"></div>
+  </div>
+
+  <!-- WhatsApp Float Button -->
+  <a href={finalHref} target="_blank" class="wa-float" id="waFloatBtn" aria-label="WhatsApp">
+    <svg viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 1C7.716 1 1 7.716 1 16c0 2.628.68 5.1 1.872 7.25L1 31l7.95-1.85A14.952 14.952 0 0016 31c8.284 0 15-6.716 15-15S24.284 1 16 1zm0 27.5a12.46 12.46 0 01-6.37-1.75l-.456-.27-4.72 1.1 1.12-4.6-.3-.47A12.44 12.44 0 013.5 16C3.5 9.096 9.096 3.5 16 3.5S28.5 9.096 28.5 16 22.904 28.5 16 28.5zM22.34 19.1c-.34-.17-2.01-1-2.33-1.1-.32-.12-.56-.17-.79.17s-.9 1.1-1.1 1.34-.41.25-.76.08c-.34-.17-1.45-.54-2.76-1.72a10.3 10.3 0 01-1.91-2.4c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.22-.34.34-.57.11-.22.06-.42-.03-.59-.08-.17-.79-1.9-1.08-2.6-.28-.68-.57-.59-.79-.6h-.68c-.22 0-.59.08-.9.4-.31.32-1.18 1.15-1.18 2.8s1.21 3.25 1.38 3.47c.17.22 2.38 3.64 5.77 5.1.81.35 1.44.56 1.93.72.81.26 1.55.22 2.13.13.65-.1 2.01-.82 2.29-1.62.28-.79.28-1.47.2-1.62-.09-.14-.33-.22-.68-.39z"/>
+    </svg>
+  </a>
+</div>
+
+<style>
+  .wa-widget-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  /* Overwrite styles for float to be inside container */
+  .wa-float {
+    position: static !important; /* Reset absolute/fixed positioning */
+    background: #25d366;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 6px 25px rgba(37,211,102,0.5);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: pulse-wa 2.5s infinite;
+    cursor: pointer;
+  }
+  .wa-float:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 30px rgba(37,211,102,0.7);
+  }
+  .wa-float svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Chat Bubble styles */
+  .wa-chat-bubble {
+    position: absolute;
+    bottom: 78px; /* Height of float button + gap */
+    right: 0;
+    width: 335px;
+    max-width: calc(100vw - 40px);
+    background-color: #e6dfd9; /* Warm beige matching image */
+    border-radius: 16px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+    padding: 16px 24px 16px 16px;
+    box-sizing: border-box;
+    display: none; /* Controlled by CSS transition/JS class */
+    opacity: 0;
+    transform: translateY(15px) scale(0.92);
+    transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1000;
+  }
+
+  .wa-chat-bubble.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .wa-chat-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .wa-chat-body {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .wa-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+  }
+
+  .wa-chat-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    text-align: left;
+  }
+
+  .wa-chat-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 0.74rem;
+    letter-spacing: 1px;
+    color: #536471; /* Slate/greyish blue */
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .wa-chat-message {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.94rem;
+    font-weight: 600;
+    color: #1a1a1a; /* Dark text */
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  /* Close button */
+  .wa-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #536471;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .wa-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #cc0000;
+  }
+
+  /* Speech bubble tail pointer */
+  .wa-chat-arrow {
+    position: absolute;
+    bottom: -8px;
+    right: 22px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px 8px 0;
+    border-color: #e6dfd9 transparent; /* Matching beige */
+  }
+
+  /* Pulse animation */
+  @keyframes pulse-wa {
+    0%, 100% {
+      box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
+    }
+    50% {
+      box-shadow: 0 6px 35px rgba(37, 211, 102, 0.8), 0 0 0 12px rgba(37, 211, 102, 0.15);
+    }
+  }
+
+  /* Responsive styling */
+  @media (max-width: 480px) {
+    .wa-widget-container {
+      bottom: 20px;
+      right: 20px;
+    }
+    .wa-chat-bubble {
+      bottom: 74px;
+      right: 0;
+      width: 290px;
+      padding: 12px 14px;
+    }
+    .wa-avatar {
+      width: 44px;
+      height: 44px;
+    }
+    .wa-chat-title {
+      font-size: 0.7rem;
+    }
+    .wa-chat-message {
+      font-size: 0.86rem;
+    }
+    .wa-chat-arrow {
+      right: 18px;
+    }
+  }
+</style>
+
+<script>
+  function initWhatsAppWidget() {
+    const bubble = document.getElementById('waChatBubble');
+    const closeBtn = document.getElementById('waCloseBtn');
+    
+    if (!bubble || !closeBtn) return;
+
+    // Check if the user closed the widget in the last 24 hours
+    const lastClosed = localStorage.getItem('wa-widget-closed');
+    const now = Date.now();
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    if (lastClosed && (now - parseInt(lastClosed)) < oneDay) {
+      return;
+    }
+
+    // Show the bubble after 2.5 seconds
+    setTimeout(() => {
+      bubble.classList.add('show');
+    }, 2500);
+
+    // Close button click handler
+    closeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation(); // Prevent trigger link click
+      bubble.classList.remove('show');
+      localStorage.setItem('wa-widget-closed', Date.now().toString());
+    });
+
+    // Mobile touch close support
+    closeBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      bubble.classList.remove('show');
+      localStorage.setItem('wa-widget-closed', Date.now().toString());
+    });
+  }
+
+  // Run on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWhatsAppWidget);
+  } else {
+    initWhatsAppWidget();
+  }
+
+  // Handle i18n dynamic updates
+  document.addEventListener('langChanged', () => {
+    if (window.i18n) {
+      window.i18n.translateDOM();
+    }
+  });
+</script>
