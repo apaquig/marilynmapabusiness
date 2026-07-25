@@ -1,0 +1,382 @@
+---
+// src/pages/sobre-mapa.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const WEBSITE = "https://marilynmapabusiness.com";
+const canonical = `${WEBSITE}/sobre-mapa/`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${WEBSITE}/sobre-mapa/#webpage`,
+      "url": canonical,
+      "name": "Sobre MAPA Business & Financial Services LLC | Newark, NJ",
+      "isPartOf": { "@id": `${WEBSITE}/#website` },
+      "about": { "@id": `${WEBSITE}/#organization` },
+      "inLanguage": "es"
+    },
+    {
+      "@type": "FinancialService",
+      "@id": `${WEBSITE}/#organization`,
+      "name": "MAPA Business & Financial Services LLC",
+      "url": WEBSITE,
+      "telephone": "+18626228339",
+      "foundingDate": "2014",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "20 Bloomfield Pl",
+        "addressLocality": "Newark",
+        "addressRegion": "NJ",
+        "postalCode": "07104",
+        "addressCountry": "US"
+      },
+      "founder": { "@id": `${WEBSITE}/#person` }
+    },
+    {
+      "@type": "Person",
+      "@id": `${WEBSITE}/#person`,
+      "name": "Marilyn Paladinez",
+      "jobTitle": "Estratega Financiera para Migrantes",
+      "worksFor": { "@id": `${WEBSITE}/#organization` },
+      "url": `${WEBSITE}/marilyn-paladinez/`
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué es MAPA Business & Financial Services LLC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MAPA Business & Financial Services LLC es una empresa fundada por Marilyn Paladinez en Newark, New Jersey, que orienta en español a familias migrantes, emprendedores y pequeños negocios latinos en servicios notariales, financieros y de preparación de documentos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Dónde está ubicada MAPA Business?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Estamos ubicados en 20 Bloomfield Pl, Newark, NJ 07104. También atendemos de forma digital para clientes en todo New Jersey."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿MAPA Business atiende en español?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Nuestro idioma principal de atención es el español. Marilyn Paladinez y su equipo atienden a la comunidad latina con comprensión de las necesidades culturales y del proceso migratorio."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿MAPA Business es abogado o bufete jurídico?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. MAPA Business & Financial Services LLC no es un bufete de abogados. Marilyn Paladinez es Notaria Pública certificada en New Jersey y ofrece orientación y preparación de documentos. No brinda asesoramiento legal ni representación jurídica."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  lang="es"
+  title="Sobre MAPA Business & Financial Services LLC | Newark, NJ"
+  description="Conoce la historia, misión y valores de MAPA Business & Financial Services LLC. Fundada por Marilyn Paladinez en Newark, NJ para servir a la comunidad latina."
+  canonical={canonical}
+  currentPath="/sobre-mapa/"
+  schema={schema}
+>
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Inicio</a>
+    <span>›</span>
+    <span>Sobre MAPA</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="about-hero-inner">
+      <div class="page-tag">Nuestra Historia</div>
+      <h1>
+        <span>Sobre </span><span>MAPA Business</span><br>
+        <span style="font-size:0.75em; font-weight:600; color:rgba(255,255,255,0.7);">&amp; Financial Services LLC</span>
+      </h1>
+      <p class="page-intro">
+        Una empresa fundada con un propósito claro: acompañar a la comunidad latina de Nueva Jersey
+        con orientación confiable, accesible y en su propio idioma.
+      </p>
+    </div>
+  </section>
+
+  <!-- HISTORIA Y MISIÓN -->
+  <section class="about-content">
+    <div class="about-grid">
+
+      <div class="about-block">
+        <h2 class="about-section-title">Nuestra <span>Historia</span></h2>
+        <p class="about-text">
+          MAPA Business &amp; Financial Services LLC nació de la experiencia directa de Marilyn Paladinez
+          con la comunidad migrante en Newark, New Jersey. Al ver las dificultades que enfrentaban las
+          familias latinas para acceder a servicios financieros, notariales y de preparación de documentos
+          en español, Marilyn decidió crear una empresa que les brindara orientación cercana y profesional.
+        </p>
+        <p class="about-text">
+          Desde sus inicios, MAPA ha atendido a familias, emprendedores y pequeños negocios que necesitaban
+          ayuda con sus trámites en un idioma que entienden, con alguien que comprende su realidad.
+        </p>
+        <p class="about-text">
+          Hoy, MAPA Business es un referente de confianza en Newark y las áreas circundantes de New Jersey,
+          con presencia en 13 ciudades y una amplia gama de servicios especializados para la comunidad latina.
+        </p>
+      </div>
+
+      <div class="about-block">
+        <h2 class="about-section-title">Nuestra <span>Misión</span></h2>
+        <p class="about-text">
+          Nuestra misión es orientar a migrantes, familias y emprendedores latinos en los trámites y
+          servicios que necesitan para establecerse con seguridad en los Estados Unidos, siempre en español
+          y con respeto por su historia y sus sueños.
+        </p>
+
+        <h2 class="about-section-title" style="margin-top:30px;">Nuestros <span>Valores</span></h2>
+        <div class="values-list">
+          <div class="value-item">
+            <span class="value-icon">🤝</span>
+            <div>
+              <strong>Confianza</strong>
+              <p>Trabajamos con honestidad y transparencia, explicando cada paso del proceso.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">🌎</span>
+            <div>
+              <strong>Comunidad</strong>
+              <p>Entendemos la experiencia migrante porque somos parte de esa historia.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">📋</span>
+            <div>
+              <strong>Responsabilidad</strong>
+              <p>No prometemos lo que no podemos cumplir. Orientamos con información real y verificable.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">💬</span>
+            <div>
+              <strong>Atención en Español</strong>
+              <p>El español es nuestro idioma principal. Nadie debe sentirse perdido por el idioma.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ HACEMOS -->
+  <section class="about-services-section">
+    <div class="about-services-inner">
+      <h2 class="section-title">¿Qué <span>hacemos</span>?</h2>
+      <p class="section-sub">
+        En MAPA Business &amp; Financial Services LLC ofrecemos orientación y preparación de documentos
+        en las siguientes áreas. No somos abogados ni bufete jurídico.
+      </p>
+      <div class="services-grid">
+        {[
+          { icon: "📜", name: "Notaría Pública", desc: "Certificada en New Jersey. Autenticamos documentos legales, contratos y declaraciones juradas.", href: "/servicios/notaria/" },
+          { icon: "🌐", name: "Traducciones Certificadas", desc: "Del español al inglés y viceversa. Aceptadas por agencias gubernamentales y cortes.", href: "/servicios/traducciones/" },
+          { icon: "✍️", name: "Poderes Notariales", desc: "Redacción y notarización de poderes notariales para trámites legales, bancarios e internacionales.", href: "/servicios/poderes-notariales/" },
+          { icon: "💼", name: "Permisos de Trabajo", desc: "Orientación y documentación para el formulario I-765 y su renovación ante USCIS.", href: "/servicios/permisos-de-trabajo/" },
+          { icon: "🪪", name: "Licencias de Conducir", desc: "Orientación paso a paso para obtener tu licencia en New Jersey.", href: "/servicios/licencias-de-conducir/" },
+          { icon: "🔢", name: "ITIN", desc: "Tramitación del W-7 como Acceptance Agent certificados por el IRS.", href: "/servicios/itin/" },
+          { icon: "🧾", name: "Taxes / Impuestos", desc: "Preparación de declaraciones para individuos, familias y pequeños negocios.", href: "/servicios/taxes/" },
+          { icon: "📊", name: "Bookkeeping", desc: "Contabilidad mensual y estados financieros para tu negocio.", href: "/servicios/bookkeeping/" },
+          { icon: "🚗", name: "Seguros de Auto", desc: "Cotizamos con múltiples compañías. Opciones para conductores con licencia extranjera.", href: "/servicios/seguros-de-auto/" },
+          { icon: "🏥", name: "Seguros de Salud", desc: "Asesoría para Medicaid, marketplace y planes privados según tu situación.", href: "/servicios/seguros-de-salud/" },
+          { icon: "💛", name: "Seguros de Vida", desc: "Opciones de seguro de vida para proteger a tu familia. Disponible para migrantes.", href: "/servicios/seguros-de-vida/" },
+          { icon: "🌍", name: "Doble Nacionalidad", desc: "Orientación y documentación para tramitar la doble nacionalidad.", href: "/servicios/doble-nacionalidad/" },
+        ].map(s => (
+          <a href={s.href} class="service-card">
+            <div class="card-icon">{s.icon}</div>
+            <div class="card-title">{s.name}</div>
+            <div class="card-desc">{s.desc}</div>
+            <div class="card-link">Ver servicio →</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MARILYN LINK -->
+  <section class="about-marilyn-cta">
+    <div class="about-marilyn-inner">
+      <img src="/marilin2.webp" alt="Marilyn Paladinez — Fundadora de MAPA Business" class="about-marilyn-img" width="80" height="80" loading="lazy" />
+      <div>
+        <h2>Fundada y dirigida por <span>Marilyn Paladinez</span></h2>
+        <p>
+          Marilyn Paladinez es Notaria Pública certificada en New Jersey y estratega financiera para migrantes.
+          Es la fundadora y representante de MAPA Business &amp; Financial Services LLC.
+        </p>
+        <a href="/marilyn-paladinez/" class="btn btn-red" style="margin-top:18px; display:inline-flex;">
+          Conoce a Marilyn →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATOS DE CONTACTO -->
+  <section class="contact-info-section">
+    <div class="contact-info-inner">
+      <h2 class="section-title">Visítanos o <span>contáctanos</span></h2>
+      <div class="contact-info-box" style="max-width:560px; margin:30px auto 0;">
+        <div class="contact-info-row">
+          <strong>📍 Dirección</strong>
+          <span>20 Bloomfield Pl, Newark, NJ 07104</span>
+        </div>
+        <div class="contact-info-row">
+          <strong>📞 Teléfono</strong>
+          <a href="tel:+18626228339">(862) 622-8339</a>
+        </div>
+        <div class="contact-info-row">
+          <strong>💬 WhatsApp</strong>
+          <a href="https://wa.me/18626228339" target="_blank" rel="noopener">(862) 622-8339</a>
+        </div>
+        <div class="contact-info-row">
+          <strong>🕐 Horario</strong>
+          <span>Lun–Vie 9am–6pm · Sáb 9am–2pm</span>
+        </div>
+        <div class="contact-info-row">
+          <strong>🌐 Web</strong>
+          <a href="https://marilynmapabusiness.com">marilynmapabusiness.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2>Preguntas frecuentes sobre <span>MAPA Business</span></h2>
+    <dl>
+      <div class="faq-item">
+        <dt>¿Qué es MAPA Business &amp; Financial Services LLC?</dt>
+        <dd>Es una empresa fundada por Marilyn Paladinez en Newark, New Jersey, que orienta en español a familias migrantes, emprendedores y pequeños negocios latinos en servicios notariales, financieros y de preparación de documentos.</dd>
+      </div>
+      <div class="faq-item">
+        <dt>¿Dónde está ubicada MAPA Business?</dt>
+        <dd>Estamos en 20 Bloomfield Pl, Newark, NJ 07104. También atendemos de forma digital para clientes en todo New Jersey.</dd>
+      </div>
+      <div class="faq-item">
+        <dt>¿MAPA Business atiende en español?</dt>
+        <dd>Sí. El español es nuestro idioma principal de atención. Marilyn Paladinez y su equipo atienden a la comunidad latina con comprensión de sus necesidades culturales y del proceso migratorio.</dd>
+      </div>
+      <div class="faq-item">
+        <dt>¿MAPA Business es un bufete de abogados?</dt>
+        <dd>No. MAPA Business &amp; Financial Services LLC no es un bufete jurídico. Marilyn Paladinez es Notaria Pública certificada en New Jersey y ofrece orientación y preparación de documentos. No brinda representación legal ni asesoramiento jurídico.</dd>
+      </div>
+      <div class="faq-item">
+        <dt>¿Cuál es el horario de atención?</dt>
+        <dd>Atendemos de lunes a viernes de 9am a 6pm y los sábados de 9am a 2pm. También puedes contactarnos por WhatsApp al (862) 622-8339.</dd>
+      </div>
+    </dl>
+  </section>
+
+</BaseLayout>
+
+<style>
+.about-hero {
+  padding: 90px 40px 60px;
+  text-align: center;
+  background: linear-gradient(135deg, #0a0a0a 0%, #110000 100%);
+}
+.about-hero-inner { max-width: 820px; margin: 0 auto; }
+.about-hero h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.about-hero h1 span:nth-child(2) { color: var(--red); }
+
+.about-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+.about-section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
+.about-section-title span { color: var(--red); }
+.about-text {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.values-list { display: flex; flex-direction: column; gap: 16px; }
+.value-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+}
+.value-icon { font-size: 1.4rem; flex-shrink: 0; line-height: 1.3; }
+.value-item strong { display: block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+.value-item p { color: rgba(255,255,255,0.55); font-size: 0.85rem; margin: 0; line-height: 1.55; }
+
+.about-services-section { background: #0d0d0d; padding: 60px 0; }
+.about-services-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+.about-marilyn-cta { padding: 60px 40px; border-top: 1px solid rgba(204,0,0,0.12); }
+.about-marilyn-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+.about-marilyn-img {
+  width: 80px; height: 80px;
+  border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--red);
+  flex-shrink: 0;
+}
+.about-marilyn-inner h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+.about-marilyn-inner h2 span { color: var(--red); }
+.about-marilyn-inner p { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.7; }
+
+.contact-info-section { padding: 40px 40px 60px; text-align: center; }
+.contact-info-inner { max-width: 1100px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  .about-hero { padding: 80px 20px 50px; }
+  .about-content { padding: 50px 20px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-services-inner { padding: 0 20px; }
+  .about-marilyn-cta { padding: 40px 20px; }
+  .about-marilyn-inner { flex-direction: column; gap: 16px; }
+  .contact-info-section { padding: 30px 20px 50px; }
+}
+</style>

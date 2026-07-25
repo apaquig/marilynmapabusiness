@@ -1,0 +1,15 @@
+---
+// src/pages/en/service-areas/[city]/index.astro
+import { cities } from '../../../../data/cities';
+import CityTemplate from '../../../../templates/CityTemplate.astro';
+
+export async function getStaticPaths() {
+  return cities.map((city) => ({
+    params: { city: city.slug },
+    props: { city },
+  }));
+}
+
+const { city } = Astro.props;
+---
+<CityTemplate lang="en" city={city} />

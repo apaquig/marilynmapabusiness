@@ -1,0 +1,618 @@
+---
+// src/templates/HomeTemplate.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { cities } from '../data/cities';
+import { services } from '../data/services';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import esDict from '../../public/locales/es.json';
+import enDict from '../../public/locales/en.json';
+
+interface Props {
+  lang: 'es' | 'en';
+}
+
+const { lang } = Astro.props;
+
+const WEBSITE = "https://marilynmapabusiness.com";
+const canonical = lang === 'es' ? `${WEBSITE}/` : `${WEBSITE}/en/`;
+const currentPath = lang === 'es' ? '/' : '/en/';
+
+// Resolve dictionary
+const dict = lang === 'es' ? esDict : enDict;
+
+function t(key: string, variables?: Record<string, string>) {
+  let val = key.split('.').reduce((prev, curr) => (prev ? prev[curr] : null), dict as any);
+  if (typeof val === 'string' && variables) {
+    for (const [k, v] of Object.entries(variables)) {
+      val = val.replace(new RegExp(`{${k}}`, 'g'), v);
+    }
+  }
+  return val || key;
+}
+
+const _rawTitle = t("home_meta_title");
+const title = (_rawTitle !== "home_meta_title") ? _rawTitle : (lang === 'es' 
+  ? "MAPA Business & Financial Services | Estratega Financiera Newark NJ" 
+  : "MAPA Business & Financial Services | Immigrant Financial Strategist Newark NJ");
+  
+const _rawDesc = t("home_meta_desc");
+const description = (_rawDesc !== "home_meta_desc") ? _rawDesc : (lang === 'es'
+  ? "MAPA Business & Financial Services LLC · Marilyn Paladinez, Estratega Financiera para Migrantes en Newark, NJ. Trámites de ITIN, LLC, Taxes, Notaría y Seguros."
+  : "MAPA Business & Financial Services LLC · Marilyn Paladinez, Financial Strategist for Immigrants in Newark, NJ. Certified Notary, ITIN, LLC setups, and Taxes.");
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${WEBSITE}/#website`,
+      "url": WEBSITE,
+      "name": "MAPA Business & Financial Services LLC",
+      "description": lang === 'es' ? "Estratega Financiera para Migrantes en Newark, NJ." : "Financial Strategist for Immigrants in Newark, NJ.",
+      "publisher": { "@id": `${WEBSITE}/#organization` },
+      "inLanguage": lang === 'es' ? "es" : "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      "url": canonical,
+      "name": title,
+      "isPartOf": { "@id": `${WEBSITE}/#website` },
+      "about": { "@id": `${WEBSITE}/#organization` },
+      "inLanguage": lang === 'es' ? "es" : "en"
+    },
+    {
+      "@type": "FinancialService",
+      "@id": `${WEBSITE}/#organization`,
+      "name": "MAPA Business & Financial Services LLC",
+      "url": WEBSITE,
+      "logo": `${WEBSITE}/favicon.jpg`,
+      "image": `${WEBSITE}/marilin2.webp`,
+      "telephone": "+18626228339",
+      "priceRange": "$$",
+      "foundingDate": "2014",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "20 Bloomfield Pl",
+        "addressLocality": "Newark",
+        "addressRegion": "NJ",
+        "postalCode": "07104",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 40.7534611,
+        "longitude": -74.1696199
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "09:00",
+          "closes": "14:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61550670802804",
+        "https://www.instagram.com/marilynpaladinezusa/",
+        "https://www.tiktok.com/@marilynpaladinezv",
+        "https://www.youtube.com/@MarilynPaladinezOficial"
+      ],
+      "founder": { "@id": `${WEBSITE}/#person` },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": lang === 'es' ? "Servicios MAPA" : "MAPA Services",
+        "itemListElement": services.map((service) => ({
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": t(`services.${service.slug}.title`),
+            "description": t(`services.${service.slug}.desc`)
+          }
+        }))
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": `${WEBSITE}/#person`,
+      "name": "Marilyn Paladinez",
+      "jobTitle": lang === 'es' ? "Estratega Financiera para Migrantes" : "Financial Strategist for Immigrants",
+      "worksFor": { "@id": `${WEBSITE}/#organization` },
+      "url": lang === 'es' ? `${WEBSITE}/marilyn-paladinez/` : `${WEBSITE}/en/marilyn-paladinez/`,
+      "image": `${WEBSITE}/marilin2.webp`
+    }
+  ]
+};
+
+const serviceLinkPrefix = lang === 'es' ? '/servicios/' : '/en/services/';
+const cityLinkPrefix = lang === 'es' ? '/service-areas/' : '/en/service-areas/';
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  canonical={canonical}
+  schema={schema}
+  loadMap={true}
+  activeSection="hero"
+  currentPath={currentPath}
+>
+  <!-- HERO SECTION -->
+  <section id="hero">
+    <div class="hero-slider" id="heroSlider">
+      {services.map((service) => (
+        <div class="hero-slide" style={`background-image:url('/marilin2.webp');`}>
+          <div class="hero-slide-overlay"></div>
+          <div class="hero-slide-content">
+            <div class="hero-tag">✦ {t(`hero.tag_business`)}</div>
+            <div class="hero-slide-icon">{service.icon}</div>
+            <h1>{t(`hero.slide_${service.slug.replace(/-/g, '_')}.title`)}</h1>
+            <p>{t(`hero.slide_${service.slug.replace(/-/g, '_')}.desc`)}</p>
+            <div class="hero-slide-btns">
+              <a href="#contacto" class="btn btn-red">📅 {t("hero.btn_book")}</a>
+              <a href="https://wa.me/18626228339" target="_blank" class="btn btn-whatsapp">💬 {t("hero.btn_whatsapp")}</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Arrows -->
+    <button class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label={lang === 'es' ? 'Anterior' : 'Previous'}>&#8592;</button>
+    <button class="hero-arrow hero-arrow-next" id="heroNext" aria-label={lang === 'es' ? 'Siguiente' : 'Next'}>&#8594;</button>
+
+    <!-- Dots -->
+    <div class="hero-dots" id="heroDots"></div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item reveal rv1"><span class="stat-num">500+</span><span class="stat-label">{t("stats.clients")}</span></div>
+    <div class="stat-item reveal rv2"><span class="stat-num">10+</span><span class="stat-label">{t("stats.experience")}</span></div>
+    <div class="stat-item reveal rv3"><span class="stat-num">{cities.length}</span><span class="stat-label">{t("stats.coverage")}</span></div>
+    <div class="stat-item reveal rv4"><span class="stat-num">98%</span><span class="stat-label">{t("stats.satisfaction")}</span></div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="servicios">
+    <div class="section-inner">
+      <div class="section-tag reveal">{t("services.tag")}</div>
+      <h2 class="section-title reveal rv1" set:html={t("services.title_html")} />
+      <p class="section-desc reveal rv2">{t("services.desc")}</p>
+      <div class="services-grid">
+        {services.map((service, index) => {
+          const delayClass = `rv${(index % 3) + 1}`;
+          return (
+            <div class={`service-card reveal ${delayClass}`}>
+              <span class="service-icon">{service.icon}</span>
+              <h3>{t(`services.${service.slug}.title`)}</h3>
+              <p>{t(`services.${service.slug}.desc`)}</p>
+              <a href={`${serviceLinkPrefix}${service.slug}/`} class="service-link">{t("services.btn_details")}</a>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="nosotros">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-img-wrap reveal">
+          <img src="/marilin.webp" alt="Marilyn Paladinez" />
+          <div class="about-card"><span class="num">10+</span><span class="label">{t("about.years_exp")}</span></div>
+        </div>
+        <div class="about-text reveal rv2">
+          <div class="section-tag">{t("about.tag")}</div>
+          <h2 class="section-title" set:html={t("about.title_html")} />
+          <p class="section-desc">{t("about.desc")}</p>
+          <div class="about-features">
+            <div class="feature-card">
+              <span class="feature-icon">🌎</span>
+              <div class="feature-text"><strong>{t("about.feat_community_title")}</strong><span>{t("about.feat_community")}</span></div>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icon">⚖️</span>
+              <div class="feature-text"><strong>{t("about.feat_notary_title")}</strong><span>{t("about.feat_notary")}</span></div>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icon">📋</span>
+              <div class="feature-text"><strong>{t("about.feat_immigration_title")}</strong><span>{t("about.feat_immigration")}</span></div>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icon">👨‍👩‍👧‍👦</span>
+              <div class="feature-text"><strong>{t("about.feat_families_title")}</strong><span>{t("about.feat_families")}</span></div>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icon">🗣️</span>
+              <div class="feature-text"><strong>{t("about.feat_language_title")}</strong><span>{t("about.feat_language")}</span></div>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icon">🗺️</span>
+              <div class="feature-text"><strong>{t("about.feat_plan_title")}</strong><span>{t("about.feat_plan")}</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="https://wa.me/18626228339" target="_blank" class="btn btn-whatsapp">💬 {t("about.btn_whatsapp")}</a>
+            <a href="#contacto" class="btn btn-outline">📅 {t("about.btn_schedule")}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="proceso">
+    <div class="section-inner">
+      <div style="text-align:center;margin-bottom:60px;">
+        <div class="section-tag reveal">{t("process.tag")}</div>
+        <h2 class="section-title reveal rv1" set:html={t("process.title_html")} />
+        <p class="section-desc reveal rv2" style="margin:0 auto;">{t("process.desc")}</p>
+      </div>
+      <div class="process-steps">
+        <div class="step reveal rv1"><div class="step-num">1</div><h3>{t("process.step1_title")}</h3><p>{t("process.step1_desc")}</p></div>
+        <div class="step reveal rv2"><div class="step-num">2</div><h3>{t("process.step2_title")}</h3><p>{t("process.step2_desc")}</p></div>
+        <div class="step reveal rv3"><div class="step-num">3</div><h3>{t("process.step3_title")}</h3><p>{t("process.step3_desc")}</p></div>
+        <div class="step reveal rv4"><div class="step-num">4</div><h3>{t("process.step4_title")}</h3><p>{t("process.step4_desc")}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonios">
+    <div class="section-inner">
+      <div class="section-tag reveal">{t("testimonials.tag")}</div>
+      <h2 class="section-title reveal rv1" set:html={t("testimonials.title_html")} />
+      <p class="section-desc reveal rv2">{t("testimonials.desc")}</p>
+
+      <GoogleReviews lang={lang} />
+
+      <div class="slider-controls-bottom">
+        <div class="slider-dots" id="sliderDots"></div>
+        <div class="read-more-wrap">
+          <a href="https://www.google.com/maps/place/MAPA+Business+%26+Financial+Services+LLC/@40.7534611,-74.1696199,17z/data=!3m1!4b1!4m6!3m5!1s0x89c255b932165583:0xad092a1ffae4519f!8m2!3d40.7534611!4d-74.1696199!16s%2Fg%2F11z8gmwt4n?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="read-more-link">{t("testimonials.read_more")}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contacto">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="section-tag">{t("contact.tag")}</div>
+          <h2 class="section-title" style="margin-bottom:16px;" set:html={t("contact.title_html")} />
+          <p>{t("contact.desc")}</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div><strong>{t("contact.phone")}</strong><br>
+              <a href="tel:+18626228339" style="color:rgba(255,255,255,0.6);text-decoration:none;">(862) 622-8339</a></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div><strong>{t("contact.address")}</strong><br><span style="color:rgba(255,255,255,0.6);">{t("location.desc")}</span></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🕐</div>
+              <div><strong>{t("contact.hours")}</strong><br><span style="color:rgba(255,255,255,0.6);">{t("contact.hours_val")}</span></div>
+            </div>
+          </div>
+          <div style="margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="https://wa.me/18626228339?text=Hola%2C%20quiero%20agendar%20una%20cita." target="_blank" class="btn btn-whatsapp">{t("contact.btn_whatsapp")}</a>
+            <a href="tel:+18626228339" class="btn btn-outline">{t("contact.btn_call")}</a>
+          </div>
+          <div class="contact-social-area">
+            <p>{t("contact.social_title")}</p>
+            <div class="social-links">
+              <a href="https://www.facebook.com/profile.php?id=61550670802804" target="_blank" rel="noopener" class="social-btn-icon social-facebook" aria-label="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+              </a>
+              <a href="https://www.instagram.com/marilynpaladinezusa/" target="_blank" rel="noopener" class="social-btn-icon social-instagram" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              </a>
+              <a href="https://www.tiktok.com/@marilynpaladinezv" target="_blank" rel="noopener" class="social-btn-icon social-tiktok" aria-label="TikTok">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+              </a>
+              <a href="https://www.youtube.com/@MarilynPaladinezOficial" target="_blank" rel="noopener" class="social-btn-icon social-youtube" aria-label="YouTube">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal rv2">
+          <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <input type="text" placeholder={t("contact.placeholder_name")} required />
+              <input type="tel" placeholder={t("contact.placeholder_phone")} />
+            </div>
+            <input type="email" placeholder={t("contact.placeholder_email")} required />
+            <select required>
+              <option value="" disabled selected>{t("contact.placeholder_service")}</option>
+              <option>{t("contact.opt_mig")}</option>
+              <option>{t("contact.opt_corp")}</option>
+              <option>{t("contact.opt_tax")}</option>
+              <option>{t("contact.opt_mkt")}</option>
+              <option>{t("contact.opt_insurance")}</option>
+              <option>{t("contact.opt_home")}</option>
+              <option>{t("contact.opt_other")}</option>
+            </select>
+            <textarea placeholder={t("contact.placeholder_message")}></textarea>
+            <button type="submit" class="btn btn-red" style="justify-content:center;">{t("contact.btn_submit")}</button>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.3);text-align:center;">{t("contact.sub_whatsapp")}</p>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">✅</div>
+            <div class="success-title">{t("contact.success_title")}</div>
+            <p class="success-msg" set:html={t("contact.success_msg")} />
+            <a href="https://wa.me/18626228339?text=Hola%20Marilyn%2C%20acabo%20de%20enviar%20un%20formulario." target="_blank" class="success-wa">{t("contact.success_wa")}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREAS -->
+  <section id="areas-de-servicio" class="reveal">
+    <div class="section-inner">
+      <div style="text-align:center;margin-bottom:40px;">
+        <div class="section-tag">{t("coverage.tag")}</div>
+        <h2 class="section-title" set:html={t("coverage.title_html")} />
+        <p class="section-desc" style="margin:0 auto;">{t("coverage.desc")}</p>
+      </div>
+
+      <div class="areas-container">
+        <!-- Sidebar -->
+        <div class="areas-sidebar">
+          <div class="areas-sidebar-header">
+            <h3>{t("coverage.sidebar_title")}</h3>
+            <p>{t("coverage.sidebar_desc")}</p>
+          </div>
+
+          <div class="search-box-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            <input type="text" id="citySearch" class="search-input" placeholder={t("coverage.search_placeholder")} />
+          </div>
+
+          <ul class="city-list" id="cityList">
+            {cities.map((city) => (
+              <li class="city-item" data-slug={city.slug} data-name={city.name} data-county={city.county}>
+                <div class="city-item-icon">📍</div>
+                <div class="city-item-info">
+                  <strong>{city.name}</strong>
+                  <span>{city.county}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Interactive Map -->
+        <div class="areas-map-container">
+          <div id="nj-map"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="ubicacion" style="padding:60px 40px;">
+    <div class="map-inner">
+      <div class="section-tag reveal">{t("location.tag")}</div>
+      <h2 class="section-title reveal rv1" set:html={t("location.title_html")} />
+      <p class="section-desc reveal rv2">{t("location.desc")}</p>
+      <div class="map-wrap reveal">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9897338905!2d-74.17224768459372!3d40.76213577932678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2546b6e6b8b01%3A0x1c8bdfbf7e5d5a5!2s20%20Bloomfield%20Pl%2C%20Newark%2C%20NJ%2007104!5e0!3m2!1sen!2sus!4v1690000000000!5m2!1sen!2sus"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="MAPA Business Location">
+        </iframe>
+      </div>
+
+      <div class="reveal" style="margin-top:28px;text-align:center;">
+        <a
+          href="https://www.google.com/maps/dir/?api=1&destination=20+Bloomfield+Pl,+Newark,+NJ+07104"
+          target="_blank"
+          rel="noopener"
+          style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;text-decoration:none;padding:14px 30px;border-radius:50px;font-family:Montserrat,sans-serif;font-weight:700;font-size:0.92rem;letter-spacing:0.3px;box-shadow:0 6px 24px rgba(220,38,38,0.35);transition:transform 0.22s ease,box-shadow 0.22s ease;"
+          onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 32px rgba(220,38,38,0.45)'"
+          onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 24px rgba(220,38,38,0.35)'"
+          aria-label="Como llegar a MAPA Business, 20 Bloomfield Pl Newark NJ"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <span set:html={t("location.btn_get_directions")} />
+        </a>
+        <p style="margin-top:10px;font-size:0.8rem;color:rgba(255,255,255,0.4);font-family:Lato,sans-serif;">
+          {t("location.tap_gps")}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script define:vars={{ cities, cityLinkPrefix }}>
+    // Wait for Leaflet to be fully loaded
+    const initMap = () => {
+      const mapEl = document.getElementById('nj-map');
+      if (!mapEl) return;
+
+      let mapInitialized = false;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !mapInitialized) {
+            mapInitialized = true;
+            initializeMap();
+            observer.disconnect();
+          }
+        });
+      }, { rootMargin: '200px' });
+
+      observer.observe(mapEl);
+
+      function initializeMap() {
+        if (typeof L === 'undefined') {
+          console.error('Leaflet library (L) is not defined. Map tiles cannot be loaded.');
+          return;
+        }
+        const map = L.map('nj-map', {
+          center: [40.40, -74.40],
+          zoom: 8.5,
+          scrollWheelZoom: false,
+          zoomControl: true
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+          subdomains: 'abcd',
+          maxZoom: 20
+        }).addTo(map);
+
+        const markers = {};
+        const cityItems = document.querySelectorAll('.city-item');
+
+        function clearActive() {
+          cityItems.forEach(item => {
+            item.classList.remove('active');
+            item.classList.remove('selected-active');
+          });
+          Object.values(markers).forEach(m => {
+            const iconElement = m.getElement();
+            if (iconElement) {
+              iconElement.classList.remove('active');
+            }
+          });
+        }
+
+        function highlightCity(slug, scroll = false) {
+          cityItems.forEach(item => {
+            if (item.getAttribute('data-slug') === slug) {
+              item.classList.add('active');
+              if (scroll) {
+                item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            } else {
+              item.classList.remove('active');
+            }
+          });
+          
+          Object.entries(markers).forEach(([s, m]) => {
+            const iconEl = m.getElement();
+            if (iconEl) {
+              if (s === slug) {
+                iconEl.classList.add('active');
+              } else {
+                iconEl.classList.remove('active');
+              }
+            }
+          });
+        }
+
+        cities.forEach(city => {
+          const customIcon = L.divIcon({
+            className: 'custom-marker',
+            html: `
+              <div class="marker-pin"></div>
+              <div class="marker-label">${city.name}</div>
+            `,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+          });
+
+          const marker = L.marker([city.lat, city.lng], { icon: customIcon }).addTo(map);
+          markers[city.slug] = marker;
+
+          marker.on('mouseover', () => {
+            highlightCity(city.slug, true);
+          });
+
+          marker.on('mouseout', () => {
+            const sidebarItem = document.querySelector(`.city-item[data-slug="${city.slug}"]`);
+            if (sidebarItem && !sidebarItem.classList.contains('selected-active')) {
+              clearActive();
+            }
+          });
+
+          marker.on('click', () => {
+            highlightCity(city.slug, true);
+            const sidebarItem = document.querySelector(`.city-item[data-slug="${city.slug}"]`);
+            if (sidebarItem) {
+              sidebarItem.classList.add('selected-active');
+            }
+            
+            setTimeout(() => {
+              window.location.href = `${cityLinkPrefix}${city.slug}/`;
+            }, 300);
+          });
+        });
+
+        cityItems.forEach(item => {
+          const slug = item.getAttribute('data-slug');
+
+          item.addEventListener('mouseenter', () => {
+            highlightCity(slug, false);
+          });
+
+          item.addEventListener('mouseleave', () => {
+            if (!item.classList.contains('selected-active')) {
+              clearActive();
+            }
+          });
+
+          item.addEventListener('click', (e) => {
+            e.preventDefault();
+            highlightCity(slug, false);
+            item.classList.add('selected-active');
+
+            setTimeout(() => {
+              window.location.href = `${cityLinkPrefix}${slug}/`;
+            }, 300);
+          });
+        });
+
+        const searchInput = document.getElementById('citySearch');
+        if (searchInput) {
+          searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            
+            cityItems.forEach(item => {
+              const name = item.getAttribute('data-name').toLowerCase();
+              const county = item.getAttribute('data-county').toLowerCase();
+              const slug = item.getAttribute('data-slug');
+
+              if (name.includes(term) || county.includes(term)) {
+                item.style.display = 'flex';
+                if (markers[slug] && !map.hasLayer(markers[slug])) {
+                  map.addLayer(markers[slug]);
+                }
+              } else {
+                item.style.display = 'none';
+                if (markers[slug] && map.hasLayer(markers[slug])) {
+                  map.removeLayer(markers[slug]);
+                }
+              }
+            });
+          });
+        }
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMap);
+    } else {
+      initMap();
+    }
+  </script>
+</BaseLayout>

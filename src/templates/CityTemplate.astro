@@ -1,0 +1,220 @@
+---
+// src/templates/CityTemplate.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { cities, type City } from '../data/cities';
+import { services } from '../data/services';
+import esDict from '../../public/locales/es.json';
+import enDict from '../../public/locales/en.json';
+
+interface Props {
+  lang: 'es' | 'en';
+  city: City;
+}
+
+const { lang, city } = Astro.props;
+
+const WEBSITE = "https://marilynmapabusiness.com";
+const canonical = lang === 'es'
+  ? `${WEBSITE}/service-areas/${city.slug}/`
+  : `${WEBSITE}/en/service-areas/${city.slug}/`;
+const currentPath = lang === 'es'
+  ? `/service-areas/${city.slug}/`
+  : `/en/service-areas/${city.slug}/`;
+
+const PHONE = "(862) 622-8339";
+const PHONE_HREF = "+18626228339";
+
+// Resolve dictionary
+const dict = lang === 'es' ? esDict : enDict;
+
+function t(key: string, variables?: Record<string, string>) {
+  let val = key.split('.').reduce((prev, curr) => (prev ? prev[curr] : null), dict as any);
+  if (typeof val === 'string' && variables) {
+    for (const [k, v] of Object.entries(variables)) {
+      val = val.replace(new RegExp(`{${k}}`, 'g'), v);
+    }
+  }
+  return val || key;
+}
+
+const cityName = city.name;
+const countyName = city.county;
+
+const title = lang === 'es'
+  ? `Servicios Financieros y Migratorios en ${cityName}, NJ | MAPA Business`
+  : `Financial & Immigration Services in ${cityName}, NJ | MAPA Business`;
+
+const description = lang === 'es'
+  ? `MAPA Business & Financial Services en ${cityName}, New Jersey. Notaría, taxes, permisos de trabajo, seguros, ITIN y más. Marilyn Paladinez: ${PHONE}.`
+  : `MAPA Business & Financial Services in ${cityName}, New Jersey. Notary, taxes, work permits, insurance, ITIN, and more. Marilyn Paladinez: ${PHONE}.`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${WEBSITE}/#website`,
+      "url": WEBSITE,
+      "name": "MAPA Business & Financial Services LLC",
+      "inLanguage": lang === 'es' ? "es" : "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      "url": canonical,
+      "name": title,
+      "isPartOf": { "@id": `${WEBSITE}/#website` },
+      "inLanguage": lang === 'es' ? "es" : "en"
+    },
+    {
+      "@type": "FinancialService",
+      "@id": `${canonical}#localbusiness`,
+      "name": "MAPA Business & Financial Services LLC",
+      "description": description,
+      "url": canonical,
+      "telephone": `+1${PHONE_HREF}`,
+      "image": `${WEBSITE}/marilin2.webp`,
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "20 Bloomfield Pl",
+        "addressLocality": "Newark",
+        "addressRegion": "NJ",
+        "postalCode": "07104",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": city.lat,
+        "longitude": city.lng
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": cityName,
+        "addressRegion": "NJ"
+      },
+      "sameAs": [
+        `https://www.wikidata.org/wiki/${city.wikidataId}`
+      ]
+    }
+  ]
+};
+
+const homeLink = lang === 'es' ? '/' : '/en/';
+const cityServiceLinkPrefix = lang === 'es' ? '/service-areas/' : '/en/service-areas/';
+const localDescription = t(`cities.${city.slug}.desc`) || city.localCommunityDescription;
+
+const otherCities = cities.filter((c) => c.slug !== city.slug);
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  canonical={canonical}
+  schema={schema}
+  currentPath={currentPath}
+>
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Ruta de navegación">
+    <a href={homeLink}>{t("nav.home")}</a>
+    <span>›</span>
+    <span>{cityName}</span>
+  </nav>
+
+  <!-- Hero de Ciudad -->
+  <div class="city-hero">
+    <div class="city-hero-inner">
+      <div class="city-tag">{lang === 'es' ? 'Área de Cobertura' : 'Service Area'}</div>
+      <h1>
+        <span>{lang === 'es' ? 'Servicios en' : 'Services in'}</span> <span>{cityName}</span>, NJ
+      </h1>
+      <p>
+        {lang === 'es' 
+          ? `Ofrecemos asistencia presencial y orientación en español para familias, profesionales y pequeños negocios en ${cityName} y todo ${countyName}.`
+          : `We offer in-person assistance and guidance in Spanish and English for families, professionals, and small businesses in ${cityName} and all of ${countyName}.`}
+      </p>
+      <div class="btn-group">
+        <a href={`tel:${PHONE_HREF}`} class="btn btn-red"><span>{t("contact.btn_call")}</span> {PHONE}</a>
+        <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20necesito%20asesoria%20en%20${cityName}.`} target="_blank" class="btn btn-wa">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Servicios Grid por Ciudad -->
+  <section class="services-section">
+    <h2 class="section-title">
+      <span>{lang === 'es' ? 'Servicios Disponibles en' : 'Available Services in'}</span> <span>{cityName}</span>
+    </h2>
+    <p class="section-sub">
+      {lang === 'es'
+        ? `Todos nuestros servicios notariales, contables, fiscales y migratorios están disponibles para los residentes de ${cityName}:`
+        : `All of our notary, bookkeeping, tax, and immigration services are available to the residents of ${cityName}:`}
+    </p>
+
+    <div class="services-grid">
+      {services.map((service) => {
+        const serviceName = t(`services.${service.slug}.title`);
+        const serviceDesc = t(`services.${service.slug}.desc`);
+        return (
+          <a href={`${cityServiceLinkPrefix}${city.slug}/${service.slug}/`} class="service-card">
+            <span class="card-icon">{service.icon}</span>
+            <h3 class="card-title">{serviceName}</h3>
+            <p class="card-desc">{serviceDesc}</p>
+            <div class="card-link">{t("services.local_attention")}</div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- Información de la Ciudad -->
+  <section class="city-info">
+    <div class="city-info-inner">
+      <div>
+        <h2 class="info-title">
+          <span>{lang === 'es' ? 'Atención Cercana en' : 'Personalized Support in'}</span> <span>{cityName}</span>
+        </h2>
+        <p class="info-text">
+          {localDescription}
+        </p>
+        <p class="info-text">
+          {lang === 'es'
+            ? `Ofrecemos soporte presencial en nuestra oficina principal en Newark o de forma digital adaptada a tu horario. Comunícate al ${PHONE} para programar tu cita.`
+            : `We offer in-person support at our main office in Newark or digitally adapted to your schedule. Contact us at ${PHONE} to schedule your appointment.`}
+        </p>
+      </div>
+      <div>
+        <h3 class="info-title" style="font-size: 1.1rem; margin-bottom: 12px;">{lang === 'es' ? 'Códigos Postales que Atendemos:' : 'Zip Codes We Serve:'}</h3>
+        <div class="zip-pills">
+          {city.zipCodes.map((zip) => <span class="zip-pill">{zip}</span>)}
+        </div>
+
+        <h3 class="info-title" style="font-size: 1.1rem; margin-top: 30px; margin-bottom: 12px;">{lang === 'es' ? 'Áreas Cercanas:' : 'Nearby Areas:'}</h3>
+        <div class="nearby-list">
+          {city.nearbyAreas.map((area) => <span class="nearby-item">{area}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Otras Áreas de Cobertura -->
+  <section class="coverage-section">
+    <div class="coverage-inner">
+      <h2 class="coverage-title">
+        <span>{lang === 'es' ? 'Otras Ciudades en' : 'Other Cities in'}</span> <span>New Jersey</span>
+      </h2>
+      <p class="coverage-desc">
+        {lang === 'es' ? 'También ofrecemos cobertura local en las siguientes ciudades de NJ:' : 'We also offer local coverage in the following NJ cities:'}
+      </p>
+      <div class="coverage-grid">
+        {otherCities.map((c) => (
+          <a href={`${cityServiceLinkPrefix}${c.slug}/`} class="coverage-card">
+            <span>📍</span>
+            <strong>{c.name}</strong>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

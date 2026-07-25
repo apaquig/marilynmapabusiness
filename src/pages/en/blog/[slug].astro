@@ -1,0 +1,15 @@
+---
+// src/pages/en/blog/[slug].astro
+import { posts } from '../../../data/posts';
+import BlogPostTemplate from '../../../templates/BlogPostTemplate.astro';
+
+export async function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+<BlogPostTemplate lang="en" post={post} />

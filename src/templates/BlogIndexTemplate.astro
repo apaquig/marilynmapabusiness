@@ -1,0 +1,214 @@
+---
+// src/templates/BlogIndexTemplate.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { posts } from '../data/posts';
+import esDict from '../../public/locales/es.json';
+import enDict from '../../public/locales/en.json';
+
+interface Props {
+  lang: 'es' | 'en';
+}
+
+const { lang } = Astro.props;
+
+const WEBSITE = "https://marilynmapabusiness.com";
+const canonical = lang === 'es' ? `${WEBSITE}/blog/` : `${WEBSITE}/en/blog/`;
+const currentPath = lang === 'es' ? '/blog/' : '/en/blog/';
+
+const PHONE = "(862) 622-8339";
+const PHONE_HREF = "+18626228339";
+
+// Resolve dictionary
+const dict = lang === 'es' ? esDict : enDict;
+
+function t(key: string, variables?: Record<string, string>) {
+  let val = key.split('.').reduce((prev, curr) => (prev ? prev[curr] : null), dict as any);
+  if (typeof val === 'string' && variables) {
+    for (const [k, v] of Object.entries(variables)) {
+      val = val.replace(new RegExp(`{${k}}`, 'g'), v);
+    }
+  }
+  return val || key;
+}
+
+const title = t("blog.hub_title") || (lang === 'es' ? "Blog y Guías de Asistencia Financiera | MAPA Business" : "Financial Assistance Blog & Guides | MAPA Business");
+const description = t("blog.intro") || (lang === 'es' ? "Recursos y guías en New Jersey sobre preparación de taxes, creación de LLC, número ITIN y licencias de conducir para la comunidad inmigrante." : "Resources and guides in New Jersey about tax preparation, LLC creation, ITIN number, and driver's licenses for the immigrant community.");
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${WEBSITE}/#website`,
+      "url": WEBSITE,
+      "name": "MAPA Business & Financial Services LLC",
+      "inLanguage": lang === 'es' ? "es" : "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      "url": canonical,
+      "name": title,
+      "isPartOf": { "@id": `${WEBSITE}/#website` },
+      "inLanguage": lang === 'es' ? "es" : "en"
+    },
+    {
+      "@type": "Blog",
+      "@id": `${canonical}#blog`,
+      "name": lang === 'es' ? "Blog de MAPA Business" : "MAPA Business Blog",
+      "description": description,
+      "url": canonical,
+      "publisher": {
+        "@type": "Organization",
+        "name": "MAPA Business & Financial Services LLC",
+        "url": WEBSITE,
+        "logo": `${WEBSITE}/favicon.jpg`
+      }
+    }
+  ]
+};
+
+const homeLink = lang === 'es' ? '/' : '/en/';
+const blogPostLinkPrefix = lang === 'es' ? '/blog/' : '/en/blog/';
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  canonical={canonical}
+  schema={schema}
+  activeSection="blog"
+  currentPath={currentPath}
+>
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Ruta de navegación">
+    <a href={homeLink}>{t("nav.home")}</a>
+    <span>›</span>
+    <span>{t("blog.hub_title")}</span>
+  </nav>
+
+  <!-- Hero -->
+  <div class="blog-hero">
+    <div class="blog-hero-inner">
+      <div class="blog-tag">{t("blog.tag")}</div>
+      <h1 set:html={t("blog.title_html")} />
+      <p class="blog-intro">
+        {t("blog.intro")}
+      </p>
+    </div>
+  </div>
+
+  <!-- Search bar -->
+  <div class="search-container">
+    <div class="search-wrapper">
+      <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="blogSearch" class="search-input" placeholder={t("blog.search_placeholder")} />
+    </div>
+  </div>
+
+  <!-- Category filters -->
+  <div class="filter-container">
+    <button class="filter-btn active" data-category="all">{t("blog.filter_all")}</button>
+    <button class="filter-btn" data-category="itin">{t("blog.filter_taxes")}</button>
+    <button class="filter-btn" data-category="llc">{t("blog.filter_llc")}</button>
+    <button class="filter-btn" data-category="transit">{t("blog.filter_transit")}</button>
+  </div>
+
+  <!-- Blog grid section -->
+  <section class="blog-section">
+    <div class="blog-grid" id="blogGrid">
+      {posts.map((post) => {
+        const postTitle = lang === 'es' ? post.title.es : post.title.en;
+        const postExcerpt = lang === 'es' ? post.excerpt.es : post.excerpt.en;
+        const postCategory = lang === 'es' ? post.category.es : post.category.en;
+        const readText = lang === 'es' ? 'Leer artículo →' : 'Read article →';
+        const minutesLabel = lang === 'es' ? 'min de lectura' : 'min read';
+        
+        return (
+          <a href={`${blogPostLinkPrefix}${post.slug}/`} class="blog-card" data-category={post.categoryKey} data-title={postTitle.toLowerCase()} data-excerpt={postExcerpt.toLowerCase()}>
+            <div class="card-image-wrap">
+              <img class="card-image" src={post.image} alt={postTitle} loading="lazy" />
+              <span class="card-badge">{postCategory}</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta">
+                <div class="card-meta-item">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span>{post.date}</span>
+                </div>
+                <div class="card-meta-item">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>{post.readingTime} {minutesLabel}</span>
+                </div>
+              </div>
+              <h2 class="card-title">{postTitle}</h2>
+              <p class="card-desc">{postExcerpt}</p>
+              <span class="card-link">{readText}</span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- No results container -->
+    <div id="noResults" class="no-results" style="display: none;">
+      <svg class="no-results-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+      <p>{lang === 'es' ? 'No se encontraron artículos que coincidan con tu búsqueda.' : 'No articles found matching your search.'}</p>
+    </div>
+  </section>
+
+  <!-- Client-side filtering script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      let activeCategory = 'all';
+      let searchQuery = '';
+
+      function filterAndSearch() {
+        const cards = document.querySelectorAll('.blog-card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const title = card.getAttribute('data-title') || '';
+          const excerpt = card.getAttribute('data-excerpt') || '';
+          
+          const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+          const matchesSearch = (!searchQuery || title.includes(searchQuery) || excerpt.includes(searchQuery));
+
+          if (matchesCategory && matchesSearch) {
+            card.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        const noResults = document.getElementById('noResults');
+        if (visibleCount === 0) {
+          noResults.style.display = 'flex';
+        } else {
+          noResults.style.display = 'none';
+        }
+      }
+
+      const searchInput = document.getElementById('blogSearch');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value.toLowerCase().trim();
+          filterAndSearch();
+        });
+      }
+
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          filterButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCategory = btn.getAttribute('data-category');
+          filterAndSearch();
+        });
+      });
+    });
+  </script>
+</BaseLayout>

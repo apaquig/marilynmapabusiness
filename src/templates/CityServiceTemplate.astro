@@ -1,0 +1,259 @@
+---
+// src/templates/CityServiceTemplate.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { cities, type City } from '../data/cities';
+import { services, type Service } from '../data/services';
+import esDict from '../../public/locales/es.json';
+import enDict from '../../public/locales/en.json';
+
+interface Props {
+  lang: 'es' | 'en';
+  city: City;
+  service: Service;
+}
+
+const { lang, city, service } = Astro.props;
+
+const WEBSITE = "https://marilynmapabusiness.com";
+const canonical = lang === 'es'
+  ? `${WEBSITE}/service-areas/${city.slug}/${service.slug}/`
+  : `${WEBSITE}/en/service-areas/${city.slug}/${service.slug}/`;
+const currentPath = lang === 'es'
+  ? `/service-areas/${city.slug}/${service.slug}/`
+  : `/en/service-areas/${city.slug}/${service.slug}/`;
+
+const PHONE = "(862) 622-8339";
+const PHONE_HREF = "+18626228339";
+
+// Resolve dictionary
+const dict = lang === 'es' ? esDict : enDict;
+
+function t(key: string, variables?: Record<string, string>) {
+  let val = key.split('.').reduce((prev, curr) => (prev ? prev[curr] : null), dict as any);
+  if (typeof val === 'string' && variables) {
+    for (const [k, v] of Object.entries(variables)) {
+      val = val.replace(new RegExp(`{${k}}`, 'g'), v);
+    }
+  }
+  return val || key;
+}
+
+const cityName = city.name;
+const countyName = city.county;
+const serviceName = t(`services.${service.slug}.title`);
+const serviceDesc = t(`services.${service.slug}.desc`);
+const spokeTitle = t(`services.${service.slug}.spoke_title`) || serviceName;
+
+const title = lang === 'es'
+  ? `${service.name} en ${cityName}, NJ | MAPA Business`
+  : `${spokeTitle} ${cityName}, NJ | MAPA Business`;
+
+const description = lang === 'es'
+  ? `Servicio de ${service.name} en ${cityName}, New Jersey. Asistencia profesional en español, notarización, taxes, ITIN y trámites de negocios. Marilyn Paladinez: ${PHONE}.`
+  : `${spokeTitle} in ${cityName}, New Jersey. Professional assistance, notary public, taxes, ITIN, and business support. Marilyn Paladinez: ${PHONE}.`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${WEBSITE}/#website`,
+      "url": WEBSITE,
+      "name": "MAPA Business & Financial Services LLC",
+      "inLanguage": lang === 'es' ? "es" : "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      "url": canonical,
+      "name": title,
+      "isPartOf": { "@id": `${WEBSITE}/#website` },
+      "inLanguage": lang === 'es' ? "es" : "en"
+    },
+    {
+      "@type": "Service",
+      "@id": `${canonical}#service`,
+      "name": lang === 'es' ? `${serviceName} en ${cityName}, NJ` : `${serviceName} in ${cityName}, NJ`,
+      "description": description,
+      "url": canonical,
+      "provider": {
+        "@type": service.schemaType || "FinancialService",
+        "@id": `${WEBSITE}/#organization`,
+        "name": "MAPA Business & Financial Services LLC",
+        "telephone": `+1${PHONE_HREF}`,
+        "image": `${WEBSITE}/marilin2.webp`,
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "20 Bloomfield Pl",
+          "addressLocality": "Newark",
+          "addressRegion": "NJ",
+          "postalCode": "07104",
+          "addressCountry": "US"
+        }
+      },
+      "areaServed": [
+        { "@type": "City", "name": cityName, "addressRegion": "NJ" },
+        ...city.nearbyAreas.map((area) => ({ "@type": "City", "name": area }))
+      ],
+      "sameAs": [
+        `https://www.wikidata.org/wiki/${city.wikidataId}`
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${canonical}#faq`,
+      "mainEntity": service.faqs.map((faq, index) => {
+        const question = t(`services.${service.slug}.faqs.${index}.q`, { city: cityName });
+        const answer = t(`services.${service.slug}.faqs.${index}.a`, { city: cityName });
+        return {
+          "@type": "Question",
+          "name": question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": answer
+          }
+        };
+      })
+    }
+  ]
+};
+
+const homeLink = lang === 'es' ? '/' : '/en/';
+const cityLink = lang === 'es' ? `/service-areas/${city.slug}/` : `/en/service-areas/${city.slug}/`;
+const otherServices = services.filter((s) => s.slug !== service.slug);
+const otherCities = cities.filter((c) => c.slug !== city.slug);
+
+const cityServiceLinkPrefix = lang === 'es' ? '/service-areas/' : '/en/service-areas/';
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  canonical={canonical}
+  schema={schema}
+  currentPath={currentPath}
+>
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Ruta de navegación">
+    <a href={homeLink}>{t("nav.home")}</a>
+    <span>›</span>
+    <a href={cityLink}>{cityName}</a>
+    <span>›</span>
+    <span>{serviceName}</span>
+  </nav>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="page-tag">MAPA Business & Financial Services LLC</div>
+    <div class="page-icon">{service.icon}</div>
+    <h1>
+      <span>{t("services.service_of")}</span> <span>{serviceName}</span> <span>{t("services.in_city")} {cityName}, NJ</span>
+    </h1>
+    <p class="page-intro">
+      {lang === 'es'
+        ? `Ofrecemos asesoría y orientación profesional en español para ${serviceName} en la ciudad de ${cityName}, New Jersey (${countyName}). Apoyamos a la comunidad hispana con soluciones rápidas, seguras y de confianza.`
+        : `We offer professional advice and guidance in Spanish and English for ${serviceName} in the city of ${cityName}, New Jersey (${countyName}). We support the Latino community with fast, secure, and reliable solutions.`}
+    </p>
+    <div class="btn-group">
+      <a href={`tel:${PHONE_HREF}`} class="btn btn-red"><span>{t("contact.btn_call")}</span> {PHONE}</a>
+      <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20necesito%20${encodeURIComponent(serviceName)}%20en%20${cityName}.`} target="_blank" class="btn btn-wa">💬 WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Unique Details / Info -->
+  <div class="cities-section">
+    <div class="cities-inner">
+      <h2 class="section-label">
+        <span>{lang === 'es' ? 'Cómo te ayudamos con' : 'How we help you with'} {serviceName}</span> <span>{lang === 'es' ? 'en' : 'in'} {cityName}</span>
+      </h2>
+      <p class="section-desc">
+        {lang === 'es'
+          ? `Nuestros servicios notariales, fiscales y de bookkeeping se adaptan a las necesidades de los vecinos de ${cityName}. Ofrecemos una primera orientación sin costo para evaluar tu caso.`
+          : `Our notary, tax, and bookkeeping services are tailored to the needs of ${cityName} residents. We offer a first consultation at no cost to evaluate your case.`}
+      </p>
+      <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); padding:30px; border-radius:8px; line-height:1.75; color:rgba(255,255,255,0.75);">
+        <p style="margin-bottom:14px;">
+          <strong>{lang === 'es' ? 'Modalidad de atención:' : 'Service Type:'}</strong> {lang === 'es' ? 'Presencial con cita en nuestra oficina principal o atención telefónica/digital.' : 'In-person with an appointment at our main office, or telephone/digital support.'}
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>{lang === 'es' ? 'Condado:' : 'County:'}</strong> {countyName}
+        </p>
+        <p>
+          <strong>{lang === 'es' ? 'Comunidad atendida:' : 'Community Served:'}</strong> {t(`cities.${city.slug}.desc`)}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQs localized for city -->
+  <div class="faq-section">
+    <h2><span>{t("faq_title")}</span> &mdash; {serviceName} {lang === 'es' ? 'en' : 'in'} {cityName}</h2>
+    <dl>
+      {service.faqs.map((faq, index) => {
+        const question = t(`services.${service.slug}.faqs.${index}.q`, { city: cityName });
+        const answer = t(`services.${service.slug}.faqs.${index}.a`, { city: cityName });
+        return (
+          <div class="faq-item">
+            <dt>{question}</dt>
+            <dd>{answer}</dd>
+          </div>
+        );
+      })}
+    </dl>
+  </div>
+
+  <!-- Spoke Links Grid (Other services in this city) -->
+  <div class="cities-section" style="background:#0a0a0a;">
+    <div class="cities-inner">
+      <h3 class="section-label" style="font-size:1.35rem; margin-bottom:12px;">
+        <span>{lang === 'es' ? 'Otros Servicios en' : 'Other Services in'}</span> <span>{cityName}</span>
+      </h3>
+      <p class="section-desc">
+        {lang === 'es' ? 'Conoce otros trámites y asesorías que Marilyn Paladinez ofrece en tu área:' : 'Learn about other procedures and advice Marilyn Paladinez offers in your area:'}
+      </p>
+      <div class="cities-grid">
+        {otherServices.map((s) => (
+          <a href={`${cityServiceLinkPrefix}${city.slug}/${s.slug}/`} class="city-card">
+            <div>
+              <div class="city-name">{t(`services.${s.slug}.title`)}</div>
+              <div class="city-county">{s.icon}</div>
+            </div>
+            <div class="city-link">{t("services.local_attention")}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Spoke Links Grid (Other cities for this service) -->
+  <div class="cities-section">
+    <div class="cities-inner">
+      <h3 class="section-label" style="font-size:1.35rem; margin-bottom:12px;">
+        <span>{serviceName}</span> <span>{lang === 'es' ? 'en Otras Ciudades de NJ' : 'in Other NJ Cities'}</span>
+      </h3>
+      <p class="section-desc">
+        {lang === 'es' ? 'Selecciona tu ciudad para ver la oficina y cobertura local correspondiente:' : 'Select your city to view the corresponding local office and coverage:'}
+      </p>
+      <div class="cities-grid">
+        {otherCities.map((c) => (
+          <a href={`${cityServiceLinkPrefix}${c.slug}/${service.slug}/`} class="city-card">
+            <div>
+              <div class="city-name">{c.name}</div>
+              <div class="city-county">{c.county}</div>
+            </div>
+            <div class="city-link">{t("services.local_attention")}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Box -->
+  <div class="cta-section">
+    <h2>{t("services.cta_ready")}</h2>
+    <p>{t("services.cta_doubts_desc")}</p>
+    <a href={`${homeLink}#contacto`} class="btn-white">{t("about.btn_schedule")}</a>
+  </div>
+</BaseLayout>

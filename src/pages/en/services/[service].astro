@@ -1,0 +1,15 @@
+---
+// src/pages/en/services/[service].astro
+import { services } from '../../../data/services';
+import ServiceTemplate from '../../../templates/ServiceTemplate.astro';
+
+export async function getStaticPaths() {
+  return services.map((service) => ({
+    params: { service: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+---
+<ServiceTemplate lang="en" service={service} />
