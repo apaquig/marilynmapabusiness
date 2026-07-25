@@ -318,5 +318,242 @@ export const posts: Post[] = [
         </ol>
       `
     }
+  },
+  {
+    slug: "permiso-de-trabajo-i765-guia-completa",
+    title: {
+      es: "Permiso de Trabajo I-765: Cómo Solicitarlo y Renovarlo en New Jersey",
+      en: "I-765 Work Permit: How to Apply and Renew It in New Jersey"
+    },
+    excerpt: {
+      es: "Aprende paso a paso cómo solicitar o renovar tu Autorización de Empleo (EAD) ante USCIS usando el formulario I-765 sin cometer errores que demoren tu caso.",
+      en: "Learn step by step how to apply for or renew your Employment Authorization Document (EAD) with USCIS using Form I-765 without errors that delay your case."
+    },
+    date: "2026-07-10",
+    author: "Marilyn Paladinez",
+    category: {
+      es: "Inmigración & Trabajo",
+      en: "Immigration & Work"
+    },
+    categoryKey: "immigration",
+    image: "/images/blog/permiso-trabajo.png",
+    readingTime: "5 min",
+    tip: {
+      es: "Renueva tu permiso de trabajo al menos 6 meses antes de que venza. USCIS puede tardar entre 3 y 6 meses en procesar el formulario I-765. Si esperas hasta el último momento, podrías quedarte sin autorización para trabajar legalmente.",
+      en: "Renew your work permit at least 6 months before it expires. USCIS can take between 3 and 6 months to process Form I-765. If you wait until the last minute, you could be left without authorization to work legally."
+    },
+    content: {
+      es: `
+        <h2>¿Qué es el Permiso de Trabajo EAD (Employment Authorization Document)?</h2>
+        <p>El <strong>Documento de Autorización de Empleo (EAD)</strong>, conocido comúnmente como permiso de trabajo, es un documento emitido por el Servicio de Ciudadanía e Inmigración de los Estados Unidos (USCIS) que autoriza a una persona a trabajar legalmente en el país por un período determinado.</p>
+        <p>Sin este documento, trabajar en los Estados Unidos sin tener residencia permanente o ciudadanía puede tener consecuencias legales graves tanto para el trabajador como para el empleador.</p>
+
+        <h2>¿Quiénes pueden solicitar el Formulario I-765?</h2>
+        <p>No todas las personas pueden solicitar un EAD. USCIS autoriza el permiso de trabajo a personas en categorías migratorias específicas, entre ellas:</p>
+        <ul>
+          <li><strong>Solicitantes de asilo:</strong> Personas que tienen una solicitud de asilo pendiente ante USCIS o un juez de inmigración.</li>
+          <li><strong>Personas con TPS (Estatus de Protección Temporal):</strong> Nacionales de países designados por el Gobierno de EE.UU.</li>
+          <li><strong>Cónyuge de ciertos titulares de visa:</strong> Como los cónyuges de titulares de visa H-1B con extensión aprobada o visa L-2.</li>
+          <li><strong>Personas con DACA:</strong> Jóvenes amparados bajo la acción diferida (Deferred Action for Childhood Arrivals).</li>
+          <li><strong>Solicitantes de ajuste de estatus (Green Card):</strong> Personas que han presentado el formulario I-485.</li>
+          <li><strong>Personas con libertad bajo palabra (Parole):</strong> Incluyendo ciertos programas humanitarios.</li>
+        </ul>
+
+        <h2>Documentos necesarios para presentar el I-765</h2>
+        <p>Para preparar correctamente tu solicitud necesitarás reunir los siguientes documentos:</p>
+        <ol>
+          <li><strong>Formulario I-765</strong> completado con letra clara y firmado.</li>
+          <li><strong>Fotografías tipo pasaporte:</strong> Dos fotos recientes a color con fondo blanco.</li>
+          <li><strong>Copia de tu documento de identidad:</strong> Pasaporte, matrícula consular u otro documento con foto.</li>
+          <li><strong>Copia del documento que prueba tu categoría migratoria:</strong> Por ejemplo, el aviso de recibo de tu solicitud de asilo, carta de aprobación de TPS, o aprobación de DACA.</li>
+          <li><strong>Pago de la tarifa:</strong> El costo del formulario I-765 varía según la categoría. Verifica el monto actual en el sitio oficial de USCIS en uscis.gov.</li>
+        </ol>
+
+        <h2>¿Cómo presentar el Formulario I-765?</h2>
+        <p>Puedes presentar el formulario I-765 de dos maneras:</p>
+        <ul>
+          <li><strong>Por correo postal:</strong> Envías el paquete completo (formulario, fotos, documentos y cheque o money order) al centro de servicio de USCIS que corresponde a tu estado. Para New Jersey, generalmente es el Centro de Servicio de Vermont o el Lockbox de Dallas.</li>
+          <li><strong>En línea (myUSCIS):</strong> Algunas categorías permiten presentar el I-765 electrónicamente en el portal myUSCIS.gov.</li>
+        </ul>
+
+        <h2>¿Cuánto tarda USCIS en procesar el I-765?</h2>
+        <p>El tiempo de procesamiento varía constantemente. Puedes consultar los tiempos actualizados en la <a href="https://egov.uscis.gov/processing-times/" target="_blank" rel="noopener noreferrer">página oficial de tiempos de procesamiento de USCIS</a>. Actualmente, los tiempos suelen oscilar entre 3 y 8 meses dependiendo de la categoría y la carga de trabajo del centro de servicio.</p>
+
+        <h2>¿Cómo renovar el permiso de trabajo?</h2>
+        <p>El proceso de renovación es muy similar al de la solicitud inicial. Debes presentar un nuevo formulario I-765 junto con:</p>
+        <ul>
+          <li>Copia del EAD anterior (por ambos lados).</li>
+          <li>Documentos actualizados que prueben que sigues siendo elegible en tu categoría migratoria.</li>
+          <li>Nuevas fotografías tipo pasaporte.</li>
+          <li>Pago de la tarifa correspondiente (si aplica).</li>
+        </ul>
+        <p>USCIS recomienda presentar la renovación <strong>al menos 180 días (6 meses)</strong> antes de que venza tu EAD actual para evitar una brecha en tu autorización de trabajo.</p>
+
+        <h2>¿Cómo puede ayudarte MAPA Business?</h2>
+        <p>En MAPA Business & Financial Services LLC te ayudamos con la preparación y organización de los documentos necesarios para presentar el formulario I-765 ante USCIS. No somos abogados de inmigración, pero podemos orientarte y ayudarte a reunir tu documentación correctamente para reducir errores que demoren tu caso. <a href="/#contacto">Contáctanos</a> para una consulta inicial sin costo.</p>
+      `,
+      en: `
+        <h2>What is the EAD (Employment Authorization Document) Work Permit?</h2>
+        <p>The <strong>Employment Authorization Document (EAD)</strong>, commonly known as a work permit, is a document issued by U.S. Citizenship and Immigration Services (USCIS) that authorizes a person to work legally in the country for a specified period.</p>
+        <p>Without this document, working in the United States without a green card or citizenship can have serious legal consequences for both the worker and the employer.</p>
+
+        <h2>Who can apply for Form I-765?</h2>
+        <p>Not everyone can apply for an EAD. USCIS grants work permits to people in specific immigration categories, including:</p>
+        <ul>
+          <li><strong>Asylum applicants:</strong> People with a pending asylum request before USCIS or an immigration judge.</li>
+          <li><strong>TPS holders (Temporary Protected Status):</strong> Nationals of countries designated by the U.S. Government.</li>
+          <li><strong>Spouses of certain visa holders:</strong> Such as spouses of H-1B holders with approved extensions or L-2 visas.</li>
+          <li><strong>DACA recipients:</strong> Young people covered under Deferred Action for Childhood Arrivals.</li>
+          <li><strong>Adjustment of status applicants (Green Card):</strong> People who have filed Form I-485.</li>
+          <li><strong>Parolees:</strong> Including certain humanitarian programs.</li>
+        </ul>
+
+        <h2>Documents needed to file the I-765</h2>
+        <p>To properly prepare your application you will need to gather the following documents:</p>
+        <ol>
+          <li><strong>Form I-765</strong> completed in clear handwriting and signed.</li>
+          <li><strong>Passport-style photos:</strong> Two recent color photos with a white background.</li>
+          <li><strong>Copy of your identity document:</strong> Passport, consular ID, or another photo ID.</li>
+          <li><strong>Copy of the document that proves your immigration category:</strong> For example, the receipt notice of your asylum application, TPS approval letter, or DACA approval.</li>
+          <li><strong>Filing fee payment:</strong> The cost of Form I-765 varies by category. Check the current amount on the official USCIS website at uscis.gov.</li>
+        </ol>
+
+        <h2>How to file Form I-765?</h2>
+        <p>You can file Form I-765 in two ways:</p>
+        <ul>
+          <li><strong>By mail:</strong> Send the complete package (form, photos, documents, and check or money order) to the USCIS service center corresponding to your state.</li>
+          <li><strong>Online (myUSCIS):</strong> Some categories allow you to file the I-765 electronically through the myUSCIS.gov portal.</li>
+        </ul>
+
+        <h2>How long does USCIS take to process the I-765?</h2>
+        <p>Processing times vary constantly. You can check updated times on the <a href="https://egov.uscis.gov/processing-times/" target="_blank" rel="noopener noreferrer">official USCIS processing times page</a>. Currently, times typically range from 3 to 8 months depending on the category and the service center's workload.</p>
+
+        <h2>How to renew the work permit?</h2>
+        <p>The renewal process is very similar to the initial application. You must file a new Form I-765 along with:</p>
+        <ul>
+          <li>Copy of your previous EAD (both sides).</li>
+          <li>Updated documents proving you are still eligible in your immigration category.</li>
+          <li>New passport-style photos.</li>
+          <li>Filing fee payment (if applicable).</li>
+        </ul>
+        <p>USCIS recommends filing the renewal <strong>at least 180 days (6 months)</strong> before your current EAD expires to avoid a gap in your work authorization.</p>
+
+        <h2>How can MAPA Business help you?</h2>
+        <p>At MAPA Business & Financial Services LLC we help you prepare and organize the documents needed to file Form I-765 with USCIS. We are not immigration attorneys, but we can guide you and help you gather your documentation correctly to reduce errors that delay your case. <a href="/en/#contacto">Contact us</a> for a free initial consultation.</p>
+      `
+    }
+  },
+  {
+    slug: "taxes-sin-numero-seguro-social-new-jersey",
+    title: {
+      es: "¿Cómo hacer tus Taxes sin Número de Seguro Social en New Jersey?",
+      en: "How to File Your Taxes Without a Social Security Number in New Jersey?"
+    },
+    excerpt: {
+      es: "Si trabajas en EE.UU. y no tienes Seguro Social, igual debes declarar impuestos. Aprende cómo hacerlo usando tu ITIN y qué créditos puedes reclamar.",
+      en: "If you work in the U.S. and don't have a Social Security Number, you still need to file taxes. Learn how to do it using your ITIN and what credits you can claim."
+    },
+    date: "2026-07-18",
+    author: "Marilyn Paladinez",
+    category: {
+      es: "Impuestos & ITIN",
+      en: "Taxes & ITIN"
+    },
+    categoryKey: "itin",
+    image: "/images/blog/taxes-itin.png",
+    readingTime: "6 min",
+    tip: {
+      es: "Declarar tus impuestos aunque no tengas Seguro Social nunca te pone en riesgo de deportación. El IRS tiene estrictamente prohibido compartir tu información fiscal con agencias de inmigración como el ICE. Declarar es un derecho y una responsabilidad, no una trampa.",
+      en: "Filing your taxes even without a Social Security Number never puts you at risk of deportation. The IRS is strictly prohibited from sharing your tax information with immigration agencies like ICE. Filing is a right and a responsibility, not a trap."
+    },
+    content: {
+      es: `
+        <h2>¿Estoy obligado a pagar taxes si no tengo Seguro Social?</h2>
+        <p>Sí. Según la ley federal de los Estados Unidos, <strong>toda persona que genere ingresos en el país tiene la obligación de declarar impuestos</strong>, independientemente de su estatus migratorio o de si tiene o no un número de Seguro Social (SSN). Esta obligación aplica a trabajadores indocumentados, personas con visa de trabajo temporal, estudiantes y cualquier persona que haya recibido ingresos durante el año fiscal.</p>
+        <p>No declarar impuestos puede traer consecuencias negativas en el futuro, especialmente si en algún momento deseas regularizar tu situación migratoria, ya que las autoridades de inmigración revisan el historial de cumplimiento fiscal.</p>
+
+        <h2>¿Qué necesito para declarar sin Seguro Social?</h2>
+        <p>La solución es simple: si no tienes SSN, puedes declarar tus impuestos usando tu <strong>número ITIN (Individual Taxpayer Identification Number)</strong>. El ITIN es emitido por el IRS específicamente para que las personas sin Seguro Social puedan cumplir con sus obligaciones fiscales.</p>
+        <p>Para declarar usando tu ITIN necesitarás:</p>
+        <ul>
+          <li>Tu número ITIN activo y vigente.</li>
+          <li>Todos tus formularios W-2 (si trabajaste para un empleador) o 1099 (si trabajaste por cuenta propia).</li>
+          <li>Comprobantes de cualquier otro ingreso recibido durante el año.</li>
+          <li>Información sobre gastos deducibles (si aplica): gastos médicos, intereses de hipoteca, donaciones a caridad, etc.</li>
+        </ul>
+
+        <h2>¿Qué formulario de taxes debo presentar?</h2>
+        <p>La mayoría de los migrantes que trabajan en relación de dependencia o por cuenta propia en New Jersey deben presentar:</p>
+        <ul>
+          <li><strong>Formulario 1040 federal:</strong> La declaración de impuestos sobre el ingreso personal ante el IRS.</li>
+          <li><strong>Formulario NJ-1040:</strong> La declaración de impuestos estatales de New Jersey.</li>
+        </ul>
+        <p>Si tuviste ingresos por trabajo independiente (freelance, negocio propio), también deberás completar el <strong>Anexo SE</strong> para calcular y pagar el impuesto de trabajo por cuenta propia (self-employment tax).</p>
+
+        <h2>¿Qué créditos fiscales puedo reclamar con ITIN?</h2>
+        <p>Tener un ITIN en lugar de un SSN sí limita algunos créditos fiscales. Actualmente, los contribuyentes con ITIN <strong>no pueden reclamar</strong> el Crédito por Ingreso del Trabajo (Earned Income Tax Credit / EITC). Sin embargo, sí pueden beneficiarse de:</p>
+        <ul>
+          <li><strong>Crédito Tributario por Hijos (Child Tax Credit):</strong> Hasta $2,000 por hijo que sí tenga SSN válido y sea menor de 17 años.</li>
+          <li><strong>Crédito por Cuidado de Hijos y Dependientes:</strong> Si pagaste guarderías u otros cuidados para trabajar.</li>
+          <li><strong>Crédito de Oportunidad Americana:</strong> Para gastos de educación universitaria.</li>
+          <li><strong>Deducciones estándar o detalladas:</strong> Puedes elegir la deducción estándar o detallar gastos específicos si son mayores.</li>
+        </ul>
+
+        <h2>¿Es peligroso declarar taxes sin Seguro Social?</h2>
+        <p>No. La información que proporcionas al IRS está <strong>estrictamente protegida</strong> por el Código de Rentas Internas (IRC). El IRS tiene prohibido por ley compartir tu información fiscal con agencias de inmigración como el ICE o el Departamento de Seguridad Nacional (DHS), salvo en casos muy excepcionales relacionados con terrorismo o crimen organizado.</p>
+        <p>Declarar tus impuestos es una señal positiva de cumplimiento legal que puede beneficiarte en procesos migratorios futuros.</p>
+
+        <h2>¿Cuándo es el plazo para presentar mis taxes?</h2>
+        <p>El plazo general para presentar la declaración de impuestos federales es el <strong>15 de abril</strong> de cada año. Para el año fiscal 2025, el plazo es el 15 de abril de 2026. Si necesitas más tiempo, puedes solicitar una extensión automática hasta el 15 de octubre, aunque la extensión solo aplica para la fecha de presentación, no para el pago.</p>
+
+        <h2>¿Cómo puede ayudarte MAPA Business?</h2>
+        <p>En MAPA Business & Financial Services LLC preparamos tu declaración de impuestos federales y estatales de New Jersey de forma profesional. Si aún no tienes ITIN, también te ayudamos a tramitarlo como Acceptance Agents certificados por el IRS. <a href="/#contacto">Contáctanos</a> para una consulta inicial gratuita.</p>
+        <p><em>Este artículo es informativo. No constituye asesoramiento fiscal personalizado. Consulta con un profesional para tu situación específica.</em></p>
+      `,
+      en: `
+        <h2>Am I required to pay taxes if I don't have a Social Security Number?</h2>
+        <p>Yes. Under U.S. federal law, <strong>every person who earns income in the country is required to file taxes</strong>, regardless of immigration status or whether they have a Social Security Number (SSN). This obligation applies to undocumented workers, people with temporary work visas, students, and anyone who received income during the tax year.</p>
+        <p>Not filing taxes can have negative consequences in the future, especially if you ever want to regularize your immigration situation, since immigration authorities review tax compliance history.</p>
+
+        <h2>What do I need to file taxes without a Social Security Number?</h2>
+        <p>The solution is simple: if you don't have an SSN, you can file your taxes using your <strong>ITIN (Individual Taxpayer Identification Number)</strong>. The ITIN is issued by the IRS specifically so that people without a Social Security Number can meet their tax obligations.</p>
+        <p>To file using your ITIN you will need:</p>
+        <ul>
+          <li>Your active and valid ITIN number.</li>
+          <li>All your W-2 forms (if you worked for an employer) or 1099s (if you were self-employed).</li>
+          <li>Documentation of any other income received during the year.</li>
+          <li>Information on deductible expenses (if applicable): medical expenses, mortgage interest, charitable donations, etc.</li>
+        </ul>
+
+        <h2>What tax form do I need to file?</h2>
+        <p>Most migrants working as employees or self-employed in New Jersey must file:</p>
+        <ul>
+          <li><strong>Federal Form 1040:</strong> The personal income tax return filed with the IRS.</li>
+          <li><strong>Form NJ-1040:</strong> The New Jersey state income tax return.</li>
+        </ul>
+        <p>If you had self-employment income (freelance, own business), you must also complete <strong>Schedule SE</strong> to calculate and pay self-employment tax.</p>
+
+        <h2>What tax credits can I claim with an ITIN?</h2>
+        <p>Having an ITIN instead of an SSN does limit some tax credits. Currently, taxpayers with an ITIN <strong>cannot claim</strong> the Earned Income Tax Credit (EITC). However, they can still benefit from:</p>
+        <ul>
+          <li><strong>Child Tax Credit:</strong> Up to $2,000 per child who has a valid SSN and is under 17 years old.</li>
+          <li><strong>Child and Dependent Care Credit:</strong> If you paid for daycare or other care in order to work.</li>
+          <li><strong>American Opportunity Credit:</strong> For college education expenses.</li>
+          <li><strong>Standard or itemized deductions:</strong> You can choose the standard deduction or itemize specific expenses if they are higher.</li>
+        </ul>
+
+        <h2>Is it dangerous to file taxes without a Social Security Number?</h2>
+        <p>No. The information you provide to the IRS is <strong>strictly protected</strong> by the Internal Revenue Code (IRC). The IRS is legally prohibited from sharing your tax information with immigration agencies like ICE or the Department of Homeland Security (DHS), except in very exceptional cases related to terrorism or organized crime.</p>
+        <p>Filing your taxes is a positive sign of legal compliance that can benefit you in future immigration processes.</p>
+
+        <h2>When is the deadline to file my taxes?</h2>
+        <p>The general deadline for filing federal income taxes is <strong>April 15</strong> of each year. If you need more time, you can request an automatic extension until October 15, although the extension only applies to the filing date, not to the payment.</p>
+
+        <h2>How can MAPA Business help you?</h2>
+        <p>At MAPA Business & Financial Services LLC we prepare your federal and New Jersey state tax returns professionally. If you don't have an ITIN yet, we also help you obtain one as IRS-certified Acceptance Agents. <a href="/en/#contacto">Contact us</a> for a free initial consultation.</p>
+        <p><em>This article is informational. It does not constitute personalized tax advice. Consult a professional for your specific situation.</em></p>
+      `
+    }
   }
 ];
+
