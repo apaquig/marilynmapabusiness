@@ -132,6 +132,20 @@ const schema = {
 
 const serviceLinkPrefix = lang === 'es' ? '/servicios/' : '/en/services/';
 const cityLinkPrefix = lang === 'es' ? '/service-areas/' : '/en/service-areas/';
+
+const slideKeyMap: Record<string, string> = {
+  'poderes-notariales': 'poderes',
+  'permisos-de-trabajo': 'permisos',
+  'licencias-de-conducir': 'licencias',
+  'seguros-de-auto': 'seguros_auto',
+  'seguros-de-salud': 'seguros_salud',
+  'seguros-de-vida': 'seguros_vida',
+};
+
+const getSlideKey = (slug: string) => {
+  const key = slideKeyMap[slug] || slug.replace(/-/g, '_');
+  return `hero.slide_${key}`;
+};
 ---
 
 <BaseLayout
@@ -153,8 +167,8 @@ const cityLinkPrefix = lang === 'es' ? '/service-areas/' : '/en/service-areas/';
           <div class="hero-slide-content">
             <div class="hero-tag">✦ {t(`hero.tag_business`)}</div>
             <div class="hero-slide-icon">{service.icon}</div>
-            <h1>{t(`hero.slide_${service.slug.replace(/-/g, '_')}.title`)}</h1>
-            <p>{t(`hero.slide_${service.slug.replace(/-/g, '_')}.desc`)}</p>
+            <h1>{t(`${getSlideKey(service.slug)}.title`)}</h1>
+            <p>{t(`${getSlideKey(service.slug)}.desc`)}</p>
             <div class="hero-slide-btns">
               <a href="#contacto" class="btn btn-red">📅 {t("hero.btn_book")}</a>
               <a href="https://wa.me/18626228339" target="_blank" class="btn btn-whatsapp">💬 {t("hero.btn_whatsapp")}</a>
