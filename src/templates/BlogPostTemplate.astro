@@ -143,6 +143,21 @@ const blogPostLinkPrefix = lang === 'es' ? '/blog/' : '/en/blog/';
     <!-- Pre-rendered body content based on language -->
     <div class="article-body" set:html={postContent} />
 
+    <!-- Legal Disclaimer -->
+    <div class="blog-disclaimer">
+      <p>
+        {lang === 'es' ? (
+          <>
+            <strong>Importante:</strong> MAPA Business & Financial Services LLC es una agencia independiente de preparación de documentos y servicios de consultoría financiera. No somos abogados ni un bufete jurídico, y no brindamos asesoría legal ni representación legal de ningún tipo. La información compartida en este sitio web es de carácter puramente informativo. Si requiere asesoría legal específica para su situación, le recomendamos consultar a un abogado calificado.
+          </>
+        ) : (
+          <>
+            <strong>Important:</strong> MAPA Business & Financial Services LLC is an independent document preparation and financial consulting agency. We are not attorneys or a law firm, and we do not provide legal advice or legal representation of any kind. The information shared on this website is for purely informational purposes. If you require specific legal advice for your situation, we recommend consulting a qualified attorney.
+          </>
+        )}
+      </p>
+    </div>
+
     <!-- Custom Tip Callout -->
     {postTip && (
       <div class="tip-box">
@@ -179,8 +194,8 @@ const blogPostLinkPrefix = lang === 'es' ? '/blog/' : '/en/blog/';
         <div class="author-name">{post.author}</div>
         <p class="author-desc-es">
           {lang === 'es'
-            ? 'Escrito y revisado por Marilyn Paladinez, fundadora de MAPA Business & Financial Services LLC. Marilyn es Notaria Pública en NJ, estratega financiera y especialista en taxes e ITIN.'
-            : 'Written and reviewed by Marilyn Paladinez, founder of MAPA Business & Financial Services LLC. Marilyn is a NJ Notary Public, financial strategist, and specialist in taxes and ITIN.'}
+            ? 'Escrito y revisado por Marilyn Paladinez, fundadora de MAPA Business & Financial Services LLC. Marilyn es estratega financiera y especialista en taxes e ITIN.'
+            : 'Written and reviewed by Marilyn Paladinez, founder of MAPA Business & Financial Services LLC. Marilyn is a financial strategist and specialist in taxes and ITIN.'}
         </p>
       </div>
     </div>

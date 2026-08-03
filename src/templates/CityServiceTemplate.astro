@@ -3,6 +3,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { cities, type City } from '../data/cities';
 import { services, type Service } from '../data/services';
+import { serviceDetails } from '../data/serviceDetails';
 import esDict from '../../public/locales/es.json';
 import enDict from '../../public/locales/en.json';
 
@@ -13,6 +14,8 @@ interface Props {
 }
 
 const { lang, city, service } = Astro.props;
+
+const details = serviceDetails[service.slug]?.[lang] || '';
 
 const WEBSITE = "https://marilynmapabusiness.com";
 const canonical = lang === 'es'
@@ -187,9 +190,18 @@ const cityServiceLinkPrefix = lang === 'es' ? '/service-areas/' : '/en/service-a
     </div>
   </div>
 
+  <!-- Detailed Service Info Section -->
+  {details && (
+    <div class="service-details-section" style="border-top: 1px solid rgba(255,255,255,0.05);">
+      <div class="service-details-inner">
+        <div class="service-rich-text" set:html={details} />
+      </div>
+    </div>
+  )}
+
   <!-- FAQs localized for city -->
   <div class="faq-section">
-    <h2><span>{t("faq_title")}</span> &mdash; {serviceName} {lang === 'es' ? 'en' : 'in'} {cityName}</h2>
+    <h2><span>{t("services.faq_title_prefix")}</span> &mdash; {serviceName} {lang === 'es' ? 'en' : 'in'} {cityName}</h2>
     <dl>
       {service.faqs.map((faq, index) => {
         const question = t(`services.${service.slug}.faqs.${index}.q`, { city: cityName });

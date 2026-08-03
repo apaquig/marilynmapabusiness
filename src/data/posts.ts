@@ -32,6 +32,368 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "que-es-itin-number-quien-lo-necesita",
+    title: {
+      es: "¿Qué es un ITIN Number y quién lo necesita en Estados Unidos?",
+      en: "What is an ITIN Number and Who Needs It in the United States?"
+    },
+    excerpt: {
+      es: "Descubre qué es el número ITIN, quién lo necesita en EE. UU., sus beneficios para declarar taxes o abrir cuentas, y cómo tramitarlo sin errores.",
+      en: "Discover what an ITIN number is, who needs it in the U.S., its benefits for filing taxes or opening accounts, and how to apply without errors."
+    },
+    date: "2026-08-03",
+    author: "Marilyn Paladinez",
+    category: {
+      es: "Impuestos & ITIN",
+      en: "Taxes & ITIN"
+    },
+    categoryKey: "itin",
+    image: "/images/blog/itin-number-guide.jpg",
+    readingTime: "5 min",
+    tip: {
+      es: "El ITIN es estrictamente confidencial. Bajo la sección 6103 de la ley federal del IRS, tu información fiscal está protegida y no puede ser compartida con agencias de inmigración como el ICE. Tramitar tu ITIN y declarar impuestos es seguro y protege tu futuro legal.",
+      en: "The ITIN is strictly confidential. Under Section 6103 of the IRS federal tax code, your tax information is protected and cannot be shared with immigration agencies like ICE. Filing for your ITIN and reporting taxes is safe and protects your legal future."
+    },
+    content: {
+      es: `
+        <p>Muchas personas creen que solo quienes tienen un Número de Seguro Social (Social Security Number) pueden presentar impuestos o realizar trámites financieros en Estados Unidos. Sin embargo, existe otro número de identificación tributaria sumamente importante para la comunidad inmigrante en New Jersey: el <strong>ITIN Number</strong>.</p>
+        <p>Si eres extranjero, no calificas para obtener un Seguro Social y necesitas cumplir con tus obligaciones tributarias, reportar ingresos o abrir un negocio local, este artículo te guiará detalladamente sobre el proceso.</p>
+
+        <h2>¿Qué es un ITIN Number?</h2>
+        <p>El <strong>ITIN (Individual Taxpayer Identification Number)</strong> es el Número de Identificación Personal del Contribuyente emitido por el Servicio de Impuestos Internos (IRS) de los Estados Unidos. Está compuesto por <strong>nueve dígitos</strong>, siempre comienza con el número 9 y tiene un rango específico en los dígitos del medio (por ejemplo, del 50 al 65, 70 al 88, 90 al 92 y del 94 al 99).</p>
+        <p>Su función principal es permitir que las personas que no son elegibles para un Seguro Social puedan declarar taxes de manera correcta y legal ante el gobierno federal. Es sumamente importante aclarar lo que el ITIN <strong>NO</strong> hace:</p>
+        <ul>
+          <li>No te otorga un estatus migratorio legal.</li>
+          <li>No es un permiso de trabajo en Estados Unidos.</li>
+          <li>No te hace elegible para beneficios del Seguro Social tradicional.</li>
+          <li>No reemplaza un Número de Seguro Social (SSN) para otros fines no tributarios.</li>
+        </ul>
+
+        <h2>¿Quién necesita solicitar un ITIN?</h2>
+        <p>Generalmente, cualquier persona que resida en New Jersey o en todo el territorio de Estados Unidos y se encuentre bajo alguna de las siguientes situaciones necesita tramitar un ITIN:</p>
+        <ul>
+          <li><strong>Trabajadores Independientes o Contratistas:</strong> Personas sin Seguro Social que reciben ingresos en el país y deben presentar su declaración de taxes anual.</li>
+          <li><strong>Cónyuges y Dependientes:</strong> Esposos(as) o hijos(as) de ciudadanos o residentes extranjeros elegibles, quienes deben ser incluidos en la declaración de impuestos para reclamar ciertos créditos fiscales familiares.</li>
+          <li><strong>Emprendedores y Dueños de LLC:</strong> Personas sin SSN que abren una empresa (LLC) en NJ y necesitan un número fiscal personal para solicitar el EIN corporativo o abrir cuentas bancarias de negocio.</li>
+          <li><strong>Extranjeros No Residentes:</strong> Inversionistas extranjeros que poseen propiedades en EE. UU. o reciben ganancias sujetas a retenciones fiscales.</li>
+        </ul>
+
+        <h2>¿Para qué sirve un ITIN Number? Beneficios Clave</h2>
+        <p>Obtener y mantener activo tu ITIN te ofrece múltiples ventajas para consolidar tu estabilidad financiera y legal en New Jersey:</p>
+        <ol>
+          <li><strong>Declarar y Pagar tus Taxes:</strong> Te permite cumplir con tus obligaciones fiscales ante el IRS y el estado de New Jersey, demostrando que eres un miembro productivo y que cumple con la ley.</li>
+          <li><strong>Historial de Cumplimiento Fiscal:</strong> Tener tus declaraciones de taxes al día utilizando tu ITIN es una prueba de \"buen carácter moral\", un factor muy favorable en futuros procesos migratorios o de regularización en los Estados Unidos.</li>
+          <li><strong>Abrir Cuentas Bancarias:</strong> Muchas instituciones financieras locales en Newark, Elizabeth y Harrison te permiten abrir cuentas de ahorros, solicitar tarjetas de crédito y obtener préstamos hipotecarios o comerciales usando tu ITIN.</li>
+          <li><strong>Reclamar Créditos Tributarios Familiares:</strong> Te permite declarar dependientes y cónyuges para reclamar deducciones y créditos fiscales autorizados por la ley (como el Child Tax Credit para dependientes con SSN).</li>
+        </ol>
+
+        <h2>¿Qué documentos se necesitan para tramitar el Formulario W-7?</h2>
+        <p>Para enviar una solicitud de ITIN definitiva al IRS, debes reunir tres requisitos fundamentales:</p>
+        <ul>
+          <li><strong>Formulario W-7:</strong> La solicitud oficial completada a mano o en computadora, indicando la razón por la que solicitas el número.</li>
+          <li><strong>Declaración de Impuestos Federales (Taxes):</strong> Salvo excepciones muy específicas, la regla general del IRS exige que la solicitud del ITIN (W-7) se envíe **junto con tu declaración de impuestos anual**.</li>
+          <li><strong>Pruebas de Identidad y Condición de Extranjero:</strong> El IRS exige documentos oficiales vigentes. El <strong>pasaporte original vigente</strong> es el único documento que el IRS acepta por sí solo para probar ambos requisitos. Si no cuentas con pasaporte, deberás presentar una combinación de al menos dos documentos alternativos (como acta de nacimiento traducida y matrícula consular).</li>
+        </ul>
+
+        <h2>¿Cuánto tarda el trámite en 2026?</h2>
+        <p>El tiempo promedio que toma el IRS en emitir tu carta con el número de ITIN suele ser de **6 a 10 semanas** si presentas el trámite durante la temporada baja de impuestos (de mayo a diciembre). Sin embargo, si envías tu solicitud durante la temporada alta de taxes (de enero a abril), el tiempo de procesamiento puede extenderse a **12 a 15 semanas**. Por ello, es muy recomendable preparar tu documentación con anticipación.</p>
+
+        <h2>Evita los errores comunes que retrasan tu ITIN</h2>
+        <p>Muchos trámites son rechazados o demorados por meses debido a errores sencillos que una revisión profesional puede prevenir:</p>
+        <ul>
+          <li>Completar de forma incorrecta las casillas del Formulario W-7.</li>
+          <li>Enviar copias simples de los pasaportes o actas de nacimiento (el IRS solo acepta documentos originales o copias certificadas por la entidad emisora).</li>
+          <li>No adjuntar la declaración de impuestos federales cuando es requerida.</li>
+          <li>Enviar identificaciones o pasaportes vencidos.</li>
+        </ul>
+
+        <h2>La gran ventaja de usar un Agente de Aceptación Autorizado (CAA)</h2>
+        <p>Enviar tu pasaporte original por correo postal al IRS en Texas o Utah representa un gran riesgo de pérdida o daño de un documento tan vital. Para evitar este peligro, en <strong>MAPA Business & Financial Services LLC</strong> te ayudamos como <strong>Certifying Acceptance Agents (CAA)</strong> autorizados por el IRS.</p>
+        <p>Como agentes certificados, nosotros podemos validar tus documentos originales en persona en nuestra oficina, certificar las copias y enviar la solicitud W-7 al IRS en tu nombre. De esta forma, **tú conservas tus documentos originales en tu bolsillo** en todo momento.</p>
+
+        <h2>¿Necesitas ayuda para tramitar tu ITIN en Newark, New Jersey?</h2>
+        <p>Soy <strong>Marilyn Paladinez</strong>, fundadora de MAPA Business. Durante los últimos años, he ayudado a cientos de familias inmigrantes en Newark, Harrison, Elizabeth y comunidades vecinas en Essex County a tramitar y renovar su número ITIN con total seguridad y profesionalismo.</p>
+        <p>Nuestro compromiso es brindarte un servicio honesto y personalizado en tu propio idioma, guiándote en cada paso de tu declaración de impuestos y solicitud del W-7.</p>
+
+        <p>Programa tu cita en nuestra oficina hoy mismo:</p>
+        <ul>
+          <li><strong>Dirección:</strong> 20 Bloomfield Place, Newark, NJ 07104</li>
+          <li><strong>Teléfono:</strong> (862) 622-8339</li>
+          <li><strong>Servicios:</strong> Tramitación de ITIN (Formulario W-7), Preparación de Taxes y Creación de LLC.</li>
+        </ul>
+        <p>No permitas que la falta de Seguro Social limite tus metas financieras y familiares. ¡Da el primer paso hacia tu organización fiscal en Estados Unidos con el respaldo de un equipo de confianza!</p>
+      `,
+      en: `
+        <p>Many people believe that only those with a Social Security Number can file taxes or conduct financial transactions in the United States. However, there is another very important tax identification number for the immigrant community in New Jersey: the <strong>ITIN Number</strong>.</p>
+        <p>If you are a foreign national, do not qualify for a Social Security Number, and need to meet your tax obligations, report income, or open a local business, this article will guide you in detail through the process.</p>
+
+        <h2>What is an ITIN Number?</h2>
+        <p>The <strong>ITIN (Individual Taxpayer Identification Number)</strong> is a tax processing number issued by the Internal Revenue Service (IRS). It is composed of <strong>nine digits</strong>, always starts with the number 9, and has specific ranges for the middle digits.</p>
+        <p>Its primary function is to allow individuals who are not eligible for a Social Security Number to file taxes correctly and legally with the federal government. It is extremely important to clarify what the ITIN <strong>DOES NOT</strong> do:</p>
+        <ul>
+          <li>It does not grant you legal immigration status.</li>
+          <li>It is not a work permit in the United States.</li>
+          <li>It does not make you eligible for traditional Social Security benefits.</li>
+          <li>It does not replace a Social Security Number (SSN) for non-tax purposes.</li>
+        </ul>
+
+        <h2>Who needs to apply for an ITIN?</h2>
+        <p>Generally, anyone residing in New Jersey or throughout the United States who falls into any of the following categories needs to apply for an ITIN:</p>
+        <ul>
+          <li><strong>Self-Employed Workers or Contractors:</strong> Individuals without a Social Security Number who earn income in the country and must file their annual tax return.</li>
+          <li><strong>Spouses and Dependents:</strong> Spouses or children of eligible citizens or resident aliens who must be included on a tax return to claim certain family tax credits.</li>
+          <li><strong>Entrepreneurs and LLC Owners:</strong> Individuals without an SSN who open a business (LLC) in NJ and need a personal tax ID to apply for a business EIN or open corporate bank accounts.</li>
+          <li><strong>Non-Resident Aliens:</strong> Foreign investors who own property in the U.S. or receive income subject to U.S. tax withholding.</li>
+        </ul>
+
+        <h2>What is an ITIN Number for? Key Benefits</h2>
+        <p>Obtaining and keeping your ITIN active offers multiple advantages to consolidate your financial and legal stability in New Jersey:</p>
+        <ol>
+          <li><strong>Filing and Paying Your Taxes:</strong> It allows you to meet your tax obligations with the IRS and the State of New Jersey, demonstrating that you are a productive member of society who complies with the law.</li>
+          <li><strong>Tax Compliance History:</strong> Keeping your tax returns up-to-date using your ITIN is proof of \"good moral character,\" a highly favorable factor in future immigration processes or regularization in the United States.</li>
+          <li><strong>Opening Bank Accounts:</strong> Many local financial institutions in Newark, Elizabeth, and Harrison allow you to open savings accounts, apply for credit cards, and obtain home or business loans using your ITIN.</li>
+          <li><strong>Claiming Family Tax Credits:</strong> It allows you to claim dependents and spouses to benefit from tax deductions and credits authorized by law.</li>
+        </ol>
+
+        <h2>What documents are needed to apply for Form W-7?</h2>
+        <p>To submit a successful ITIN application to the IRS, you must obtain three fundamental requirements:</p>
+        <ul>
+          <li><strong>Form W-7:</strong> The official application completed by hand or computer, indicating the reason why you are requesting the number.</li>
+          <li><strong>Federal Tax Return:</strong> Except for very specific exceptions, the IRS general rule requires that the ITIN application (W-7) be submitted **along with your annual tax return**.</li>
+          <li><strong>Proof of Identity and Foreign Status:</strong> The IRS requires valid, original documents. A <strong>valid original passport</strong> is the only document the IRS accepts on its own to prove both requirements. If you do not have a passport, you must present a combination of at least two alternative documents (such as a translated birth certificate and a consular ID card).</li>
+        </ul>
+
+        <h2>How long does the process take in 2026?</h2>
+        <p>The average time it takes the IRS to issue your ITIN letter is **6 to 10 weeks** if you submit the application during the tax off-season (May to December). However, if you send your request during the peak tax season (January to April), processing times can extend to **12 to 15 weeks**. Therefore, it is highly recommended to prepare your documentation in advance.</p>
+
+        <h2>Avoid common errors that delay your ITIN</h2>
+        <p>Many applications are rejected or delayed for months due to simple errors that a professional review can easily prevent:</p>
+        <ul>
+          <li>Filling out the boxes of Form W-7 incorrectly.</li>
+          <li>Sending simple copies of passports or birth certificates (the IRS only accepts original documents or certified copies from the issuing agency).</li>
+          <li>Failing to attach the federal tax return when required.</li>
+          <li>Submitting expired identification documents or passports.</li>
+        </ul>
+
+        <h2>The big advantage of using a Certified Acceptance Agent (CAA)</h2>
+        <p>Mailing your original passport to the IRS in Texas or Utah represents a significant risk of loss or damage to a vital document. To avoid this danger, at <strong>MAPA Business & Financial Services LLC</strong> we help you as <strong>Certifying Acceptance Agents (CAA)</strong> authorized by the IRS.</p>
+        <p>As certified agents, we can verify your original documents in person at our office, certify the copies, and submit the W-7 application to the IRS on your behalf. This way, **you keep your original documents safe in your possession** at all times.</p>
+
+        <h2>Need help obtaining your ITIN in Newark, New Jersey?</h2>
+        <p>I am <strong>Marilyn Paladinez</strong>, founder of MAPA Business. Over the past few years, I have helped hundreds of immigrant families in Newark, Harrison, Elizabeth, and neighboring communities in Essex County to apply for and renew their ITIN numbers securely and professionally.</p>
+        <p>Our commitment is to provide you with honest and personalized service in your own language, guiding you through every step of your tax return and W-7 application.</p>
+
+        <p>Schedule your appointment at our office today:</p>
+        <ul>
+          <li><strong>Address:</strong> 20 Bloomfield Place, Newark, NJ 07104</li>
+          <li><strong>Phone:</strong> (862) 622-8339</li>
+          <li><strong>Services:</strong> ITIN Processing (Form W-7), Tax Preparation, and LLC Creation.</li>
+        </ul>
+        <p>Do not let the lack of a Social Security Number limit your financial and family goals. Take the first step toward your tax organization in the United States with the backing of a trusted team!</p>
+      `
+    }
+  },
+  {
+    slug: "permiso-de-trabajo-ead-usa",
+    title: {
+      es: "¿Qué es un Permiso de Trabajo (EAD) en Estados Unidos y cómo obtenerlo en 2026?",
+      en: "What is a Work Permit (EAD) in the United States and How to Get It in 2026?"
+    },
+    excerpt: {
+      es: "Descubre qué es el Permiso de Trabajo (EAD), quién califica, los requisitos necesarios y cómo solicitarlo con éxito ante USCIS en 2026.",
+      en: "Discover what the Work Permit (EAD) is, who qualifies, the necessary requirements, and how to successfully apply with USCIS in 2026."
+    },
+    date: "2026-08-03",
+    author: "Marilyn Paladinez",
+    category: {
+      es: "Inmigración & Trabajo",
+      en: "Immigration & Work"
+    },
+    categoryKey: "immigration",
+    image: "/images/blog/ead-guide.jpg",
+    readingTime: "5 min",
+    tip: {
+      es: "Una vez que recibas tu EAD aprobado, no olvides solicitar tu tarjeta de Seguro Social si marcaste la opción en tu Formulario I-765. Si no te llega automáticamente en 7 a 14 días hábiles, puedes acudir a la oficina del Seguro Social en Newark o tu ciudad local en NJ con tu tarjeta EAD física para tramitarla.",
+      en: "Once you receive your approved EAD, don't forget to apply for your Social Security card if you checked the box on Form I-765. If it doesn't arrive automatically within 7 to 14 business days, you can visit the Newark Social Security office or your local NJ office with your physical EAD card to process it."
+    },
+    content: {
+      es: `
+        <p>Si estás viviendo en Estados Unidos y deseas trabajar legalmente, probablemente hayas escuchado hablar del <strong>Permiso de Trabajo</strong>, también conocido como <strong>Employment Authorization Document (EAD)</strong>.</p>
+        <p>Sin embargo, muchas personas en la comunidad hispana en New Jersey aún tienen dudas frecuentes sobre este documento:</p>
+        <ul>
+          <li>¿Qué es exactamente un permiso de trabajo?</li>
+          <li>¿Quién califica para solicitarlo ante USCIS?</li>
+          <li>¿Qué documentos e información necesito reunir?</li>
+          <li>¿Cuánto tiempo tarda el trámite en 2026?</li>
+          <li>¿Puedo obtener un número de Seguro Social (SSN) después de recibir mi tarjeta EAD?</li>
+        </ul>
+        <p>En este artículo responderemos todas estas preguntas para que conozcas cómo funciona este importante documento y puedas tomar decisiones informadas sobre tu futuro laboral y financiero.</p>
+
+        <h2>¿Qué es un Permiso de Trabajo (EAD)?</h2>
+        <p>El Permiso de Trabajo, conocido oficialmente por el Servicio de Ciudadanía e Inmigración de los Estados Unidos (USCIS) como <strong>Employment Authorization Document (EAD)</strong>, es una tarjeta plástica con estrictas medidas de seguridad que autoriza a ciertas personas que no son ciudadanos estadounidenses ni residentes permanentes a trabajar de manera legal en el país.</p>
+        <p>Esta tarjeta física contiene datos esenciales para tu identificación y validez legal ante cualquier empleador:</p>
+        <ul>
+          <li>Tu fotografía a color y nombre completo.</li>
+          <li>Tu número único de USCIS (también conocido como A-Number).</li>
+          <li>Tu categoría migratoria (por ejemplo, (c)(8) para asilo o (c)(9) para ajuste de estatus).</li>
+          <li>La fecha de emisión y la fecha de vencimiento.</li>
+          <li>Un número de documento único y detalles de seguridad holográficos.</li>
+        </ul>
+        <p>Mientras el permiso esté vigente, podrás presentarlo a cualquier empleador en New Jersey o en todo el territorio de Estados Unidos para demostrar que estás autorizado a trabajar legalmente.</p>
+
+        <h2>¿Quién puede solicitar un Permiso de Trabajo en 2026?</h2>
+        <p>Es muy importante destacar que <strong>no todas las personas califican automáticamente para un EAD</strong>. La elegibilidad depende exclusivamente de tu estatus o tu proceso migratorio actual.</p>
+        <p>Algunos de los casos más comunes que permiten solicitar el permiso de trabajo bajo las leyes vigentes son:</p>
+        <ul>
+          <li><strong>Solicitantes de Asilo:</strong> Personas que tienen una solicitud de asilo pendiente (Formulario I-589) que cumple con el tiempo de espera mínimo requerido por la ley.</li>
+          <li><strong>Procesos de Ajuste de Estatus:</strong> Personas con una solicitud de residencia permanente pendiente (Formulario I-485).</li>
+          <li><strong>TPS (Estatus de Protección Temporal):</strong> Beneficiarios aprobados o solicitantes elegibles de países designados.</li>
+          <li><strong>Parole Humanitario:</strong> Personas que entraron a los Estados Unidos a través de programas de parole autorizados.</li>
+          <li><strong>DACA (Acción Diferida):</strong> Beneficiarios elegibles para renovación de su acción diferida.</li>
+        </ul>
+        <p>Cada caso es único. Por ello, en nuestra oficina en Newark, NJ, revisamos detalladamente el estatus de cada cliente para asegurarnos de que califica antes de iniciar cualquier trámite.</p>
+
+        <h2>Beneficios clave de obtener un EAD</h2>
+        <p>Obtener tu Documento de Autorización de Empleo abre un sinfín de oportunidades para ti y tu familia:</p>
+        <ul>
+          <li><strong>Trabajo Legal y Seguro:</strong> Accede a empleos formales en New Jersey con todas las garantías de la ley, protección laboral y salarios justos.</li>
+          <li><strong>Número de Seguro Social (SSN):</strong> Te permite solicitar tu número de Seguro Social para reportar tus impuestos y construir tu historial laboral formal.</li>
+          <li><strong>Licencia de Conducir en New Jersey:</strong> Al contar con un EAD vigente, puedes acudir a una oficina de la MVC (Motor Vehicle Commission) de New Jersey para obtener tu licencia de conducir estatal con los puntos de identificación necesarios.</li>
+          <li><strong>Historial Financiero:</strong> Facilita la apertura de cuentas bancarias comerciales o personales y la solicitud de créditos.</li>
+        </ul>
+
+        <h2>Documentos necesarios para la solicitud (Formulario I-765)</h2>
+        <p>Los documentos específicos pueden variar según tu categoría migratoria, pero los requisitos generales ante USCIS incluyen:</p>
+        <ol>
+          <li><strong>Formulario I-765:</strong> Preparado y completado sin omisiones o errores de formato.</li>
+          <li><strong>Copia de Documento de Identidad:</strong> Pasaporte vigente, acta de nacimiento con traducción certificada, o ID consular.</li>
+          <li><strong>Fotografías Tipo Pasaporte:</strong> Dos fotografías recientes con fondo blanco que cumplan los requisitos de USCIS.</li>
+          <li><strong>Evidencia de Elegibilidad:</strong> Copia del recibo de asilo pendiente (I-589), aprobación de TPS, o documento I-94 de entrada al país, según sea el caso.</li>
+          <li><strong>Pago de Tarifas (si aplica):</strong> Algunas categorías requieren el pago de una tarifa de presentación ante USCIS, mientras que otras están exentas o califican para un perdón de pago (Fee Waiver).</li>
+        </ol>
+
+        <h2>¿Cuánto tarda el proceso ante USCIS?</h2>
+        <p>El tiempo que tarda en llegar la tarjeta física de permiso de trabajo varía constantemente dependiendo de la categoría migratoria bajo la cual solicites y del centro de servicios de USCIS que procese tu expediente. En general, los procesos pueden tomar desde unas pocas semanas (para ciertas solicitudes aceleradas o con pago premium) hasta varios meses. Presentar una solicitud impecable y sin errores previene demoras innecesarias causadas por solicitudes de evidencia adicional (RFE).</p>
+
+        <h2>¿Qué pasa después de recibir el permiso?</h2>
+        <p>¡Felicidades! Una vez aprobada tu solicitud y recibida tu tarjeta física EAD, estarás listo para dar el siguiente paso. Si marcaste la casilla correspondiente en el Formulario I-765, el Seguro Social tramitará tu número y te enviará la tarjeta por correo. De lo contrario, podrás acudir con tu EAD físico a las oficinas del Seguro Social más cercanas en Newark u otras localidades de New Jersey para solicitarlo en persona.</p>
+
+        <h2>Errores comunes que debes evitar</h2>
+        <p>Muchos solicitantes sufren retrasos graves de meses o incluso rechazos de sus trámites debido a fallas que se pueden prevenir fácilmente:</p>
+        <ul>
+          <li><strong>Formularios Desactualizados:</strong> Enviar una versión obsoleta del Formulario I-765.</li>
+          <li><strong>Categoría Equivocada:</strong> Indicar un código de categoría migratoria erróneo (por ejemplo, confundir el código de asilo con el de ajuste de estatus).</li>
+          <li><strong>Falta de Firmas:</strong> Olvidar firmar el formulario a mano o digitalmente según las instrucciones específicas de USCIS.</li>
+          <li><strong>Evidencia Incompleta:</strong> No adjuntar las copias de los recibos o aprobaciones de tu caso principal.</li>
+          <li><strong>Traducciones No Certificadas:</strong> Enviar actas de nacimiento u otros documentos en español sin su respectiva traducción certificada al inglés.</li>
+        </ul>
+
+        <h2>¿Necesitas ayuda con tu Permiso de Trabajo en New Jersey?</h2>
+        <p>En <strong>MAPA Business & Financial Services LLC</strong>, entendemos la gran importancia que tiene este documento para tu tranquilidad y estabilidad familiar en los Estados Unidos.</p>
+        <p>Soy <strong>Marilyn Paladinez</strong>, fundadora de MAPA Business. Durante los últimos años, he tenido el gran orgullo de asesorar y apoyar a la comunidad latina en Newark, Harrison, Elizabeth y todo New Jersey en la preparación y organización de sus carpetas de solicitud de Permiso de Trabajo (EAD) y número ITIN. Nuestro compromiso es brindarte una atención en tu propio idioma, con honestidad y el máximo cuidado al detalle para que tu trámite fluya sin inconvenientes.</p>
+        
+        <blockquote>
+          <strong>Importante:</strong> MAPA Business & Financial Services LLC ofrece servicios profesionales de preparación y organización de documentos. No somos abogados de inmigración y no brindamos asesoría legal de inmigración. Si tu caso requiere representación legal ante una corte de inmigración, te recomendaremos acudir con un abogado especializado.
+        </blockquote>
+
+        <p>Visítanos en nuestra oficina en Newark o llámanos para programar tu cita de orientación:</p>
+        <ul>
+          <li><strong>Dirección:</strong> 20 Bloomfield Place, Newark, NJ 07104</li>
+          <li><strong>Teléfono:</strong> (862) 622-8339</li>
+          <li><strong>Horarios de Atención:</strong> Lunes a Sábado bajo previa cita.</li>
+        </ul>
+        <p>No dejes que la falta de información o un error de llenado retrasen tu oportunidad de trabajar legalmente y alcanzar tus metas en los Estados Unidos. ¡Contáctanos hoy mismo!</p>
+      `,
+      en: `
+        <p>If you are living in the United States and want to work legally, you have probably heard of the <strong>Work Permit</strong>, officially known as the <strong>Employment Authorization Document (EAD)</strong>.</p>
+        <p>However, many people in the Hispanic community in New Jersey still have frequent questions about this document:</p>
+        <ul>
+          <li>What exactly is a work permit?</li>
+          <li>Who qualifies to apply for it with USCIS?</li>
+          <li>What documents and information do I need to gather?</li>
+          <li>How long does the process take in 2026?</li>
+          <li>Can I obtain a Social Security Number (SSN) after receiving my EAD card?</li>
+        </ul>
+        <p>In this article, we will answer all these questions so you know how this important document works and can make informed decisions about your professional and financial future.</p>
+
+        <h2>What is a Work Permit (EAD)?</h2>
+        <p>The Work Permit, officially referred to by U.S. Citizenship and Immigration Services (USCIS) as the <strong>Employment Authorization Document (EAD)</strong>, is a secure plastic card that authorizes certain individuals who are not U.S. citizens or permanent residents to work legally in the country.</p>
+        <p>This physical card contains essential data for your identification and legal validity before any employer:</p>
+        <ul>
+          <li>Your color photograph and full name.</li>
+          <li>Your unique USCIS number (also known as A-Number).</li>
+          <li>Your immigration category (for example, (c)(8) for asylum or (c)(9) for adjustment of status).</li>
+          <li>The date of issue and expiration date.</li>
+          <li>A unique document number and holographic security details.</li>
+        </ul>
+        <p>While the permit is valid, you can present it to any employer in New Jersey or throughout the United States to prove that you are authorized to work legally.</p>
+
+        <h2>Who can apply for a U.S. Work Permit in 2026?</h2>
+        <p>It is very important to note that <strong>not everyone qualifies automatically for an EAD</strong>. Eligibility depends exclusively on your current immigration status or pending application.</p>
+        <p>Some of the most common cases that allow you to request a work permit under current laws are:</p>
+        <ul>
+          <li><strong>Asylum Applicants:</strong> Individuals with a pending asylum application (Form I-589) that meets the minimum waiting time required by law.</li>
+          <li><strong>Adjustment of Status Processes:</strong> Individuals with a pending application for permanent residence (Form I-485).</li>
+          <li><strong>TPS (Temporary Protected Status):</strong> Approved beneficiaries or eligible applicants from designated countries.</li>
+          <li><strong>Humanitarian Parole:</strong> Individuals who entered the United States through authorized parole programs.</li>
+          <li><strong>DACA (Deferred Action for Childhood Arrivals):</strong> Eligible beneficiaries looking to renew their deferred action.</li>
+        </ul>
+        <p>Every case is unique. That is why at our office in Newark, NJ, we thoroughly review each client's status to ensure they qualify before starting any application process.</p>
+
+        <h2>Key benefits of obtaining an EAD</h2>
+        <p>Obtaining your Employment Authorization Document opens up numerous opportunities for you and your family:</p>
+        <ul>
+          <li><strong>Legal and Secure Employment:</strong> Access formal jobs in New Jersey with all the guarantees of the law, labor protections, and fair wages.</li>
+          <li><strong>Social Security Number (SSN):</strong> It allows you to apply for your Social Security number to report your taxes and build your formal work history.</li>
+          <li><strong>New Jersey Driver's License:</strong> With a valid EAD, you can visit a New Jersey MVC (Motor Vehicle Commission) office to get your state driver's license using the required identification points.</li>
+          <li><strong>Financial History:</strong> It facilitates opening business or personal bank accounts and applying for credits.</li>
+        </ul>
+
+        <h2>Documents needed for the application (Form I-765)</h2>
+        <p>Specific documents may vary based on your immigration category, but general requirements for USCIS include:</p>
+        <ol>
+          <li><strong>Form I-765:</strong> Prepared and completed without omissions or formatting errors.</li>
+          <li><strong>Copy of Identity Document:</strong> Valid passport, birth certificate with certified translation, or consular ID.</li>
+          <li><strong>Passport-Style Photos:</strong> Two recent photos with a white background that meet USCIS requirements.</li>
+          <li><strong>Evidence of Eligibility:</strong> Copy of the pending asylum receipt (I-589), TPS approval, or I-94 entry document, as applicable.</li>
+          <li><strong>Fee Payment (if applicable):</strong> Some categories require paying a filing fee to USCIS, while others are exempt or qualify for a fee waiver.</li>
+        </ol>
+
+        <h2>How long does the USCIS process take?</h2>
+        <p>The time it takes for the physical work permit card to arrive varies constantly depending on the immigration category under which you apply and the USCIS service center processing your file. Generally, processes can take from a few weeks (for certain expedited requests or premium processing) to several months. Filing an flawless application prevents unnecessary delays caused by Requests for Evidence (RFE).</p>
+
+        <h2>What happens after receiving the permit?</h2>
+        <p>Congratulations! Once your application is approved and you receive your physical EAD card, you are ready for the next step. If you checked the corresponding box on Form I-765, the Social Security Administration will process your number and mail you the card. Otherwise, you can take your physical EAD to the nearest Social Security offices in Newark or other locations in New Jersey to apply in person.</p>
+
+        <h2>Common errors you must avoid</h2>
+        <p>Many applicants experience severe delays of months or even rejections due to easily preventable mistakes:</p>
+        <ul>
+          <li><strong>Outdated Forms:</strong> Sending an obsolete version of Form I-765.</li>
+          <li><strong>Wrong Category:</strong> Indicating an incorrect immigration category code (e.g., confusing the asylum code with adjustment of status).</li>
+          <li><strong>Missing Signatures:</strong> Forgetting to sign the form by hand or digitally according to USCIS guidelines.</li>
+          <li><strong>Incomplete Evidence:</strong> Not attaching copies of receipts or approvals from your main case.</li>
+          <li><strong>Uncertified Translations:</strong> Sending birth certificates or other documents in Spanish without their certified translation into English.</li>
+        </ul>
+
+        <h2>Need help with your Work Permit in New Jersey?</h2>
+        <p>At <strong>MAPA Business & Financial Services LLC</strong>, we understand how important this document is for your peace of mind and family stability in the United States.</p>
+        <p>I am <strong>Marilyn Paladinez</strong>, founder of MAPA Business. Over the past few years, I have had the privilege of supporting the Latino community in Newark, Harrison, Elizabeth, and all of New Jersey in preparing and organizing their Work Permit (EAD) and ITIN applications. Our commitment is to provide you with personalized service in your own language, with honesty and the utmost attention to detail.</p>
+        
+        <blockquote>
+          <strong>Important:</strong> Business & Financial Services LLC provides professional document preparation and organization services. We are not immigration attorneys and do not provide legal immigration advice. If your case requires legal representation in immigration court, we will recommend consulting a specialized attorney.
+        </blockquote>
+
+        <p>Visit us at our Newark office or call us to schedule your orientation appointment:</p>
+        <ul>
+          <li><strong>Address:</strong> 20 Bloomfield Place, Newark, NJ 07104</li>
+          <li><strong>Phone:</strong> (862) 622-8339</li>
+          <li><strong>Office Hours:</strong> Monday to Saturday by appointment.</li>
+        </ul>
+        <p>Don't let a lack of information or a form-filling error delay your opportunity to work legally and achieve your goals in the United States. Contact us today!</p>
+      `
+    }
+  },
+  {
     slug: "guia-itin-new-jersey",
     title: {
       es: "Cómo obtener o renovar tu número ITIN en New Jersey: Guía Completa",

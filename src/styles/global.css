@@ -10,6 +10,10 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  /* Utility classes */
+  .w-full { width: 100% !important; }
+  .h-full { height: 100% !important; }
+
   html { scroll-behavior: smooth; }
 
   body {
@@ -607,8 +611,19 @@
     border: 2px solid rgba(204,0,0,0.35);
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     margin-top: 40px;
+    height: 450px;
   }
-  .map-wrap iframe { display: block; width: 100%; height: 420px; }
+  @media (max-width: 768px) {
+    .map-wrap {
+      height: 350px;
+    }
+  }
+  @media (max-width: 480px) {
+    .map-wrap {
+      height: 280px;
+    }
+  }
+  .map-wrap iframe { display: block; }
 
   /* ===== WHATSAPP FLOAT ===== */
   .wa-float {
@@ -1956,4 +1971,80 @@
   .cities-grid { grid-template-columns: 1fr; }
   .coverage-grid { grid-template-columns: 1fr; }
   .blog-grid { grid-template-columns: 1fr; }
+}
+
+/* LEGAL DISCLAIMER FOR BLOG */
+.blog-disclaimer {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 35px 0 20px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.6;
+}
+.blog-disclaimer strong {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* SERVICE DETAILS RICH CONTENT */
+.service-details-section {
+  padding: 60px 20px;
+  background: var(--dark-bg);
+}
+.service-details-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 40px;
+  border-radius: 12px;
+}
+.service-rich-text h3 {
+  font-size: 1.5rem;
+  color: var(--white);
+  margin-top: 35px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+.service-rich-text h3:first-of-type {
+  margin-top: 0;
+}
+.service-rich-text p {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+.service-rich-text ul {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  margin-bottom: 25px;
+  padding-left: 22px;
+}
+.service-rich-text li {
+  margin-bottom: 10px;
+}
+.service-rich-text strong {
+  color: var(--white);
+}
+@media (max-width: 768px) {
+  .service-details-inner {
+    padding: 25px 20px;
+  }
+  .service-rich-text h3 {
+    font-size: 1.25rem;
+    margin-top: 25px;
+  }
+}
+
+/* FOUNDER BIO RESPONSIVENESS */
+@media (max-width: 768px) {
+  .founder-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px !important;
+  }
 }
