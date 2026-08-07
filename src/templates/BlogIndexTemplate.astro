@@ -70,6 +70,7 @@ const schema = {
 
 const homeLink = lang === 'es' ? '/' : '/en/';
 const blogPostLinkPrefix = lang === 'es' ? '/blog/' : '/en/blog/';
+const sortedPosts = [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 
 <BaseLayout
@@ -118,7 +119,7 @@ const blogPostLinkPrefix = lang === 'es' ? '/blog/' : '/en/blog/';
   <!-- Blog grid section -->
   <section class="blog-section">
     <div class="blog-grid" id="blogGrid">
-      {posts.map((post) => {
+      {sortedPosts.map((post) => {
         const postTitle = lang === 'es' ? post.title.es : post.title.en;
         const postExcerpt = lang === 'es' ? post.excerpt.es : post.excerpt.en;
         const postCategory = lang === 'es' ? post.category.es : post.category.en;

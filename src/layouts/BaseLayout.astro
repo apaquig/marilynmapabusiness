@@ -122,6 +122,12 @@ const bioLink = lang === 'es' ? '/marilyn-paladinez/' : '/en/marilyn-paladinez/'
   <meta property="og:url" content={canonical} />
   <meta property="og:locale" content={lang === 'es' ? 'es_US' : 'en_US'} />
 
+  <!-- Twitter / WhatsApp Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${WEBSITE}/marilin2.webp`} />
+
   <!-- Schema.org JSON-LD Connected Graph -->
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 

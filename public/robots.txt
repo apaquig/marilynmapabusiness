@@ -10,4 +10,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://marilynmapabusiness.com/sitemap-index.xml
+Sitemap: https://marilynmapabusiness.com/sitemap.xml

@@ -47,4 +47,16 @@ files.forEach((filePath) => {
   }
 });
 
+// Ensure sitemap.xml exists in dist/ for official canonical sitemap URL https://marilynmapabusiness.com/sitemap.xml
+const sitemap0Path = path.join(distDir, 'sitemap-0.xml');
+const sitemapPath = path.join(distDir, 'sitemap.xml');
+
+if (fs.existsSync(sitemap0Path)) {
+  fs.copyFileSync(sitemap0Path, sitemapPath);
+  console.log(`Successfully generated official canonical sitemap at ${sitemapPath}`);
+} else if (fs.existsSync(path.join(distDir, 'sitemap-index.xml'))) {
+  fs.copyFileSync(path.join(distDir, 'sitemap-index.xml'), sitemapPath);
+  console.log(`Successfully generated official canonical sitemap index at ${sitemapPath}`);
+}
+
 console.log('Post-build path rewriting complete!');

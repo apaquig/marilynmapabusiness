@@ -38,8 +38,9 @@ const postCategory = lang === 'es' ? post.category.es : post.category.en;
 const postContent = lang === 'es' ? post.content.es : post.content.en;
 const postTip = post.tip ? (lang === 'es' ? post.tip.es : post.tip.en) : null;
 
-// Filter related posts (exclude current)
-const relatedPosts = posts.filter(p => p.slug !== post.slug).slice(0, 2);
+// Filter related posts (exclude current, newest first)
+const sortedPosts = [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const relatedPosts = sortedPosts.filter(p => p.slug !== post.slug).slice(0, 2);
 
 const schema = {
   "@context": "https://schema.org",
