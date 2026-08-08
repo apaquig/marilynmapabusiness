@@ -59,12 +59,4 @@ if (fs.existsSync(sitemap0Path)) {
   console.log(`Successfully generated official canonical sitemap index at ${sitemapPath}`);
 }
 
-// Sync dist/ to docs/ for native GitHub Pages branch deployment (/docs folder)
-const docsDir = path.resolve('docs');
-if (fs.existsSync(docsDir)) {
-  fs.rmSync(docsDir, { recursive: true, force: true });
-}
-fs.cpSync(distDir, docsDir, { recursive: true });
-console.log(`Successfully synced production build to ${docsDir} for GitHub Pages (/docs)`);
-
 console.log('Post-build path rewriting complete!');

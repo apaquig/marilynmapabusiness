@@ -1,5 +1,6 @@
 # build output
-# dist/ (included for GitHub static hosting)
+dist/
+docs/
 # generated types
 .astro/
 
