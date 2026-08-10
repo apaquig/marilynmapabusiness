@@ -55,12 +55,19 @@ if (!cleanPath.startsWith('/')) {
   cleanPath = '/' + cleanPath;
 }
 
+let alternateRelativePath = "";
+
 if (lang === 'es') {
   let newPath = cleanPath;
+  if (newPath.startsWith('/es/')) {
+    newPath = newPath.slice(3);
+  }
   if (newPath.startsWith('/servicios/')) {
     newPath = newPath.replace('/servicios/', '/services/');
+  } else if (newPath === '/sobre-mapa-business-and-financial-services/') {
+    newPath = '/about-mapa-business-and-financial-services/';
   }
-  alternateHref = `${WEBSITE}/en${newPath === '/' ? '/' : newPath}`;
+  alternateRelativePath = `/en${newPath === '/' ? '/' : newPath}`;
 } else {
   let newPath = cleanPath;
   if (newPath.startsWith('/en/')) {
@@ -70,9 +77,13 @@ if (lang === 'es') {
   }
   if (newPath.startsWith('/services/')) {
     newPath = newPath.replace('/services/', '/servicios/');
+  } else if (newPath === '/about-mapa-business-and-financial-services/' || newPath === '/about/') {
+    newPath = '/es/sobre-mapa-business-and-financial-services/';
   }
-  alternateHref = `${WEBSITE}${newPath}`;
+  alternateRelativePath = newPath;
 }
+
+alternateHref = `${WEBSITE}${alternateRelativePath}`;
 
 const PHONE = "(862) 622-8339";
 const PHONE_HREF = "+18626228339";
@@ -84,7 +95,17 @@ const WHATSAPP_URL = `https://wa.me/18626228339?text=${encodeURIComponent(
 
 const homeLink = lang === 'es' ? '/' : '/en/';
 const blogLink = lang === 'es' ? '/blog/' : '/en/blog/';
-const bioLink = lang === 'es' ? '/marilyn-paladinez/' : '/en/marilyn-paladinez/';
+const isServiciosActive = activeSection === 'servicios' || 
+  currentPath.includes('/servicios/') || 
+  currentPath.includes('/services/') ||
+  currentPath.includes('/service-areas/');
+
+const isNosotrosActive = activeSection === 'nosotros' || 
+  currentPath.includes('/sobre-mapa') || 
+  currentPath.includes('/about-mapa') ||
+  currentPath.includes('/marilyn-paladinez');
+
+const isBlogActive = activeSection === 'blog' || currentPath.includes('/blog');
 ---
 
 <!DOCTYPE html>
@@ -156,14 +177,14 @@ const bioLink = lang === 'es' ? '/marilyn-paladinez/' : '/en/marilyn-paladinez/'
     <a href={homeLink} class="nav-logo">M<span>A</span>PA</a>
     <ul class="nav-links" id="navLinks">
       <li><a href={`${homeLink}#hero`} class={activeSection === 'hero' ? 'active' : ''}>{t("nav.home")}</a></li>
-      <li><a href={`${homeLink}#servicios`} class={activeSection === 'servicios' ? 'active' : ''}>{t("nav.services")}</a></li>
-      <li><a href={`${homeLink}#nosotros`} class={activeSection === 'nosotros' ? 'active' : ''}>{t("nav.about")}</a></li>
+      <li><a href={`${homeLink}#servicios`} class={isServiciosActive ? 'active' : ''}>{t("nav.services")}</a></li>
+      <li><a href={lang === 'es' ? '/es/sobre-mapa-business-and-financial-services/' : '/en/about-mapa-business-and-financial-services/'} class={isNosotrosActive ? 'active' : ''}>{t("nav.about")}</a></li>
       <li><a href={`${homeLink}#proceso`} class={activeSection === 'proceso' ? 'active' : ''}>{t("nav.process")}</a></li>
       <li><a href={`${homeLink}#testimonios`} class={activeSection === 'testimonios' ? 'active' : ''}>{t("nav.testimonials")}</a></li>
       <li><a href={`${homeLink}#contacto`} class={activeSection === 'contacto' ? 'active' : ''}>{t("nav.contact")}</a></li>
       <li><a href={`${homeLink}#areas-de-servicio`} class={activeSection === 'areas-de-servicio' ? 'active' : ''}>{t("nav.coverage")}</a></li>
       <li><a href={`${homeLink}#ubicacion`} class={activeSection === 'ubicacion' ? 'active' : ''}>{t("nav.location")}</a></li>
-      <li><a href={blogLink} class={activeSection === 'blog' ? 'active' : ''}>{t("nav.blog")}</a></li>
+      <li><a href={blogLink} class={isBlogActive ? 'active' : ''}>{t("nav.blog")}</a></li>
       <li class="nav-social-li">
         <div class="nav-social-group">
           <a href="https://www.facebook.com/profile.php?id=61550670802804" class="social-facebook" target="_blank" rel="noopener" aria-label="Facebook">
@@ -187,11 +208,11 @@ const bioLink = lang === 'es' ? '/marilyn-paladinez/' : '/en/marilyn-paladinez/'
             <>
               <span class="lang-btn active" aria-label="Español activo">ES</span>
               <span class="lang-divider">|</span>
-              <a href={alternateHref} class="lang-btn" aria-label="Switch to English">EN</a>
+              <a href={alternateRelativePath} class="lang-btn" aria-label="Switch to English">EN</a>
             </>
           ) : (
             <>
-              <a href={alternateHref} class="lang-btn" aria-label="Cambiar a Español">ES</a>
+              <a href={alternateRelativePath} class="lang-btn" aria-label="Cambiar a Español">ES</a>
               <span class="lang-divider">|</span>
               <span class="lang-btn active" aria-label="English active">EN</span>
             </>
@@ -229,7 +250,7 @@ const bioLink = lang === 'es' ? '/marilyn-paladinez/' : '/en/marilyn-paladinez/'
     <div class="footer-links">
       <a href={`${homeLink}#hero`}>{t("nav.home")}</a>
       <a href={`${homeLink}#servicios`}>{t("nav.services")}</a>
-      <a href={lang === 'es' ? '/sobre-mapa/' : '/en/about/'}>{lang === 'es' ? 'Sobre MAPA' : 'About Us'}</a>
+      <a href={lang === 'es' ? '/es/sobre-mapa-business-and-financial-services/' : '/en/about-mapa-business-and-financial-services/'}>{lang === 'es' ? 'Sobre MAPA' : 'About Us'}</a>
       <a href={`${homeLink}#proceso`}>{t("nav.process")}</a>
       <a href={`${homeLink}#testimonios`}>{t("nav.testimonials")}</a>
       <a href={`${homeLink}#ubicacion`}>{t("nav.location")}</a>
@@ -238,7 +259,7 @@ const bioLink = lang === 'es' ? '/marilyn-paladinez/' : '/en/marilyn-paladinez/'
     <div class="footer-legal">
       <a href={lang === 'es' ? '/politica-de-privacidad/' : '/en/privacy-policy/'}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a>
       <span>·</span>
-      <a href={lang === 'es' ? '/sobre-mapa/' : '/en/about/'}>{lang === 'es' ? 'Sobre MAPA' : 'About Us'}</a>
+      <a href={lang === 'es' ? '/es/sobre-mapa-business-and-financial-services/' : '/en/about-mapa-business-and-financial-services/'}>{lang === 'es' ? 'Sobre MAPA' : 'About Us'}</a>
       <span>·</span>
       <a href={`${homeLink}#contacto`}>{lang === 'es' ? 'Contacto' : 'Contact'}</a>
     </div>

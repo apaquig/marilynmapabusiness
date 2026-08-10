@@ -433,6 +433,52 @@
   }
   .about-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.8); }
 
+  /* ===== ABOUT FEATURES ===== */
+  .about-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 18px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+  }
+  .feature-card:hover {
+    border-color: rgba(204, 0, 0, 0.4);
+    background: rgba(204, 0, 0, 0.05);
+  }
+  .feature-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 2px;
+  }
+  .feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .feature-text strong {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+  .feature-text span {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.4;
+    display: block;
+  }
+
   .about-text .section-desc { margin-bottom: 30px; }
   .about-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
   .about-list li {

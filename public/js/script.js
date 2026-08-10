@@ -14,24 +14,30 @@
     }, 3000);
   }
 
-  // Smooth nav highlight on scroll
-  const sections = document.querySelectorAll('section[id]');
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    sections.forEach(sec => {
-      const top = sec.offsetTop - 100;
-      const bottom = top + sec.offsetHeight;
-      if (scrollY >= top && scrollY < bottom) {
-        document.querySelectorAll('.nav-links a').forEach(a => {
-          a.style.color = '';
-          const href = a.getAttribute('href');
-          if (href === '#' + sec.id || href === '/#' + sec.id) {
-            a.style.color = '#cc0000';
-          }
-        });
-      }
+  // Smooth nav highlight on scroll (only on main home page)
+  const isHomePage = window.location.pathname === '/' || window.location.pathname === '/en/' || window.location.pathname === '/en';
+
+  if (isHomePage) {
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 100;
+        const bottom = top + sec.offsetHeight;
+        if (scrollY >= top && scrollY < bottom) {
+          document.querySelectorAll('.nav-links a').forEach(a => {
+            if (!a.classList.contains('active') && !a.classList.contains('nav-cta')) {
+              a.style.color = '';
+            }
+            const href = a.getAttribute('href');
+            if (href === '#' + sec.id || href === '/#' + sec.id || href === '/en/#' + sec.id) {
+              a.style.color = '#cc0000';
+            }
+          });
+        }
+      });
     });
-  });
+  }
 
   /* ── NAVBAR STICKY ── */
 const mainNav = document.getElementById('mainNav');
