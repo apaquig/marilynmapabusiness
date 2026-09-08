@@ -1,0 +1,358 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GHLCalendarEmbed from '../../../components/citas/GHLCalendarEmbed.astro';
+import MobileBookingBar from '../../../components/citas/MobileBookingBar.astro';
+import { APP_CONFIG } from '../../../services/config/appConfig';
+
+const title = "Agenda tu Cita | MAPA Business & Financial Services";
+const description = "Agenda una cita con MAPA Business & Financial Services y recibe atención personalizada en español para tus trámites personales y de negocio en New Jersey.";
+const canonical = "https://marilynmapabusiness.com/es/citas/";
+
+const phoneHref = APP_CONFIG.business.phoneHref;
+const phoneDisplay = APP_CONFIG.business.phone;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://marilynmapabusiness.com/#business",
+      "name": "MAPA Business & Financial Services LLC",
+      "url": "https://marilynmapabusiness.com",
+      "telephone": phoneDisplay,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "20 Bloomfield Pl",
+        "addressLocality": "Newark",
+        "addressRegion": "NJ",
+        "postalCode": "07104",
+        "addressCountry": "US"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Marilyn Paladinez"
+      },
+      "priceRange": "$$",
+      "areaServed": ["Newark", "Elizabeth", "Paterson", "Passaic", "Clifton", "Jersey City", "Union County", "Essex County"]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://marilynmapabusiness.com/es/citas/#webpage",
+      "url": canonical,
+      "name": title,
+      "description": description,
+      "isPartOf": {
+        "@id": "https://marilynmapabusiness.com/#website"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://marilynmapabusiness.com/es/citas/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "https://marilynmapabusiness.com/"
+        },
+        {
+          "position": 2,
+          "name": "Agenda tu Cita",
+          "item": canonical
+        }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  lang="es"
+  title={title}
+  description={description}
+  canonical={canonical}
+  schema={schema}
+  activeSection="citas"
+  currentPath="/es/citas/"
+>
+  <!-- Hero Section Orientado a Conversión -->
+  <div class="citas-hero">
+    <div class="citas-hero-inner">
+      <div class="citas-tag-badge">
+        <span>⭐ Atención en Español | English Available</span>
+      </div>
+
+      <h1>
+        Agenda tu cita con <span style="color: var(--red, #e63946);">MAPA Business & Financial Services</span>
+      </h1>
+
+      <p class="citas-hero-subtitle">
+        Recibe atención personalizada en español para tus trámites personales, familiares o de negocio.
+      </p>
+
+      <p class="citas-hero-desc">
+        Selecciona el servicio que necesitas, elige un día y horario disponible y reserva tu cita en pocos minutos.
+      </p>
+
+      <!-- Botones Principales -->
+      <div class="citas-hero-actions">
+        <a href="#booking-flow" class="btn btn-red btn-hero-cta" id="heroScrollToWizard">
+          <span>📅</span> Agendar mi cita
+        </a>
+        <a href={`tel:${phoneHref}`} class="btn btn-hero-call">
+          <span>📞</span> Llamar ahora: {phoneDisplay}
+        </a>
+        <a 
+          href={`https://wa.me/${phoneHref}?text=Hola%20Marilyn%2C%20quisiera%20agendar%20una%20cita.`} 
+          target="_blank" 
+          class="btn btn-wa btn-hero-wa"
+        >
+          <span>💬</span> Enviar mensaje
+        </a>
+      </div>
+
+      <p class="citas-microcopy">
+        ⚡ <strong>Reservar toma menos de 2 minutos.</strong> Sin complicaciones ni llamadas en espera.
+      </p>
+
+      <!-- Trust Badges Bar -->
+      <div class="trust-pills-row">
+        <div class="trust-pill">
+          <span class="tp-icon">🛡️</span>
+          <span>100% Confidencial</span>
+        </div>
+        <div class="trust-pill">
+          <span class="tp-icon">🕒</span>
+          <span>Horarios en Tiempo Real</span>
+        </div>
+        <div class="trust-pill">
+          <span class="tp-icon">🏢</span>
+          <span>Presencial, Teléfono o Virtual</span>
+        </div>
+        <div class="trust-pill">
+          <span class="tp-icon">📍</span>
+          <span>Newark, Elizabeth, Paterson y todo NJ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Section: GoHighLevel Embed Calendar -->
+  <section class="booking-section-wrap">
+    <GHLCalendarEmbed lang="es" calendarId="fSDS40eiTiXyNcvQ0sss" />
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works-section">
+    <div class="how-inner">
+      <h2 class="section-title">¿Cómo funciona el proceso de atención?</h2>
+      <p class="section-sub">Simple, claro y pensado para la comunidad latina en New Jersey.</p>
+
+      <div class="steps-three-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Eliges tu servicio y horario</h3>
+          <p>Seleccionas el tipo de trámite y eliges el día y la hora que mejor se adapten a tu horario en New Jersey.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Recibes confirmación inmediata</h3>
+          <p>Tu cita queda reservada al instante con un código único de confirmación y recordatorio directo por SMS y WhatsApp.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Atención cercana y personalizada</h3>
+          <p>Te atendemos en español de forma presencial en nuestra oficina en Newark o a distancia por videollamada y teléfono.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Floating Action Bar -->
+  <MobileBookingBar lang="es" />
+</BaseLayout>
+
+<style>
+  .citas-hero {
+    background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+    padding: 60px 20px 40px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .citas-hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .citas-tag-badge {
+    display: inline-block;
+    background: rgba(230, 57, 70, 0.1);
+    color: var(--red, #e63946);
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .citas-hero h1 {
+    font-size: 2.35rem;
+    font-weight: 900;
+    color: #111111;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .citas-hero-subtitle {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .citas-hero-desc {
+    font-size: 1rem;
+    color: #64748b;
+    max-width: 680px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+  .citas-hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .btn-hero-cta {
+    font-size: 1rem;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 800;
+  }
+  .btn-hero-call {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1.5px solid #cbd5e1;
+    font-size: 0.95rem;
+    padding: 14px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  .btn-hero-call:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+  }
+  .btn-hero-wa {
+    font-size: 0.95rem;
+    padding: 14px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+  }
+  .citas-microcopy {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-top: 10px;
+  }
+  .trust-pills-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .trust-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+  }
+  .tp-icon {
+    font-size: 1rem;
+  }
+  .booking-section-wrap {
+    padding: 40px 16px 80px;
+    background: #f8fafc;
+  }
+  .how-it-works-section {
+    padding: 70px 20px;
+    background: #ffffff;
+    border-top: 1px solid #f1f5f9;
+  }
+  .how-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .section-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 10px;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: #64748b;
+    margin-bottom: 40px;
+  }
+  .steps-three-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    text-align: left;
+  }
+  .step-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 30px 24px;
+    position: relative;
+  }
+  .step-number {
+    width: 36px;
+    height: 36px;
+    background: var(--red, #e63946);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+  .step-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 10px;
+  }
+  .step-card p {
+    font-size: 0.92rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .citas-hero h1 {
+      font-size: 1.8rem;
+    }
+    .citas-hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .steps-three-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

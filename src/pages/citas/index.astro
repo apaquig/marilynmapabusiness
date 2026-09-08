@@ -1,0 +1,16 @@
+---
+// Redirect /citas/ to canonical /es/citas/
+return Astro.redirect('/es/citas/', 301);
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0;url=/es/citas/" />
+  <link rel="canonical" href="https://marilynmapabusiness.com/es/citas/" />
+  <title>Redirigiendo a Agenda tu Cita...</title>
+</head>
+<body>
+  <p>Redirigiendo a <a href="/es/citas/">/es/citas/</a>...</p>
+</body>
+</html>

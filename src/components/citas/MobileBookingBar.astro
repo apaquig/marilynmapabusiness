@@ -1,0 +1,123 @@
+---
+import { APP_CONFIG } from '../../services/config/appConfig';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+const phoneHref = APP_CONFIG.business.phoneHref;
+const phoneDisplay = APP_CONFIG.business.phone;
+---
+
+<div class="mobile-booking-bar" id="mobileBookingBar">
+  <div class="mobile-bar-inner">
+    <a href={`tel:${phoneHref}`} class="bar-btn bar-btn-call" id="mobileBarCall">
+      <span class="bar-icon">📞</span>
+      <span class="bar-label">{lang === 'es' ? 'Llamar' : 'Call'}</span>
+    </a>
+    <a 
+      href={`https://wa.me/${phoneHref}?text=Hola%20Marilyn%2C%20quiero%20agendar%20una%20cita%20con%20MAPA.`} 
+      target="_blank" 
+      class="bar-btn bar-btn-wa"
+      id="mobileBarWa"
+    >
+      <span class="bar-icon">💬</span>
+      <span class="bar-label">WhatsApp</span>
+    </a>
+    <button type="button" class="bar-btn bar-btn-book" id="mobileBarBook">
+      <span class="bar-icon">📅</span>
+      <span class="bar-label">{lang === 'es' ? 'Agendar Cita' : 'Book Appointment'}</span>
+    </button>
+  </div>
+</div>
+
+<style>
+  .mobile-booking-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.1);
+    padding: 10px 14px;
+  }
+
+  .mobile-bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .bar-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .bar-btn:active {
+    transform: scale(0.96);
+  }
+
+  .bar-icon {
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .bar-btn-call {
+    flex: 1;
+    background: #f4f5f7;
+    color: #111111;
+  }
+
+  .bar-btn-wa {
+    flex: 1;
+    background: #25d366;
+    color: #ffffff;
+  }
+
+  .bar-btn-book {
+    flex: 1.4;
+    background: var(--red, #e63946);
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-booking-bar {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  // Smooth scroll to booking wizard when clicking "Agendar Cita" in mobile bar
+  document.addEventListener('DOMContentLoaded', () => {
+    const bookBtn = document.getElementById('mobileBarBook');
+    if (bookBtn) {
+      bookBtn.addEventListener('click', () => {
+        const wizard = document.getElementById('booking-flow');
+        if (wizard) {
+          wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+  });
+</script>

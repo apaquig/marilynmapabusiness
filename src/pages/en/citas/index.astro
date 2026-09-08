@@ -1,0 +1,16 @@
+---
+// Redirect /en/citas/ to canonical /en/appointments/
+return Astro.redirect('/en/appointments/', 301);
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0;url=/en/appointments/" />
+  <link rel="canonical" href="https://marilynmapabusiness.com/en/appointments/" />
+  <title>Redirecting to Book an Appointment...</title>
+</head>
+<body>
+  <p>Redirecting to <a href="/en/appointments/">/en/appointments/</a>...</p>
+</body>
+</html>

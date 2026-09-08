@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GHLCalendarEmbed from '../../../components/citas/GHLCalendarEmbed.astro';
+import MobileBookingBar from '../../../components/citas/MobileBookingBar.astro';
+import { APP_CONFIG } from '../../../services/config/appConfig';
+
+const title = "Book an Appointment | MAPA Business & Financial Services";
+const description = "Schedule an appointment with MAPA Business & Financial Services in New Jersey. Bilingual support for personal and business services.";
+const canonical = "https://marilynmapabusiness.com/en/appointments/";
+
+const phoneHref = APP_CONFIG.business.phoneHref;
+const phoneDisplay = APP_CONFIG.business.phone;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://marilynmapabusiness.com/#business",
+      "name": "MAPA Business & Financial Services LLC",
+      "url": "https://marilynmapabusiness.com",
+      "telephone": phoneDisplay,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "20 Bloomfield Pl",
+        "addressLocality": "Newark",
+        "addressRegion": "NJ",
+        "postalCode": "07104",
+        "addressCountry": "US"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Marilyn Paladinez"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://marilynmapabusiness.com/en/appointments/#webpage",
+      "url": canonical,
+      "name": title,
+      "description": description
+    }
+  ]
+};
+---
+
+<BaseLayout
+  lang="en"
+  title={title}
+  description={description}
+  canonical={canonical}
+  schema={schema}
+  activeSection="citas"
+  currentPath="/en/appointments/"
+>
+  <div class="citas-hero">
+    <div class="citas-hero-inner">
+      <div class="citas-tag-badge">
+        <span>⭐ Bilingual Support | English & Spanish</span>
+      </div>
+
+      <h1>
+        Book Your Appointment with <span style="color: var(--red, #e63946);">MAPA Business & Financial Services</span>
+      </h1>
+
+      <p class="citas-hero-subtitle">
+        Get personalized assistance for your personal, immigration, tax, or business procedures in New Jersey.
+      </p>
+
+      <p class="citas-hero-desc">
+        Select your required service, pick an available date and time, and confirm your booking in minutes.
+      </p>
+
+      <div class="citas-hero-actions">
+        <a href="#booking-flow" class="btn btn-red btn-hero-cta">
+          <span>📅</span> Book My Appointment
+        </a>
+        <a href={`tel:${phoneHref}`} class="btn btn-hero-call">
+          <span>📞</span> Call Now: {phoneDisplay}
+        </a>
+        <a 
+          href={`https://wa.me/${phoneHref}?text=Hello%20Marilyn%2C%20I%20would%20like%20to%20schedule%20an%20appointment.`} 
+          target="_blank" 
+          class="btn btn-wa btn-hero-wa"
+        >
+          <span>💬</span> Send Message
+        </a>
+      </div>
+
+      <p class="citas-microcopy">
+        ⚡ <strong>Booking takes less than 2 minutes.</strong> Instant confirmation provided.
+      </p>
+    </div>
+  </div>
+
+  <section class="booking-section-wrap">
+    <GHLCalendarEmbed lang="en" calendarId="fSDS40eiTiXyNcvQ0sss" />
+  </section>
+
+  <MobileBookingBar lang="en" />
+</BaseLayout>
+
+<style>
+  .citas-hero {
+    background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+    padding: 60px 20px 40px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .citas-hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .citas-tag-badge {
+    display: inline-block;
+    background: rgba(230, 57, 70, 0.1);
+    color: var(--red, #e63946);
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .citas-hero h1 {
+    font-size: 2.35rem;
+    font-weight: 900;
+    color: #111111;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .citas-hero-subtitle {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .citas-hero-desc {
+    font-size: 1rem;
+    color: #64748b;
+    max-width: 680px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+  .citas-hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .btn-hero-cta {
+    font-size: 1rem;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 800;
+  }
+  .btn-hero-call {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1.5px solid #cbd5e1;
+    font-size: 0.95rem;
+    padding: 14px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  .btn-hero-call:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+  }
+  .btn-hero-wa {
+    font-size: 0.95rem;
+    padding: 14px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+  }
+  .citas-microcopy {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-top: 10px;
+  }
+  .booking-section-wrap {
+    padding: 40px 16px 80px;
+    background: #f8fafc;
+  }
+  @media (max-width: 768px) {
+    .citas-hero h1 {
+      font-size: 1.8rem;
+    }
+    .citas-hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

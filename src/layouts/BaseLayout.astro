@@ -64,8 +64,12 @@ if (lang === 'es') {
   }
   if (newPath.startsWith('/servicios/')) {
     newPath = newPath.replace('/servicios/', '/services/');
-  } else if (newPath === '/sobre-mapa-business-and-financial-services/') {
-    newPath = '/about-mapa-business-and-financial-services/';
+  } else if (newPath === '/citas/' || newPath === '/es/citas/') {
+    newPath = '/appointments/';
+  } else if (newPath === '/sobre-mapa-business-and-financial-services/' || newPath === '/es/sobre-mapa-business-and-financial-services/' || newPath === '/marilyn-paladinez/') {
+    newPath = '/marilyn-paladinez/';
+  } else if (newPath === '/politica-de-privacidad/') {
+    newPath = '/privacy-policy/';
   }
   alternateRelativePath = `/en${newPath === '/' ? '/' : newPath}`;
 } else {
@@ -77,8 +81,12 @@ if (lang === 'es') {
   }
   if (newPath.startsWith('/services/')) {
     newPath = newPath.replace('/services/', '/servicios/');
-  } else if (newPath === '/about-mapa-business-and-financial-services/' || newPath === '/about/') {
-    newPath = '/es/sobre-mapa-business-and-financial-services/';
+  } else if (newPath === '/appointments/' || newPath === '/citas/' || newPath === '/booking/') {
+    newPath = '/es/citas/';
+  } else if (newPath === '/about-mapa-business-and-financial-services/' || newPath === '/about/' || newPath === '/marilyn-paladinez/') {
+    newPath = '/marilyn-paladinez/';
+  } else if (newPath === '/privacy-policy/') {
+    newPath = '/politica-de-privacidad/';
   }
   alternateRelativePath = newPath;
 }
@@ -97,7 +105,9 @@ const homeLink = lang === 'es' ? '/' : '/en/';
 const blogLink = lang === 'es' ? '/blog/' : '/en/blog/';
 const isServiciosActive = activeSection === 'servicios' || 
   currentPath.includes('/servicios/') || 
-  currentPath.includes('/services/') ||
+  currentPath.includes('/services/');
+
+const isCoverageActive = activeSection === 'areas-de-servicio' ||
   currentPath.includes('/service-areas/');
 
 const isNosotrosActive = activeSection === 'nosotros' || 
@@ -105,13 +115,20 @@ const isNosotrosActive = activeSection === 'nosotros' ||
   currentPath.includes('/about-mapa') ||
   currentPath.includes('/marilyn-paladinez');
 
+const isProcesoActive = activeSection === 'proceso';
+const isTestimoniosActive = activeSection === 'testimonios';
+const isUbicacionActive = activeSection === 'ubicacion';
+const isContactoActive = activeSection === 'contacto';
 const isBlogActive = activeSection === 'blog' || currentPath.includes('/blog');
+const citasLink = lang === 'es' ? '/es/citas/' : '/en/appointments/';
+const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas') || currentPath.includes('/appointments');
 ---
 
 <!DOCTYPE html>
 <html lang={lang}>
 <head>
-  <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+  <link rel="icon" type="image/png" href="/logo-mapa.png" />
+  <link rel="apple-touch-icon" href="/logo-mapa.png" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
@@ -166,6 +183,23 @@ const isBlogActive = activeSection === 'blog' || currentPath.includes('/blog');
   <!-- EmailJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" is:inline></script>
   <script type="text/javascript" is:inline>emailjs.init("T4n_e0kmxzUCnBqjJ");</script>
+  
+  <!-- Light Mode Inline Script -->
+  <script is:inline>
+    (function() {
+      if (localStorage.getItem('light-mode') === 'true') {
+        document.documentElement.classList.add('light-mode');
+      }
+      // Unregister any stale Service Workers left by other projects on localhost:4321
+      if ('serviceWorker' in navigator && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for (var reg of registrations) {
+            reg.unregister();
+          }
+        });
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -173,36 +207,34 @@ const isBlogActive = activeSection === 'blog' || currentPath.includes('/blog');
   <WhatsAppWidget phoneHref={PHONE_HREF} text={lang === 'es' ? 'Hola Marilyn, me interesa conocer más sobre sus servicios.' : 'Hello Marilyn, I would like to know more about your services.'} />
 
   <!-- NAVBAR -->
-  <nav id="mainNav">
-    <a href={homeLink} class="nav-logo">M<span>A</span>PA</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href={`${homeLink}#hero`} class={activeSection === 'hero' ? 'active' : ''}>{t("nav.home")}</a></li>
-      <li><a href={`${homeLink}#servicios`} class={isServiciosActive ? 'active' : ''}>{t("nav.services")}</a></li>
-      <li><a href={lang === 'es' ? '/es/sobre-mapa-business-and-financial-services/' : '/en/about-mapa-business-and-financial-services/'} class={isNosotrosActive ? 'active' : ''}>{t("nav.about")}</a></li>
-      <li><a href={`${homeLink}#proceso`} class={activeSection === 'proceso' ? 'active' : ''}>{t("nav.process")}</a></li>
-      <li><a href={`${homeLink}#testimonios`} class={activeSection === 'testimonios' ? 'active' : ''}>{t("nav.testimonials")}</a></li>
-      <li><a href={`${homeLink}#contacto`} class={activeSection === 'contacto' ? 'active' : ''}>{t("nav.contact")}</a></li>
-      <li><a href={`${homeLink}#areas-de-servicio`} class={activeSection === 'areas-de-servicio' ? 'active' : ''}>{t("nav.coverage")}</a></li>
-      <li><a href={`${homeLink}#ubicacion`} class={activeSection === 'ubicacion' ? 'active' : ''}>{t("nav.location")}</a></li>
-      <li><a href={blogLink} class={isBlogActive ? 'active' : ''}>{t("nav.blog")}</a></li>
-      <li class="nav-social-li">
-        <div class="nav-social-group">
-          <a href="https://www.facebook.com/profile.php?id=61550670802804" class="social-facebook" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/marilynpaladinezusa/" class="social-instagram" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          </a>
-          <a href="https://www.tiktok.com/@marilynpaladinezv" class="social-tiktok" target="_blank" rel="noopener" aria-label="TikTok">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-          </a>
-          <a href="https://www.youtube.com/@MarilynPaladinezOficial" class="social-youtube" target="_blank" rel="noopener" aria-label="YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          </a>
-        </div>
-      </li>
-      <li><a href={WHATSAPP_URL} target="_blank" class="nav-cta">{t("nav.cta")}</a></li>
-      <li class="lang-selector-li">
+  <nav id="mainNav" class="mapa-navbar">
+    <div class="nav-inner">
+      <a href={homeLink} class="nav-logo">
+        <img src="/logo-mapa.png" alt="MAPA Business & Financial Services LLC" class="logo-img" />
+      </a>
+      
+      <ul class="nav-links" id="navLinks">
+        <li><a href={`${homeLink}#hero`} class={activeSection === 'hero' ? 'active' : ''}>{t("nav.home")}</a></li>
+        <li><a href={`${homeLink}#servicios`} class={isServiciosActive ? 'active' : ''}>{t("nav.services")}</a></li>
+        <li><a href={`${homeLink}#nosotros`} class={isNosotrosActive ? 'active' : ''}>{t("nav.about")}</a></li>
+        <li><a href={`${homeLink}#proceso`} class={isProcesoActive ? 'active' : ''}>{t("nav.process")}</a></li>
+        <li><a href={`${homeLink}#testimonios`} class={isTestimoniosActive ? 'active' : ''}>{t("nav.testimonials")}</a></li>
+        <li><a href={`${homeLink}#contacto`} class={isContactoActive ? 'active' : ''}>{t("nav.contact")}</a></li>
+        <li><a href={`${homeLink}#areas-de-servicio`} class={isCoverageActive ? 'active' : ''}>{t("nav.coverage")}</a></li>
+        <li><a href={`${homeLink}#ubicacion`} class={isUbicacionActive ? 'active' : ''}>{t("nav.location")}</a></li>
+        <li><a href={blogLink} class={isBlogActive ? 'active' : ''}>{t("nav.blog")}</a></li>
+        <li class="mobile-only-nav"><a href={citasLink} class={isCitasActive ? 'active' : ''}>📅 {lang === 'es' ? 'Agendar' : 'Book'}</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <a href={citasLink} class="btn-header-book">
+          <span>📅</span> {lang === 'es' ? 'Agendar' : 'Book'}
+        </a>
+
+        <a href={`tel:${PHONE_HREF}`} class="btn-header-phone">
+          📞 {PHONE}
+        </a>
+
         <div class="lang-selector">
           {lang === 'es' ? (
             <>
@@ -218,52 +250,102 @@ const isBlogActive = activeSection === 'blog' || currentPath.includes('/blog');
             </>
           )}
         </div>
-      </li>
-    </ul>
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
+
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
     </div>
   </nav>
 
   <slot />
 
   <!-- FOOTER -->
-  <footer>
-    <div>
-      <div class="footer-logo">M<span>A</span>PA</div>
-      <p style="margin-top:6px;">Business & Financial Services LLC</p>
+  <!-- EXECUTIVE FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand Info -->
+        <div class="footer-col footer-col-brand">
+          <div class="footer-logo-wrap">
+            <img src="/logo-mapa.png" alt="MAPA Business & Financial Services LLC" class="footer-logo-img" />
+          </div>
+          <p class="footer-brand-desc">
+            {lang === 'es' 
+              ? 'Asesoría profesional en notaría, preparación de impuestos, traducciones certificadas y trámites financieros en Newark y todo New Jersey.'
+              : 'Professional notary, tax preparation, certified translations and financial services in Newark and all New Jersey.'}
+          </p>
+          <div class="footer-contact-mini">
+            <a href="tel:+18626228339" class="footer-contact-item">
+              <span class="footer-icon">📞</span> (862) 622-8339
+            </a>
+            <div class="footer-contact-item">
+              <span class="footer-icon">📍</span> 20 Bloomfield Pl, Newark, NJ 07104
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 2: Services -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">{lang === 'es' ? 'Nuestros Servicios' : 'Our Services'}</h4>
+          <ul class="footer-links-list">
+            <li><a href={lang === 'es' ? '/servicios/notaria/' : '/en/services/notaria/'}>{lang === 'es' ? 'Notaría Pública' : 'Public Notary'}</a></li>
+            <li><a href={lang === 'es' ? '/servicios/traducciones/' : '/en/services/traducciones/'}>{lang === 'es' ? 'Traducciones Certificadas' : 'Certified Translations'}</a></li>
+            <li><a href={lang === 'es' ? '/servicios/taxes/' : '/en/services/taxes/'}>{lang === 'es' ? 'Declaración de Taxes' : 'Tax Preparation'}</a></li>
+            <li><a href={lang === 'es' ? '/servicios/itin/' : '/en/services/itin/'}>{lang === 'es' ? 'Trámite de ITIN Number' : 'ITIN Application'}</a></li>
+            <li><a href={lang === 'es' ? '/servicios/poderes-notariales/' : '/en/services/poderes-notariales/'}>{lang === 'es' ? 'Poderes Notariales' : 'Power of Attorney'}</a></li>
+            <li><a href={lang === 'es' ? '/servicios/permisos-de-trabajo/' : '/en/services/permisos-de-trabajo/'}>{lang === 'es' ? 'Permisos de Trabajo' : 'Work Permits'}</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Quick Navigation -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">{lang === 'es' ? 'Navegación' : 'Navigation'}</h4>
+          <ul class="footer-links-list">
+            <li><a href={`${homeLink}#hero`}>{t("nav.home")}</a></li>
+            <li><a href={lang === 'es' ? '/marilyn-paladinez/' : '/en/marilyn-paladinez/'}>{lang === 'es' ? 'Sobre Nosotros' : 'About Us'}</a></li>
+            <li><a href={`${homeLink}#proceso`}>{t("nav.process")}</a></li>
+            <li><a href={`${homeLink}#testimonios`}>{t("nav.testimonials")}</a></li>
+            <li><a href={`${homeLink}#areas-de-servicio`}>{lang === 'es' ? 'Áreas de Servicio' : 'Service Areas'}</a></li>
+            <li><a href={`${homeLink}#contacto`}>{t("nav.contact")}</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Social & Hours -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">{lang === 'es' ? 'Síguenos' : 'Follow Us'}</h4>
+          <p class="footer-social-intro">{lang === 'es' ? 'Conéctate con nosotros en redes sociales:' : 'Connect with us on social media:'}</p>
+          <div class="footer-social-row">
+            <a href="https://www.facebook.com/profile.php?id=61550670802804" target="_blank" rel="noopener" class="social-btn-icon social-facebook" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/marilynpaladinezusa/" target="_blank" rel="noopener" class="social-btn-icon social-instagram" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@marilynpaladinezv" target="_blank" rel="noopener" class="social-btn-icon social-tiktok" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@MarilynPaladinezOficial" target="_blank" rel="noopener" class="social-btn-icon social-youtube" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <div class="footer-copyright">
+          © {new Date().getFullYear()} MAPA Business &amp; Financial Services LLC. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+        </div>
+        <div class="footer-legal-links">
+          <a href={lang === 'es' ? '/politica-de-privacidad/' : '/en/privacy-policy/'}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a>
+          <span class="sep">•</span>
+          <a href={lang === 'es' ? '/marilyn-paladinez/' : '/en/marilyn-paladinez/'}>{lang === 'es' ? 'Sobre MAPA' : 'About Us'}</a>
+          <span class="sep">•</span>
+          <a href={`${homeLink}#contacto`}>{lang === 'es' ? 'Contacto' : 'Contact'}</a>
+        </div>
+      </div>
     </div>
-    <div class="footer-social">
-      <a href="https://www.facebook.com/profile.php?id=61550670802804" target="_blank" rel="noopener" class="social-btn-icon social-facebook" aria-label="Facebook">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/marilynpaladinezusa/" target="_blank" rel="noopener" class="social-btn-icon social-instagram" aria-label="Instagram">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-      </a>
-      <a href="https://www.tiktok.com/@marilynpaladinezv" target="_blank" rel="noopener" class="social-btn-icon social-tiktok" aria-label="TikTok">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-      </a>
-      <a href="https://www.youtube.com/@MarilynPaladinezOficial" target="_blank" rel="noopener" class="social-btn-icon social-youtube" aria-label="YouTube">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      </a>
-    </div>
-    <div class="footer-links">
-      <a href={`${homeLink}#hero`}>{t("nav.home")}</a>
-      <a href={`${homeLink}#servicios`}>{t("nav.services")}</a>
-      <a href={lang === 'es' ? '/es/sobre-mapa-business-and-financial-services/' : '/en/about-mapa-business-and-financial-services/'}>{lang === 'es' ? 'Sobre MAPA' : 'About Us'}</a>
-      <a href={`${homeLink}#proceso`}>{t("nav.process")}</a>
-      <a href={`${homeLink}#testimonios`}>{t("nav.testimonials")}</a>
-      <a href={`${homeLink}#ubicacion`}>{t("nav.location")}</a>
-      <a href={`${homeLink}#contacto`}>{t("nav.contact")}</a>
-    </div>
-    <div class="footer-legal">
-      <a href={lang === 'es' ? '/politica-de-privacidad/' : '/en/privacy-policy/'}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a>
-      <span>·</span>
-      <a href={lang === 'es' ? '/es/sobre-mapa-business-and-financial-services/' : '/en/about-mapa-business-and-financial-services/'}>{lang === 'es' ? 'Sobre MAPA' : 'About Us'}</a>
-      <span>·</span>
-      <a href={`${homeLink}#contacto`}>{lang === 'es' ? 'Contacto' : 'Contact'}</a>
-    </div>
-    <p>© {new Date().getFullYear()} MAPA Business &amp; Financial Services LLC · {PHONE}</p>
   </footer>
 
   <script src="/js/script.js" is:inline></script>

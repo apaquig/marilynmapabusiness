@@ -47,13 +47,19 @@ const serviceName = t(`services.${service.slug}.title`);
 const serviceDesc = t(`services.${service.slug}.desc`);
 const spokeTitle = t(`services.${service.slug}.spoke_title`) || serviceName;
 
-const title = lang === 'es'
-  ? `${service.name} en ${cityName}, NJ | MAPA Business`
-  : `${spokeTitle} ${cityName}, NJ | MAPA Business`;
+const isNewarkNotariaEs = city.slug === 'newark' && service.slug === 'notaria' && lang === 'es';
 
-const description = lang === 'es'
-  ? `Servicio de ${service.name} en ${cityName}, New Jersey. Asistencia profesional en español, notarización, taxes, ITIN y trámites de negocios. Marilyn Paladinez: ${PHONE}.`
-  : `${spokeTitle} in ${cityName}, New Jersey. Professional assistance, notary public, taxes, ITIN, and business support. Marilyn Paladinez: ${PHONE}.`;
+const title = isNewarkNotariaEs
+  ? "Notaría Pública en Newark, NJ | Notary Public en Español | MAPA"
+  : (lang === 'es'
+    ? `${service.name} en ${cityName}, NJ | MAPA Business`
+    : `${spokeTitle} ${cityName}, NJ | MAPA Business`);
+
+const description = isNewarkNotariaEs
+  ? "¿Buscas Notaría Pública en Newark, NJ? Servicio de notarización y Notary Public en español. Consulta inicial gratis. Agenda tu cita con MAPA Business."
+  : (lang === 'es'
+    ? `Servicio de ${service.name} en ${cityName}, New Jersey. Asistencia profesional en español, notarización, taxes, ITIN y trámites de negocios. Marilyn Paladinez: ${PHONE}.`
+    : `${spokeTitle.endsWith(' in') ? spokeTitle : spokeTitle + ' in'} ${cityName}, New Jersey. Professional assistance, notary public, taxes, ITIN, and business support. Marilyn Paladinez: ${PHONE}.`);
 
 const schema = {
   "@context": "https://schema.org",
@@ -84,6 +90,7 @@ const schema = {
         "@id": `${WEBSITE}/#organization`,
         "name": "MAPA Business & Financial Services LLC",
         "telephone": PHONE_HREF,
+        "logo": `${WEBSITE}/logo-mapa.png`,
         "image": `${WEBSITE}/marilin2.webp`,
         "priceRange": "$$",
         "address": {
@@ -96,28 +103,14 @@ const schema = {
         }
       },
       "areaServed": [
-        { "@type": "City", "name": cityName, "addressRegion": "NJ" },
+        {
+          "@type": "City",
+          "name": cityName,
+          "addressRegion": "NJ",
+          "sameAs": `https://www.wikidata.org/wiki/${city.wikidataId}`
+        },
         ...city.nearbyAreas.map((area) => ({ "@type": "City", "name": area }))
-      ],
-      "sameAs": [
-        `https://www.wikidata.org/wiki/${city.wikidataId}`
       ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": `${canonical}#faq`,
-      "mainEntity": service.faqs.map((faq, index) => {
-        const question = t(`services.${service.slug}.faqs.${index}.q`, { city: cityName });
-        const answer = t(`services.${service.slug}.faqs.${index}.a`, { city: cityName });
-        return {
-          "@type": "Question",
-          "name": question,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": answer
-          }
-        };
-      })
     }
   ]
 };
@@ -136,6 +129,7 @@ const cityServiceLinkPrefix = lang === 'es' ? '/service-areas/' : '/en/service-a
   description={description}
   canonical={canonical}
   schema={schema}
+  activeSection="areas-de-servicio"
   currentPath={currentPath}
 >
   <!-- Breadcrumb -->
@@ -147,125 +141,655 @@ const cityServiceLinkPrefix = lang === 'es' ? '/service-areas/' : '/en/service-a
     <span>{serviceName}</span>
   </nav>
 
-  <!-- Hero -->
-  <div class="page-hero">
-    <div class="page-tag">MAPA Business & Financial Services LLC</div>
-    <div class="page-icon">{service.icon}</div>
-    <h1>
-      <span>{t("services.service_of")}</span> <span>{serviceName}</span> <span>{t("services.in_city")} {cityName}, NJ</span>
-    </h1>
-    <p class="page-intro">
-      {lang === 'es'
-        ? `Ofrecemos asesoría y orientación profesional en español para ${serviceName} en la ciudad de ${cityName}, New Jersey (${countyName}). Apoyamos a la comunidad hispana con soluciones rápidas, seguras y de confianza.`
-        : `We offer professional advice and guidance in Spanish and English for ${serviceName} in the city of ${cityName}, New Jersey (${countyName}). We support the Latino community with fast, secure, and reliable solutions.`}
-    </p>
-    <div class="btn-group">
-      <a href={`tel:${PHONE_HREF}`} class="btn btn-red"><span>{t("contact.btn_call")}</span> {PHONE}</a>
-      <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20necesito%20${encodeURIComponent(serviceName)}%20en%20${cityName}.`} target="_blank" class="btn btn-wa">💬 WhatsApp</a>
-    </div>
-  </div>
-
-  <!-- Unique Details / Info -->
-  <div class="cities-section">
-    <div class="cities-inner">
-      <h2 class="section-label">
-        <span>{lang === 'es' ? 'Cómo te ayudamos con' : 'How we help you with'} {serviceName}</span> <span>{lang === 'es' ? 'en' : 'in'} {cityName}</span>
-      </h2>
-      <p class="section-desc">
-        {lang === 'es'
-          ? `Nuestros servicios notariales, fiscales y de bookkeeping se adaptan a las necesidades de los vecinos de ${cityName}. Ofrecemos una primera orientación sin costo para evaluar tu caso.`
-          : `Our notary, tax, and bookkeeping services are tailored to the needs of ${cityName} residents. We offer a first consultation at no cost to evaluate your case.`}
-      </p>
-      <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); padding:30px; border-radius:8px; line-height:1.75; color:rgba(255,255,255,0.75);">
-        <p style="margin-bottom:14px;">
-          <strong>{lang === 'es' ? 'Modalidad de atención:' : 'Service Type:'}</strong> {lang === 'es' ? 'Presencial con cita en nuestra oficina principal o atención telefónica/digital.' : 'In-person with an appointment at our main office, or telephone/digital support.'}
+  {isNewarkNotariaEs ? (
+    <!-- ============================================== -->
+    <!-- MAQUETA EXCLUSIVA PARA NEWARK NOTARIA ES        -->
+    <!-- ============================================== -->
+    <div class="city-hero">
+      <div class="city-hero-inner">
+        <div class="city-tag">Newark, New Jersey</div>
+        <h1>
+          Notaría Pública en Newark, NJ – Servicio Notarial en Español
+        </h1>
+        <p style="font-weight: 500; font-size: 1.1rem; margin-bottom: 12px; color: #fff;">
+          ¿Necesitas notarizar un documento en Newark, New Jersey, y prefieres recibir atención en español?
         </p>
-        <p style="margin-bottom:14px;">
-          <strong>{lang === 'es' ? 'Condado:' : 'County:'}</strong> {countyName}
+        <p style="margin-bottom: 12px; font-size: 0.95rem;">
+          En MAPA Business & Financial Services LLC ofrecemos servicios de Notary Public en Newark, NJ, con atención clara y personalizada para personas, familias, emprendedores y pequeños negocios.
         </p>
-        <p>
-          <strong>{lang === 'es' ? 'Comunidad atendida:' : 'Community Served:'}</strong> {t(`cities.${city.slug}.desc`)}
+        <p style="margin-bottom: 25px; font-size: 0.95rem;">
+          Si estás buscando en Google “notary near me”, “notaría cerca de mí”, “notario cerca de mí” o simplemente necesitas saber dónde puedes notarizar un documento en Newark, puedes comunicarte con nosotros para confirmar qué necesitas llevar y coordinar tu cita.
         </p>
+        <p style="font-weight: 700; color: var(--red); margin-bottom: 25px; font-size: 1.05rem; letter-spacing: 0.5px;">
+          * Consulta inicial gratuita.
+        </p>
+        <div class="btn-group">
+          <a href="#contacto" class="btn btn-red"><span>Agendar una cita</span></a>
+          <a href={`tel:${PHONE_HREF}`} class="btn btn-phone">📞 Llamar: {PHONE}</a>
+          <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20necesito%20notarizar%20un%20documento%20en%20Newark.`} target="_blank" class="btn btn-wa">💬 Hablar por WhatsApp</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Detailed Service Info Section -->
-  {details && (
-    <div class="service-details-section" style="border-top: 1px solid rgba(255,255,255,0.05);">
-      <div class="service-details-inner">
-        <div class="service-rich-text" set:html={details} />
+    <!-- Seccion 1: Cerca de ti -->
+    <section class="city-info" style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+        <div>
+          <h2 class="info-title" style="font-size: 1.8rem; margin-bottom: 25px;">
+            ¿Buscas una Notaría Cerca de Ti en Newark?
+          </h2>
+          <p class="info-text">
+            Cuando necesitas firmar o notarizar un documento, probablemente quieres encontrar un servicio cercano, confiable y que pueda atenderte sin complicaciones.
+          </p>
+          <p class="info-text">
+            MAPA Business ofrece servicio de <strong>Notary Public en Newark, NJ</strong>, para clientes que necesitan completar un acto notarial y prefieren recibir atención en español.
+          </p>
+          <div class="btn-group" style="margin-top: 25px;">
+            <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20quisiera%20consultar%20disponibilidad%20para%20notaria.`} target="_blank" class="btn btn-red">Consultar disponibilidad</a>
+          </div>
+        </div>
+        <div style="border: 1px solid rgba(128,128,128,0.15); padding: 35px; border-radius: 12px;">
+          <h3 class="info-title" style="font-size: 1.25rem; margin-bottom: 20px;">Antes de visitarnos, puedes comunicarte para:</h3>
+          <ul style="list-style-type: none; padding-left: 0; display: flex; flex-direction: column; gap: 12px;">
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Confirmar si podemos realizar la notarización que necesitas.
+            </li>
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Saber qué identificación debes llevar.
+            </li>
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Verificar si deben presentarse otros firmantes.
+            </li>
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Conocer si necesitas testigos.
+            </li>
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Coordinar una cita y resolver dudas generales.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qué hace un Notary Public -->
+    <section style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 900px; margin: 0 auto; padding: 0 40px; text-align: center;">
+        <h2 class="section-title" style="margin-bottom: 30px;">
+          ¿Qué Hace un <span>Notary Public</span> en New Jersey?
+        </h2>
+        <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 20px; opacity: 0.9;">
+          Un <strong>Notary Public de New Jersey</strong> actúa como un testigo imparcial autorizado para realizar determinados actos notariales.
+        </p>
+        <p style="font-size: 0.95rem; line-height: 1.7; opacity: 0.85; margin-bottom: 20px;">
+          Dependiendo del documento y del tipo de acto solicitado, el Notary Public puede verificar la identidad del firmante, presenciar una firma, recibir un reconocimiento de firma o administrar un juramento o afirmación.
+        </p>
+        <p style="font-size: 0.95rem; line-height: 1.7; opacity: 0.85; margin-bottom: 20px;">
+          El propósito del acto notarial es ayudar a verificar la identidad del firmante y documentar correctamente el acto realizado.
+        </p>
+        <p style="font-size: 0.95rem; font-weight: 700; color: var(--red); line-height: 1.7;">
+          * Un Notary Public no reemplaza a un abogado y no determina qué documento legal debes utilizar.
+        </p>
+      </div>
+    </section>
+
+    <!-- Documentos que requieren notarización -->
+    <section class="city-info" style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px;">
+        <h2 class="section-title" style="margin-bottom: 50px;">
+          Documentos que Pueden Requerir <span>Notarización</span>
+        </h2>
+        <p class="section-sub" style="margin-bottom: 40px;">
+          Las necesidades de cada persona son diferentes. Algunos documentos que comúnmente pueden presentarse ante un Notary Public incluyen:
+        </p>
+        <div class="notary-doc-grid">
+          <div class="notary-doc-card">
+            <div class="notary-doc-img-wrap">
+              <img src="/images/services/notary-declaraciones.jpg" alt="Declaraciones juradas" class="notary-doc-img" loading="lazy" />
+            </div>
+            <div class="notary-doc-body">
+              <h3>Declaraciones juradas</h3>
+              <p>Documentos en los que una persona realiza una declaración bajo juramento o afirmación.</p>
+            </div>
+          </div>
+          <div class="notary-doc-card">
+            <div class="notary-doc-img-wrap">
+              <img src="/images/services/notary-poderes.jpg" alt="Poderes Notariales" class="notary-doc-img" loading="lazy" />
+            </div>
+            <div class="notary-doc-body">
+              <h3>Poderes</h3>
+              <p>Determinados poderes pueden requerir una firma notarizada. Si cuentas con el documento correspondiente, puedes consultarnos sobre el acto notarial requerido.</p>
+              <a href={`${cityServiceLinkPrefix}newark/poderes-notariales/`} class="notary-doc-link">Ver Poderes Notariales en Newark →</a>
+            </div>
+          </div>
+          <div class="notary-doc-card">
+            <div class="notary-doc-img-wrap">
+              <img src="/images/services/notary-autorizaciones.jpg" alt="Autorizaciones Notarizadas" class="notary-doc-img" loading="lazy" />
+            </div>
+            <div class="notary-doc-body">
+              <h3>Autorizaciones</h3>
+              <p>Algunas autorizaciones escritas pueden requerir notarización dependiendo del propósito y de la institución que solicita el documento.</p>
+            </div>
+          </div>
+          <div class="notary-doc-card">
+            <div class="notary-doc-img-wrap">
+              <img src="/images/services/notary-contratos.jpg" alt="Contratos y acuerdos" class="notary-doc-img" loading="lazy" />
+            </div>
+            <div class="notary-doc-body">
+              <h3>Contratos y acuerdos</h3>
+              <p>Determinados contratos o acuerdos privados pueden incluir firmas que deben ser reconocidas o notarizadas.</p>
+            </div>
+          </div>
+          <div class="notary-doc-card">
+            <div class="notary-doc-img-wrap">
+              <img src="/images/services/notary-comerciales.jpg" alt="Documentos comerciales" class="notary-doc-img" loading="lazy" />
+            </div>
+            <div class="notary-doc-body">
+              <h3>Documentos comerciales</h3>
+              <p>Empresas y pequeños negocios pueden necesitar notarizaciones relacionadas con diferentes documentos corporativos o comerciales.</p>
+            </div>
+          </div>
+          <div class="notary-doc-card">
+            <div class="notary-doc-img-wrap">
+              <img src="/images/services/notary-internacional.jpg" alt="Notarización para uso internacional" class="notary-doc-img" loading="lazy" />
+            </div>
+            <div class="notary-doc-body">
+              <h3>Uso internacional</h3>
+              <p>Algunos documentos destinados a utilizarse fuera de EE.UU. pueden requerir notarización y posteriormente procesos de apostilla. Consulta previamente qué requisito solicita la institución que los recibirá.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notary en espanol -->
+    <section class="city-info" style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+        <div style="border: 1px solid rgba(128,128,128,0.15); padding: 35px; border-radius: 12px;">
+          <h3 class="info-title" style="font-size: 1.25rem; margin-bottom: 20px;">En nuestra oficina te explicamos:</h3>
+          <ul style="list-style-type: none; padding-left: 0; display: flex; flex-direction: column; gap: 12px;">
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Cómo funciona nuestro servicio.
+            </li>
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Qué debes traer a tu cita.
+            </li>
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Qué identificación puedes presentar.
+            </li>
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Quién debe estar presente.
+            </li>
+            <li style="display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.4;">
+              <span style="color: var(--red);">✓</span> Qué información necesitamos antes de realizar el acto notarial.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="info-title" style="font-size: 1.8rem; margin-bottom: 25px;">
+            Notary Public en Español en Newark, NJ
+          </h2>
+          <p class="info-text">
+            Realizar un trámite puede resultar más sencillo cuando puedes explicar lo que necesitas en tu propio idioma.
+          </p>
+          <p class="info-text">
+            En MAPA Business ofrecemos <strong>atención en español para servicios de Notary Public en Newark</strong>. Nuestra atención busca que comprendas claramente el proceso de notarización que vamos a realizar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qué necesito -->
+    <section class="city-info" style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px;">
+        <h2 class="section-title" style="margin-bottom: 50px;">
+          ¿Qué Necesito para <span>Notarizar un Documento</span> en Newark?
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+          <div style="border: 1px solid rgba(128,128,128,0.15); padding: 25px; border-radius: 8px;">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 10px; color: var(--red);">1. Traer el documento completo</h3>
+            <p style="font-size: 0.85rem; line-height: 1.5; opacity: 0.85;">Trae todas las páginas correspondientes al documento, incluso si solamente una sección requiere una firma.</p>
+          </div>
+          <div style="border: 1px solid rgba(128,128,128,0.15); padding: 25px; border-radius: 8px;">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 10px; color: var(--red);">2. Presentar identificación</h3>
+            <p style="font-size: 0.85rem; line-height: 1.5; opacity: 0.85;">El Notary Public debe poder verificar adecuadamente la identidad del firmante. Comunícate antes si tienes dudas de la identificación.</p>
+          </div>
+          <div style="border: 1px solid rgba(128,128,128,0.15); padding: 25px; border-radius: 8px;">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 10px; color: var(--red);">3. Confirmar quién debe estar presente</h3>
+            <p style="font-size: 0.85rem; line-height: 1.5; opacity: 0.85;">La persona cuya firma será notarizada normalmente debe participar personalmente en el acto notarial correspondiente.</p>
+          </div>
+          <div style="border: 1px solid rgba(128,128,128,0.15); padding: 25px; border-radius: 8px;">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 10px; color: var(--red);">4. Verificar si necesitas testigos</h3>
+            <p style="font-size: 0.85rem; line-height: 1.5; opacity: 0.85;">Algunos documentos requieren testigos adicionales, dependiendo de las instrucciones de la institución que lo solicita.</p>
+          </div>
+          <div style="border: 1px solid rgba(128,128,128,0.15); padding: 25px; border-radius: 8px;">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 10px; color: var(--red);">5. Revisar antes de firmar</h3>
+            <p style="font-size: 0.85rem; line-height: 1.5; opacity: 0.85;">No asumas que debes firmar previamente. Dependiendo del acto, puede ser necesario firmar en presencia del Notary Public.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px;">
+        <h2 class="section-title" style="margin-bottom: 50px;">
+          ¿Cómo Funciona Nuestro Servicio de <span>Notary Public</span> en Newark?
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+          <div style="text-align: center; padding: 15px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--red); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 15px;">1</div>
+            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;">Contáctanos</h4>
+            <p style="font-size: 0.8rem; line-height: 1.4; opacity: 0.75;">Explícanos qué documento necesitas notarizar.</p>
+          </div>
+          <div style="text-align: center; padding: 15px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--red); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 15px;">2</div>
+            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;">Confirma</h4>
+            <p style="font-size: 0.8rem; line-height: 1.4; opacity: 0.75;">Te indicamos qué debes llevar a tu cita.</p>
+          </div>
+          <div style="text-align: center; padding: 15px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--red); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 15px;">3</div>
+            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;">Visítanos</h4>
+            <p style="font-size: 0.8rem; line-height: 1.4; opacity: 0.75;">Acude con tu documento, ID y participantes.</p>
+          </div>
+          <div style="text-align: center; padding: 15px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--red); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 15px;">4</div>
+            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;">Verificación</h4>
+            <p style="font-size: 0.8rem; line-height: 1.4; opacity: 0.75;">El notario verificará la información y validez.</p>
+          </div>
+          <div style="text-align: center; padding: 15px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--red); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 15px;">5</div>
+            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;">Notarización</h4>
+            <p style="font-size: 0.8rem; line-height: 1.4; opacity: 0.75;">Se realiza el acto notarial y certificado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comunidad y pequeños negocios -->
+    <section class="city-info" style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+        <div>
+          <h2 class="info-title" style="font-size: 1.4rem; margin-bottom: 20px;">
+            Notary Public para la Comunidad Hispana
+          </h2>
+          <p class="info-text">
+            Newark cuenta con una amplia comunidad de habla hispana que diariamente realiza trámites personales, comerciales y administrativos. Nuestro objetivo es brindar un servicio accesible para quienes buscan un <strong>Notary Public en Newark que atienda en español</strong>.
+          </p>
+          <p class="info-text">
+            Atendemos a personas que necesitan asistencia con documentos relacionados con asuntos personales, familiares y comerciales, siempre dentro de las funciones permitidas para un Notary Public de New Jersey.
+          </p>
+        </div>
+        <div>
+          <h2 class="info-title" style="font-size: 1.4rem; margin-bottom: 20px;">
+            Servicio de Notary Public para Pequeños Negocios
+          </h2>
+          <p class="info-text">
+            También ofrecemos notarización para emprendedores y propietarios de pequeños negocios que necesitan completar documentos relacionados con sus actividades comerciales.
+          </p>
+          <p class="info-text">
+            Si además necesitas ayuda con otros servicios empresariales en Newark, conoce más sobre:
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+            <a href={`${cityServiceLinkPrefix}newark/bookkeeping/`} style="font-weight: 700; color: var(--red); text-decoration: none;">Bookkeeping en Newark →</a>
+            <a href={`${cityServiceLinkPrefix}newark/taxes/`} style="font-weight: 700; color: var(--red); text-decoration: none;">Taxes en Newark →</a>
+            <a href={`${cityServiceLinkPrefix}newark/traducciones/`} style="font-weight: 700; color: var(--red); text-decoration: none;">Traducciones en Newark →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notaría y traducción, Notary vs Notario -->
+    <section class="city-info" style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+        <div>
+          <h2 class="info-title" style="font-size: 1.4rem; margin-bottom: 20px;">
+            Notaría y Traducción de Documentos
+          </h2>
+          <p class="info-text">
+            En determinadas situaciones puedes necesitar traducir un documento además de realizar otros trámites administrativos. MAPA Business también ofrece servicios de traducción en Newark.
+          </p>
+          <p class="info-text">
+            La traducción y la notarización son servicios diferentes y no todos los documentos traducidos necesitan ser notarizados.
+          </p>
+          <div style="margin-top: 15px;">
+            <a href={`${cityServiceLinkPrefix}newark/traducciones/`} style="font-weight: 700; color: var(--red); text-decoration: none;">Conocer el servicio de Traducciones en Newark →</a>
+          </div>
+        </div>
+        <div>
+          <h2 class="info-title" style="font-size: 1.4rem; margin-bottom: 20px;">
+            Notary Public vs. “Notario Público”
+          </h2>
+          <p class="info-text">
+            Es importante entender una diferencia fundamental. En algunos países de Latinoamérica, el término <strong>“Notario Público”</strong> identifica a un profesional con facultades jurídicas amplias (como un abogado).
+          </p>
+          <p class="info-text">
+            En New Jersey, un <strong>Notary Public no es un abogado por el hecho de ser notario</strong>. La función del Notary Public se limita a los actos notariales permitidos por la legislación de New Jersey.
+          </p>
+          <p class="info-text" style="font-weight: 700; color: var(--red);">
+            MAPA Business no representa el servicio de Notary Public como sustituto de asesoría o representation legal.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Por que elegir MAPA Business -->
+    <section class="city-info" style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px;">
+        <h2 class="section-title" style="margin-bottom: 50px;">
+          ¿Por Qué Elegir <span>MAPA Business</span> para tu Notarización en Newark?
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+          <div style="border: 1px solid rgba(128,128,128,0.15); padding: 30px; border-radius: 8px;">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; color: var(--red);">Atención en español</h3>
+            <p style="font-size: 0.9rem; line-height: 1.6; opacity: 0.85;">Puedes comunicarte con nosotros y hacer preguntas sobre nuestro servicio en español.</p>
+          </div>
+          <div style="border: 1px solid rgba(128,128,128,0.15); padding: 30px; border-radius: 8px;">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; color: var(--red);">Ubicación en Newark</h3>
+            <p style="font-size: 0.9rem; line-height: 1.6; opacity: 0.85;">Nuestra oficina se encuentra en Newark, New Jersey, con fácil acceso.</p>
+          </div>
+          <div style="border: 1px solid rgba(128,128,128,0.15); padding: 30px; border-radius: 8px;">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; color: var(--red);">Atención personalizada</h3>
+            <p style="font-size: 0.9rem; line-height: 1.6; opacity: 0.85;">Revisamos primero qué tipo de servicio estás solicitando y qué debes traer a tu cita.</p>
+          </div>
+          <div style="border: 1px solid rgba(128,128,128,0.15); padding: 30px; border-radius: 8px;">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; color: var(--red);">Varios servicios</h3>
+            <p style="font-size: 0.9rem; line-height: 1.6; opacity: 0.85;">Además de Notary Public, ofrecemos soporte administrativo, financiero y documental en un solo lugar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mapa e Ubicación -->
+    <section style="padding: 80px 0;">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+        <div>
+          <h2 class="info-title" style="font-size: 1.6rem; margin-bottom: 25px;">
+            Nuestra Ubicación en Newark, New Jersey
+          </h2>
+          <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px;">
+            <p style="font-size: 0.95rem; margin: 0; opacity: 0.9;">
+              📍 <strong>MAPA Business & Financial Services LLC</strong><br/>
+              20 Bloomfield Pl, Newark, NJ 07104
+            </p>
+            <p style="font-size: 0.95rem; margin: 0; opacity: 0.9;">
+              📞 <strong>Teléfono / WhatsApp:</strong> (862) 622-8339
+            </p>
+            <p style="font-size: 0.95rem; margin: 0; line-height: 1.6; opacity: 0.9;">
+              🕐 <strong>Horario:</strong><br />
+              Lunes a viernes: 9:00 AM – 6:00 PM<br />
+              Sábado: 9:00 AM – 2:00 PM
+            </p>
+            <p style="font-size: 1rem; font-weight: 700; color: var(--red); margin: 5px 0 0 0;">
+              * Consulta inicial gratuita.
+            </p>
+          </div>
+          <div class="btn-group" style="display: flex; flex-wrap: wrap; gap: 12px;">
+            <a href="https://maps.google.com/?q=20+Bloomfield+Pl,+Newark,+NJ+07104" target="_blank" class="btn btn-red">Cómo llegar</a>
+            <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20necesito%20coordinar%20una%20cita%20de%20notaria%20en%20Newark.`} target="_blank" class="btn btn-wa">WhatsApp</a>
+            <a href="#contacto" class="btn btn-outline" style="border-color: rgba(128,128,128,0.3); color: inherit;">Agendar una cita</a>
+          </div>
+        </div>
+        <div style="height: 380px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid rgba(128,128,128,0.15);">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.3893229357477!2d-74.1696199!3d40.7534611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c255b932165583%3A0xad092a1ffae4519f!2sMAPA%20Business%20%26%20Financial%20Services%20LLC!5e0!3m2!1ses!2sus!4v1785794028896!5m2!1ses!2sus" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Preguntas frecuentes -->
+    <section class="city-info" style="padding: 80px 0; border-top: 1px solid rgba(128,128,128,0.15);">
+      <div style="max-width: 850px; margin: 0 auto; padding: 0 40px;">
+        <h2 class="section-title" style="margin-bottom: 50px;">
+          Preguntas Frecuentes sobre <span>Notary Public en Newark</span>
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <details style="border: 1px solid rgba(128,128,128,0.15); border-radius: 8px; padding: 20px;" open>
+            <summary style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              ¿Dónde puedo encontrar un Notary Public cerca de mí en Newark? <span style="color: var(--red); font-weight: bold;">+</span>
+            </summary>
+            <p style="font-size: 0.9rem; line-height: 1.6; margin-top: 12px; margin-bottom: 0; opacity: 0.85;">
+              MAPA Business & Financial Services LLC ofrece servicios de Notary Public en Newark, New Jersey, con atención en español. Puedes comunicarte previamente para confirmar disponibilidad y los requisitos de tu documento.
+            </p>
+          </details>
+
+          <details style="border: 1px solid rgba(128,128,128,0.15); border-radius: 8px; padding: 20px;">
+            <summary style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              ¿Atienden en español? <span style="color: var(--red); font-weight: bold;">+</span>
+            </summary>
+            <p style="font-size: 0.9rem; line-height: 1.6; margin-top: 12px; margin-bottom: 0; opacity: 0.85;">
+              Sí. Ofrecemos atención en español para que puedas comprender claramente cómo funciona nuestro servicio de notarización.
+            </p>
+          </details>
+
+          <details style="border: 1px solid rgba(128,128,128,0.15); border-radius: 8px; padding: 20px;">
+            <summary style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              ¿Necesito una cita para notarizar un documento? <span style="color: var(--red); font-weight: bold;">+</span>
+            </summary>
+            <p style="font-size: 0.9rem; line-height: 1.6; margin-top: 12px; margin-bottom: 0; opacity: 0.85;">
+              Recomendamos solicitar una cita previamente para confirmar disponibilidad y verificar qué documentos debes llevar.
+            </p>
+          </details>
+
+          <details style="border: 1px solid rgba(128,128,128,0.15); border-radius: 8px; padding: 20px;">
+            <summary style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              ¿Qué identificación debo llevar? <span style="color: var(--red); font-weight: bold;">+</span>
+            </summary>
+            <p style="font-size: 0.9rem; line-height: 1.6; margin-top: 12px; margin-bottom: 0; opacity: 0.85;">
+              Debes presentar una identificación que permita al Notary Public verificar tu identidad conforme a los requisitos aplicables en New Jersey. Si tienes dudas sobre tu identificación, consulta antes de acudir.
+            </p>
+          </details>
+
+          <details style="border: 1px solid rgba(128,128,128,0.15); border-radius: 8px; padding: 20px;">
+            <summary style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              ¿Debo firmar el documento antes de llegar? <span style="color: var(--red); font-weight: bold;">+</span>
+            </summary>
+            <p style="font-size: 0.9rem; line-height: 1.6; margin-top: 12px; margin-bottom: 0; opacity: 0.85;">
+              Depende del acto notarial que requiera el documento. En determinados casos la firma debe realizarse en presencia del Notary Public. Por eso recomendamos no asumir que debes firmar previamente y consultar antes de tu cita.
+            </p>
+          </details>
+
+          <details style="border: 1px solid rgba(128,128,128,0.15); border-radius: 8px; padding: 20px;">
+            <summary style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              ¿Puedo notarizar un documento escrito en español? <span style="color: var(--red); font-weight: bold;">+</span>
+            </summary>
+            <p style="font-size: 0.9rem; line-height: 1.6; margin-top: 12px; margin-bottom: 0; opacity: 0.85;">
+              La posibilidad de realizar el acto notarial dependerá del documento, del certificado notarial requerido y de que el Notary Public pueda cumplir correctamente con sus obligaciones. Comunícate previamente y dinos qué tipo de documento necesitas notarizar.
+            </p>
+          </details>
+
+          <details style="border: 1px solid rgba(128,128,128,0.15); border-radius: 8px; padding: 20px;">
+            <summary style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              ¿Un Notary Public puede ayudarme a elegir qué documento legal necesito? <span style="color: var(--red); font-weight: bold;">+</span>
+            </summary>
+            <p style="font-size: 0.9rem; line-height: 1.6; margin-top: 12px; margin-bottom: 0; opacity: 0.85;">
+              No. Un Notary Public que no sea abogado no puede proporcionar asesoría legal simplemente por tener una comisión de Notary Public. Si necesitas determinar qué documento legal debes utilizar o necesitas asesoramiento sobre tus derechos, debes consultar con un profesional legal autorizado.
+            </p>
+          </details>
+
+          <details style="border: 1px solid rgba(128,128,128,0.15); border-radius: 8px; padding: 20px;">
+            <summary style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              ¿Una notarización es lo mismo que una apostilla? <span style="color: var(--red); font-weight: bold;">+</span>
+            </summary>
+            <p style="font-size: 0.9rem; line-height: 1.6; margin-top: 12px; margin-bottom: 0; opacity: 0.85;">
+              No. La notarización y la apostilla son procesos diferentes. Una apostilla es una certificación utilizada para determinados documentos que serán presentados en otro país. Si tu documento será utilizado fuera de Estados Unidos, verifica qué procedimiento exige la institución que lo recibirá.
+            </p>
+          </details>
+
+          <details style="border: 1px solid rgba(128,128,128,0.15); border-radius: 8px; padding: 20px;">
+            <summary style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              ¿Ofrecen otros servicios en Newark? <span style="color: var(--red); font-weight: bold;">+</span>
+            </summary>
+            <p style="font-size: 0.9rem; line-height: 1.6; margin-top: 12px; margin-bottom: 0; opacity: 0.85;">
+              Sí. MAPA Business ofrece diferentes servicios para familias, trabajadores, emprendedores y pequeños negocios. <a href={`${cityServiceLinkPrefix}newark/`} style="font-weight: 700; color: var(--red); text-decoration: none;">Ver todos nuestros servicios en Newark →</a>
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="cta-section" id="contacto">
+      <div class="cta-inner" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h2 style="font-size: 2rem; font-family: 'Montserrat', sans-serif; font-weight: 900; margin-bottom: 20px;">¿Buscas un Notary Public Cerca de Ti en Newark?</h2>
+        <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+          Si necesitas notarizar un documento en Newark, NJ, comunícate con nosotros antes de acudir. Te ayudaremos a confirmar qué debes llevar y a coordinar tu cita.
+        </p>
+        <p style="font-size: 1.1rem; font-weight: 700; margin-bottom: 30px; letter-spacing: 0.5px;">
+          MAPA Business & Financial Services LLC<br />
+          <span style="font-size: 0.95rem; font-weight: 500; opacity: 0.9;">📍 20 Bloomfield Pl, Newark, NJ 07104 | 📞 (862) 622-8339</span>
+        </p>
+        <p style="font-weight: 700; color: var(--red); margin-bottom: 30px; font-size: 1.1rem;">
+          * Consulta inicial gratuita.
+        </p>
+        <div class="btn-group" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+          <a href="#contacto" class="btn btn-red"><span>Agendar una cita</span></a>
+          <a href={`tel:${PHONE_HREF}`} class="btn btn-phone">📞 Llamar: {PHONE}</a>
+          <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20necesito%20notarizar%20un%20documento%20en%20Newark.`} target="_blank" class="btn btn-wa">💬 Hablar por WhatsApp</a>
+        </div>
+        <p style="margin-top: 50px; font-size: 0.8rem; line-height: 1.5; color: rgba(255,255,255,0.45); max-width: 700px; margin-left: auto; margin-right: auto;">
+          <strong>Aviso Importante:</strong> MAPA Business & Financial Services LLC no es un bufete de abogados. El servicio de Notary Public no incluye asesoría legal, selección de documentos legales ni representación jurídica. Si tu situación requiere asesoramiento legal, consulta con un abogado u otro profesional autorizado.
+        </p>
+      </div>
+    </section>
+  ) : (
+    <!-- ============================================== -->
+    <!-- MAQUETA DINÁMICA POR DEFECTO PARA OTROS         -->
+    <!-- ============================================== -->
+    <!-- Hero -->
+    <div class="page-hero">
+      <div class="page-tag">MAPA Business & Financial Services LLC</div>
+      <div class="page-icon">{service.icon}</div>
+      <h1>
+        <span>{t("services.service_of")}</span> <span>{serviceName}</span> <span>{t("services.in_city")} {cityName}, NJ</span>
+      </h1>
+      <p class="page-intro">
+        {lang === 'es'
+          ? `Ofrecemos asesoría y orientación profesional en español para ${serviceName} en la ciudad de ${cityName}, New Jersey (${countyName}). Apoyamos a la comunidad hispana con soluciones rápidas, seguras y de confianza.`
+          : `We offer professional advice and guidance in Spanish and English for ${serviceName} in the city of ${cityName}, New Jersey (${countyName}). We support the Latino community with fast, secure, and reliable solutions.`}
+      </p>
+      <div class="btn-group">
+        <a href={`tel:${PHONE_HREF}`} class="btn btn-red"><span>{t("contact.btn_call")}</span> {PHONE}</a>
+        <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20necesito%20${encodeURIComponent(serviceName)}%20en%20${cityName}.`} target="_blank" class="btn btn-wa">💬 WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Unique Details / Info -->
+    <div class="cities-section">
+      <div class="cities-inner">
+        <h2 class="section-label">
+          <span>{lang === 'es' ? 'Cómo te ayudamos con' : 'How we help you with'} {serviceName}</span> <span>{lang === 'es' ? 'en' : 'in'} {cityName}</span>
+        </h2>
+        <p class="section-desc">
+          {lang === 'es'
+            ? `Nuestros servicios notariales, fiscales y de bookkeeping se adaptan a las necesidades de los vecinos de ${cityName}. Ofrecemos una primera orientación sin costo para evaluar tu caso.`
+            : `Our notary, tax, and bookkeeping services are tailored to the needs of ${cityName} residents. We offer a first consultation at no cost to evaluate your case.`}
+        </p>
+        <div style="border:1px solid rgba(128,128,128,0.15); padding:30px; border-radius:8px; line-height:1.75;">
+          <p style="margin-bottom:14px;">
+            <strong>{lang === 'es' ? 'Modalidad de atención:' : 'Service Type:'}</strong> {lang === 'es' ? 'Presencial con cita en nuestra oficina principal o atención telefónica/digital.' : 'In-person with an appointment at our main office, or telephone/digital support.'}
+          </p>
+          <p style="margin-bottom:14px;">
+            <strong>{lang === 'es' ? 'Condado:' : 'County:'}</strong> {countyName}
+          </p>
+          <p>
+            <strong>{lang === 'es' ? 'Comunidad atendida:' : 'Community Served:'}</strong> {t(`cities.${city.slug}.desc`)}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Service Info Section -->
+    {details && (
+      <div class="service-details-section" style="border-top: 1px solid rgba(128,128,128,0.15);">
+        <div class="service-details-inner">
+          <div class="service-rich-text" set:html={details} />
+        </div>
+      </div>
+    )}
+
+    <!-- FAQs localized for city -->
+    <div class="faq-section">
+      <h2><span>{t("services.faq_title_prefix")}</span> &mdash; {serviceName} {lang === 'es' ? 'en' : 'in'} {cityName}</h2>
+      <dl>
+        {service.faqs.map((faq, index) => {
+          const question = t(`services.${service.slug}.faqs.${index}.q`, { city: cityName });
+          const answer = t(`services.${service.slug}.faqs.${index}.a`, { city: cityName });
+          return (
+            <div class="faq-item">
+              <dt>{question}</dt>
+              <dd>{answer}</dd>
+            </div>
+          );
+        })}
+      </dl>
+    </div>
+
+    <!-- Spoke Links Grid (Other services in this city) -->
+    <div class="cities-section">
+      <div class="cities-inner">
+        <h3 class="section-label" style="font-size:1.35rem; margin-bottom:12px;">
+          <span>{lang === 'es' ? 'Otros Servicios en' : 'Other Services in'}</span> <span>{cityName}</span>
+        </h3>
+        <p class="section-desc">
+          {lang === 'es' ? 'Conoce otros trámites y asesorías que Marilyn Paladinez ofrece en tu área:' : 'Learn about other procedures and advice Marilyn Paladinez offers in your area:'}
+        </p>
+        <div class="services-grid">
+          {otherServices.map((s) => (
+            <a href={`${cityServiceLinkPrefix}${city.slug}/${s.slug}/`} class="service-card">
+              <div class="service-card-img-wrap">
+                <img src={s.image} alt={t(`services.${s.slug}.title`)} class="service-card-img" loading="lazy" />
+                <span class="service-icon-badge">{s.icon}</span>
+              </div>
+              <div class="service-card-body">
+                <h3 class="card-title">{t(`services.${s.slug}.title`)}</h3>
+                <p class="card-desc">{t(`services.${s.slug}.desc`)}</p>
+                <div class="card-link">{t("services.local_attention")}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Spoke Links Grid (Other cities for this service) -->
+    <div class="cities-section">
+      <div class="cities-inner">
+        <h3 class="section-label" style="font-size:1.35rem; margin-bottom:12px;">
+          <span>{serviceName}</span> <span>{lang === 'es' ? 'en Otras Ciudades de NJ' : 'in Other NJ Cities'}</span>
+        </h3>
+        <p class="section-desc">
+          {lang === 'es' ? 'Selecciona tu ciudad para ver la oficina y cobertura local correspondiente:' : 'Select your city to view the corresponding local office and coverage:'}
+        </p>
+        <div class="cities-grid">
+          {otherCities.map((c) => (
+            <a href={`${cityServiceLinkPrefix}${c.slug}/${service.slug}/`} class="city-card">
+              <div>
+                <div class="city-name">{c.name}</div>
+                <div class="city-county">{c.county}</div>
+              </div>
+              <div class="city-link">{t("services.local_attention")}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Box -->
+    <div class="cta-section">
+      <h2>{t("services.cta_ready")}</h2>
+      <p>{t("services.cta_doubts_desc")}</p>
+      <div class="btn-group" style="margin-top: 20px;">
+        <a href={`${homeLink}#contacto`} class="btn btn-red"><span>{t("about.btn_schedule")}</span></a>
+        <a href={`tel:${PHONE_HREF}`} class="btn btn-phone">📞 Llamar: {PHONE}</a>
+        <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20necesito%20${encodeURIComponent(serviceName)}%20en%20${cityName}.`} target="_blank" class="btn btn-wa">💬 Hablar por WhatsApp</a>
       </div>
     </div>
   )}
-
-  <!-- FAQs localized for city -->
-  <div class="faq-section">
-    <h2><span>{t("services.faq_title_prefix")}</span> &mdash; {serviceName} {lang === 'es' ? 'en' : 'in'} {cityName}</h2>
-    <dl>
-      {service.faqs.map((faq, index) => {
-        const question = t(`services.${service.slug}.faqs.${index}.q`, { city: cityName });
-        const answer = t(`services.${service.slug}.faqs.${index}.a`, { city: cityName });
-        return (
-          <div class="faq-item">
-            <dt>{question}</dt>
-            <dd>{answer}</dd>
-          </div>
-        );
-      })}
-    </dl>
-  </div>
-
-  <!-- Spoke Links Grid (Other services in this city) -->
-  <div class="cities-section" style="background:#0a0a0a;">
-    <div class="cities-inner">
-      <h3 class="section-label" style="font-size:1.35rem; margin-bottom:12px;">
-        <span>{lang === 'es' ? 'Otros Servicios en' : 'Other Services in'}</span> <span>{cityName}</span>
-      </h3>
-      <p class="section-desc">
-        {lang === 'es' ? 'Conoce otros trámites y asesorías que Marilyn Paladinez ofrece en tu área:' : 'Learn about other procedures and advice Marilyn Paladinez offers in your area:'}
-      </p>
-      <div class="cities-grid">
-        {otherServices.map((s) => (
-          <a href={`${cityServiceLinkPrefix}${city.slug}/${s.slug}/`} class="city-card">
-            <div>
-              <div class="city-name">{t(`services.${s.slug}.title`)}</div>
-              <div class="city-county">{s.icon}</div>
-            </div>
-            <div class="city-link">{t("services.local_attention")}</div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </div>
-
-  <!-- Spoke Links Grid (Other cities for this service) -->
-  <div class="cities-section">
-    <div class="cities-inner">
-      <h3 class="section-label" style="font-size:1.35rem; margin-bottom:12px;">
-        <span>{serviceName}</span> <span>{lang === 'es' ? 'en Otras Ciudades de NJ' : 'in Other NJ Cities'}</span>
-      </h3>
-      <p class="section-desc">
-        {lang === 'es' ? 'Selecciona tu ciudad para ver la oficina y cobertura local correspondiente:' : 'Select your city to view the corresponding local office and coverage:'}
-      </p>
-      <div class="cities-grid">
-        {otherCities.map((c) => (
-          <a href={`${cityServiceLinkPrefix}${c.slug}/${service.slug}/`} class="city-card">
-            <div>
-              <div class="city-name">{c.name}</div>
-              <div class="city-county">{c.county}</div>
-            </div>
-            <div class="city-link">{t("services.local_attention")}</div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA Box -->
-  <div class="cta-section">
-    <h2>{t("services.cta_ready")}</h2>
-    <p>{t("services.cta_doubts_desc")}</p>
-    <a href={`${homeLink}#contacto`} class="btn-white">{t("about.btn_schedule")}</a>
-  </div>
 </BaseLayout>

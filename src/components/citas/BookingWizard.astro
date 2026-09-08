@@ -1,0 +1,1707 @@
+---
+import { APP_CONFIG } from '../../services/config/appConfig';
+
+interface Props {
+  lang?: 'es' | 'en';
+  initialCity?: string;
+  initialService?: string;
+}
+
+const { lang = 'es', initialCity = '', initialService = '' } = Astro.props;
+
+const services = APP_CONFIG.services.filter(s => s.status === 'active');
+const cities = APP_CONFIG.cities;
+const phoneHref = APP_CONFIG.business.phoneHref;
+const phoneDisplay = APP_CONFIG.business.phone;
+---
+
+<div class="booking-wizard-container" id="booking-flow">
+  <!-- Top Progress Bar -->
+  <div class="wizard-stepper" id="wizardStepper">
+    <div class="step-indicator active" data-step="1">
+      <span class="step-num">1</span>
+      <span class="step-title">{lang === 'es' ? 'Servicio' : 'Service'}</span>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step-indicator" data-step="2">
+      <span class="step-num">2</span>
+      <span class="step-title">{lang === 'es' ? 'Modalidad' : 'Type'}</span>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step-indicator" data-step="3">
+      <span class="step-num">3</span>
+      <span class="step-title">{lang === 'es' ? 'Horario' : 'Time'}</span>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step-indicator" data-step="4">
+      <span class="step-num">4</span>
+      <span class="step-title">{lang === 'es' ? 'Tus Datos' : 'Details'}</span>
+    </div>
+  </div>
+
+  <!-- Wizard Content Box -->
+  <div class="wizard-card">
+    
+    <!-- ============================================== -->
+    <!-- PASO 1: SELECCIÓN DE SERVICIO                  -->
+    <!-- ============================================== -->
+    <div class="wizard-step" id="step1" style="display: block;">
+      <div class="step-header">
+        <div class="step-header-top">
+          <div class="nav-ghost"></div>
+          <span class="step-badge">{lang === 'es' ? 'Paso 1 de 4' : 'Step 1 of 4'}</span>
+          <div class="nav-ghost"></div>
+        </div>
+        <h2>{lang === 'es' ? '¿En qué podemos ayudarte?' : 'How can we help you?'}</h2>
+        <p class="step-subtitle">
+          {lang === 'es' 
+            ? 'Selecciona el trámite que necesitas resolver. Si no estás seguro, elige la primera opción de orientación.'
+            : 'Select the service you need. If you are not sure, pick our initial consultation option.'}
+        </p>
+      </div>
+
+      <div class="services-selection-grid">
+        {services.map((svc) => (
+          <div 
+            class={`service-select-card ${svc.id === 'srv_not_sure' ? 'card-featured-unsure' : ''}`}
+            data-service-id={svc.id}
+            data-service-name={lang === 'es' ? svc.name : svc.nameEn}
+            data-service-slug={svc.slug}
+            data-service-duration={svc.duration}
+            data-allowed-types={JSON.stringify(svc.allowedTypes)}
+          >
+            {svc.id === 'srv_not_sure' && (
+              <span class="featured-badge">⭐ {lang === 'es' ? 'Opción Recomendada si tienes dudas' : 'Recommended if unsure'}</span>
+            )}
+            <div class="card-icon-wrap">
+              <span class="card-emoji">{svc.icon}</span>
+              <span class="duration-tag">⏱️ {svc.duration} min</span>
+            </div>
+            <h3 class="card-name">{lang === 'es' ? svc.name : svc.nameEn}</h3>
+            <p class="card-description">{lang === 'es' ? svc.description : svc.descriptionEn}</p>
+            <div class="card-select-btn">
+              <span>{lang === 'es' ? 'Elegir este servicio' : 'Select this service'} →</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PASO 2: TIPO DE CITA                           -->
+    <!-- ============================================== -->
+    <div class="wizard-step" id="step2" style="display: none;">
+      <div class="step-header">
+        <div class="step-header-top">
+          <button type="button" class="btn-back" id="backToStep1">← {lang === 'es' ? 'Cambiar servicio' : 'Change service'}</button>
+          <span class="step-badge">{lang === 'es' ? 'Paso 2 de 4' : 'Step 2 of 4'}</span>
+          <div class="nav-ghost"></div>
+        </div>
+        <h2>{lang === 'es' ? '¿Cómo prefieres tu cita?' : 'How do you prefer your appointment?'}</h2>
+        <p class="step-subtitle">
+          {lang === 'es'
+            ? 'Elige la modalidad más cómoda para ti. Atendemos en nuestra oficina o a distancia.'
+            : 'Select the most convenient option for you. We serve in person or remotely.'}
+        </p>
+      </div>
+
+      <div class="type-selection-grid">
+        <!-- In Person -->
+        <div class="type-card" data-type="in_person" id="typeCardInPerson">
+          <div class="type-icon">🏢</div>
+          <div class="type-info">
+            <h3 class="type-title">{lang === 'es' ? 'Cita Presencial' : 'In-Person Appointment'}</h3>
+            <p class="type-desc">
+              {lang === 'es'
+                ? 'Te esperamos en nuestra sede central en 20 Bloomfield Pl, Newark, NJ 07104. Fácil acceso desde Elizabeth, Paterson y todo New Jersey.'
+                : 'Meet us at our main office in 20 Bloomfield Pl, Newark, NJ 07104. Easy access from anywhere in NJ.'}
+            </p>
+            <span class="type-badge-note">📍 {lang === 'es' ? 'Recomendado para notarizaciones y entrega de documentos físicos' : 'Required for notary & physical signatures'}</span>
+          </div>
+          <div class="type-check">✓</div>
+        </div>
+
+        <!-- Phone Call -->
+        <div class="type-card" data-type="phone" id="typeCardPhone">
+          <div class="type-icon">📞</div>
+          <div class="type-info">
+            <h3 class="type-title">{lang === 'es' ? 'Cita Telefónica' : 'Phone Appointment'}</h3>
+            <p class="type-desc">
+              {lang === 'es'
+                ? 'Marilyn Paladinez o nuestro equipo te llamará puntualmente a la hora acordada a tu número telefónico.'
+                : 'Marilyn Paladinez or our team will call you promptly at the scheduled time.'}
+            </p>
+            <span class="type-badge-note">⚡ {lang === 'es' ? 'Rápido, cómodo y sin necesidad de traslados' : 'Quick and convenient without travel'}</span>
+          </div>
+          <div class="type-check">✓</div>
+        </div>
+
+        <!-- Virtual Video -->
+        <div class="type-card" data-type="virtual" id="typeCardVirtual">
+          <div class="type-icon">💻</div>
+          <div class="type-info">
+            <h3 class="type-title">{lang === 'es' ? 'Cita Virtual (Videollamada)' : 'Virtual Video Meeting'}</h3>
+            <p class="type-desc">
+              {lang === 'es'
+                ? 'Videollamada por Google Meet o Zoom. Te enviamos el enlace por correo y WhatsApp para conectarte desde tu teléfono o computadora.'
+                : 'Video call via Google Meet or Zoom. We will email and text you the meeting link.'}
+            </p>
+            <span class="type-badge-note">🖥️ {lang === 'es' ? 'Ideal para revisar documentos en pantalla' : 'Great for reviewing documents together'}</span>
+          </div>
+          <div class="type-check">✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PASO 3: FECHA Y HORARIO (America/New_York)     -->
+    <!-- ============================================== -->
+    <div class="wizard-step" id="step3" style="display: none;">
+      <div class="step-header">
+        <div class="step-header-top">
+          <button type="button" class="btn-back" id="backToStep2">← {lang === 'es' ? 'Cambiar modalidad' : 'Change type'}</button>
+          <span class="step-badge">{lang === 'es' ? 'Paso 3 de 4' : 'Step 3 of 4'}</span>
+          <div class="nav-ghost"></div>
+        </div>
+        <h2>{lang === 'es' ? 'Selecciona Día y Horario' : 'Select Date & Time'}</h2>
+        <p class="step-subtitle">
+          {lang === 'es' 
+            ? 'Zona horaria: America/New_York (Hora del Este). Todos los horarios se confirman en tiempo real.'
+            : 'Timezone: America/New_York (Eastern Time). All slots are confirmed in real time.'}
+        </p>
+      </div>
+
+      <!-- Horizontal Date Picker -->
+      <div class="date-picker-section">
+        <label class="section-label">📅 {lang === 'es' ? '1. Elige una fecha disponible:' : '1. Choose an available date:'}</label>
+        <div class="date-carousel" id="dateCarousel">
+          <!-- Populated by JS -->
+          <div class="date-loading-state">{lang === 'es' ? 'Cargando fechas disponibles...' : 'Loading available dates...'}</div>
+        </div>
+      </div>
+
+      <!-- Time Slots Grid -->
+      <div class="slots-section" id="slotsSection">
+        <label class="section-label">⏰ {lang === 'es' ? '2. Selecciona tu horario:' : '2. Select your time:'}</label>
+        <div class="slots-grid" id="slotsGrid">
+          <p class="select-date-prompt">{lang === 'es' ? 'Selecciona una fecha arriba para ver los horarios libres.' : 'Select a date above to see available times.'}</p>
+        </div>
+      </div>
+
+      <div class="selected-summary-bar" id="selectedTimeBar" style="display: none;">
+        <div class="summary-text">
+          <span class="summary-label">{lang === 'es' ? 'Fecha y hora seleccionada:' : 'Selected time:'}</span>
+          <strong id="summaryDateTimeText">-</strong>
+        </div>
+        <button type="button" class="btn btn-red" id="proceedToStep4">
+          {lang === 'es' ? 'Continuar con mis datos' : 'Continue to details'} →
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PASO 4: DATOS DEL CLIENTE                      -->
+    <!-- ============================================== -->
+    <div class="wizard-step" id="step4" style="display: none;">
+      <div class="step-header">
+        <div class="step-header-top">
+          <button type="button" class="btn-back" id="backToStep3">← {lang === 'es' ? 'Cambiar fecha/hora' : 'Change date/time'}</button>
+          <span class="step-badge">{lang === 'es' ? 'Paso 4 de 4' : 'Step 4 of 4'}</span>
+          <div class="nav-ghost"></div>
+        </div>
+        <h2>{lang === 'es' ? 'Ingresa tus datos de contacto' : 'Enter your contact details'}</h2>
+        <p class="step-subtitle">
+          {lang === 'es'
+            ? 'Usaremos esta información exclusivamente para confirmar tu cita y enviarte recordatorios.'
+            : 'We will use this information solely to confirm your appointment and send reminders.'}
+        </p>
+      </div>
+
+      <!-- Mini recap box -->
+      <div class="booking-recap-box">
+        <div class="recap-item">
+          <span class="recap-label">{lang === 'es' ? 'Servicio:' : 'Service:'}</span>
+          <strong id="recapServiceName">-</strong>
+        </div>
+        <div class="recap-item">
+          <span class="recap-label">{lang === 'es' ? 'Modalidad:' : 'Type:'}</span>
+          <strong id="recapTypeName">-</strong>
+        </div>
+        <div class="recap-item">
+          <span class="recap-label">{lang === 'es' ? 'Fecha y Hora:' : 'Date & Time:'}</span>
+          <strong id="recapDateTime">-</strong>
+        </div>
+      </div>
+
+      <form id="bookingClientForm" class="booking-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clientFirstName">{lang === 'es' ? 'Nombre*' : 'First Name*'}</label>
+            <input type="text" id="clientFirstName" name="firstName" required placeholder="Ej. Carlos" />
+          </div>
+          <div class="form-group">
+            <label for="clientLastName">{lang === 'es' ? 'Apellido*' : 'Last Name*'}</label>
+            <input type="text" id="clientLastName" name="lastName" required placeholder="Ej. Gómez" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clientPhone">{lang === 'es' ? 'Teléfono (WhatsApp o Celular)*' : 'Phone (Mobile/WhatsApp)*'}</label>
+            <input type="tel" id="clientPhone" name="phone" required placeholder="Ej. (973) 555-0123" />
+          </div>
+          <div class="form-group">
+            <label for="clientEmail">{lang === 'es' ? 'Correo Electrónico*' : 'Email Address*'}</label>
+            <input type="email" id="clientEmail" name="email" required placeholder="Ej. carlos@correo.com" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clientCity">{lang === 'es' ? 'Ciudad donde vives*' : 'City*'}</label>
+            <select id="clientCity" name="city" required>
+              <option value="Newark, NJ">Newark, NJ</option>
+              <option value="Elizabeth, NJ">Elizabeth, NJ</option>
+              <option value="Paterson, NJ">Paterson, NJ</option>
+              <option value="Jersey City, NJ">Jersey City, NJ</option>
+              <option value="Passaic, NJ">Passaic, NJ</option>
+              <option value="Clifton, NJ">Clifton, NJ</option>
+              <option value="Otra Ciudad en NJ">Otra Ciudad en NJ</option>
+              <option value="Otro Estado / USA">Otro Estado / USA</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="clientLang">{lang === 'es' ? 'Idioma preferido de atención*' : 'Preferred Language*'}</label>
+            <select id="clientLang" name="preferredLanguage">
+              <option value="es">Español</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="clientNotes">
+            {lang === 'es' ? 'Cuéntanos brevemente qué necesitas (Opcional):' : 'Briefly describe your inquiry (Optional):'}
+          </label>
+          <textarea 
+            id="clientNotes" 
+            name="notes" 
+            rows="3" 
+            placeholder={lang === 'es' ? 'Ejemplo: Necesito ayuda con mi ITIN y no sé qué documentos debo llevar a la cita.' : 'Example: I need help with my ITIN application and want to know what documents to bring.'}
+          ></textarea>
+        </div>
+
+        <div class="form-consent">
+          <label class="checkbox-label">
+            <input type="checkbox" id="clientConsent" name="consent" checked required />
+            <span>
+              {lang === 'es'
+                ? 'Acepto recibir recordatorios y comunicaciones de MAPA Business & Financial Services sobre esta cita por llamada, SMS o WhatsApp.'
+                : 'I agree to receive appointment confirmations and reminders from MAPA Business & Financial Services via call, SMS, or WhatsApp.'}
+            </span>
+          </label>
+        </div>
+
+        <div class="form-error-alert" id="formErrorAlert" style="display: none;"></div>
+
+        <div class="form-submit-wrap">
+          <button type="submit" class="btn btn-red btn-submit-booking" id="btnSubmitBooking">
+            <span>🔒</span> {lang === 'es' ? 'Confirmar y Reservar Mi Cita' : 'Confirm & Book My Appointment'}
+          </button>
+          <p class="submit-subtext">
+            ⚡ {lang === 'es' ? 'Reservar toma menos de 2 minutos. Confirmación inmediata.' : 'Takes less than 2 minutes. Instant confirmation.'}
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PASO 5: PANTALLA DE CONFIRMACIÓN               -->
+    <!-- ============================================== -->
+    <div class="wizard-step" id="step5" style="display: none;">
+      <div class="success-header">
+        <div class="success-icon">🎉</div>
+        <h2>{lang === 'es' ? '¡Tu cita ha sido reservada con éxito!' : 'Your appointment has been booked!'}</h2>
+        <p class="success-subtitle">
+          {lang === 'es'
+            ? 'Hemos registrado tu cita en nuestro sistema y te contactaremos para confirmar cualquier detalle adicional.'
+            : 'Your appointment is registered in our system and we will reach out with any further details.'}
+        </p>
+      </div>
+
+      <div class="confirmation-card">
+        <div class="ref-badge-wrap">
+          <span class="ref-label">{lang === 'es' ? 'Número de Confirmación:' : 'Confirmation Code:'}</span>
+          <span class="ref-code" id="confirmedRefCode">MAPA-2026-XXXXX</span>
+        </div>
+
+        <div class="confirmed-details-list">
+          <div class="c-detail-item">
+            <span class="cd-label">👤 {lang === 'es' ? 'Cliente:' : 'Client:'}</span>
+            <strong id="confirmedClientName">-</strong>
+          </div>
+          <div class="c-detail-item">
+            <span class="cd-label">📋 {lang === 'es' ? 'Servicio:' : 'Service:'}</span>
+            <strong id="confirmedServiceName">-</strong>
+          </div>
+          <div class="c-detail-item">
+            <span class="cd-label">📍 {lang === 'es' ? 'Modalidad:' : 'Type:'}</span>
+            <strong id="confirmedTypeName">-</strong>
+          </div>
+          <div class="c-detail-item">
+            <span class="cd-label">📅 {lang === 'es' ? 'Fecha y Hora:' : 'Date & Time:'}</span>
+            <strong id="confirmedDateTime">-</strong>
+          </div>
+          <div class="c-detail-item">
+            <span class="cd-label">🏢 {lang === 'es' ? 'Lugar de Atención:' : 'Location:'}</span>
+            <span id="confirmedLocation">20 Bloomfield Pl, Newark, NJ 07104</span>
+          </div>
+        </div>
+
+        <!-- Add to Calendar Buttons -->
+        <div class="add-to-calendar-block">
+          <h4 class="calendar-title">📅 {lang === 'es' ? 'Agrega esta cita a tu calendario:' : 'Add to your calendar:'}</h4>
+          <div class="calendar-buttons-group">
+            <a href="#" target="_blank" class="btn-cal btn-cal-google" id="btnCalGoogle">
+              <span>Google Calendar</span>
+            </a>
+            <button type="button" class="btn-cal btn-cal-ics" id="btnCalIcs">
+              <span>Apple / Outlook (.ics)</span>
+            </button>
+            <a href="#" target="_blank" class="btn-cal btn-cal-outlook" id="btnCalOutlook">
+              <span>Outlook Web</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Contact Card -->
+      <div class="post-booking-help-box">
+        <h4>{lang === 'es' ? '¿Necesitas hablar con nosotros antes de tu cita?' : 'Need to speak with us before your appointment?'}</h4>
+        <p>
+          {lang === 'es'
+            ? 'Si tienes una pregunta urgente o necesitas coordinar la documentación a llevar, estamos disponibles:'
+            : 'If you have an urgent question or need document instructions, reach out directly:'}
+        </p>
+        <div class="post-help-actions">
+          <a href={`tel:${phoneHref}`} class="btn btn-red">
+            <span>📞</span> {lang === 'es' ? 'Llamar Ahora' : 'Call Now'}: {phoneDisplay}
+          </a>
+          <a 
+            href={`https://wa.me/${phoneHref}?text=Hola%20Marilyn%2C%20acabo%20de%20agendar%20mi%20cita%20y%20tengo%20una%20pregunta.`} 
+            target="_blank" 
+            class="btn btn-wa"
+          >
+            <span>💬</span> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .booking-wizard-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  /* Stepper Header */
+  .wizard-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 14px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #888888;
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: color 0.2s ease;
+  }
+
+  .step-indicator.active {
+    color: var(--red, #e63946);
+  }
+
+  .step-indicator.completed {
+    color: #2b9348;
+  }
+
+  .step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #eeeeee;
+    color: #555555;
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+
+  .step-indicator.active .step-num {
+    background: var(--red, #e63946);
+    color: #ffffff;
+  }
+
+  .step-indicator.completed .step-num {
+    background: #2b9348;
+    color: #ffffff;
+  }
+
+  .step-divider {
+    flex: 1;
+    height: 2px;
+    background: #e5e7eb;
+    margin: 0 12px;
+  }
+
+  /* Main Card */
+  .wizard-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    padding: 36px 30px;
+  }
+
+  .step-header {
+    text-align: center;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .step-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 14px;
+    gap: 12px;
+  }
+
+  .nav-ghost {
+    min-width: 130px;
+    visibility: hidden;
+  }
+
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 7px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    min-width: 130px;
+  }
+
+  .btn-back:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+    transform: translateY(-1px);
+  }
+
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(230, 57, 70, 0.1);
+    color: var(--red, #e63946);
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .step-header-top {
+      flex-direction: column-reverse;
+      gap: 10px;
+    }
+    .nav-ghost {
+      display: none;
+    }
+    .btn-back {
+      width: 100%;
+    }
+  }
+
+  .step-header h2 {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+
+  .step-subtitle {
+    font-size: 0.98rem;
+    color: #666666;
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Service Select Cards */
+  .services-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  .service-select-card {
+    background: #fafbfc;
+    border: 2px solid #eef0f3;
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .service-select-card:hover {
+    border-color: var(--red, #e63946);
+    background: #ffffff;
+    box-shadow: 0 8px 25px rgba(230, 57, 70, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .card-featured-unsure {
+    border-color: #fca5a5;
+    background: #fffafa;
+    grid-column: 1 / -1;
+  }
+
+  .card-featured-unsure:hover {
+    border-color: var(--red, #e63946);
+    background: #fff5f5;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--red, #e63946);
+    color: #ffffff;
+    font-size: 0.76rem;
+    font-weight: 800;
+    padding: 3px 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+  }
+
+  .card-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .card-emoji {
+    font-size: 1.8rem;
+  }
+
+  .duration-tag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #666666;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 8px;
+  }
+
+  .card-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .card-description {
+    font-size: 0.88rem;
+    color: #555555;
+    line-height: 1.5;
+    margin-bottom: 14px;
+    flex-grow: 1;
+  }
+
+  .card-select-btn {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--red, #e63946);
+  }
+
+  /* Type Selection */
+  .type-selection-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .type-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #fafbfc;
+    border: 2px solid #eef0f3;
+    border-radius: 16px;
+    padding: 22px 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .type-card:hover {
+    border-color: var(--red, #e63946);
+    background: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  }
+
+  .type-card.selected {
+    border-color: var(--red, #e63946);
+    background: #fff9f9;
+  }
+
+  .type-icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+  }
+
+  .type-info {
+    flex-grow: 1;
+  }
+
+  .type-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 6px;
+  }
+
+  .type-desc {
+    font-size: 0.92rem;
+    color: #555555;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .type-badge-note {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--red, #e63946);
+    display: block;
+  }
+
+  .type-check {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: transparent;
+    transition: all 0.2s ease;
+  }
+
+  .type-card.selected .type-check {
+    background: var(--red, #e63946);
+    border-color: var(--red, #e63946);
+    color: #ffffff;
+  }
+
+  /* Date & Slot Picker */
+  .section-label {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .date-carousel {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 14px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .date-carousel::-webkit-scrollbar {
+    height: 6px;
+  }
+  .date-carousel::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+  }
+
+  :global(.date-day-btn) {
+    flex: 0 0 74px;
+    background: #fafbfc;
+    border: 2px solid #eef0f3;
+    border-radius: 14px;
+    padding: 12px 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  :global(.date-day-btn:hover) {
+    border-color: var(--red, #e63946);
+    background: #ffffff;
+  }
+
+  :global(.date-day-btn.selected) {
+    border-color: var(--red, #e63946);
+    background: var(--red, #e63946);
+    color: #ffffff !important;
+  }
+
+  :global(.date-day-btn.selected .day-name),
+  :global(.date-day-btn.selected .day-num),
+  :global(.date-day-btn.selected .day-month) {
+    color: #ffffff !important;
+  }
+
+  :global(.day-name) {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #718096;
+    text-transform: uppercase;
+  }
+
+  :global(.day-num) {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #111111;
+  }
+
+  :global(.day-month) {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #718096;
+  }
+
+  .slots-section {
+    margin-top: 26px;
+  }
+
+  .slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+  }
+
+  :global(.slot-btn) {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #111111;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s ease;
+  }
+
+  :global(.slot-btn:hover) {
+    border-color: var(--red, #e63946);
+    background: #fff9f9;
+  }
+
+  :global(.slot-btn.selected) {
+    background: var(--red, #e63946);
+    border-color: var(--red, #e63946);
+    color: #ffffff;
+  }
+
+  :global(.slot-btn.disabled) {
+    background: #f1f5f9;
+    border-color: #f1f5f9;
+    color: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .selected-summary-bar {
+    margin-top: 30px;
+    background: #fff5f5;
+    border: 1px solid #fecaca;
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .summary-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .summary-label {
+    font-size: 0.8rem;
+    color: #7f1d1d;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  #summaryDateTimeText {
+    font-size: 1.15rem;
+    color: #111111;
+  }
+
+  /* Form Step */
+  .booking-recap-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .recap-item {
+    font-size: 0.92rem;
+  }
+
+  .recap-label {
+    color: #64748b;
+    margin-right: 6px;
+  }
+
+  .booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #0f172a;
+    background: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .form-group input,
+  .form-group select {
+    height: 54px;
+    line-height: 1.5;
+  }
+
+  .form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23e63946' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 16px) center;
+    background-size: 18px 18px;
+    padding-right: 48px;
+    cursor: pointer;
+  }
+
+  .form-group select option {
+    background: #ffffff;
+    color: #0f172a;
+    padding: 10px;
+  }
+
+  .form-group input:hover,
+  .form-group select:hover,
+  .form-group textarea:hover {
+    border-color: #cbd5e1;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--red, #e63946);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+  }
+
+  .form-consent {
+    background: #fafbfc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 0.86rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  .checkbox-label input {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--red, #e63946);
+  }
+
+  .form-error-alert {
+    background: #fef2f2;
+    border: 1px solid #f87171;
+    color: #991b1b;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .form-submit-wrap {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .btn-submit-booking {
+    width: 100%;
+    max-width: 480px;
+    padding: 16px 28px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(230, 57, 70, 0.25);
+  }
+
+  .submit-subtext {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  /* Step 5: Success */
+  .success-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .success-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .success-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 8px;
+  }
+
+  .success-subtitle {
+    font-size: 1rem;
+    color: #475569;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .confirmation-card {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .ref-badge-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #ffffff;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+  }
+
+  .ref-label {
+    font-size: 0.92rem;
+    color: #64748b;
+    font-weight: 700;
+  }
+
+  .ref-code {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--red, #e63946);
+    letter-spacing: 0.05em;
+  }
+
+  .confirmed-details-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .c-detail-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.92rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cd-label {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 700;
+  }
+
+  .add-to-calendar-block {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 20px;
+    text-align: center;
+  }
+
+  .calendar-title {
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 14px;
+  }
+
+  .calendar-buttons-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-cal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .btn-cal-google {
+    background: #ffffff;
+    color: #1a73e8;
+    border-color: #1a73e8;
+  }
+  .btn-cal-google:hover {
+    background: #f1f7fe;
+  }
+
+  .btn-cal-ics {
+    background: #ffffff;
+    color: #111111;
+  }
+  .btn-cal-ics:hover {
+    background: #f1f5f9;
+  }
+
+  .btn-cal-outlook {
+    background: #ffffff;
+    color: #0078d4;
+    border-color: #0078d4;
+  }
+  .btn-cal-outlook:hover {
+    background: #f0f7fc;
+  }
+
+  .post-booking-help-box {
+    background: #fffafa;
+    border: 1px solid #fecaca;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .post-booking-help-box h4 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #991b1b;
+    margin-bottom: 8px;
+  }
+
+  .post-booking-help-box p {
+    font-size: 0.92rem;
+    color: #555555;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .post-help-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .wizard-stepper {
+      padding: 10px 12px;
+    }
+    .step-title {
+      display: none; /* Hide labels on mobile to save space */
+    }
+    .wizard-card {
+      padding: 24px 16px;
+    }
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    .confirmed-details-list {
+      grid-template-columns: 1fr;
+    }
+    .selected-summary-bar {
+      flex-direction: column;
+      text-align: center;
+    }
+    .selected-summary-bar .btn {
+      width: 100%;
+    }
+    .btn-submit-booking {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  import { AvailabilityService } from '../../services/availability/availabilityService';
+  import { bookingStore } from '../../services/db/bookingStore';
+  import { AttributionService } from '../../services/attribution/attributionService';
+  import { AnalyticsTracker } from '../../services/analytics/eventTracking';
+  import { GHLService } from '../../services/ghl/GHLService';
+
+  // --- Wizard State ---
+  const state = {
+    step: 1,
+    serviceId: '',
+    serviceName: '',
+    serviceSlug: '',
+    serviceDuration: 30,
+    appointmentType: 'in_person' as 'in_person' | 'phone' | 'virtual',
+    selectedDate: '',
+    selectedTime: '',
+    selectedEndTime: '',
+    bookingReference: ''
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Initialize marketing attribution from URL params
+    const attribution = AttributionService.init();
+    AnalyticsTracker.trackPageView();
+
+    // 2. Check URL parameters for pre-selected service and city
+    const urlParams = new URLSearchParams(window.location.search);
+    const preService = urlParams.get('service');
+    const preCity = urlParams.get('city');
+
+    if (preCity) {
+      const citySelect = document.getElementById('clientCity') as HTMLSelectElement;
+      if (citySelect) {
+        for (let i = 0; i < citySelect.options.length; i++) {
+          if (citySelect.options[i].value.toLowerCase().includes(preCity.toLowerCase())) {
+            citySelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    }
+
+    // --- STEP 1: SERVICE SELECTION ---
+    const serviceCards = document.querySelectorAll('.service-select-card');
+    serviceCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const sId = card.getAttribute('data-service-id') || '';
+        const sName = card.getAttribute('data-service-name') || '';
+        const sSlug = card.getAttribute('data-service-slug') || '';
+        const sDuration = parseInt(card.getAttribute('data-service-duration') || '30', 10);
+        const allowedTypesRaw = card.getAttribute('data-allowed-types') || '["in_person","phone","virtual"]';
+
+        state.serviceId = sId;
+        state.serviceName = sName;
+        state.serviceSlug = sSlug;
+        state.serviceDuration = sDuration;
+
+        AnalyticsTracker.trackServiceSelected(sId, sName);
+
+        // Filter Step 2 allowed appointment types
+        try {
+          const allowed = JSON.parse(allowedTypesRaw);
+          const inPersonCard = document.getElementById('typeCardInPerson');
+          const phoneCard = document.getElementById('typeCardPhone');
+          const virtualCard = document.getElementById('typeCardVirtual');
+
+          if (inPersonCard) inPersonCard.style.display = allowed.includes('in_person') ? 'flex' : 'none';
+          if (phoneCard) phoneCard.style.display = allowed.includes('phone') ? 'flex' : 'none';
+          if (virtualCard) virtualCard.style.display = allowed.includes('virtual') ? 'flex' : 'none';
+
+          // Preselect first available type
+          const firstType = allowed[0] || 'in_person';
+          selectType(firstType);
+        } catch (e) {}
+
+        goToStep(2);
+      });
+    });
+
+    // Auto-select service if passed in query param
+    if (preService) {
+      const match = Array.from(serviceCards).find(c => 
+        (c.getAttribute('data-service-slug') || '').toLowerCase() === preService.toLowerCase()
+      );
+      if (match) {
+        (match as HTMLElement).click();
+      }
+    }
+
+    // --- STEP 2: APPOINTMENT TYPE SELECTION ---
+    const typeCards = document.querySelectorAll('.type-card');
+    typeCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const type = card.getAttribute('data-type') as 'in_person' | 'phone' | 'virtual';
+        selectType(type);
+        goToStep(3);
+      });
+    });
+
+    function selectType(type: 'in_person' | 'phone' | 'virtual') {
+      state.appointmentType = type;
+      typeCards.forEach(c => c.classList.remove('selected'));
+      const active = document.querySelector(`.type-card[data-type="${type}"]`);
+      if (active) active.classList.add('selected');
+      AnalyticsTracker.trackTypeSelected(type);
+    }
+
+    // --- STEP 3: DATE & TIME SELECTION ---
+    function renderCalendar() {
+      const carousel = document.getElementById('dateCarousel');
+      if (!carousel) return;
+
+      const days = AvailabilityService.getAvailableDays(state.serviceId, 30);
+      carousel.innerHTML = '';
+
+      days.forEach((day, index) => {
+        if (!day.isOpen) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `date-day-btn ${index === 0 ? 'selected' : ''}`;
+        btn.innerHTML = `
+          <span class="day-name">${day.dayName.slice(0, 3)}</span>
+          <span class="day-num">${parseInt(day.date.split('-')[2], 10)}</span>
+          <span class="day-month">${day.formattedDate.split(' ')[2].slice(0, 3)}</span>
+        `;
+
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.date-day-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          state.selectedDate = day.date;
+          AnalyticsTracker.trackDateSelected(day.date);
+          renderSlots(day.date);
+        });
+
+        carousel.appendChild(btn);
+
+        // Auto-select first date
+        if (index === 0 && !state.selectedDate) {
+          state.selectedDate = day.date;
+          renderSlots(day.date);
+        }
+      });
+    }
+
+    function renderSlots(dateStr: string) {
+      const slotsContainer = document.getElementById('slotsGrid');
+      const summaryBar = document.getElementById('selectedTimeBar');
+      if (!slotsContainer) return;
+
+      slotsContainer.innerHTML = '';
+      if (summaryBar) summaryBar.style.display = 'none';
+      state.selectedTime = '';
+
+      const slots = AvailabilityService.getSlotsForDate(dateStr, state.serviceDuration);
+      const availableSlots = slots.filter(s => s.available);
+
+      if (availableSlots.length === 0) {
+        slotsContainer.innerHTML = '<p style="color: #64748b; padding: 10px 0;">No hay horarios disponibles en esta fecha. Por favor elige otro día.</p>';
+        return;
+      }
+
+      slots.forEach(slot => {
+        const slotBtn = document.createElement('button');
+        slotBtn.type = 'button';
+        slotBtn.className = `slot-btn ${slot.available ? '' : 'disabled'}`;
+        slotBtn.textContent = slot.label;
+        slotBtn.disabled = !slot.available;
+
+        if (slot.available) {
+          slotBtn.addEventListener('click', () => {
+            document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+            slotBtn.classList.add('selected');
+
+            state.selectedTime = slot.value;
+            state.selectedEndTime = slot.endTime;
+
+            const summaryText = document.getElementById('summaryDateTimeText');
+            if (summaryText) {
+              summaryText.textContent = `${state.selectedDate} a las ${slot.label} (Hora NY)`;
+            }
+            if (summaryBar) summaryBar.style.display = 'flex';
+
+            AnalyticsTracker.trackTimeSelected(slot.value);
+          });
+        }
+
+        slotsContainer.appendChild(slotBtn);
+      });
+    }
+
+    const proceedToStep4Btn = document.getElementById('proceedToStep4');
+    if (proceedToStep4Btn) {
+      proceedToStep4Btn.addEventListener('click', () => {
+        if (!state.selectedDate || !state.selectedTime) return;
+
+        // Update step 4 recap box
+        const recapSvc = document.getElementById('recapServiceName');
+        const recapType = document.getElementById('recapTypeName');
+        const recapDT = document.getElementById('recapDateTime');
+
+        const typeLabels: Record<string, string> = {
+          in_person: '🏢 Cita Presencial (Newark, NJ)',
+          phone: '📞 Cita Telefónica',
+          virtual: '💻 Cita Virtual (Videollamada)'
+        };
+
+        if (recapSvc) recapSvc.textContent = state.serviceName;
+        if (recapType) recapType.textContent = typeLabels[state.appointmentType] || state.appointmentType;
+        if (recapDT) recapDT.textContent = `${state.selectedDate} a las ${AvailabilityService.formatTo12h(state.selectedTime)} (Eastern Time)`;
+
+        AnalyticsTracker.trackContactFormStarted();
+        goToStep(4);
+      });
+    }
+
+    // --- STEP 4: FORM SUBMISSION ---
+    const form = document.getElementById('bookingClientForm') as HTMLFormElement;
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('btnSubmitBooking') as HTMLButtonElement;
+        const errorAlert = document.getElementById('formErrorAlert');
+        if (errorAlert) errorAlert.style.display = 'none';
+
+        const firstName = (document.getElementById('clientFirstName') as HTMLInputElement).value.trim();
+        const lastName = (document.getElementById('clientLastName') as HTMLInputElement).value.trim();
+        const phone = (document.getElementById('clientPhone') as HTMLInputElement).value.trim();
+        const email = (document.getElementById('clientEmail') as HTMLInputElement).value.trim();
+        const city = (document.getElementById('clientCity') as HTMLSelectElement).value;
+        const preferredLang = (document.getElementById('clientLang') as HTMLSelectElement).value as 'es' | 'en';
+        const notes = (document.getElementById('clientNotes') as HTMLTextAreaElement).value.trim();
+
+        if (!firstName || !lastName || !phone || !email) {
+          if (errorAlert) {
+            errorAlert.textContent = 'Por favor completa todos los campos obligatorios (*) marcados.';
+            errorAlert.style.display = 'block';
+          }
+          return;
+        }
+
+        // Disable button while processing
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Procesando reserva segura...';
+        }
+
+        const attr = AttributionService.get();
+        const idempotencyKey = `idemp_${phone.replace(/\D/g, '')}_${state.selectedDate}_${state.selectedTime}`;
+
+        // 1. Save contact in local store
+        const contact = bookingStore.saveContact({
+          first_name: firstName,
+          last_name: lastName,
+          full_name: `${firstName} ${lastName}`.trim(),
+          phone,
+          email,
+          city,
+          state: 'NJ',
+          preferred_language: preferredLang,
+          source: 'Website Online Booking',
+          utm_source: attr.utm_source,
+          utm_medium: attr.utm_medium,
+          utm_campaign: attr.utm_campaign,
+          utm_content: attr.utm_content,
+          utm_term: attr.utm_term,
+          gclid: attr.gclid,
+          fbclid: attr.fbclid
+        });
+
+        // 2. Save appointment in local store with strict availability verification
+        const appointmentResult = bookingStore.saveAppointment({
+          contact_id: contact.id,
+          contact_name: contact.full_name,
+          contact_phone: contact.phone,
+          contact_email: contact.email,
+          service_id: state.serviceId,
+          service_name: state.serviceName,
+          appointment_type: state.appointmentType,
+          date: state.selectedDate,
+          start_time: state.selectedTime,
+          end_time: state.selectedEndTime || AvailabilityService.addMinutes(state.selectedTime, state.serviceDuration),
+          timezone: 'America/New_York',
+          status: 'confirmed',
+          city,
+          notes,
+          source: 'Online Booking Flow',
+          landing_page: window.location.pathname,
+          utm_source: attr.utm_source,
+          utm_medium: attr.utm_medium,
+          utm_campaign: attr.utm_campaign,
+          utm_content: attr.utm_content,
+          utm_term: attr.utm_term,
+          gclid: attr.gclid,
+          fbclid: attr.fbclid,
+          idempotency_key: idempotencyKey,
+          ghl_sync_status: 'pending',
+          sync_attempts: 0
+        });
+
+        if (!appointmentResult.success || !appointmentResult.appointment) {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Confirmar y Reservar Mi Cita';
+          }
+          if (errorAlert) {
+            errorAlert.textContent = appointmentResult.error || 'No pudimos completar la reserva. Intenta con otro horario.';
+            errorAlert.style.display = 'block';
+          }
+          return;
+        }
+
+        const bookedApp = appointmentResult.appointment;
+        state.bookingReference = bookedApp.booking_reference;
+
+        AnalyticsTracker.trackSubmitted(state.serviceId, city);
+        AnalyticsTracker.trackConfirmed(bookedApp.booking_reference, state.serviceId, city);
+
+        // 3. Initiate downstream sync to GoHighLevel (non-blocking)
+        GHLService.syncAppointment(bookedApp.id).then(res => {
+          console.log('[BookingWizard] GHL sync result:', res.message);
+        });
+
+        // 4. Update Step 5 Confirmation Screen
+        const cRef = document.getElementById('confirmedRefCode');
+        const cClient = document.getElementById('confirmedClientName');
+        const cSvc = document.getElementById('confirmedServiceName');
+        const cType = document.getElementById('confirmedTypeName');
+        const cDT = document.getElementById('confirmedDateTime');
+        const cLoc = document.getElementById('confirmedLocation');
+
+        const typeLabels: Record<string, string> = {
+          in_person: '🏢 Cita Presencial',
+          phone: '📞 Cita Telefónica',
+          virtual: '💻 Cita Virtual (Videollamada)'
+        };
+
+        if (cRef) cRef.textContent = bookedApp.booking_reference;
+        if (cClient) cClient.textContent = bookedApp.contact_name;
+        if (cSvc) cSvc.textContent = bookedApp.service_name;
+        if (cType) cType.textContent = typeLabels[bookedApp.appointment_type] || bookedApp.appointment_type;
+        if (cDT) cDT.textContent = `${bookedApp.date} a las ${AvailabilityService.formatTo12h(bookedApp.start_time)} (Eastern Time)`;
+        if (cLoc) {
+          cLoc.textContent = bookedApp.appointment_type === 'in_person'
+            ? '20 Bloomfield Pl, Newark, NJ 07104'
+            : bookedApp.appointment_type === 'phone'
+              ? `Llamada telefónica a tu número (${bookedApp.contact_phone})`
+              : 'Enlace de Google Meet / Zoom enviado a tu correo y WhatsApp';
+        }
+
+        // Setup Calendar Links
+        setupCalendarLinks(bookedApp);
+
+        // Navigate to Step 5
+        goToStep(5);
+      });
+    }
+
+    function setupCalendarLinks(app: any) {
+      const title = encodeURIComponent(`Cita MAPA Business: ${app.service_name}`);
+      const details = encodeURIComponent(`Cita con MAPA Business & Financial Services LLC.\nServicio: ${app.service_name}\nModalidad: ${app.appointment_type}\nRef: ${app.booking_reference}\nTeléfono: (862) 622-8339`);
+      const location = encodeURIComponent(app.appointment_type === 'in_person' ? '20 Bloomfield Pl, Newark, NJ 07104' : 'Remoto / Virtual');
+
+      // Dates format YYYYMMDDTHHmm00Z
+      const cleanStart = app.date.replace(/-/g, '') + 'T' + app.start_time.replace(/:/g, '') + '00';
+      const cleanEnd = app.date.replace(/-/g, '') + 'T' + app.end_time.replace(/:/g, '') + '00';
+
+      // Google Calendar Link
+      const googleBtn = document.getElementById('btnCalGoogle') as HTMLAnchorElement;
+      if (googleBtn) {
+        googleBtn.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${cleanStart}/${cleanEnd}&details=${details}&location=${location}&ctz=America/New_York`;
+      }
+
+      // Outlook Web Link
+      const outlookBtn = document.getElementById('btnCalOutlook') as HTMLAnchorElement;
+      if (outlookBtn) {
+        outlookBtn.href = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&location=${location}&startdt=${app.date}T${app.start_time}&enddt=${app.date}T${app.end_time}`;
+      }
+
+      // Apple / ICS Download
+      const icsBtn = document.getElementById('btnCalIcs');
+      if (icsBtn) {
+        icsBtn.onclick = () => {
+          const icsContent = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//MAPA Business//Booking System//ES',
+            'BEGIN:VEVENT',
+            `UID:${app.booking_reference}@marilynmapabusiness.com`,
+            `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
+            `DTSTART;TZID=America/New_York:${cleanStart}`,
+            `DTEND;TZID=America/New_York:${cleanEnd}`,
+            `SUMMARY:${app.service_name} - MAPA Business`,
+            `DESCRIPTION:Cita confirmada con MAPA Business & Financial Services LLC. Ref: ${app.booking_reference}`,
+            `LOCATION:${app.appointment_type === 'in_person' ? '20 Bloomfield Pl, Newark, NJ 07104' : 'Remoto / Virtual'}`,
+            'STATUS:CONFIRMED',
+            'END:VEVENT',
+            'END:VCALENDAR'
+          ].join('\r\n');
+
+          const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.setAttribute('download', `Cita-MAPA-${app.booking_reference}.ics`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        };
+      }
+    }
+
+    // --- NAVIGATION & STEP TRANSITIONS ---
+    function goToStep(targetStep: number) {
+      state.step = targetStep;
+
+      // Hide all steps
+      for (let i = 1; i <= 5; i++) {
+        const stepEl = document.getElementById(`step${i}`);
+        if (stepEl) stepEl.style.display = i === targetStep ? 'block' : 'none';
+      }
+
+      // Update stepper indicators
+      const indicators = document.querySelectorAll('.step-indicator');
+      indicators.forEach(ind => {
+        const sNum = parseInt(ind.getAttribute('data-step') || '1', 10);
+        ind.classList.remove('active', 'completed');
+        if (sNum === targetStep) ind.classList.add('active');
+        else if (sNum < targetStep) ind.classList.add('completed');
+      });
+
+      // Special action when entering step 3 (Calendar)
+      if (targetStep === 3) {
+        renderCalendar();
+      }
+
+      // Smooth scroll to container
+      const container = document.getElementById('booking-flow');
+      if (container) {
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Back Buttons
+    const back1 = document.getElementById('backToStep1');
+    const back2 = document.getElementById('backToStep2');
+    const back3 = document.getElementById('backToStep3');
+
+    if (back1) back1.addEventListener('click', () => goToStep(1));
+    if (back2) back2.addEventListener('click', () => goToStep(2));
+    if (back3) back3.addEventListener('click', () => goToStep(3));
+  });
+</script>

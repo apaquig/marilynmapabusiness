@@ -14,35 +14,93 @@
     }, 3000);
   }
 
-  // Smooth nav highlight on scroll (only on main home page)
-  const isHomePage = window.location.pathname === '/' || window.location.pathname === '/en/' || window.location.pathname === '/en';
+  /* ── SCROLLSPY MENU HIGHLIGHT ── */
+  (function () {
+    function updateActiveNav() {
+      const navLinks = document.querySelectorAll('.nav-links a');
+      if (!navLinks.length) return;
 
-  if (isHomePage) {
-    const sections = document.querySelectorAll('section[id]');
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      sections.forEach(sec => {
-        const top = sec.offsetTop - 100;
-        const bottom = top + sec.offsetHeight;
-        if (scrollY >= top && scrollY < bottom) {
-          document.querySelectorAll('.nav-links a').forEach(a => {
-            if (!a.classList.contains('active') && !a.classList.contains('nav-cta')) {
-              a.style.color = '';
-            }
-            const href = a.getAttribute('href');
-            if (href === '#' + sec.id || href === '/#' + sec.id || href === '/en/#' + sec.id) {
-              a.style.color = '#cc0000';
+      const pathname = window.location.pathname;
+      const isHomePage = pathname === '/' || 
+                         pathname === '/index.html' || 
+                         pathname === '/en/' || 
+                         pathname === '/en' || 
+                         pathname === '/en/index.html';
+
+      // On inner subpages, keep the parent section highlighted
+      if (!isHomePage) {
+        let activeTarget = '';
+        if (pathname.includes('/service-areas/')) {
+          activeTarget = 'areas-de-servicio';
+        } else if (pathname.includes('/servicios/') || pathname.includes('/services/')) {
+          activeTarget = 'servicios';
+        } else if (pathname.includes('/sobre-mapa') || pathname.includes('/about-mapa') || pathname.includes('/marilyn-paladinez')) {
+          activeTarget = 'nosotros';
+        } else if (pathname.includes('/blog')) {
+          activeTarget = 'blog';
+        }
+
+        if (activeTarget) {
+          navLinks.forEach(link => {
+            const href = link.getAttribute('href') || '';
+            const isMatch = activeTarget === 'blog'
+              ? (href.includes('/blog') || href.includes('/en/blog'))
+              : (href.includes('#' + activeTarget));
+            if (isMatch) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
             }
           });
         }
-      });
-    });
-  }
+        return;
+      }
+
+      // On Home page: dynamic scrollspy as user scrolls
+      const sections = document.querySelectorAll('section[id]');
+      if (!sections.length) return;
+
+      const viewportAnchor = window.scrollY + 220;
+      let currentSectionId = '';
+
+      if (window.scrollY < 120) {
+        currentSectionId = 'hero';
+      } else if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+        currentSectionId = 'ubicacion';
+      } else {
+        sections.forEach(section => {
+          if (viewportAnchor >= section.offsetTop - 50) {
+            currentSectionId = section.id;
+          }
+        });
+      }
+
+      if (currentSectionId) {
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href') || '';
+          const hashIndex = href.indexOf('#');
+          if (hashIndex !== -1) {
+            const targetId = href.substring(hashIndex + 1);
+            if (targetId === currentSectionId) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
+            }
+          }
+        });
+      }
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    window.addEventListener('load', updateActiveNav);
+    document.addEventListener('DOMContentLoaded', updateActiveNav);
+    setTimeout(updateActiveNav, 300);
+  })();
 
   /* ── NAVBAR STICKY ── */
 const mainNav = document.getElementById('mainNav');
 window.addEventListener('scroll', () => {
-  mainNav.classList.toggle('scrolled', window.scrollY > 60);
+  if (mainNav) mainNav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
 /* ── HAMBURGER ── */
@@ -265,8 +323,12 @@ function handleSubmit(e) {
   });
 
   function resetAuto() {
-    clearInterval(auto);
-    auto = setInterval(() => goTo(cur + 1), 5000);
+    clearTimeout(auto);
+    const randomTime = Math.floor(Math.random() * (12000 - 8000 + 1)) + 8000;
+    auto = setTimeout(() => {
+      goTo(cur + 1);
+      resetAuto();
+    }, randomTime);
   }
 
   prevBtn.addEventListener('click', () => { goTo(cur - 1); resetAuto(); });
@@ -286,3 +348,17 @@ function handleSubmit(e) {
 
   resetAuto();
 })();
+
+// Light Mode Accessibility Handler
+(function() {
+  const lightModeToggle = document.getElementById('lightModeToggle');
+  if (lightModeToggle) {
+    lightModeToggle.addEventListener('click', () => {
+      const active = document.documentElement.classList.toggle('light-mode');
+      localStorage.setItem('light-mode', active);
+      document.dispatchEvent(new CustomEvent('lightModeChanged', { detail: active }));
+    });
+  }
+})();
+
+

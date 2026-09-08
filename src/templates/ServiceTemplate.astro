@@ -220,6 +220,10 @@ const cityServiceLinkPrefix = lang === 'es' ? '/service-areas/' : '/en/service-a
   <div class="cta-section">
     <h2>{t("services.cta_ready")}</h2>
     <p>{t("services.cta_doubts_desc")}</p>
-    <a href={`${homeLink}#contacto`} class="btn-white">{t("about.btn_schedule")}</a>
+    <div class="btn-group" style="margin-top: 20px;">
+      <a href={`${homeLink}#contacto`} class="btn btn-red"><span>{t("about.btn_schedule")}</span></a>
+      <a href={`tel:${PHONE_HREF}`} class="btn btn-phone">📞 Llamar: {PHONE}</a>
+      <a href={`https://wa.me/${PHONE_HREF}?text=Hola%20Marilyn%2C%20necesito%20${encodeURIComponent(serviceName)}.`} target="_blank" class="btn btn-wa">💬 Hablar por WhatsApp</a>
+    </div>
   </div>
 </BaseLayout>

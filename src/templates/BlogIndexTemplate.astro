@@ -62,7 +62,7 @@ const schema = {
         "@type": "Organization",
         "name": "MAPA Business & Financial Services LLC",
         "url": WEBSITE,
-        "logo": `${WEBSITE}/favicon.jpg`
+        "logo": `${WEBSITE}/logo-mapa.png`
       }
     }
   ]
@@ -82,13 +82,6 @@ const sortedPosts = [...posts].sort((a, b) => new Date(b.date).getTime() - new D
   activeSection="blog"
   currentPath={currentPath}
 >
-  <!-- Breadcrumb -->
-  <nav class="breadcrumb" aria-label="Ruta de navegación">
-    <a href={homeLink}>{t("nav.home")}</a>
-    <span>›</span>
-    <span>{t("blog.hub_title")}</span>
-  </nav>
-
   <!-- Hero -->
   <div class="blog-hero">
     <div class="blog-hero-inner">
