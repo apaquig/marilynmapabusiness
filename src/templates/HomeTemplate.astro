@@ -163,36 +163,49 @@ const getSlideKey = (slug: string) => {
     <div class="hero-inner-container">
       <!-- Left Column Content (50-55%) -->
       <div class="hero-left-col">
-        <!-- Eyebrow -->
-        <div class="hero-eyebrow">
-          <span class="eyebrow-dot"></span>
-          MAPA BUSINESS & FINANCIAL SERVICES
-        </div>
+        <div class="hero-intro-box">
+          <div class="hero-intro-text">
+            <!-- Eyebrow -->
+            <div class="hero-eyebrow">
+              <span class="eyebrow-dot"></span>
+              MAPA BUSINESS & FINANCIAL SERVICES
+            </div>
 
-        <!-- Headline -->
-        <h1 class="hero-title">
-          {lang === 'es' ? (
-            <>Más que trámites.<br /><span class="highlight-mapa">Un MAPA</span> para avanzar.</>
-          ) : (
-            <>More than procedures.<br /><span class="highlight-mapa">A MAP</span> to move forward.</>
-          )}
-        </h1>
+            <!-- Headline -->
+            <h1 class="hero-title">
+              {lang === 'es' ? (
+                <>Más que trámites.<br /><span class="highlight-mapa">Un MAPA</span> para avanzar.</>
+              ) : (
+                <>More than procedures.<br /><span class="highlight-mapa">A MAP</span> to move forward.</>
+              )}
+            </h1>
 
-        <!-- Subheadline -->
-        <p class="hero-subtitle">
-          {lang === 'es'
-            ? 'Servicios profesionales para ayudarte con documentos, negocios, impuestos, seguros y trámites importantes en Estados Unidos.'
-            : 'Professional services to help you with documents, business, taxes, insurance, and important procedures in the United States.'}
-        </p>
+            <!-- Subheadline -->
+            <p class="hero-subtitle">
+              {lang === 'es'
+                ? 'Servicios profesionales para ayudarte con documentos, negocios, impuestos, seguros y trámites importantes en Estados Unidos.'
+                : 'Professional services to help you with documents, business, taxes, insurance, and important procedures in the United States.'}
+            </p>
+          </div>
 
-        <!-- Primary & Secondary CTAs -->
-        <div class="hero-cta-row">
-          <a href="#contacto" class="btn-hero-primary">
-            {lang === 'es' ? 'Agenda una consulta' : 'Schedule a consultation'}
-          </a>
-          <a href="#servicios" class="btn-hero-secondary">
-            {lang === 'es' ? 'Ver todos los servicios' : 'View all services'}
-          </a>
+          <!-- Hero CTAs: Consulta, Servicios, Llamada Directa -->
+          <div class="hero-cta-row">
+            <a href="#contacto" class="btn-hero-primary" id="heroBtnConsult">
+              <span class="btn-text-desktop">{lang === 'es' ? 'Agenda una consulta' : 'Schedule a consultation'}</span>
+              <span class="btn-text-mobile">{lang === 'es' ? 'Agendar' : 'Book'}</span>
+            </a>
+            <a href="#servicios" class="btn-hero-secondary" id="heroBtnServices">
+              <span class="btn-text-desktop">{lang === 'es' ? 'Ver todos los servicios' : 'View all services'}</span>
+              <span class="btn-text-mobile">{lang === 'es' ? 'Servicios' : 'Services'}</span>
+            </a>
+            <a href="tel:+18626228339" class="btn-hero-call" id="heroBtnCall" aria-label={lang === 'es' ? 'Llamada directa: (862) 622-8339' : 'Direct Call: (862) 622-8339'}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" class="btn-icon">
+                <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              </svg>
+              <span class="btn-text-desktop">{lang === 'es' ? 'Llamar directo' : 'Direct Call'}</span>
+              <span class="btn-text-mobile">{lang === 'es' ? 'Llamar' : 'Call'}</span>
+            </a>
+          </div>
         </div>
 
         <!-- Social Proof & Trust Indicators (Bottom Left) -->
@@ -230,6 +243,54 @@ const getSlideKey = (slug: string) => {
           <!-- Central Portrait of Marilyn -->
           <div class="portrait-frame">
             <img src="/marilin2.webp" alt="Marilyn Paladinez — MAPA Business" class="portrait-img" />
+
+            <!-- Mobile Dynamic Services Stream (Floating & Scaling Carousel in Hero) -->
+            <div class="hero-stream-mobile" aria-label="Servicios destacados">
+              <div class="hero-stream-track">
+                <a href={lang === 'es' ? '/servicios/notaria/' : '/en/services/notaria/'} class="stream-card">
+                  <div class="stream-icon-box">⚖️</div>
+                  <div class="stream-info">
+                    <span class="stream-title">{lang === 'es' ? 'Notaría Pública' : 'Notary Public'}</span>
+                    <span class="stream-desc">{lang === 'es' ? 'Documentos Oficiales' : 'Official Documents'}</span>
+                  </div>
+                </a>
+                <a href={lang === 'es' ? '/servicios/traducciones/' : '/en/services/traducciones/'} class="stream-card">
+                  <div class="stream-icon-box">🌐</div>
+                  <div class="stream-info">
+                    <span class="stream-title">{lang === 'es' ? 'Traducciones' : 'Translations'}</span>
+                    <span class="stream-desc">{lang === 'es' ? 'Certificadas USCIS' : 'USCIS Certified'}</span>
+                  </div>
+                </a>
+                <a href={lang === 'es' ? '/servicios/itin/' : '/en/services/itin/'} class="stream-card">
+                  <div class="stream-icon-box">📊</div>
+                  <div class="stream-info">
+                    <span class="stream-title">{lang === 'es' ? 'ITIN & Taxes' : 'ITIN & Taxes'}</span>
+                    <span class="stream-desc">{lang === 'es' ? 'Agente Autorizado CAA' : 'Certified CAA Agent'}</span>
+                  </div>
+                </a>
+                <a href={lang === 'es' ? '/servicios/poderes-notariales/' : '/en/services/poderes-notariales/'} class="stream-card">
+                  <div class="stream-icon-box">📜</div>
+                  <div class="stream-info">
+                    <span class="stream-title">{lang === 'es' ? 'Poderes Notariales' : 'Powers of Attorney'}</span>
+                    <span class="stream-desc">{lang === 'es' ? 'Legales y Notariados' : 'Legal & Notarized'}</span>
+                  </div>
+                </a>
+                <a href={lang === 'es' ? '/servicios/permisos-de-trabajo/' : '/en/services/permisos-de-trabajo/'} class="stream-card">
+                  <div class="stream-icon-box">📋</div>
+                  <div class="stream-info">
+                    <span class="stream-title">{lang === 'es' ? 'Permisos de Trabajo' : 'Work Permits'}</span>
+                    <span class="stream-desc">{lang === 'es' ? 'Formulario I-765' : 'Form I-765'}</span>
+                  </div>
+                </a>
+                <a href={lang === 'es' ? '/servicios/bookkeeping/' : '/en/services/bookkeeping/'} class="stream-card">
+                  <div class="stream-icon-box">🏢</div>
+                  <div class="stream-info">
+                    <span class="stream-title">{lang === 'es' ? 'Creación de LLC' : 'LLC Formation'}</span>
+                    <span class="stream-desc">{lang === 'es' ? 'Bookkeeping & Negocios' : 'Bookkeeping & Setup'}</span>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
 
           <!-- 5 Floating Premium Service Cards -->

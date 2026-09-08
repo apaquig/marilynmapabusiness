@@ -1,6 +1,22 @@
   function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('open');
+    const navLinks = document.getElementById('navLinks');
+    const hamburger = document.getElementById('hamburger');
+    if (navLinks) navLinks.classList.toggle('open');
+    if (hamburger) hamburger.classList.toggle('open');
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.getElementById('navLinks');
+    const hamburger = document.getElementById('hamburger');
+    if (navLinks) {
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          if (hamburger) hamburger.classList.remove('open');
+        });
+      });
+    }
+  });
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -124,6 +140,36 @@ const revealObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── SERVICE IMAGE SCROLL EXIT FALLBACK ── */
+if (!('animationTimeline' in document.documentElement.style)) {
+  const serviceImgs = document.querySelectorAll('.service-card-img');
+  if (serviceImgs.length > 0) {
+    let ticking = false;
+    function updateServiceImgs() {
+      serviceImgs.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < 180) {
+          const progress = Math.max(0, Math.min(1, (180 - rect.top) / 240));
+          const scale = 1 - (progress * 0.15);
+          const opacity = 1 - (progress * 0.65);
+          img.style.transform = `scale(${scale})`;
+          img.style.opacity = `${opacity}`;
+        } else if (rect.top >= 180) {
+          img.style.transform = '';
+          img.style.opacity = '';
+        }
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateServiceImgs);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+}
 
 /* ── TESTIMONIALS SLIDER ── */
 window.initTestimonialsSlider = function() {
