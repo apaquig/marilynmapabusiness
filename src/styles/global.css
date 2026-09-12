@@ -499,6 +499,9 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
   .service-card::before {
     content: '';
@@ -608,10 +611,12 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
   }
-  .service-link:hover {
+  .service-link:hover,
+  .service-card:hover .service-link {
     color: #990000;
+    transform: translateX(4px);
   }
 
   /* ===== ABOUT ===== */

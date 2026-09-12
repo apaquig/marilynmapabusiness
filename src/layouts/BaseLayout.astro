@@ -70,6 +70,8 @@ if (lang === 'es') {
     newPath = '/marilyn-paladinez/';
   } else if (newPath === '/politica-de-privacidad/') {
     newPath = '/privacy-policy/';
+  } else if (newPath === '/politica-de-privacidad-whatsapp/') {
+    newPath = '/whatsapp-privacy-policy/';
   }
   alternateRelativePath = `/en${newPath === '/' ? '/' : newPath}`;
 } else {
@@ -87,6 +89,8 @@ if (lang === 'es') {
     newPath = '/marilyn-paladinez/';
   } else if (newPath === '/privacy-policy/') {
     newPath = '/politica-de-privacidad/';
+  } else if (newPath === '/whatsapp-privacy-policy/') {
+    newPath = '/politica-de-privacidad-whatsapp/';
   }
   alternateRelativePath = newPath;
 }
@@ -398,6 +402,8 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
         </div>
         <div class="footer-legal-links">
           <a href={lang === 'es' ? '/politica-de-privacidad/' : '/en/privacy-policy/'}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a>
+          <span class="sep">•</span>
+          <a href={lang === 'es' ? '/politica-de-privacidad-whatsapp/' : '/en/whatsapp-privacy-policy/'}>{lang === 'es' ? 'Privacidad WhatsApp' : 'WhatsApp Privacy'}</a>
           <span class="sep">•</span>
           <a href={lang === 'es' ? '/marilyn-paladinez/' : '/en/marilyn-paladinez/'}>{lang === 'es' ? 'Sobre MAPA' : 'About Us'}</a>
           <span class="sep">•</span>

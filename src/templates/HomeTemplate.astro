@@ -409,7 +409,7 @@ const getSlideKey = (slug: string) => {
         {services.map((service, index) => {
           const delayClass = `rv${(index % 3) + 1}`;
           return (
-            <div class={`service-card reveal ${delayClass}`}>
+            <a href={`${serviceLinkPrefix}${service.slug}/`} class={`service-card reveal ${delayClass}`}>
               <div class="service-card-img-wrap">
                 <img src={service.image} alt={t(`services.${service.slug}.title`)} class="service-card-img" loading="lazy" />
                 <span class="service-icon-badge">{service.icon}</span>
@@ -417,9 +417,9 @@ const getSlideKey = (slug: string) => {
               <div class="service-card-body">
                 <h3>{t(`services.${service.slug}.title`)}</h3>
                 <p>{t(`services.${service.slug}.desc`)}</p>
-                <a href={`${serviceLinkPrefix}${service.slug}/`} class="service-link">{t("services.btn_details")}</a>
+                <div class="service-link">{t("services.btn_details")}</div>
               </div>
-            </div>
+            </a>
           );
         })}
       </div>
