@@ -355,21 +355,21 @@ const schema = {
   }
 
   .bio-breadcrumb a {
-    color: rgba(255, 255, 255, 0.55);
+    color: #555555;
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
   .bio-breadcrumb a:hover {
-    color: #ff3333;
+    color: #cc0000;
   }
 
   .bio-breadcrumb span {
-    color: rgba(255, 255, 255, 0.35);
+    color: #888888;
   }
 
   .bio-breadcrumb .current {
-    color: #ffffff;
+    color: #0f0f0f;
     font-weight: 700;
   }
 
@@ -381,15 +381,15 @@ const schema = {
 
   /* ── Hero Executive Card ── */
   .bio-hero-card {
-    background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(30, 10, 10, 0.95) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #ffffff;
+    border: 1.5px solid rgba(204, 0, 0, 0.15);
     border-radius: 20px;
     padding: 45px;
     display: flex;
     gap: 45px;
     align-items: center;
     margin-bottom: 35px;
-    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
     position: relative;
     overflow: hidden;
   }
@@ -401,7 +401,7 @@ const schema = {
     right: -20%;
     width: 350px;
     height: 350px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.18) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.08) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -418,7 +418,7 @@ const schema = {
     border-radius: 50%;
     background: linear-gradient(135deg, #cc0000 0%, #ff3333 100%);
     filter: blur(12px);
-    opacity: 0.6;
+    opacity: 0.3;
   }
 
   .bio-portrait-img {
@@ -428,7 +428,7 @@ const schema = {
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid #cc0000;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 35px rgba(204, 0, 0, 0.2);
     z-index: 2;
   }
 
@@ -443,7 +443,7 @@ const schema = {
     display: flex;
     align-items: center;
     gap: 6px;
-    box-shadow: 0 6px 20px rgba(204, 0, 0, 0.6);
+    box-shadow: 0 6px 20px rgba(204, 0, 0, 0.4);
     z-index: 3;
     border: 2px solid #ffffff;
   }
@@ -468,9 +468,9 @@ const schema = {
 
   .bio-pill-tag {
     display: inline-block;
-    background: rgba(204, 0, 0, 0.15);
-    border: 1px solid rgba(204, 0, 0, 0.4);
-    color: #ff4d4d;
+    background: rgba(204, 0, 0, 0.08);
+    border: 1px solid rgba(204, 0, 0, 0.25);
+    color: var(--red);
     font-family: 'Montserrat', sans-serif;
     font-size: 0.72rem;
     font-weight: 800;
@@ -487,13 +487,13 @@ const schema = {
     font-size: clamp(1.8rem, 3.2vw, 2.4rem);
     line-height: 1.25;
     margin-bottom: 18px;
-    color: #ffffff;
+    color: #0f0f0f;
   }
 
   .bio-hero-lead {
     font-size: 1.05rem;
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.92);
+    color: #222222;
     margin-bottom: 14px;
     font-weight: 600;
   }
@@ -501,7 +501,7 @@ const schema = {
   .bio-hero-sub {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: rgba(255, 255, 255, 0.7);
+    color: #555555;
     margin-bottom: 24px;
   }
 
@@ -520,18 +520,19 @@ const schema = {
   }
 
   .bio-stat-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 14px;
     padding: 22px 18px;
     text-align: center;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   }
 
   .bio-stat-card:hover {
     border-color: rgba(204, 0, 0, 0.4);
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(204, 0, 0, 0.1);
   }
 
   .stat-num {
@@ -545,7 +546,7 @@ const schema = {
 
   .stat-lbl {
     font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: #444444;
     font-weight: 600;
   }
 
@@ -561,7 +562,7 @@ const schema = {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 1.55rem;
-    color: #ffffff;
+    color: #0f0f0f;
     margin-bottom: 20px;
     position: relative;
     padding-left: 16px;
@@ -571,13 +572,13 @@ const schema = {
   .bio-p {
     font-size: 1rem;
     line-height: 1.8;
-    color: rgba(255, 255, 255, 0.8);
+    color: #333333;
     margin-bottom: 20px;
   }
 
   /* Quote Box */
   .bio-quote-box {
-    background: rgba(204, 0, 0, 0.06);
+    background: rgba(204, 0, 0, 0.04);
     border-left: 4px solid #cc0000;
     border-radius: 0 14px 14px 0;
     padding: 26px 30px;
@@ -598,7 +599,7 @@ const schema = {
   .quote-text {
     font-size: 1.05rem;
     font-style: italic;
-    color: #ffffff;
+    color: #111111;
     line-height: 1.7;
     margin-bottom: 10px;
     position: relative;
@@ -610,31 +611,32 @@ const schema = {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 0.88rem;
-    color: #ff4d4d;
+    color: #cc0000;
     font-style: normal;
   }
 
   /* Mission Card */
   .bio-mission-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 14px;
     padding: 26px;
     margin-bottom: 35px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   }
 
   .mission-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 1.15rem;
-    color: #ffffff;
+    color: #0f0f0f;
     margin-bottom: 10px;
   }
 
   .mission-desc {
     font-size: 0.95rem;
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.8);
+    color: #333333;
     margin: 0;
   }
 
@@ -649,21 +651,24 @@ const schema = {
     display: flex;
     gap: 18px;
     align-items: flex-start;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 14px;
     padding: 20px;
-    transition: border-color 0.25s ease;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   }
 
   .cred-card:hover {
     border-color: rgba(204, 0, 0, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(204, 0, 0, 0.08);
   }
 
   .cred-icon-wrap {
     font-size: 1.6rem;
-    background: rgba(204, 0, 0, 0.12);
-    border: 1px solid rgba(204, 0, 0, 0.3);
+    background: rgba(204, 0, 0, 0.08);
+    border: 1px solid rgba(204, 0, 0, 0.25);
     width: 48px;
     height: 48px;
     border-radius: 12px;
@@ -677,13 +682,13 @@ const schema = {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 1.02rem;
-    color: #ffffff;
+    color: #0f0f0f;
     margin-bottom: 6px;
   }
 
   .cred-desc {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: #444444;
     line-height: 1.55;
     margin: 0;
   }
@@ -696,23 +701,24 @@ const schema = {
   }
 
   .bio-sidebar-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 16px;
     padding: 26px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
   }
 
   .sidebar-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 1.15rem;
-    color: #ffffff;
+    color: #0f0f0f;
     margin-bottom: 8px;
   }
 
   .sidebar-desc {
     font-size: 0.86rem;
-    color: rgba(255, 255, 255, 0.65);
+    color: #555555;
     line-height: 1.5;
     margin-bottom: 20px;
   }
@@ -732,18 +738,18 @@ const schema = {
     gap: 12px;
     padding: 10px 14px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.85);
+    background: #fafafa;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: #222222;
     text-decoration: none;
     font-size: 0.9rem;
     transition: all 0.25s ease;
   }
 
   .service-nav-item:hover {
-    background: rgba(204, 0, 0, 0.15);
-    border-color: rgba(204, 0, 0, 0.4);
-    color: #ffffff;
+    background: rgba(204, 0, 0, 0.06);
+    border-color: rgba(204, 0, 0, 0.3);
+    color: #cc0000;
     transform: translateX(4px);
   }
 
@@ -757,7 +763,7 @@ const schema = {
 
   /* Office Card */
   .office-card {
-    background: linear-gradient(135deg, rgba(204, 0, 0, 0.1) 0%, rgba(20, 20, 20, 0.9) 100%);
+    background: linear-gradient(135deg, rgba(204, 0, 0, 0.06) 0%, #ffffff 100%);
     border: 1.5px solid rgba(204, 0, 0, 0.3);
   }
 
@@ -765,25 +771,25 @@ const schema = {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 1.05rem;
-    color: #ffffff;
+    color: #0f0f0f;
     margin-bottom: 10px;
   }
 
   .office-address, .office-phone {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: #333333;
     margin-bottom: 8px;
     line-height: 1.5;
   }
 
   .phone-link {
-    color: #ffffff;
+    color: #0f0f0f;
     text-decoration: none;
     font-weight: 700;
   }
 
   .phone-link:hover {
-    color: #ff4d4d;
+    color: #cc0000;
   }
 
   .btn-block {
@@ -795,22 +801,22 @@ const schema = {
   }
 
   .btn-white-cta {
-    background: #ffffff !important;
-    color: #cc0000 !important;
+    background: #cc0000 !important;
+    color: #ffffff !important;
     font-family: 'Montserrat', sans-serif !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
     padding: 14px 28px !important;
     border-radius: 50px !important;
     text-decoration: none !important;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 6px 20px rgba(204, 0, 0, 0.3) !important;
     transition: all 0.3s ease !important;
   }
 
   .btn-white-cta:hover {
-    background: #f0f0f0 !important;
+    background: #ff1a1a !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 10px 25px rgba(204, 0, 0, 0.45) !important;
   }
 
   /* ── FAQs Section ── */
@@ -822,7 +828,7 @@ const schema = {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-size: 1.7rem;
-    color: #ffffff;
+    color: #0f0f0f;
     margin-bottom: 28px;
     text-align: center;
   }
@@ -834,24 +840,25 @@ const schema = {
   }
 
   .bio-faq-item {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 14px;
     padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   }
 
   .faq-q {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 1.02rem;
-    color: #ffffff;
+    color: #0f0f0f;
     margin-bottom: 10px;
   }
 
   .faq-a {
     font-size: 0.92rem;
     line-height: 1.65;
-    color: rgba(255, 255, 255, 0.75);
+    color: #333333;
     margin: 0;
   }
 
@@ -887,114 +894,6 @@ const schema = {
     gap: 16px;
     flex-wrap: wrap;
   }
-
-  /* ═════════════════════════════════════════════════════════════════
-     LIGHT MODE EXECUTIVE OVERRIDES
-     ═════════════════════════════════════════════════════════════════ */
-  
-  html.light-mode .bio-breadcrumb a { color: #555555 !important; }
-  html.light-mode .bio-breadcrumb span { color: #999999 !important; }
-  html.light-mode .bio-breadcrumb .current { color: #111111 !important; }
-
-  html.light-mode .bio-hero-card {
-    background: #ffffff !important;
-    border: 1.5px solid rgba(204, 0, 0, 0.15) !important;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06) !important;
-  }
-
-  html.light-mode .bio-portrait-img {
-    border-color: #cc0000 !important;
-  }
-
-  html.light-mode .bio-hero-h1 { color: #0f0f0f !important; }
-  html.light-mode .bio-hero-lead { color: #222222 !important; }
-  html.light-mode .bio-hero-sub { color: #555555 !important; }
-
-  html.light-mode .bio-stat-card {
-    background: #ffffff !important;
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
-  }
-
-  html.light-mode .bio-stat-card .stat-num { color: #cc0000 !important; }
-  html.light-mode .stat-lbl { color: #444444 !important; }
-
-  html.light-mode .bio-section-title { color: #0f0f0f !important; }
-  html.light-mode .bio-p { color: #333333 !important; }
-
-  html.light-mode .bio-quote-box {
-    background: rgba(204, 0, 0, 0.04) !important;
-  }
-
-  html.light-mode .quote-text { color: #111111 !important; }
-
-  html.light-mode .bio-mission-card {
-    background: #ffffff !important;
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
-  }
-
-  html.light-mode .mission-title { color: #0f0f0f !important; }
-  html.light-mode .mission-desc { color: #333333 !important; }
-
-  html.light-mode .cred-card {
-    background: #ffffff !important;
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
-  }
-
-  html.light-mode .cred-title { color: #0f0f0f !important; }
-  html.light-mode .cred-desc { color: #444444 !important; }
-
-  html.light-mode .bio-sidebar-card {
-    background: #ffffff !important;
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
-  }
-
-  html.light-mode .sidebar-title { color: #0f0f0f !important; }
-  html.light-mode .sidebar-desc { color: #555555 !important; }
-
-  html.light-mode .service-nav-item {
-    background: #fafafa !important;
-    border: 1px solid rgba(0, 0, 0, 0.06) !important;
-    color: #222222 !important;
-  }
-
-  html.light-mode .service-nav-item:hover {
-    background: rgba(204, 0, 0, 0.06) !important;
-    border-color: rgba(204, 0, 0, 0.3) !important;
-    color: #cc0000 !important;
-  }
-
-  html.light-mode .office-card {
-    background: linear-gradient(135deg, rgba(204, 0, 0, 0.06) 0%, #ffffff 100%) !important;
-    border: 1.5px solid rgba(204, 0, 0, 0.3) !important;
-  }
-
-  html.light-mode .office-title { color: #0f0f0f !important; }
-  html.light-mode .office-address, html.light-mode .office-phone { color: #333333 !important; }
-  html.light-mode .phone-link { color: #0f0f0f !important; }
-
-  html.light-mode .bio-faqs-heading { color: #0f0f0f !important; }
-
-  html.light-mode .bio-faq-item {
-    background: #ffffff !important;
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
-  }
-
-  html.light-mode .faq-q { color: #0f0f0f !important; }
-  html.light-mode .faq-a { color: #333333 !important; }
-
-  html.light-mode .bio-cta-banner {
-    background: linear-gradient(135deg, #cc0000 0%, #990000 100%) !important;
-    border: none !important;
-    box-shadow: 0 14px 40px rgba(204, 0, 0, 0.3) !important;
-  }
-
-  html.light-mode .cta-banner-h2 { color: #ffffff !important; }
-  html.light-mode .cta-banner-p { color: rgba(255, 255, 255, 0.9) !important; }
 
   /* Responsive Adjustments */
   @media (max-width: 900px) {
