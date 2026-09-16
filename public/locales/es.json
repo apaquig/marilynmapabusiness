@@ -307,6 +307,21 @@
           "a": "Sí. Te ayudamos a apostillar el acta de matrimonio de NJ para que sea válida en tu país de origen."
         }
       ]
+    },
+    "estatus-juvenil-new-jersey": {
+      "title": "Estatus Juvenil (SIJS)",
+      "desc": "Orientación para jóvenes menores de 21 años en New Jersey para explorar el Estatus Especial de Inmigrante Juvenil (SIJS / Visa Juvenil).",
+      "spoke_title": "Estatus Juvenil SIJS en",
+      "faqs": [
+        {
+          "q": "¿Qué es el Estatus Juvenil (SIJS)?",
+          "a": "Es una clasificación migratoria para jóvenes menores de 21 años en New Jersey que no pueden reunificarse con uno o ambos padres debido a abuso, abandono o negligencia."
+        },
+        {
+          "q": "¿Hasta qué edad se puede solicitar en New Jersey?",
+          "a": "El proceso debe presentarse antes de cumplir los 21 años. Es fundamental actuar a tiempo antes de la fecha límite."
+        }
+      ]
     }
   },
   "about": {

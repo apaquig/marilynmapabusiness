@@ -307,6 +307,21 @@
           "a": "Yes. We help you apostille the NJ marriage certificate so that it is valid in your country of origin."
         }
       ]
+    },
+    "estatus-juvenil-new-jersey": {
+      "title": "Juvenile Status (SIJS)",
+      "desc": "Guidance for youths under 21 in New Jersey to explore Special Immigrant Juvenile Status (SIJS / Juvenile Visa).",
+      "spoke_title": "Juvenile Status SIJS in",
+      "faqs": [
+        {
+          "q": "What is Special Immigrant Juvenile Status (SIJS)?",
+          "a": "It is a special immigration classification for young people under 21 in New Jersey who cannot reunify with one or both parents due to abuse, neglect, or abandonment."
+        },
+        {
+          "q": "Up to what age can you apply in New Jersey?",
+          "a": "The petition must be filed before turning 21 years of age. Timing is essential before the age cutoff."
+        }
+      ]
     }
   },
   "about": {

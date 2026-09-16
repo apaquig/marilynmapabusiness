@@ -13,6 +13,8 @@ export default defineConfig({
         const excluded = [
           'https://marilynmapabusiness.com/citas/',
           'https://marilynmapabusiness.com/en/citas/',
+          'https://marilynmapabusiness.com/estatus-juvenil-new-jersey/',
+          'https://marilynmapabusiness.com/en/estatus-juvenil-new-jersey/',
           'https://marilynmapabusiness.com/sobre-mapa-business-and-financial-services/',
           'https://marilynmapabusiness.com/es/sobre-mapa-business-and-financial-services/',
           'https://marilynmapabusiness.com/en/about/',

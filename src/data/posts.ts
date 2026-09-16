@@ -32,6 +32,537 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "itin-new-jersey-guia-solicitud-renovacion",
+    title: {
+      es: "Cómo Sacar o Renovar un ITIN en New Jersey | Guía Completa",
+      en: "How to Get or Renew an ITIN in New Jersey | Complete Guide"
+    },
+    excerpt: {
+      es: "¿Necesitas sacar o renovar tu ITIN en New Jersey? Conoce qué es el ITIN, quién puede necesitarlo, documentos aceptados por el IRS, Formulario W-7, renovación, tiempos y respuestas a las preguntas más comunes.",
+      en: "Need to apply for or renew an ITIN in New Jersey? Learn what an ITIN is, who needs it, IRS accepted documents, Form W-7, renewal rules, processing times, and answers to common questions."
+    },
+    date: "2026-09-15",
+    author: "Marilyn Paladinez",
+    category: {
+      es: "ITIN y Taxes",
+      en: "ITIN & Taxes"
+    },
+    categoryKey: "itin",
+    image: "/images/blog/itin-new-jersey-guia-solicitud-renovacion.png",
+    readingTime: "8 min",
+    tip: {
+      es: "Un ITIN que no se use en una declaración federal de impuestos durante 3 años tributarios consecutivos expira el 31 de diciembre. Si planeas hacer taxes y tu número venció, renuévalo con anticipación para evitar retrasos en tus reembolsos.",
+      en: "An ITIN not used on a federal tax return for 3 consecutive tax years expires on December 31. If you plan to file taxes and your number expired, renew it in advance to prevent refund delays."
+    },
+    content: {
+      es: `
+        <p>Si vives en New Jersey y necesitas <strong>solicitar un ITIN por primera vez, renovar un ITIN vencido o entender qué documentos necesitas</strong>, esta guía te ayudará a conocer los pasos principales antes de comenzar.</p>
+        <p>El proceso puede parecer complicado cuando aparecen términos como <strong>ITIN, SSN, Formulario W-7, IRS, declaración de impuestos, EIN o renovación</strong>. La buena noticia es que no tienes que comenzar llenando formularios sin entender primero qué necesitas.</p>
+        <p>En esta guía explicamos de forma sencilla qué es un ITIN, quién puede necesitarlo, qué documentos solicita el IRS, cómo funciona una renovación y qué debes saber antes de presentar una solicitud.</p>
+        <p>Si después de leerla necesitas ayuda personalizada, puedes comunicarte con <strong>MAPA Business & Financial Services LLC en Newark, New Jersey</strong>.</p>
+
+        <div style="background:#fff5f5;border:2px solid #cc0000;border-radius:12px;padding:24px;margin:24px 0;text-align:center;box-shadow:0 4px 15px rgba(204,0,0,0.06);">
+          <h3 style="color:#cc0000;margin:0 0 10px;font-size:1.6rem;font-weight:900;">¿Necesitas ayuda con tu ITIN en New Jersey?</h3>
+          <p style="color:#1f2937;font-size:1.02rem;line-height:1.6;margin:0 0 16px;">
+            Te guiamos paso a paso con la preparación de tu Formulario W-7, revisión de documentos y presentación segura ante el IRS sin arriesgar tus documentos originales.
+          </p>
+          <a href="tel:+18626228339" style="display:inline-block;background:#cc0000;color:#ffffff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;margin-right:10px;">📞 Llama al (862) 622-8339</a>
+          <a href="/servicios/itin/" style="display:inline-block;background:#121212;color:#ffffff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;">📄 Ver Servicio de ITIN</a>
+        </div>
+
+        <h2>¿Qué es un ITIN?</h2>
+        <p>ITIN significa <strong>Individual Taxpayer Identification Number</strong>, o Número de Identificación Personal del Contribuyente.</p>
+        <p>Es un número de nueve dígitos emitido por el Internal Revenue Service (IRS) para determinadas personas que necesitan un número de identificación tributaria estadounidense para propósitos fiscales federales pero <strong>no son elegibles para obtener un Social Security Number (SSN)</strong>.</p>
+        <p>En palabras sencillas: si necesitas cumplir determinadas obligaciones tributarias en Estados Unidos y no puedes obtener un Social Security Number, podría existir una situación en la que necesites solicitar un ITIN. Sin embargo, no todas las personas que no tienen Social Security necesitan automáticamente un ITIN; debe existir un propósito fiscal federal que corresponda a las reglas del IRS.</p>
+
+        <h2>¿Para qué sirve un ITIN?</h2>
+        <p>El ITIN se utiliza principalmente dentro del sistema tributario federal estadounidense. Dependiendo de la situación de la persona, puede utilizarse para:</p>
+        <ul>
+          <li>Presentar una declaración federal de impuestos (<a href="/servicios/taxes/">preparación de taxes en New Jersey</a>).</li>
+          <li>Reportar determinados ingresos al IRS.</li>
+          <li>Reclamar determinados beneficios tributarios permitidos cuando se cumplen los requisitos correspondientes.</li>
+          <li>Ser identificado dentro del sistema tributario federal.</li>
+          <li>Cumplir otros propósitos fiscales federales contemplados por el IRS.</li>
+        </ul>
+
+        <h3>Lo que un ITIN NO hace</h3>
+        <p>Es fundamental entender también las limitaciones expresamente indicadas por el IRS. Un ITIN:</p>
+        <ul>
+          <li><strong>No</strong> es un Social Security Number.</li>
+          <li><strong>No</strong> proporciona estatus migratorio ni cambia tu condición legal.</li>
+          <li><strong>No</strong> constituye un permiso de trabajo ni autoriza legalmente a trabajar en EE. UU.</li>
+          <li><strong>No</strong> otorga automáticamente beneficios del Seguro Social.</li>
+          <li><strong>No</strong> funciona como identificación general fuera del sistema tributario federal.</li>
+        </ul>
+
+        <h2>¿Quién puede necesitar un ITIN?</h2>
+        <p>Una persona podría necesitar investigar una solicitud de ITIN cuando tiene un <strong>propósito fiscal federal</strong> y no es elegible para recibir un SSN. Entre las situaciones comunes están:</p>
+        <ul>
+          <li>Extranjeros residentes o no residentes que deben presentar determinada declaración federal.</li>
+          <li>Personas que necesitan reportar ingresos de trabajo independiente en Estados Unidos.</li>
+          <li>Determinados cónyuges o dependientes que cumplen los requisitos tributarios aplicables.</li>
+          <li>Personas relacionadas con determinados beneficios fiscales permitidos.</li>
+          <li>Personas que necesitan cumplir otros requisitos tributarios federales establecidos por el IRS.</li>
+        </ul>
+        <p>Tener una cuenta bancaria, querer iniciar un negocio o simplemente no contar con Social Security <strong>no significa automáticamente que el IRS vaya a emitir un ITIN</strong>. El IRS señala específicamente que el ITIN no se emite únicamente para abrir cuentas bancarias o de inversión, participar en comercio electrónico o iniciar un negocio.</p>
+
+        <h2>¿Cómo sacar un ITIN en New Jersey?</h2>
+        <p>Una de las búsquedas más frecuentes es: <em>“¿Cómo puedo sacar un ITIN en New Jersey?”</em>. Es importante aclarar que el ITIN no lo emite el Estado de New Jersey, sino el <strong>IRS a nivel federal</strong>. Por esa razón, una persona que vive en Newark, Elizabeth, Paterson, Jersey City, Union City, Passaic o cualquier otra ciudad de NJ sigue las reglas federales del IRS.</p>
+        <p>Generalmente el proceso consta de estos 5 pasos:</p>
+        <ol>
+          <li><strong>1. Determinar por qué necesitas un ITIN:</strong> Identificar el propósito fiscal federal exacto relacionado con tu solicitud antes de llenar formularios.</li>
+          <li><strong>2. Preparar el Formulario W-7:</strong> El formulario oficial <em>Form W-7 — Application for IRS Individual Taxpayer Identification Number</em>. Cada solicitante necesita su propio W-7.</li>
+          <li><strong>3. Preparar la declaración federal cuando corresponda:</strong> En la mayoría de los casos, el Formulario W-7 debe adjuntarse a una declaración federal de impuestos sobre los ingresos (Formulario 1040).</li>
+          <li><strong>4. Preparar los documentos de identificación:</strong> El IRS exige comprobar tu <strong>identidad</strong> y tu <strong>condición de extranjero</strong> mediante documentos oficiales vigentes.</li>
+          <li><strong>5. Presentar la solicitud por una vía permitida:</strong> A través de correo postal al IRS, en un Centro de Asistencia al Contribuyente (TAC) del IRS, o mediante un <strong>Certifying Acceptance Agent (CAA)</strong> autorizado por el IRS.</li>
+        </ol>
+
+        <h2>¿Qué documentos necesito para sacar un ITIN?</h2>
+        <p>El IRS actualmente acepta <strong>13 tipos de documentos</strong> para demostrar identidad y condición de extranjero:</p>
+        <ul>
+          <li><strong>Pasaporte</strong> (el único documento independiente que prueba identidad y extranjería por sí solo).</li>
+          <li>Identificación con fotografía emitida por USCIS.</li>
+          <li>Visa emitida por el Departamento de Estado de EE. UU.</li>
+          <li>Documento nacional de identidad extranjero (con foto, nombre, dirección y fecha de nacimiento).</li>
+          <li>Identificación militar extranjera.</li>
+          <li>Tarjeta de registro electoral extranjera.</li>
+          <li>Acta de nacimiento civil.</li>
+          <li>Licencia de conducir estadounidense o extranjera.</li>
+          <li>Identificación estatal estadounidense (State ID).</li>
+          <li>Identificación militar estadounidense.</li>
+          <li>Determinados registros médicos (para dependientes menores de 6 años).</li>
+          <li>Determinados registros escolares (para dependientes menores de 18 años).</li>
+        </ul>
+
+        <h2>¿Puedo solicitar un ITIN solamente con el pasaporte?</h2>
+        <p><strong>En muchas situaciones, sí.</strong> El IRS considera un <strong>pasaporte válido y vigente</strong> como el único documento independiente que demuestra por sí solo tanto la identidad como la condición de extranjero, evitando tener que combinar varios documentos.</p>
+
+        <h2>¿Qué pasa si no tengo pasaporte?</h2>
+        <p>No significa que no puedas solicitarlo. Cuando no se cuenta con pasaporte vigente, el IRS generalmente exige una combinación de al menos <strong>dos documentos aceptables</strong> (como acta de nacimiento original traducida y matrícula consular o licencia de conducir), y al menos uno de ellos debe contener fotografía.</p>
+
+        <h2>¿Puedo sacar ITIN si no tengo Social Security?</h2>
+        <p>Sí, precisamente el programa ITIN está diseñado para personas que necesitan un número fiscal federal pero <strong>no son elegibles para un SSN</strong>. Si cumples los requisitos para obtener un SSN, debes solicitar el Seguro Social y no el ITIN.</p>
+
+        <h2>¿Puedo hacer taxes con un ITIN?</h2>
+        <p>Sí. De hecho, el uso principal del ITIN es permitir a los contribuyentes presentar su declaración federal de taxes. Si necesitas ayuda tanto con tu ITIN como con tu declaración de impuestos, conoce nuestro servicio de <a href="/servicios/taxes/">preparación de taxes en New Jersey</a>.</p>
+
+        <h2>¿Qué es el Formulario W-7?</h2>
+        <p>El <strong>Form W-7</strong> es el formulario oficial del IRS mediante el cual se solicita un nuevo número ITIN o se renueva un número vencido. En él se detallan el motivo de la solicitud, datos personales, país de ciudadanía y los documentos de respaldo adjuntos.</p>
+
+        <h2>¿Qué pasa si mi ITIN está vencido? Reglas de Renovación</h2>
+        <p>Un ITIN que no haya sido utilizado en una declaración federal de impuestos durante <strong>tres años tributarios consecutivos</strong> expira automáticamente el 31 de diciembre posterior al tercer año sin uso.</p>
+        <p>Para renovarlo, debes presentar un nuevo <strong>Formulario W-7</strong> marcando la casilla de renovación, adjuntar tus documentos de identificación vigentes y cumplir las normas del IRS. No es necesario renovarlo si no vas a presentar una declaración de impuestos.</p>
+
+        <h2>¿Cuánto tarda en llegar un ITIN en 2026 / 2027?</h2>
+        <p>El IRS indica que una solicitud suele tardar aproximadamente <strong>7 semanas</strong> en ser procesada en temporada regular, y entre <strong>9 a 11 semanas</strong> durante la temporada alta de impuestos (del 15 de enero al 30 de abril) o si la solicitud se envía desde el extranjero.</p>
+
+        <h2>¿Puedo sacar un ITIN para abrir una LLC?</h2>
+        <p>El ITIN y una LLC son conceptos distintos. Un ITIN es un número tributario personal emitido por el IRS, mientras que una LLC es una estructura empresarial estatal. El IRS especifica que no emite ITIN exclusivamente para abrir negocios. Para iniciar una empresa, te orientamos con la <a href="/servicios/llc/">creación de LLC en New Jersey</a>, obtención de EIN y <a href="/servicios/bookkeeping/">servicios de bookkeeping</a>.</p>
+
+        <h2>ITIN vs EIN vs Social Security: Diferencias Clave</h2>
+        <ul>
+          <li><strong>ITIN:</strong> Número de 9 dígitos del IRS para personas sin SSN que deben cumplir obligaciones fiscales.</li>
+          <li><strong>EIN (Employer Identification Number):</strong> Número de 9 dígitos del IRS para identificar empresas, corporaciones o LLCs.</li>
+          <li><strong>SSN (Social Security Number):</strong> Número emitido por la SSA a ciudadanos, residentes y personas autorizadas para trabajar en EE. UU.</li>
+        </ul>
+
+        <h2>Ayuda con ITIN en Newark y todo New Jersey</h2>
+        <p>En <strong>MAPA Business & Financial Services LLC</strong> te brindamos atención profesional en español en nuestras oficinas de Newark y atendemos a clientes en todo el estado de New Jersey:</p>
+        <ul>
+          <li><a href="/service-areas/newark/itin/">Servicios de ITIN en Newark NJ</a></li>
+          <li><a href="/service-areas/elizabeth/itin/">ITIN en Elizabeth NJ</a></li>
+          <li><a href="/service-areas/paterson/itin/">Ayuda con ITIN en Paterson NJ</a></li>
+          <li><a href="/service-areas/jersey-city/itin/">Trámite de ITIN en Jersey City NJ</a></li>
+          <li><a href="/service-areas/passaic/itin/">ITIN Number en Passaic NJ</a></li>
+          <li><a href="/service-areas/union-city/itin/">Solicitud de ITIN en Union City NJ</a></li>
+        </ul>
+
+        <h2>Preguntas Frecuentes sobre ITIN en New Jersey (FAQ)</h2>
+        <h3>¿Qué significa ITIN?</h3>
+        <p>Significa <em>Individual Taxpayer Identification Number</em>. Es un número tributario emitido por el IRS para fines fiscales federales a personas que no pueden tener un Social Security.</p>
+
+        <h3>¿Cómo puedo sacar un ITIN en New Jersey?</h3>
+        <p>Debes completar el Formulario W-7, anexar tus documentos de identidad (como pasaporte) y adjuntar tu declaración federal de impuestos (salvo excepciones aplicables).</p>
+
+        <h3>¿El ITIN me da permiso de trabajo o cambia mi estatus migratorio?</h3>
+        <p>No. El ITIN es estrictamente para propósitos fiscales y no confiere estatus migratorio ni autorización de empleo legal.</p>
+
+        <h3>¿Cuánto cuesta el trámite del ITIN?</h3>
+        <p>El IRS no cobra tarifa por emitir el número. Los costos corresponden a los honorarios por asesoría profesional, revisión de documentos y preparación de impuestos con un profesional calificado.</p>
+
+        <h2>Habla hoy con Marilyn Paladinez — MAPA Business & Financial Services LLC</h2>
+        <p>No tienes que comenzar el proceso con dudas. Contáctanos hoy mismo para revisar tus documentos y ayudarte a tramitar o renovar tu ITIN sin complicaciones:</p>
+        <ul>
+          <li>📍 <strong>Dirección:</strong> 20 Bloomfield Place, Newark, NJ 07104</li>
+          <li>📞 <strong>Teléfono:</strong> <a href="tel:+18626228339">(862) 622-8339</a></li>
+          <li>💬 <strong>WhatsApp:</strong> <a href="https://wa.me/18626228339?text=Hola%20Marilyn%2C%20necesito%20ayuda%20para%20sacar%20o%20renovar%20mi%20ITIN." target="_blank">Enviar mensaje por WhatsApp</a></li>
+          <li>🌐 <strong>Página del Servicio:</strong> <a href="/servicios/itin/">Conoce nuestro servicio de ITIN en New Jersey</a></li>
+        </ul>
+      `,
+      en: `
+        <p>If you live in New Jersey and need to <strong>apply for an ITIN for the first time, renew an expired ITIN, or understand what documents you need</strong>, this guide will walk you through the essential steps before getting started.</p>
+        <p>The process can feel overwhelming when terms like <strong>ITIN, SSN, Form W-7, IRS, tax return, EIN, or renewal</strong> come up. The good news is that you don't have to start filling out forms without first understanding what is required.</p>
+        <p>In this guide, we explain in clear terms what an ITIN is, who needs it, what documents the IRS requests, how renewals work, and what you should know before filing an application.</p>
+        <p>If you need personalized assistance after reading, you can contact <strong>MAPA Business & Financial Services LLC in Newark, New Jersey</strong>.</p>
+
+        <div style="background:#fff5f5;border:2px solid #cc0000;border-radius:12px;padding:24px;margin:24px 0;text-align:center;box-shadow:0 4px 15px rgba(204,0,0,0.06);">
+          <h3 style="color:#cc0000;margin:0 0 10px;font-size:1.6rem;font-weight:900;">Need Help with Your ITIN in New Jersey?</h3>
+          <p style="color:#1f2937;font-size:1.02rem;line-height:1.6;margin:0 0 16px;">
+            We guide you step by step with Form W-7 preparation, document verification, and safe submission to the IRS without risking your original documents in the mail.
+          </p>
+          <a href="tel:+18626228339" style="display:inline-block;background:#cc0000;color:#ffffff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;margin-right:10px;">📞 Call (862) 622-8339</a>
+          <a href="/en/services/itin/" style="display:inline-block;background:#121212;color:#ffffff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;">📄 View ITIN Service</a>
+        </div>
+
+        <h2>What is an ITIN?</h2>
+        <p>ITIN stands for <strong>Individual Taxpayer Identification Number</strong>.</p>
+        <p>It is a nine-digit tax processing number issued by the Internal Revenue Service (IRS) for individuals who need a U.S. taxpayer identification number for federal tax purposes but <strong>are not eligible for a Social Security Number (SSN)</strong>.</p>
+        <p>In simple terms: if you have a federal tax obligation in the United States and cannot obtain a Social Security Number, you may need to apply for an ITIN. However, not having a Social Security Number does not automatically mean you need an ITIN; a valid federal tax purpose under IRS rules must exist.</p>
+
+        <h2>What is an ITIN Used For?</h2>
+        <p>The ITIN is primarily used within the U.S. federal tax system. Depending on your situation, it can be used to:</p>
+        <ul>
+          <li>File a federal income tax return (<a href="/en/services/taxes/">tax preparation in New Jersey</a>).</li>
+          <li>Report certain income to the IRS.</li>
+          <li>Claim certain allowable tax benefits when eligibility criteria are met.</li>
+          <li>Be identified within the federal tax system.</li>
+          <li>Comply with other federal tax purposes established by the IRS.</li>
+        </ul>
+
+        <h3>What an ITIN Does NOT Do</h3>
+        <p>It is crucial to understand the limitations expressly stated by the IRS. An ITIN:</p>
+        <ul>
+          <li><strong>Is not</strong> a Social Security Number.</li>
+          <li><strong>Does not</strong> provide immigration status or alter legal standing.</li>
+          <li><strong>Does not</strong> serve as a work permit or authorize legal employment in the U.S.</li>
+          <li><strong>Does not</strong> automatically qualify you for Social Security benefits.</li>
+          <li><strong>Does not</strong> function as general identification outside the federal tax system.</li>
+        </ul>
+
+        <h2>Who May Need an ITIN?</h2>
+        <p>An individual may need to apply for an ITIN when they have a <strong>federal tax purpose</strong> and are ineligible for an SSN. Common situations include:</p>
+        <ul>
+          <li>Resident or non-resident aliens required to file a federal tax return.</li>
+          <li>Individuals reporting independent contractor or self-employment income in the U.S.</li>
+          <li>Spouses or dependents who meet applicable federal tax criteria.</li>
+          <li>Individuals eligible for allowable tax credits and exemptions.</li>
+          <li>Individuals fulfilling other federal tax obligations under IRS regulations.</li>
+        </ul>
+
+        <h2>How to Get an ITIN in New Jersey?</h2>
+        <p>The ITIN is not issued by the State of New Jersey; it is issued by the <strong>IRS at the federal level</strong>. Whether you live in Newark, Elizabeth, Paterson, Jersey City, Union City, Passaic, or any other NJ city, federal IRS guidelines apply.</p>
+        <p>The general application process follows 5 steps:</p>
+        <ol>
+          <li><strong>1. Determine Federal Tax Purpose:</strong> Identify your valid federal tax reason before preparing paperwork.</li>
+          <li><strong>2. Prepare Form W-7:</strong> Fill out <em>Form W-7 — Application for IRS Individual Taxpayer Identification Number</em> for each applicant.</li>
+          <li><strong>3. Prepare Federal Tax Return:</strong> In most cases, Form W-7 must be attached to an annual federal income tax return (Form 1040).</li>
+          <li><strong>4. Gather Identification Documents:</strong> Provide valid proof of <strong>identity</strong> and <strong>foreign status</strong>.</li>
+          <li><strong>5. Submit Application via Approved Method:</strong> Submit by mail, at an IRS Taxpayer Assistance Center (TAC), or through an authorized <strong>Certifying Acceptance Agent (CAA)</strong>.</li>
+        </ol>
+
+        <h2>What Documents Do I Need for an ITIN?</h2>
+        <p>The IRS recognizes <strong>13 types of documents</strong> to prove identity and foreign status:</p>
+        <ul>
+          <li><strong>Valid Passport</strong> (the only stand-alone document that proves both identity and foreign status).</li>
+          <li>USCIS photo identification.</li>
+          <li>Visa issued by the U.S. Department of State.</li>
+          <li>Foreign national identification card (with photo, name, address, and birth date).</li>
+          <li>Foreign military identification card.</li>
+          <li>Foreign voter registration card.</li>
+          <li>Civil birth certificate.</li>
+          <li>U.S. or foreign driver's license.</li>
+          <li>U.S. State ID card.</li>
+          <li>U.S. military identification card.</li>
+          <li>Medical records (for dependents under age 6).</li>
+          <li>School records (for dependents under age 18).</li>
+        </ul>
+
+        <h2>Can I Apply for an ITIN with Only a Passport?</h2>
+        <p><strong>In many cases, yes.</strong> A valid, unexpired passport is the only stand-alone document accepted by the IRS to verify both identity and foreign status without needing supplementary documents.</p>
+
+        <h2>What if I Don't Have a Passport?</h2>
+        <p>You can still apply. The IRS allows combinations of at least <strong>two alternative approved documents</strong> (e.g., a certified translated birth certificate plus a consular ID or driver's license), with at least one containing a photograph.</p>
+
+        <h2>Can I Get an ITIN Without a Social Security Number?</h2>
+        <p>Yes. The ITIN program exists specifically for individuals who need a federal taxpayer ID but are <strong>not eligible for an SSN</strong>.</p>
+
+        <h2>Can I File Taxes with an ITIN?</h2>
+        <p>Yes. The core purpose of the ITIN is federal tax compliance. Explore our <a href="/en/services/taxes/">New Jersey tax preparation services</a> to file accurately.</p>
+
+        <h2>What is Form W-7?</h2>
+        <p><strong>Form W-7</strong> is the official IRS application used to request a new ITIN or renew an existing expired ITIN.</p>
+
+        <h2>What if My ITIN is Expired? Renewal Rules</h2>
+        <p>An ITIN not used on a federal tax return for <strong>three consecutive tax years</strong> expires on December 31 following the third consecutive year of non-use. Renewals require submitting a new Form W-7 with updated identification documents.</p>
+
+        <h2>How Long Does It Take to Get an ITIN in 2026 / 2027?</h2>
+        <p>The IRS typically takes approximately <strong>7 weeks</strong> during standard periods, and <strong>9 to 11 weeks</strong> during peak tax season (January 15 to April 30) or for applications submitted from abroad.</p>
+
+        <h2>Can I Get an ITIN to Open an LLC?</h2>
+        <p>An ITIN and an LLC are different concepts. An ITIN is an individual tax ID, while an LLC is a state business entity. We assist entrepreneurs with <a href="/en/services/llc/">New Jersey LLC formation</a>, EIN registration, and <a href="/en/services/bookkeeping/">bookkeeping services</a>.</p>
+
+        <h2>ITIN vs EIN vs Social Security: Key Differences</h2>
+        <ul>
+          <li><strong>ITIN:</strong> 9-digit IRS number for individuals ineligible for SSN who have federal tax obligations.</li>
+          <li><strong>EIN (Employer Identification Number):</strong> 9-digit IRS number for businesses, corporations, and LLCs.</li>
+          <li><strong>SSN (Social Security Number):</strong> 9-digit number issued by the SSA for U.S. citizens, permanent residents, and authorized workers.</li>
+        </ul>
+
+        <h2>Local ITIN Assistance in Newark and Across New Jersey</h2>
+        <p><strong>MAPA Business & Financial Services LLC</strong> provides bilingual support across New Jersey communities:</p>
+        <ul>
+          <li><a href="/en/service-areas/newark/itin/">ITIN Services in Newark NJ</a></li>
+          <li><a href="/en/service-areas/elizabeth/itin/">ITIN in Elizabeth NJ</a></li>
+          <li><a href="/en/service-areas/paterson/itin/">ITIN Assistance in Paterson NJ</a></li>
+          <li><a href="/en/service-areas/jersey-city/itin/">ITIN Services in Jersey City NJ</a></li>
+          <li><a href="/en/service-areas/passaic/itin/">ITIN Number in Passaic NJ</a></li>
+        </ul>
+
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <h3>What does ITIN stand for?</h3>
+        <p>It stands for Individual Taxpayer Identification Number, issued by the IRS for federal tax administration.</p>
+
+        <h3>Does an ITIN grant work authorization or immigration legal status?</h3>
+        <p>No. An ITIN is solely for tax purposes and does not convey legal status or work authorization.</p>
+
+        <h3>How much does an ITIN cost?</h3>
+        <p>The IRS does not charge a fee for assigning an ITIN number. Costs reflect professional assistance for document review, Form W-7 preparation, and tax filing.</p>
+
+        <h2>Contact Marilyn Paladinez — MAPA Business & Financial Services LLC</h2>
+        <ul>
+          <li>📍 <strong>Office Address:</strong> 20 Bloomfield Place, Newark, NJ 07104</li>
+          <li>📞 <strong>Phone:</strong> <a href="tel:+18626228339">(862) 622-8339</a></li>
+          <li>💬 <strong>WhatsApp:</strong> <a href="https://wa.me/18626228339?text=Hello%20Marilyn%2C%20I%20need%20help%20applying%20for%20or%20renewing%20my%20ITIN." target="_blank">Direct WhatsApp Message</a></li>
+          <li>🌐 <strong>Service Page:</strong> <a href="/en/services/itin/">Learn more about our ITIN services in New Jersey</a></li>
+        </ul>
+      `
+    }
+  },
+  {
+    slug: "estatus-juvenil-new-jersey",
+    title: {
+      es: "Estatus Juvenil en New Jersey | Visa Juvenil SIJS | MAPA Business & Financial Services LLC",
+      en: "Special Immigrant Juvenile Status in New Jersey | SIJS Visa | MAPA Business & Financial Services LLC"
+    },
+    excerpt: {
+      es: "¿Tu hijo o un joven de tu familia tiene menos de 21 años? Conoce información sobre Estatus Juvenil SIJS en New Jersey. Consulta gratuita con MAPA Business & Financial Services LLC.",
+      en: "Is your child or a youth in your family under 21? Learn about Special Immigrant Juvenile Status (SIJS) in New Jersey. Free consultation with MAPA Business & Financial Services LLC."
+    },
+    date: "2026-09-15",
+    author: "Marilyn Paladinez",
+    category: {
+      es: "Inmigración & Familia",
+      en: "Immigration & Family"
+    },
+    categoryKey: "immigration",
+    image: "/images/blog/estatus-juvenil-new-jersey.png",
+    readingTime: "6 min",
+    tip: {
+      es: "Si el joven tiene 17, 18, 19 o 20 años, la División de Familia de la Corte de New Jersey puede evaluar el caso antes de cumplir los 21. No esperes a tener 20 años y 11 meses para buscar información.",
+      en: "If the youth is 17, 18, 19, or 20, the New Jersey Family Court can evaluate the case before turning 21. Do not wait until 20 years and 11 months to seek information."
+    },
+    content: {
+      es: `
+        <h2>Si tienes menos de 21 años, el tiempo puede ser importante. Infórmate ahora.</h2>
+        <p>Si eres un joven inmigrante o tienes un hijo, sobrino, nieto u otro joven bajo tu cuidado que vive en New Jersey, podría ser importante conocer qué es el <strong>Estatus Especial de Inmigrante Juvenil</strong>, conocido como <strong>SIJS, Estatus Juvenil o “Visa Juvenil”</strong>.</p>
+        <p>Este proceso está dirigido a ciertos jóvenes inmigrantes que se encuentran en Estados Unidos y que no pueden reunificarse con uno o ambos padres debido a situaciones como <strong>abandono, abuso, negligencia</strong> u otras circunstancias similares reconocidas por la ley.</p>
+        <p>No todos los jóvenes califican y cada caso debe analizarse individualmente. Pero hay algo que no deberías ignorar:</p>
+
+        <div style="background:#fff5f5;border:2px solid #cc0000;border-radius:12px;padding:24px;margin:24px 0;text-align:center;box-shadow:0 4px 15px rgba(204,0,0,0.06);">
+          <h2 style="color:#cc0000;margin:0 0 10px;font-size:1.8rem;font-weight:900;">LA EDAD IMPORTA</h2>
+          <p style="color:#1f2937;font-size:1.02rem;line-height:1.6;margin:0 0 16px;">
+            En New Jersey, una persona que todavía no ha cumplido 21 años puede, dependiendo de sus circunstancias, solicitar ante la Corte de Familia las determinaciones necesarias para un caso de Estatus Especial de Inmigrante Juvenil. Por eso, si el joven tiene <strong>17, 18, 19 o 20 años</strong>, no conviene esperar hasta acercarse al cumpleaños número 21 para comenzar a buscar información.
+          </p>
+          <a href="tel:+18626228339" style="display:inline-block;background:#cc0000;color:#ffffff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;margin-right:10px;">📞 Llamar al (862) 622-8339</a>
+          <a href="https://wa.me/18626228339?text=Hola%20Marilyn%2C%20quisiera%20informaci%C3%B3n%20sobre%20Estatus%20Juvenil%20SIJS." target="_blank" style="display:inline-block;background:#25d366;color:#ffffff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;">💬 WhatsApp Directo</a>
+        </div>
+
+        <h2>¿Qué es el Estatus Juvenil o SIJS?</h2>
+        <p>El Estatus Especial de Inmigrante Juvenil, conocido en inglés como <em>Special Immigrant Juvenile Status</em> o SIJS, es una clasificación migratoria creada para proteger a determinados jóvenes inmigrantes que se encuentran en Estados Unidos y que han enfrentado situaciones relacionadas con abandono, abuso, negligencia o circunstancias similares por parte de uno o ambos padres.</p>
+        <p>No significa que cualquier persona menor de 21 años automáticamente califique. El caso necesita cumplir requisitos específicos y requiere la participación tanto del sistema judicial estatal como del sistema migratorio federal:</p>
+        <ul>
+          <li><strong>Corte de Familia de New Jersey:</strong> Realiza determinaciones sobre custodia, dependencia, no reunificación con los padres y el interés superior del joven.</li>
+          <li><strong>USCIS (Inmigración Federal):</strong> Recibe la petición con el Formulario I-360 adjuntando la orden de la corte estatal antes del cumpleaños 21.</li>
+        </ul>
+
+        <h2>¿Quién podría calificar para Estatus Juvenil?</h2>
+        <p>La situación de cada joven es diferente, pero generalmente deben analizarse factores como la edad, el estado civil, la presencia física en Estados Unidos, la relación con los padres y las circunstancias familiares.</p>
+        <ul>
+          <li>Ser menor de 21 años al momento de presentar la petición SIJ ante USCIS.</li>
+          <li>Estar soltero durante el proceso de la petición.</li>
+          <li>Contar con una orden válida de una corte estatal (División de Familia de NJ) con las determinaciones requeridas sobre dependencia/custodia y reunificación no viable.</li>
+        </ul>
+        <p>No necesitas asumir que tu situación “no es suficientemente grave” sin haber buscado información adecuada. El abandono no siempre significa exactamente lo que una familia imagina al escuchar esa palabra. Del mismo modo, negligencia, abuso y otras bases reconocidas bajo la ley de New Jersey dependen de los hechos particulares de cada caso.</p>
+
+        <h2>¿Tu padre o madre te abandonó?</h2>
+        <p>Hay jóvenes que han vivido durante años con uno solo de sus padres, con un familiar, con un tutor o con otra persona que se ha encargado de ellos.</p>
+        <p>En determinados casos, la imposibilidad de reunificarse con uno de los padres por abandono, abuso, negligencia o una situación similar puede ser relevante para SIJS. <strong>No necesariamente se requiere que el problema haya ocurrido con ambos padres.</strong></p>
+        <p>Lo importante es analizar correctamente la historia familiar y determinar si los hechos pueden cumplir los requisitos legales.</p>
+
+        <h2>Tengo 18, 19 o 20 años. ¿Ya es demasiado tarde?</h2>
+        <p><strong>No necesariamente.</strong> Este es uno de los puntos más importantes para familias inmigrantes en New Jersey.</p>
+        <p>Las reglas de New Jersey permiten que la División de Familia tenga jurisdicción en determinados casos relacionados con SIJS para jóvenes que ya cumplieron 18 años pero todavía son menores de 21. Los tribunales de New Jersey también han reconocido esa jurisdicción en casos relacionados con jóvenes mayores de 18 y menores de 21.</p>
+        <ul>
+          <li>Tener 18 años no significa automáticamente que ya perdiste la oportunidad.</li>
+          <li>Tener 19 años no significa automáticamente que ya es demasiado tarde.</li>
+          <li>Tener 20 años tampoco significa que debas asumir que no existe ninguna opción.</li>
+        </ul>
+        <p><strong>NO DEJES QUE EL CUMPLEAÑOS 21 TE ENCUENTRE APENAS EMPEZANDO A PREGUNTAR.</strong> Infórmate con anticipación.</p>
+
+        <h2>¿Cómo funciona el proceso de Estatus Juvenil en New Jersey?</h2>
+        <ol>
+          <li><strong>Revisión Inicial:</strong> Revisar la edad, situación familiar, documentos disponibles y antecedentes relevantes del joven.</li>
+          <li><strong>Corte de Familia de NJ:</strong> Iniciar el proceso ante la División de Familia de la Corte Superior de New Jersey para obtener las determinaciones requeridas.</li>
+          <li><strong>Petición I-360 ante USCIS:</strong> Con la orden correspondiente, presentar ante USCIS el Formulario I-360 para solicitar la clasificación SIJ.</li>
+          <li><strong>Residencia Permanente:</strong> Si la petición es aprobada, el proceso hacia la Green Card dependerá de la disponibilidad de visa en la categoría EB-4 y de las circunstancias particulares del joven.</li>
+        </ol>
+        <p><em>Nota: La orden de la Corte de Familia de New Jersey no otorga por sí sola un estatus migratorio. Es una parte necesaria del proceso que posteriormente utiliza USCIS para analizar la petición SIJ.</em></p>
+
+        <h2>¿El Estatus Juvenil da la Green Card automáticamente?</h2>
+        <p><strong>No. Es importante hablar con transparencia.</strong></p>
+        <p>Una aprobación de SIJS puede crear un camino para que una persona elegible solicite posteriormente la residencia permanente, pero la Green Card no necesariamente puede solicitarse inmediatamente. SIJS se encuentra dentro de la categoría migratoria <strong>EB-4</strong> y existe una cantidad limitada de visas disponibles al año.</p>
+        <p>En el Boletín de Visas del Departamento de Estado existen fechas de prioridad para la categoría EB-4. Esto significa que muchos casos recientes pueden tener que esperar a que exista disponibilidad de visa antes de completar el proceso hacia la residencia permanente. Por eso nunca debes confiar en anuncios que prometan una residencia inmediata o una aprobación garantizada.</p>
+
+        <h2>¿Puedo obtener Permiso de Trabajo con Estatus Juvenil?</h2>
+        <p>Las reglas relacionadas con autorización de empleo (Formulario I-765) y acción diferida para beneficiarios de SIJS han tenido actualizaciones importantes. La posibilidad de obtener autorización de empleo depende de la etapa del proceso, la situación individual y las políticas migratorias vigentes cuando se analiza el caso.</p>
+
+        <h2>¿Por qué es importante comenzar a informarse ahora?</h2>
+        <ul>
+          <li>Cuando una persona tiene 16 o 17 años puede sentir que todavía existe mucho tiempo.</li>
+          <li>Cuando tiene 18 o 19 puede pensar que ya es adulto y que SIJS solamente sirve para niños pequeños.</li>
+          <li>Cuando llega a los 20 años puede comenzar a escuchar que existe una opción migratoria, pero ya queda mucho menos tiempo para investigar, reunir documentos, preparar un proceso estatal y completar los pasos necesarios.</li>
+        </ul>
+        <p><strong>NO ESPERES A TENER 20 AÑOS Y 11 MESES PARA EMPEZAR A PREGUNTAR.</strong> Preguntar no significa iniciar automáticamente un proceso; significa conocer tus opciones antes de que el tiempo límite las posibilidades disponibles.</p>
+
+        <h2>Estatus Juvenil para Latinos en New Jersey</h2>
+        <p>En <strong>MAPA Business & Financial Services LLC</strong> atendemos en español a nuestra comunidad latina en Newark, Elizabeth, East Orange, Orange, Kearny, Jersey City, Paterson, Union y todo New Jersey.</p>
+        <p>Sabemos que muchas familias empiezan este proceso con preguntas como:</p>
+        <ul>
+          <li><em>“¿Mi hijo podría calificar para Estatus Juvenil?”</em></li>
+          <li><em>“Mi hijo tiene 19 años, ¿todavía puede hacer algo?”</em></li>
+          <li><em>“El papá nunca se hizo responsable, ¿eso cuenta como abandono?”</em></li>
+          <li><em>“Mi hijo entró solo a Estados Unidos, ¿puede aplicar?”</em></li>
+          <li><em>“Vive conmigo pero el otro padre lo abandonó, ¿puede calificar?”</em></li>
+          <li><em>“Tiene 20 años, ¿todavía estamos a tiempo?”</em></li>
+          <li><em>“¿SIJS ayuda a obtener residencia?”</em></li>
+          <li><em>“¿Cuánto tarda la Visa Juvenil?”</em></li>
+        </ul>
+
+        <h2>¿Por qué hablar con MAPA Business & Financial Services LLC?</h2>
+        <p>MAPA Business & Financial Services LLC trabaja diariamente con la comunidad latina de New Jersey y entiende que muchos procesos comienzan con algo tan sencillo como poder recibir información clara en español.</p>
+        <p><strong>Marilyn Paladinez</strong> y el equipo de <strong>MAPA Business & Financial Services LLC</strong> pueden ayudarte a organizar la información inicial, identificar documentos que ya tienes y orientarte sobre los próximos pasos para obtener la asistencia profesional correspondiente. Nuestro objetivo es que no ignores una posible alternativa simplemente porque nadie te explicó que existía.</p>
+
+        <h2>Preguntas Frecuentes sobre Estatus Juvenil</h2>
+        <h3>¿Qué es la Visa Juvenil?</h3>
+        <p>“Visa Juvenil” es una expresión utilizada comúnmente por la comunidad latina para referirse al Estatus Especial de Inmigrante Juvenil o SIJS. Técnicamente, SIJS es una clasificación migratoria especial y forma parte de un proceso que puede conducir, para quienes califican y cuando exista una visa disponible, a solicitar la residencia permanente.</p>
+
+        <h3>¿Hasta qué edad se puede solicitar Estatus Juvenil?</h3>
+        <p>A nivel federal, la persona debe ser menor de 21 años cuando presenta correctamente la petición SIJ correspondiente ante USCIS. En New Jersey también existen procedimientos de la Corte de Familia que pueden involucrar a jóvenes mayores de 18 pero menores de 21. Por eso es especialmente importante buscar información antes del cumpleaños número 21.</p>
+
+        <h3>¿Tengo que haber entrado legalmente a Estados Unidos?</h3>
+        <p>La forma en que una persona ingresó a Estados Unidos es solamente uno de los elementos que deben revisarse dentro de su historial migratorio. No asumas que una entrada sin visa automáticamente significa que no puedes explorar SIJS. La situación completa debe revisarse individualmente.</p>
+
+        <h3>¿Tengo que estar viviendo con mis padres?</h3>
+        <p>No necesariamente. Los casos pueden involucrar diferentes situaciones de custodia, dependencia o colocación reconocidas por una corte estatal.</p>
+
+        <h3>¿El abandono de un solo padre puede contar?</h3>
+        <p>La norma federal contempla situaciones en las que la reunificación con uno o ambos padres no es viable debido a abuso, negligencia, abandono o una base similar reconocida por la ley estatal.</p>
+
+        <h3>¿Puedo solicitar SIJS si tengo 19 o 20 años?</h3>
+        <p>En New Jersey pueden existir casos SIJS para jóvenes mayores de 18 y menores de 21. Sin embargo, la edad es crítica y no conviene esperar hasta acercarse al cumpleaños número 21 para comenzar el proceso.</p>
+
+        <h3>¿SIJS garantiza una residencia?</h3>
+        <p>No. SIJS puede abrir una vía hacia la residencia permanente para personas elegibles, pero existen otros requisitos y actualmente la disponibilidad de visas EB-4 puede producir períodos de espera.</p>
+
+        <h3>¿Cuánto tarda el Estatus Juvenil?</h3>
+        <p>No existe un tiempo único aplicable a todos los casos. El proceso puede incluir una etapa ante la Corte de Familia de New Jersey, la petición I-360 ante USCIS y posteriormente una espera relacionada con la disponibilidad de visa para solicitar o completar la residencia.</p>
+
+        <h3>¿Puedo casarme mientras tengo un caso SIJS?</h3>
+        <p>El estado civil puede afectar la elegibilidad para la clasificación SIJ. Si estás considerando casarte y tienes un caso SIJS pendiente o aprobado, busca asesoría legal individual antes de tomar una decisión.</p>
+
+        <h2>Habla hoy con Marilyn Paladinez — MAPA Business & Financial Services LLC</h2>
+        <p>Atención en español para nuestra comunidad latina en New Jersey. Si tienes preguntas sobre Estatus Juvenil, Visa Juvenil, SIJS o un posible proceso relacionado con un joven menor de 21 años, comunícate con nosotros:</p>
+        <ul>
+          <li>📍 <strong>Oficina Principal:</strong> 20 Bloomfield Place, Newark, NJ 07104</li>
+          <li>📞 <strong>Teléfono Directo:</strong> (862) 622-8339</li>
+          <li>💬 <strong>WhatsApp Directo:</strong> Asistencia personalizada en español</li>
+          <li>🌐 <strong>Página Dedicada:</strong> <a href="/estatus-juvenil-new-jersey/">Conoce todos los detalles sobre Estatus Juvenil en NJ</a></li>
+        </ul>
+      `,
+      en: `
+        <h2>If you are under 21, timing is essential. Get informed now.</h2>
+        <p>If you are an immigrant youth or caring for a child, niece, nephew, or grandchild living in New Jersey, understanding <strong>Special Immigrant Juvenile Status (SIJS, Juvenile Status, or “Juvenile Visa”)</strong> is vital.</p>
+        <p>This process is designed for certain immigrant youths in the United States who cannot reunify with one or both parents due to <strong>abandonment, abuse, neglect</strong>, or similar grounds under state law.</p>
+        <p>Not everyone qualifies, and each case requires individual analysis. But there is one crucial rule:</p>
+
+        <div style="background:#fff5f5;border:2px solid #cc0000;border-radius:12px;padding:24px;margin:24px 0;text-align:center;box-shadow:0 4px 15px rgba(204,0,0,0.06);">
+          <h2 style="color:#cc0000;margin:0 0 10px;font-size:1.8rem;font-weight:900;">AGE MATTERS IN NEW JERSEY</h2>
+          <p style="color:#1f2937;font-size:1.02rem;line-height:1.6;margin:0 0 16px;">
+            In New Jersey, an individual under 21 may, depending on circumstances, petition the Family Court for necessary SIJS findings. If the youth is <strong>17, 18, 19, or 20 years old</strong>, do not wait until nearing their 21st birthday to seek information.
+          </p>
+          <a href="tel:+18626228339" style="display:inline-block;background:#cc0000;color:#ffffff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;margin-right:10px;">📞 Call (862) 622-8339</a>
+          <a href="https://wa.me/18626228339?text=Hello%20Marilyn%2C%20I%20would%20like%20information%20about%20SIJS%20in%20New%20Jersey." target="_blank" style="display:inline-block;background:#25d366;color:#ffffff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;">💬 Direct WhatsApp</a>
+        </div>
+
+        <h2>What is Special Immigrant Juvenile Status (SIJS)?</h2>
+        <p>Special Immigrant Juvenile Status (SIJS) is an immigration classification created by Congress to protect certain immigrant youth present in the U.S. who have suffered abandonment, abuse, neglect, or similar parental failures.</p>
+        <p>It requires two distinct legal steps:</p>
+        <ul>
+          <li><strong>New Jersey Family Court:</strong> Judicial findings regarding custody/dependency, non-viability of parental reunification, and best interest determinations.</li>
+          <li><strong>Federal Immigration (USCIS):</strong> Submission of Form I-360 with certified state court orders prior to the youth turning 21.</li>
+        </ul>
+
+        <h2>Who might qualify for Juvenile Status?</h2>
+        <p>Key requirements include being under 21 years old when filing Form I-360 with USCIS, remaining unmarried, and holding valid state family court orders.</p>
+        <p>Abandonment, neglect, and abuse under New Jersey law depend on individual facts. Do not assume your situation does not qualify without proper guidance.</p>
+
+        <h2>Did one of your parents abandon you?</h2>
+        <p>Many youths live with only one parent, an aunt, uncle, grandparent, or guardian. In many cases, the impossibility of reunification with <strong>just one parent</strong> due to abandonment or neglect satisfies SIJS requirements. Both parents do not necessarily have to be involved in the wrongdoing.</p>
+
+        <h2>I am 18, 19, or 20 years old. Is it too late?</h2>
+        <p><strong>Not necessarily.</strong> New Jersey Family Division courts have recognized jurisdiction in SIJS-related proceedings for young adults aged 18, 19, and 20 before they turn 21.</p>
+        <ul>
+          <li>Being 18 does not mean you missed the opportunity.</li>
+          <li>Being 19 does not mean it is too late.</li>
+          <li>Being 20 does not mean there is no option.</li>
+        </ul>
+        <p><strong>DO NOT LET YOUR 21ST BIRTHDAY FIND YOU JUST STARTING TO ASK.</strong> Get informed in advance.</p>
+
+        <h2>How does the SIJS process work in New Jersey?</h2>
+        <ol>
+          <li><strong>Initial Review:</strong> Evaluate age, family background, birth certificates, and entry history.</li>
+          <li><strong>NJ Superior Court (Family Division):</strong> File state court petition for necessary custody and special findings.</li>
+          <li><strong>USCIS Form I-360:</strong> Submit the SIJ petition with certified court orders before age 21.</li>
+          <li><strong>Permanent Residency:</strong> Once approved, apply for adjustment of status (Green Card) according to EB-4 Visa Bulletin availability.</li>
+        </ol>
+
+        <h2>Does SIJS automatically grant a Green Card?</h2>
+        <p><strong>No. Total honesty is essential.</strong> SIJS falls under the EB-4 visa category, which is subject to annual numerical quotas. Wait times apply based on priority dates in the U.S. State Department Visa Bulletin.</p>
+
+        <h2>Can I get a Work Permit with Juvenile Status?</h2>
+        <p>Eligibility for work authorization (Form I-765) and deferred action depends on case progress and active USCIS regulations. MAPA Business & Financial Services LLC helps you navigate official requirements step by step.</p>
+
+        <h2>Frequently Asked Questions about SIJS</h2>
+        <h3>What is the Juvenile Visa?</h3>
+        <p>It refers to Special Immigrant Juvenile Status (SIJS), a special immigration classification that provides a legal pathway toward permanent residency for eligible youths.</p>
+
+        <h3>Up to what age can you apply?</h3>
+        <p>The federal petition must be filed before age 21. In NJ, Family Court proceedings can take place for young adults between 18 and under 21.</p>
+
+        <h3>Does one parent abandonment qualify?</h3>
+        <p>Yes, non-viability of reunification with one or both parents due to abuse, abandonment, or neglect is sufficient under federal and state law.</p>
+
+        <h2>Contact Marilyn Paladinez — MAPA Business & Financial Services LLC</h2>
+        <ul>
+          <li>📍 <strong>Main Office:</strong> 20 Bloomfield Place, Newark, NJ 07104</li>
+          <li>📞 <strong>Direct Phone:</strong> (862) 622-8339</li>
+          <li>💬 <strong>WhatsApp:</strong> Personalized Spanish & English guidance</li>
+          <li>🌐 <strong>Dedicated Page:</strong> <a href="/en/estatus-juvenil-new-jersey/">View full SIJS guide & book a consultation</a></li>
+        </ul>
+      `
+    }
+  },
+  {
     slug: "requisitos-cotizar-seguro-auto-newark-nj",
     title: {
       es: "¿Qué necesitas para cotizar un seguro de auto en New Jersey? Guía completa",
@@ -74,7 +605,7 @@ export const posts: Post[] = [
         <h2>Documentos e información clave para solicitar tu cotización</h2>
 
         <h3>1. Foto clara de tu licencia de conducir</h3>
-        <p>Necesitarás una imagen legible de tu licencia de conducir vigente. Además, es muy importante indicar **a qué edad obtuviste tu primera licencia en Estados Unidos**, ya que la antigüedad del historial de manejo en el país influye directamente en las tarifas acordadas.</p>
+        <p>Necesitarás una imagen legible de tu licencia de conducir vigente. Además, es muy importante indicar <strong>a qué edad obtuviste tu primera licencia en Estados Unidos</strong>, ya que la antigüedad del historial de manejo en el país influye directamente en las tarifas acordadas.</p>
 
         <h3>2. Dirección residencial actual</h3>
         <p>Si te has mudado recientemente y tu dirección actual es diferente a la impresa en tu licencia, debes suministrar tu dirección real en New Jersey y el tiempo que llevas residiendo allí. Las aseguradoras utilizan el código postal para calcular los índices de riesgo del área.</p>
@@ -221,12 +752,12 @@ export const posts: Post[] = [
         <p>Para enviar una solicitud de ITIN definitiva al IRS, debes reunir tres requisitos fundamentales:</p>
         <ul>
           <li><strong>Formulario W-7:</strong> La solicitud oficial completada a mano o en computadora, indicando la razón por la que solicitas el número.</li>
-          <li><strong>Declaración de Impuestos Federales (Taxes):</strong> Salvo excepciones muy específicas, la regla general del IRS exige que la solicitud del ITIN (W-7) se envíe **junto con tu declaración de impuestos anual**.</li>
+          <li><strong>Declaración de Impuestos Federales (Taxes):</strong> Salvo excepciones muy específicas, la regla general del IRS exige que la solicitud del ITIN (W-7) se envíe <strong>junto con tu declaración de impuestos anual</strong>.</li>
           <li><strong>Pruebas de Identidad y Condición de Extranjero:</strong> El IRS exige documentos oficiales vigentes. El <strong>pasaporte original vigente</strong> es el único documento que el IRS acepta por sí solo para probar ambos requisitos. Si no cuentas con pasaporte, deberás presentar una combinación de al menos dos documentos alternativos (como acta de nacimiento traducida y matrícula consular).</li>
         </ul>
 
         <h2>¿Cuánto tarda el trámite en 2026?</h2>
-        <p>El tiempo promedio que toma el IRS en emitir tu carta con el número de ITIN suele ser de **6 a 10 semanas** si presentas el trámite durante la temporada baja de impuestos (de mayo a diciembre). Sin embargo, si envías tu solicitud durante la temporada alta de taxes (de enero a abril), el tiempo de procesamiento puede extenderse a **12 a 15 semanas**. Por ello, es muy recomendable preparar tu documentación con anticipación.</p>
+        <p>El tiempo promedio que toma el IRS en emitir tu carta con el número de ITIN suele ser de <strong>6 a 10 semanas</strong> si presentas el trámite durante la temporada baja de impuestos (de mayo a diciembre). Sin embargo, si envías tu solicitud durante la temporada alta de taxes (de enero a abril), el tiempo de procesamiento puede extenderse a <strong>12 a 15 semanas</strong>. Por ello, es muy recomendable preparar tu documentación con anticipación.</p>
 
         <h2>Evita los errores comunes que retrasan tu ITIN</h2>
         <p>Muchos trámites son rechazados o demorados por meses debido a errores sencillos que una revisión profesional puede prevenir:</p>
@@ -239,7 +770,7 @@ export const posts: Post[] = [
 
         <h2>La gran ventaja de usar un Agente de Aceptación Autorizado (CAA)</h2>
         <p>Enviar tu pasaporte original por correo postal al IRS en Texas o Utah representa un gran riesgo de pérdida o daño de un documento tan vital. Para evitar este peligro, en <strong>MAPA Business & Financial Services LLC</strong> te ayudamos como <strong>Certifying Acceptance Agents (CAA)</strong> autorizados por el IRS.</p>
-        <p>Como agentes certificados, nosotros podemos validar tus documentos originales en persona en nuestra oficina, certificar las copias y enviar la solicitud W-7 al IRS en tu nombre. De esta forma, **tú conservas tus documentos originales en tu bolsillo** en todo momento.</p>
+        <p>Como agentes certificados, nosotros podemos validar tus documentos originales en persona en nuestra oficina, certificar las copias y enviar la solicitud W-7 al IRS en tu nombre. De esta forma, <strong>tú conservas tus documentos originales en tu bolsillo</strong> en todo momento.</p>
 
         <h2>¿Necesitas ayuda para tramitar tu ITIN en Newark, New Jersey?</h2>
         <p>Soy <strong>Marilyn Paladinez</strong>, fundadora de MAPA Business. Durante los últimos años, he ayudado a cientos de familias inmigrantes en Newark, Harrison, Elizabeth y comunidades vecinas en Essex County a tramitar y renovar su número ITIN con total seguridad y profesionalismo.</p>
@@ -280,7 +811,7 @@ export const posts: Post[] = [
         <p>Obtaining and keeping your ITIN active offers multiple advantages to consolidate your financial and legal stability in New Jersey:</p>
         <ol>
           <li><strong>Filing and Paying Your Taxes:</strong> It allows you to meet your tax obligations with the IRS and the State of New Jersey, demonstrating that you are a productive member of society who complies with the law.</li>
-          <li><strong>Tax Compliance History:</strong> Keeping your tax returns up-to-date using your ITIN is proof of \"good moral character,\" a highly favorable factor in future immigration processes or regularization in the United States.</li>
+          <li><strong>Tax Compliance History:</strong> Keeping your tax returns up-to-date using your ITIN is proof of <strong>good moral character</strong>, a highly favorable factor in future immigration processes or regularization in the United States.</li>
           <li><strong>Opening Bank Accounts:</strong> Many local financial institutions in Newark, Elizabeth, and Harrison allow you to open savings accounts, apply for credit cards, and obtain home or business loans using your ITIN.</li>
           <li><strong>Claiming Family Tax Credits:</strong> It allows you to claim dependents and spouses to benefit from tax deductions and credits authorized by law.</li>
         </ol>
@@ -289,12 +820,12 @@ export const posts: Post[] = [
         <p>To submit a successful ITIN application to the IRS, you must obtain three fundamental requirements:</p>
         <ul>
           <li><strong>Form W-7:</strong> The official application completed by hand or computer, indicating the reason why you are requesting the number.</li>
-          <li><strong>Federal Tax Return:</strong> Except for very specific exceptions, the IRS general rule requires that the ITIN application (W-7) be submitted **along with your annual tax return**.</li>
+          <li><strong>Federal Tax Return:</strong> Except for very specific exceptions, the IRS general rule requires that the ITIN application (W-7) be submitted <strong>along with your annual tax return</strong>.</li>
           <li><strong>Proof of Identity and Foreign Status:</strong> The IRS requires valid, original documents. A <strong>valid original passport</strong> is the only document the IRS accepts on its own to prove both requirements. If you do not have a passport, you must present a combination of at least two alternative documents (such as a translated birth certificate and a consular ID card).</li>
         </ul>
 
         <h2>How long does the process take in 2026?</h2>
-        <p>The average time it takes the IRS to issue your ITIN letter is **6 to 10 weeks** if you submit the application during the tax off-season (May to December). However, if you send your request during the peak tax season (January to April), processing times can extend to **12 to 15 weeks**. Therefore, it is highly recommended to prepare your documentation in advance.</p>
+        <p>The average time it takes the IRS to issue your ITIN letter is <strong>6 to 10 weeks</strong> if you submit the application during the tax off-season (May to December). However, if you send your request during the peak tax season (January to April), processing times can extend to <strong>12 to 15 weeks</strong>. Therefore, it is highly recommended to prepare your documentation in advance.</p>
 
         <h2>Avoid common errors that delay your ITIN</h2>
         <p>Many applications are rejected or delayed for months due to simple errors that a professional review can easily prevent:</p>
@@ -307,7 +838,7 @@ export const posts: Post[] = [
 
         <h2>The big advantage of using a Certified Acceptance Agent (CAA)</h2>
         <p>Mailing your original passport to the IRS in Texas or Utah represents a significant risk of loss or damage to a vital document. To avoid this danger, at <strong>MAPA Business & Financial Services LLC</strong> we help you as <strong>Certifying Acceptance Agents (CAA)</strong> authorized by the IRS.</p>
-        <p>As certified agents, we can verify your original documents in person at our office, certify the copies, and submit the W-7 application to the IRS on your behalf. This way, **you keep your original documents safe in your possession** at all times.</p>
+        <p>As certified agents, we can verify your original documents in person at our office, certify the copies, and submit the W-7 application to the IRS on your behalf. This way, <strong>you keep your original documents safe in your possession</strong> at all times.</p>
 
         <h2>Need help obtaining your ITIN in Newark, New Jersey?</h2>
         <p>I am <strong>Marilyn Paladinez</strong>, founder of MAPA Business. Over the past few years, I have helped hundreds of immigrant families in Newark, Harrison, Elizabeth, and neighboring communities in Essex County to apply for and renew their ITIN numbers securely and professionally.</p>
@@ -669,7 +1200,7 @@ export const posts: Post[] = [
         <p>Debes enviar el documento oficial de registro comercial (Public Records Filing) al portal de New Jersey Division of Revenue and Enterprise Services. La tarifa estatal de registro para LLCs en New Jersey es de $125.</p>
 
         <h3>4. Obtener tu número EIN (Employer Identification Number)</h3>
-        <p>Una vez que tu LLC esté aprobada por el estado, debes solicitar tu <strong>EIN</strong> ante el IRS. El EIN es el número de identificación fiscal de tu empresa, equivalente al Seguro Social pero para negocios. Si no cuentas con SSN, puedes solicitarlo por correo o fax utilizando tu número **ITIN** completando el formulario SS-4.</p>
+        <p>Una vez que tu LLC esté aprobada por el estado, debes solicitar tu <strong>EIN</strong> ante el IRS. El EIN es el número de identificación fiscal de tu empresa, equivalente al Seguro Social pero para negocios. Si no cuentas con SSN, puedes solicitarlo por correo o fax utilizando tu número <strong>ITIN</strong> completando el formulario SS-4.</p>
 
         <h3>5. Redactar el Acuerdo de Operación (Operating Agreement)</h3>
         <p>Es un documento interno que define las reglas, responsabilidades y porcentajes de participación de los socios de la LLC. Aunque no se envía al estado, los bancos lo solicitan para abrir cuentas corporativas.</p>
@@ -703,7 +1234,7 @@ export const posts: Post[] = [
         <p>You must submit the official business registration document (Public Records Filing) to the New Jersey Division of Revenue and Enterprise Services portal. The state filing fee for LLCs in New Jersey is $125.</p>
 
         <h3>4. Obtain Your EIN (Employer Identification Number)</h3>
-        <p>Once your LLC is approved by the state, you must apply for your <strong>EIN</strong> with the IRS. The EIN is the tax identification number for your company, equivalent to a Social Security number but for businesses. If you do not have an SSN, you can apply by mail or fax using your **ITIN** number by completing Form SS-4.</p>
+        <p>Once your LLC is approved by the state, you must apply for your <strong>EIN</strong> with the IRS. The EIN is the tax identification number for your company, equivalent to a Social Security number but for businesses. If you do not have an SSN, you can apply by mail or fax using your <strong>ITIN</strong> number by completing Form SS-4.</p>
 
         <h3>5. Draft the Operating Agreement</h3>
         <p>This is an internal document that defines the rules, responsibilities, and ownership percentages of the LLC members. Although it is not filed with the state, banks require it to open business accounts.</p>
@@ -739,12 +1270,12 @@ export const posts: Post[] = [
     content: {
       es: `
         <h2>Licencias de Conducir Inclusivas en New Jersey</h2>
-        <p>Desde el 1 de mayo de 2021, el estado de New Jersey implementó una ley histórica que permite a todos los residentes obtener una licencia de conducir estándar, **independientemente de su estatus migratorio**. Esto significa que no es necesario presentar una prueba de presencia legal en los Estados Unidos ante la Comisión de Vehículos Motorizados (MVC).</p>
+        <p>Desde el 1 de mayo de 2021, el estado de New Jersey implementó una ley histórica que permite a todos los residentes obtener una licencia de conducir estándar, <strong>independientemente de su estatus migratorio</strong>. Esto significa que no es necesario presentar una prueba de presencia legal en los Estados Unidos ante la Comisión de Vehículos Motorizados (MVC).</p>
         <p>Poder manejar legalmente reduce el estrés familiar, te permite asegurar tu vehículo de manera correcta y evita multas graves de tránsito.</p>
 
         <h2>El Sistema de los 6 Puntos de Identificación</h2>
-        <p>El mayor obstáculo para muchos solicitantes es reunir los documentos requeridos. New Jersey MVC utiliza un sistema de puntos donde debes acumular al menos **6 puntos de identificación** combinando diferentes documentos oficiales.</p>
-        <p>Los documentos deben ser originales o copias certificadas con sello oficial. Si están en español, deben acompañarse de una **traducción certificada** oficial.</p>
+        <p>El mayor obstáculo para muchos solicitantes es reunir los documentos requeridos. New Jersey MVC utiliza un sistema de puntos donde debes acumular al menos <strong>6 puntos de identificación</strong> combinando diferentes documentos oficiales.</p>
+        <p>Los documentos deben ser originales o copias certificadas con sello oficial. Si están en español, deben acompañarse de una <strong>traducción certificada</strong> oficial.</p>
 
         <h3>Ejemplos de Documentos y sus Puntos:</h3>
         <ul>
@@ -775,12 +1306,12 @@ export const posts: Post[] = [
       `,
       en: `
         <h2>Inclusive Driver's Licenses in New Jersey</h2>
-        <p>Since May 1, 2021, the state of New Jersey has implemented a historic law allowing all residents to obtain a standard driver's license, **regardless of immigration status**. This means it is not necessary to present proof of legal presence in the United States to the Motor Vehicle Commission (MVC).</p>
+        <p>Since May 1, 2021, the state of New Jersey has implemented a historic law allowing all residents to obtain a standard driver's license, <strong>regardless of immigration status</strong>. This means it is not necessary to present proof of legal presence in the United States to the Motor Vehicle Commission (MVC).</p>
         <p>Being able to drive legally reduces family stress, allows you to insure your vehicle properly, and avoids serious traffic fines.</p>
 
         <h2>The 6 Points of ID System</h2>
-        <p>The biggest hurdle for many applicants is gathering the required documents. The New Jersey MVC uses a point system where you must accumulate at least **6 points of identification** by combining different official documents.</p>
-        <p>Documents must be original or certified copies with an official seal. If they are in Spanish, they must be accompanied by an official **certified translation**.</p>
+        <p>The biggest hurdle for many applicants is gathering the required documents. The New Jersey MVC uses a point system where you must accumulate at least <strong>6 points of identification</strong> by combining different official documents.</p>
+        <p>Documents must be original or certified copies with an official seal. If they are in Spanish, they must be accompanied by an official <strong>certified translation</strong>.</p>
 
         <h3>Examples of Documents and Their Points:</h3>
         <ul>

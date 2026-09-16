@@ -245,4 +245,20 @@ export const services: Service[] = [
     ],
     schemaType: "LegalService",
   },
+  {
+    slug: "estatus-juvenil-new-jersey",
+    name: "Estatus Juvenil (SIJS)",
+    icon: "⚖️",
+    image: "/images/blog/estatus-juvenil-new-jersey.png",
+    metaTitle: (city) => `Estatus Juvenil SIJS en ${city}, NJ | Visa Juvenil | MAPA Business & Financial Services LLC`,
+    metaDescription: (city) => `Asesoría sobre Estatus Especial de Inmigrante Juvenil (SIJS) en ${city}, New Jersey. Proceso para jóvenes menores de 21 años. Marilyn Paladinez: (862) 622-8339.`,
+    h1: (city) => `Estatus Juvenil (SIJS) en ${city}, New Jersey`,
+    intro: (city) => `Información y orientación sobre el Estatus Especial de Inmigrante Juvenil (SIJS / Visa Juvenil) en ${city}, NJ para jóvenes menores de 21 años. Consulta confidencial.`,
+    keywords: ["estatus juvenil", "visa juvenil", "SIJS New Jersey", "Special Immigrant Juvenile Status", "menores de 21 años NJ"],
+    faqs: [
+      { question: `¿Qué es el Estatus Juvenil SIJS en ${"{city}"}, NJ?`, answer: "Es una clasificación migratoria especial para jóvenes menores de 21 años que han sufrido abandono, abuso o negligencia por parte de uno o ambos padres." },
+      { question: "¿Hasta qué edad se puede solicitar en New Jersey?", answer: "Debe iniciarse antes de cumplir los 21 años. En NJ la Corte de Familia tiene jurisdicción para jóvenes de 18 a 20 años." },
+    ],
+    schemaType: "LegalService",
+  },
 ];

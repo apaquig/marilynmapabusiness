@@ -188,7 +188,7 @@ export const serviceDetails: Record<string, ServiceDetailContent> = {
       </ul>
 
       <h3>¿Por qué tramitar tu ITIN con nosotros (Agentes CAA)?</h3>
-      <p>MAPA Business cuenta con la certificación oficial de <strong>Certifying Acceptance Agents (CAA)</strong> del IRS. Esto significa que podemos verificar tu pasaporte original cara a cara en nuestra oficina de Newark, NJ, hacer copias certificadas y enviar el Formulario W-7 al IRS en tu nombre. **No tendrás que enviar tu pasaporte físico por correo**, evitando el grave peligro de que se pierda en el correo postal durante el trámite.</p>
+      <p>MAPA Business cuenta con la certificación oficial de <strong>Certifying Acceptance Agents (CAA)</strong> del IRS. Esto significa que podemos verificar tu pasaporte original cara a cara en nuestra oficina de Newark, NJ, hacer copias certificadas y enviar el Formulario W-7 al IRS en tu nombre. <strong>No tendrás que enviar tu pasaporte físico por correo</strong>, evitando el grave peligro de que se pierda en el correo postal durante el trámite.</p>
     `,
     en: `
       <h3>What is an ITIN and why do you need it?</h3>
@@ -202,7 +202,7 @@ export const serviceDetails: Record<string, ServiceDetailContent> = {
       </ul>
 
       <h3>Why process your ITIN with us (CAA Agents)?</h3>
-      <p>MAPA Business is officially certified as a <strong>Certifying Acceptance Agent (CAA)</strong> by the IRS. This means we can verify your original passport in person at our Newark, NJ office, certify the copies, and submit Form W-7 to the IRS on your behalf. **You will not have to mail your physical passport**, avoiding the serious danger of it getting lost in the mail during the process.</p>
+      <p>MAPA Business is officially certified as a <strong>Certifying Acceptance Agent (CAA)</strong> by the IRS. This means we can verify your original passport in person at our Newark, NJ office, certify the copies, and submit Form W-7 to the IRS on your behalf. <strong>You will not have to mail your physical passport</strong>, avoiding the serious danger of it getting lost in the mail during the process.</p>
     `
   },
   "taxes": {
