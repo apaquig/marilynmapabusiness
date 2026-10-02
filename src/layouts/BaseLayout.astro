@@ -450,6 +450,21 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
         </div>
       </div>
 
+      <!-- Legal Disclaimer Banner (Option A) -->
+      <div class="footer-disclaimer-box">
+        <div class="disclaimer-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="disclaimer-icon">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <strong>{lang === 'es' ? 'Aviso Legal y Transparencia:' : 'Legal Disclaimer & Transparency:'}</strong>
+        </div>
+        <p class="disclaimer-text">
+          {lang === 'es'
+            ? 'MAPA Business & Financial Services LLC y Marilyn Paladinez ofrecen asesoría estratégica financiera, preparación de documentos, trámites de ITIN (Agente Tramitador Certificado CAA del IRS), preparación de impuestos, traducciones certificadas y servicios de notaría pública en New Jersey. No somos una firma de abogados ni ofrecemos asesoría ni representación legal. Nuestro trabajo se realiza con estricto apego a las leyes estatales y federales bajo las instrucciones de nuestros clientes.'
+            : 'MAPA Business & Financial Services LLC and Marilyn Paladinez provide strategic financial guidance, document preparation, ITIN applications (IRS Certified Acceptance Agent / CAA), tax preparation, certified translations, and notary public services in New Jersey. We are not an attorney or a law firm and do not provide legal advice or legal representation. Our services are conducted in strict compliance with state and federal laws under our clients’ direct instructions.'}
+        </p>
+      </div>
+
       <!-- Bottom Bar -->
       <div class="footer-bottom-bar">
         <div class="footer-copyright">

@@ -698,6 +698,11 @@ const getSlideKey = (slug: string) => {
             </div>
             <button type="submit" class="btn btn-red" style="justify-content:center;margin-top:8px;">{t("contact.btn_submit")}</button>
             <p style="font-size:0.75rem;color:#666666;text-align:center;margin-top:6px;">{t("contact.sub_whatsapp")}</p>
+            <p class="form-legal-note">
+              ⚖️ {lang === 'es'
+                ? 'Servicio profesional de preparación de documentos y notaría. MAPA Business no es una firma de abogados.'
+                : 'Professional document preparation & notary services. MAPA Business is not a law firm.'}
+            </p>
           </form>
           <div class="form-success" id="formSuccess">
             <div class="success-icon">✅</div>
