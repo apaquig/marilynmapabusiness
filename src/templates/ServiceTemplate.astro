@@ -43,13 +43,72 @@ function t(key: string, variables?: Record<string, string>) {
 const serviceName = t(`services.${service.slug}.title`);
 const serviceDesc = t(`services.${service.slug}.desc`);
 
-const title = lang === 'es'
-  ? `${serviceName} en New Jersey | MAPA Business`
-  : `${serviceName} in New Jersey | MAPA Business`;
+// High-CTR title & description hooks for core services
+const customServiceTitles: Record<string, { es: string; en: string }> = {
+  'traducciones': {
+    es: 'Traducciones Certificadas para USCIS en NJ | MAPA Business',
+    en: 'USCIS Certified Translations in New Jersey | MAPA Business'
+  },
+  'itin': {
+    es: 'Trámite de ITIN Number (Agente Autorizado CAA IRS) | MAPA Business',
+    en: 'ITIN Number Application (IRS Certified CAA Agent) | MAPA Business'
+  },
+  'notaria': {
+    es: 'Notaría Pública en Newark y New Jersey | MAPA Business',
+    en: 'Certified Notary Public in Newark NJ | MAPA Business'
+  },
+  'taxes': {
+    es: 'Preparación de Taxes e Impuestos en NJ | MAPA Business',
+    en: 'Tax Preparation & Filing Services NJ | MAPA Business'
+  },
+  'poderes-notariales': {
+    es: 'Poderes Notariales en New Jersey (Cartas Poder y Apostillas) | MAPA',
+    en: 'Powers of Attorney in New Jersey | MAPA Business'
+  },
+  'permisos-de-trabajo': {
+    es: 'Permisos de Trabajo en New Jersey (Formulario I-765) | MAPA',
+    en: 'Work Permit Application Form I-765 NJ | MAPA Business'
+  },
+  'licencias-de-conducir': {
+    es: 'Licencia de Conducir en New Jersey (Asesoría 6 Puntos) | MAPA',
+    en: 'New Jersey Drivers License Assistance | MAPA Business'
+  },
+  'bookkeeping': {
+    es: 'Creación de LLC y Bookkeeping en NJ | MAPA Business',
+    en: 'LLC Formation & Bookkeeping in New Jersey | MAPA Business'
+  },
+  'estatus-juvenil-new-jersey': {
+    es: 'Estatus Juvenil (SIJS) en New Jersey | Asesoría MAPA Business',
+    en: 'Special Immigrant Juvenile Status (SIJS) NJ | MAPA Business'
+  }
+};
 
-const description = lang === 'es'
+const customServiceDescs: Record<string, { es: string; en: string }> = {
+  'traducciones': {
+    es: 'Traducciones oficiales y certificadas español-inglés aceptadas por USCIS, cortes y escuelas en New Jersey. Rápido y confiable. Llama al (862) 622-8339.',
+    en: 'Official certified translations accepted by USCIS, courts, and institutions in NJ. Accurate and fast. Call (862) 622-8339.'
+  },
+  'itin': {
+    es: 'Obtén o renueva tu ITIN Number sin enviar tu pasaporte original por correo. Agente Tramitador Certificado CAA ante el IRS en Newark NJ. Llama al (862) 622-8339.',
+    en: 'Apply or renew your ITIN without mailing your original passport. IRS Certified Acceptance Agent (CAA) in Newark NJ. Call (862) 622-8339.'
+  },
+  'notaria': {
+    es: 'Notaría Pública oficial en Newark, NJ. Notarización de cartas poder, autorizaciones de viaje, contratos y affidávits. ¡Atención inmediata en Español!',
+    en: 'Certified Notary Public in Newark, NJ. Quick notarization of affidavits, powers of attorney, travel authorizations, and contracts. Call (862) 622-8339.'
+  },
+  'taxes': {
+    es: 'Preparación de impuestos personales y de negocios en New Jersey con Marilyn Paladinez. Máximo reembolso y asesoría tributaria. Llama al (862) 622-8339.',
+    en: 'Personal and small business tax preparation in New Jersey with Marilyn Paladinez. Maximize your refund. Bilingual assistance at (862) 622-8339.'
+  }
+};
+
+const title = customServiceTitles[service.slug]?.[lang] || (lang === 'es'
+  ? `${serviceName} en New Jersey | MAPA Business`
+  : `${serviceName} in New Jersey | MAPA Business`);
+
+const description = customServiceDescs[service.slug]?.[lang] || (lang === 'es'
   ? `Servicio profesional de ${serviceName} en New Jersey. Cobertura en Newark, Elizabeth, Paterson, Jersey City y más. Marilyn Paladinez: ${PHONE}.`
-  : `Professional ${serviceName} services in New Jersey. Coverage in Newark, Elizabeth, Paterson, Jersey City, and more. Marilyn Paladinez: ${PHONE}.`;
+  : `Professional ${serviceName} services in New Jersey. Coverage in Newark, Elizabeth, Paterson, Jersey City, and more. Marilyn Paladinez: ${PHONE}.`);
 
 // Schema JSON-LD
 const schema = {

@@ -273,6 +273,31 @@ function handleSubmit(e) {
 
   emailjs.send('service_3yno2qa', 'template_t1o02hr', templateParams)
     .then(() => {
+      // ── ANALYTICS CONVERSION TRACKING ──
+      try {
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            event_category: 'ContactForm',
+            event_label: servicio,
+            value: 1
+          });
+        }
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', {
+            content_name: servicio,
+            status: 'success'
+          });
+        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'form_lead_submitted',
+          lead_service: servicio,
+          lead_name: nombre
+        });
+      } catch (trackErr) {
+        console.warn('Analytics tracking error:', trackErr);
+      }
+
       form.style.transition = 'opacity 0.3s ease';
       form.style.opacity = '0';
       setTimeout(() => {
@@ -405,6 +430,86 @@ function handleSubmit(e) {
       document.dispatchEvent(new CustomEvent('lightModeChanged', { detail: active }));
     });
   }
+})();
+
+/* ── AUTOMATED CONVERSION TRACKING (GA4, Meta Pixel, GTM) ── */
+(function() {
+  document.addEventListener('click', function(e) {
+    const targetLink = e.target.closest('a');
+    if (!targetLink) return;
+
+    const href = targetLink.getAttribute('href') || '';
+
+    try {
+      // 1. WhatsApp Click Tracking
+      if (href.includes('wa.me') || href.includes('whatsapp.com')) {
+        if (typeof gtag === 'function') {
+          gtag('event', 'contact', {
+            method: 'WhatsApp',
+            event_category: 'Lead',
+            event_label: href
+          });
+        }
+        if (typeof fbq === 'function') {
+          fbq('trackCustom', 'WhatsAppClick', {
+            url: href,
+            page: window.location.pathname
+          });
+        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'whatsapp_click',
+          click_url: href
+        });
+      }
+
+      // 2. Phone Call Click Tracking
+      else if (href.startsWith('tel:')) {
+        const phoneNumber = href.replace('tel:', '');
+        if (typeof gtag === 'function') {
+          gtag('event', 'contact', {
+            method: 'Phone',
+            event_category: 'Lead',
+            event_label: phoneNumber
+          });
+        }
+        if (typeof fbq === 'function') {
+          fbq('trackCustom', 'PhoneCallClick', {
+            phone: phoneNumber,
+            page: window.location.pathname
+          });
+        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'phone_call_click',
+          phone: phoneNumber
+        });
+      }
+
+      // 3. Appointment / Booking Click Tracking
+      else if (href.includes('/citas') || href.includes('/appointments')) {
+        if (typeof gtag === 'function') {
+          gtag('event', 'begin_checkout', {
+            event_category: 'Appointment',
+            event_label: href
+          });
+        }
+        if (typeof fbq === 'function') {
+          fbq('track', 'Schedule', {
+            content_name: 'Book Appointment',
+            page: window.location.pathname
+          });
+        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'appointment_intent_click',
+          click_url: href
+        });
+      }
+    } catch (trackError) {
+      console.warn('Analytics event tracking error:', trackError);
+    }
+  }, { passive: true });
 })();
 
 
