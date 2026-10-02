@@ -131,6 +131,42 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
 <!DOCTYPE html>
 <html lang={lang} class="light-mode">
 <head>
+  <!-- Google Tag Manager -->
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TW289QXQ');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E9BVZ26P78" is:inline></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E9BVZ26P78');
+  </script>
+
+  <!-- Meta Pixel Code -->
+  <script is:inline>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '989673483422937');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=989673483422937&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/favicon.ico" />
@@ -144,6 +180,7 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
   <link rel="alternate" hreflang={lang === 'es' ? 'es-US' : 'en-US'} href={canonical} />
   <link rel="alternate" hreflang={alternateLang === 'es' ? 'es-US' : 'en-US'} href={alternateHref} />
   <link rel="alternate" hreflang="x-default" href={lang === 'es' ? canonical : alternateHref} />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs and AI Context" />
 
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="Marilyn Paladinez — MAPA Business & Financial Services LLC" />
@@ -195,18 +232,31 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
       if (localStorage.getItem('light-mode') === 'true') {
         document.documentElement.classList.add('light-mode');
       }
-      // Unregister any stale Service Workers left by other projects on localhost:4321
-      if ('serviceWorker' in navigator && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for (var reg of registrations) {
-            reg.unregister();
-          }
-        });
+      // Unregister any stale Service Workers and clear caches left by other projects on localhost
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (var reg of registrations) {
+              reg.unregister();
+            }
+          });
+        }
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            for (var name of names) {
+              caches.delete(name);
+            }
+          });
+        }
       }
     })();
   </script>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TW289QXQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <!-- WHATSAPP FLOAT WIDGET -->
   <WhatsAppWidget phoneHref={PHONE_HREF} text={lang === 'es' ? 'Hola Marilyn, me interesa conocer más sobre sus servicios.' : 'Hello Marilyn, I would like to know more about your services.'} />
