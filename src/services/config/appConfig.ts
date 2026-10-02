@@ -57,7 +57,7 @@ export const APP_CONFIG = {
       3: { open: "09:00", close: "18:00" }, // Wednesday
       4: { open: "09:00", close: "18:00" }, // Thursday
       5: { open: "09:00", close: "18:00" }, // Friday
-      6: { open: "10:00", close: "16:00" }, // Saturday
+      6: { open: "09:00", close: "18:00" }, // Saturday
       0: null, // Sunday closed
     },
     blockedDates: [
