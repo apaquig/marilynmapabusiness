@@ -1,5 +1,4 @@
 ---
-import ContactForm from "../components/ContactForm.astro";
 // src/templates/HomeTemplate.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { cities } from '../data/cities';
@@ -177,7 +176,6 @@ const getSlideKey = (slug: string) => {
 ---
 
 <BaseLayout
-  collectsContactInformation
   lang={lang}
   title={title}
   description={description}
@@ -657,7 +655,11 @@ const getSlideKey = (slug: string) => {
         </div>
 
         <div class="reveal rv2" style="margin-top: 25px;">
-          <ContactForm lang={lang} />
+          <div class="contact-form-card" style="padding:32px;border:1px solid #e2e8f0;border-radius:20px;background:white;">
+            <h3>{lang === 'es' ? 'Cuéntanos qué necesitas' : 'Tell us what you need'}</h3>
+            <p>{lang === 'es' ? 'Abre nuestro formulario para seleccionar tus servicios y enviar tu consulta, o utiliza el chat de esta página.' : 'Open our contact form to select your services and send your inquiry, or use the chat on this page.'}</p>
+            <a href={lang === 'es' ? '/es/contacto/' : '/en/contact/'} class="btn btn-primary">{lang === 'es' ? 'Abrir formulario de contacto' : 'Open contact form'}</a>
+          </div>
         </div>
       </div>
     </div>

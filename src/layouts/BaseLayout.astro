@@ -33,7 +33,7 @@ const {
 
 // These routes collect phone numbers in their appointment or service forms.
 const showChatWidget = !collectsContactInformation
-  && !/\/(citas|appointments|booking|sms-opt-in)(\/|$)/.test(currentPath)
+  && !/\/(citas|appointments|booking|contacto|contact)(\/|$)/.test(currentPath)
   && !currentPath.includes('estatus-juvenil-new-jersey');
 
 const WEBSITE = "https://marilynmapabusiness.com";
