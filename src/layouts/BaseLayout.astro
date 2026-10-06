@@ -1,9 +1,11 @@
 ---
 // src/layouts/BaseLayout.astro
 import '../styles/global.css';
+import { legalPaths } from '../data/legal';
+import ChatWidgetLocale from '../components/ChatWidgetLocale.astro';
+import WhatsAppWidget from '../components/WhatsAppWidget.astro';
 import esDict from '../../public/locales/es.json';
 import enDict from '../../public/locales/en.json';
-import WhatsAppWidget from '../components/WhatsAppWidget.astro';
 
 interface Props {
   lang: 'es' | 'en';
@@ -12,6 +14,7 @@ interface Props {
   canonical: string;
   schema?: any;
   loadMap?: boolean;
+  collectsContactInformation?: boolean;
   activeSection?: string;
   currentPath: string; // e.g. "/" or "/servicios/notaria/"
 }
@@ -23,9 +26,15 @@ const {
   canonical,
   schema,
   loadMap = false,
+  collectsContactInformation = false,
   activeSection = '',
   currentPath
 } = Astro.props;
+
+// These routes collect phone numbers in their appointment or service forms.
+const showChatWidget = !collectsContactInformation
+  && !/\/(citas|appointments|booking|sms-opt-in)(\/|$)/.test(currentPath)
+  && !currentPath.includes('estatus-juvenil-new-jersey');
 
 const WEBSITE = "https://marilynmapabusiness.com";
 
@@ -68,6 +77,8 @@ if (lang === 'es') {
     newPath = '/appointments/';
   } else if (newPath === '/sobre-mapa-business-and-financial-services/' || newPath === '/es/sobre-mapa-business-and-financial-services/' || newPath === '/marilyn-paladinez/') {
     newPath = '/marilyn-paladinez/';
+  } else if (newPath === '/terminos-y-condiciones/') {
+    newPath = '/terms-and-conditions/';
   } else if (newPath === '/politica-de-privacidad/') {
     newPath = '/privacy-policy/';
   } else if (newPath === '/politica-de-privacidad-whatsapp/') {
@@ -87,6 +98,8 @@ if (lang === 'es') {
     newPath = '/es/citas/';
   } else if (newPath === '/about-mapa-business-and-financial-services/' || newPath === '/about/' || newPath === '/marilyn-paladinez/') {
     newPath = '/marilyn-paladinez/';
+  } else if (newPath === '/terms-and-conditions/') {
+    newPath = '/terminos-y-condiciones/';
   } else if (newPath === '/privacy-policy/') {
     newPath = '/politica-de-privacidad/';
   } else if (newPath === '/whatsapp-privacy-policy/') {
@@ -95,6 +108,12 @@ if (lang === 'es') {
   alternateRelativePath = newPath;
 }
 
+const legalKind = (Object.keys(legalPaths[lang]) as Array<keyof typeof legalPaths.es>).find(
+  (kind) => legalPaths[lang][kind] === cleanPath
+);
+if (legalKind) {
+  alternateRelativePath = legalPaths[lang === 'es' ? 'en' : 'es'][legalKind];
+}
 alternateHref = `${WEBSITE}${alternateRelativePath}`;
 
 const PHONE = "(862) 622-8339";
@@ -131,6 +150,7 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
 <!DOCTYPE html>
 <html lang={lang} class="light-mode">
 <head>
+  <meta charset="UTF-8" />
   <!-- Google Tag Manager -->
   <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -170,7 +190,6 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/favicon.ico" />
-  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
@@ -257,9 +276,6 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TW289QXQ"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-
-  <!-- WHATSAPP FLOAT WIDGET -->
-  <WhatsAppWidget phoneHref={PHONE_HREF} text={lang === 'es' ? 'Hola Marilyn, me interesa conocer más sobre sus servicios.' : 'Hello Marilyn, I would like to know more about your services.'} />
 
   <!-- NAVBAR -->
   <nav id="mainNav" class="mapa-navbar">
@@ -471,7 +487,11 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
           © {new Date().getFullYear()} MAPA Business &amp; Financial Services LLC. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
         </div>
         <div class="footer-legal-links">
-          <a href={lang === 'es' ? '/politica-de-privacidad/' : '/en/privacy-policy/'}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a>
+          <a href={legalPaths[lang].privacy}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a>
+          <span class="sep">•</span>
+          <a href={legalPaths[lang].terms}>{lang === 'es' ? 'Términos y Condiciones' : 'Terms and Conditions'}</a>
+          <span class="sep">•</span>
+          <a href={legalPaths[lang].sms}>SMS Opt-In</a>
           <span class="sep">•</span>
           <a href={lang === 'es' ? '/politica-de-privacidad-whatsapp/' : '/en/whatsapp-privacy-policy/'}>{lang === 'es' ? 'Privacidad WhatsApp' : 'WhatsApp Privacy'}</a>
           <span class="sep">•</span>
@@ -484,5 +504,22 @@ const isCitasActive = activeSection === 'citas' || currentPath.includes('/citas'
   </footer>
 
   <script src="/js/script.js" is:inline></script>
+  {!showChatWidget && <WhatsAppWidget fullHref={WHATSAPP_URL} />}
+  {showChatWidget && <ChatWidgetLocale />}
+  <!-- GoHighLevel chat widget -->
+  {showChatWidget && <script
+    is:inline
+    src="https://widgets.leadconnectorhq.com/loader.js"
+    data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+    data-widget-id="6ac517f23571432bfcf9b427"
+    data-source="WEB_USER"
+  ></script>}
+  <!-- MAPA HighLevel external page and form tracking -->
+  <script
+    is:inline
+    src="https://link.msgsndr.com/js/external-tracking.js"
+    data-tracking-id="tk_92b14bc678ea4eb3b89a2a27dca3f16f"
+    data-debug={import.meta.env.DEV ? 'true' : undefined}
+  ></script>
 </body>
 </html>

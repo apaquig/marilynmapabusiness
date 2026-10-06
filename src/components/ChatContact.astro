@@ -1,0 +1,29 @@
+---
+import { legalPaths } from '../data/legal';
+interface Props { lang: 'es' | 'en' }
+const { lang } = Astro.props;
+const paths = legalPaths[lang];
+---
+<aside class="chat-contact">
+  <h2>{lang === 'es' ? 'Habla con el equipo de MAPA' : 'Talk to the MAPA team'}</h2>
+  <p>{lang === 'es' ? 'Abre el botón de chat que aparece en la esquina de la pantalla para hacer tu consulta.' : 'Open the chat button in the corner of your screen to send your inquiry.'}</p>
+  <ol>
+    <li>{lang === 'es' ? 'Introduce tus datos en el chat.' : 'Enter your details in the chat.'}</li>
+    <li>{lang === 'es' ? 'Elige por separado si deseas recibir SMS de atención al cliente y SMS promocionales. Las opciones son voluntarias y no están marcadas previamente.' : 'Choose separately whether to receive customer care SMS and promotional SMS. The choices are voluntary and unchecked by default.'}</li>
+    <li>{lang === 'es' ? 'Envía tu consulta. Proporcionar tu número no autoriza SMS; solo se autoriza la opción que selecciones.' : 'Send your inquiry. Providing your number does not authorize SMS; only the choices you select are authorized.'}</li>
+  </ol>
+  <p>{lang === 'es' ? 'El consentimiento no es condición para comprar o recibir servicios. Si el chat no carga, puedes llamar o escribirnos por correo.' : 'Consent is not a condition of purchasing or receiving services. If the chat does not load, call or email us.'}</p>
+  <div class="chat-actions"><a class="btn btn-red" href="tel:+18626228339">{lang === 'es' ? 'Llamar a MAPA' : 'Call MAPA'}</a><a href="mailto:info@marilynmapabusiness.com">info@marilynmapabusiness.com</a></div>
+  <p class="chat-legal"><a href={paths.privacy}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a> · <a href={paths.terms}>{lang === 'es' ? 'Términos y Condiciones' : 'Terms and Conditions'}</a></p>
+</aside>
+<style>
+  .chat-contact { padding: 24px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; color: #334155; }
+  h2 { margin: 0 0 12px; color: #111827; font-size: 1.4rem; }
+  p, li { font-size: .95rem; line-height: 1.65; }
+  p { margin: 0 0 12px; }
+  ol { padding-left: 22px; margin: 12px 0; }
+  li { margin-bottom: 8px; }
+  .chat-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin: 18px 0; }
+  a:not(.btn) { color: #991b1b; text-decoration: underline; overflow-wrap: anywhere; }
+  .chat-legal { font-size: .85rem; margin-bottom: 0; }
+</style>

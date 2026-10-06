@@ -1,0 +1,88 @@
+---
+import SMSConsent from './SMSConsent.astro';
+import { contactServices } from '../data/contactServices';
+interface Props { lang: 'es' | 'en'; smsOnly?: boolean }
+const { lang, smsOnly = false } = Astro.props;
+const es = lang === 'es';
+---
+<div class="contact-panel">
+<form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+  <div class="fields">
+    <div><label for="contactName">{es ? 'Nombre completo' : 'Full name'} *</label><input id="contactName" name="full_name" autocomplete="name" required /></div>
+    <div><label for="contactPhone">{es ? 'Número móvil' : 'Mobile number'}{smsOnly ? ' *' : ''}</label><input id="contactPhone" name="phone" type="tel" autocomplete="tel" required={smsOnly} placeholder="(862) 555-0123" /></div>
+  </div>
+  <label for="contactEmail">{es ? 'Correo electrónico' : 'Email address'} *</label>
+  <input id="contactEmail" name="email" type="email" autocomplete="email" required />
+  {smsOnly ? <><input type="hidden" name="servicio" value="SMS communication preferences" /><input type="hidden" name="mensaje" value="SMS preference submission" /></> : <>
+    <label id="serviceLabel">{es ? 'Servicios de interés' : 'Services of Interest'}</label>
+    <details class="service-selector" data-empty-label={es ? 'Selecciona tus servicios' : 'Select your services'}>
+      <summary aria-labelledby="serviceLabel serviceSelection"><span id="serviceSelection">{es ? 'Selecciona tus servicios' : 'Select your services'}</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary>
+      <div class="service-options">
+        <p>{es ? 'Puedes elegir varios servicios.' : 'You can select multiple services.'}</p>
+        {contactServices.map((service) => <label class="service-option"><input type="checkbox" name="customer_services" value={service.value} /><span>{es ? service.value : service.en}</span></label>)}
+      </div>
+    </details>
+    <label for="contactMessage">{es ? 'Tu consulta' : 'Your inquiry'}</label><textarea id="contactMessage" name="mensaje" rows="4" />
+  </>}
+  <SMSConsent lang={lang} />
+  <p class="privacy-note">{es ? 'No envíes documentos fiscales, números de Seguro Social, ITIN ni información bancaria en este formulario.' : 'Do not submit tax documents, Social Security numbers, ITINs, or banking information in this form.'}</p>
+  <button type="submit" class="btn btn-red">{smsOnly ? (es ? 'Enviar mis preferencias' : 'Submit my preferences') : (es ? 'Enviar consulta' : 'Send inquiry')}</button>
+</form>
+<div class="form-success" id="formSuccess" role="status" tabindex="-1">
+  <span class="confirmation-icon" aria-hidden="true">✓</span>
+  <h2>{smsOnly ? (es ? '¡Preferencias enviadas!' : 'Preferences submitted!') : (es ? '¡Gracias por contactar a MAPA!' : 'Thank you for contacting MAPA!')}</h2>
+  <p>{smsOnly ? (es ? 'Hemos recibido tu solicitud de preferencias de comunicación. Gracias por indicarnos cómo deseas que te contactemos.' : 'We have received your communication preferences request. Thank you for letting us know how you would like to be contacted.') : (es ? 'Hemos recibido tu consulta. Nuestro equipo la revisará y se pondrá en contacto contigo para ayudarte con el siguiente paso.' : 'We have received your inquiry. Our team will review it and contact you to help with the next step.')}</p>
+  <a class="confirmation-contact" href="tel:+18626228339">{es ? '¿Necesitas ayuda ahora? Llámanos' : 'Need help now? Call us'}: (862) 622-8339</a>
+</div>
+</div>
+<style>
+  .contact-panel { display: grid; border-radius: 20px; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 12px 36px rgba(15,23,42,.06); overflow: hidden; }
+  .contact-panel > form, .contact-panel > .form-success { grid-area: 1 / 1; }
+  .contact-panel .contact-form { padding: 24px; background: white; margin: 0; gap: 0; }
+  .contact-panel .contact-form > input { margin-bottom: 4px; }
+  .contact-panel .contact-form input:not([type='checkbox']):not([type='hidden']),
+  .contact-panel .contact-form textarea { padding: 12px 14px !important; border-radius: 10px !important; border: 1px solid #cbd5e1 !important; box-shadow: none !important; font-size: .95rem; }
+  .contact-panel .contact-form input:not([type='checkbox']):not([type='hidden']) { height: 46px; }
+  .contact-panel .contact-form textarea { min-height: 110px; resize: vertical; }
+  .service-selector { border: 1px solid #cbd5e1; border-radius: 12px; background: white; }
+  .service-selector > summary { display: flex !important; justify-content: space-between; align-items: center; min-height: 46px; gap: 12px; padding: 12px 14px; cursor: pointer; list-style: none !important; color: #334155; font-size: .95rem; line-height: 1.4; border-radius: 10px; }
+  .service-selector > summary::-webkit-details-marker { display: none !important; }
+  .service-selector > summary::marker { content: ''; }
+  .service-selector > summary svg { flex-shrink: 0; transition: transform .2s; }
+  .service-selector[open] > summary svg { transform: rotate(180deg); }
+  .service-selector > summary:focus-visible { outline: 2px solid #b91c1c; outline-offset: 2px; }
+  .service-selector[open] summary { border-bottom: 1px solid #e2e8f0; }
+  .service-options { max-height: 260px; overflow-y: auto; padding: 10px 16px; }
+  .service-options p { font-size: .8rem; color: #64748b; margin: 0 0 8px; }
+  .service-option { display: flex; align-items: center; gap: 10px; margin: 0; padding: 9px 6px; border-radius: 6px; font-weight: 400; cursor: pointer; }
+  .service-option:hover { background: #f8fafc; }
+  .service-option input { flex: 0 0 18px; width: 18px; height: 18px; margin: 0; padding: 0 !important; border-radius: 3px !important; accent-color: #b91c1c; }
+  .contact-panel .form-success { margin: 0; min-height: 0; height: auto; gap: 12px; padding: 32px 24px; outline: none; border: 0; border-radius: 0; background: #f0fdf4; }
+  .confirmation-contact { margin-top: 4px; color: #166534; font-size: .85rem; text-decoration: underline; }
+  .confirmation-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #dcfce7; color: #15803d; font-size: 30px; }
+  .form-success h2 { font-size: 1.5rem; margin: 0; color: #14532d; }
+  .form-success p { margin: 0; max-width: 420px; line-height: 1.6; color: #334155; }
+  button[type='submit'] { width: 100%; justify-content: center; border-radius: 12px; }
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  label { display: block; margin: 16px 0 6px; font-size: .85rem; font-weight: 600; color: #334155; }
+  .fields label { margin-top: 0; }
+  .privacy-note { margin: 0 0 16px; font-size: .85rem; color: #475569; line-height: 1.5; }
+  @media(max-width: 600px) { .fields { grid-template-columns: 1fr; gap: 14px; } .contact-panel .contact-form { padding: 18px; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLDetailsElement>('.service-selector').forEach((selector) => {
+    selector.addEventListener('change', () => {
+      const selected = Array.from(selector.querySelectorAll<HTMLInputElement>('input:checked'));
+      const labels = selected.map((input) => input.closest('label')?.querySelector('span')?.textContent?.trim()).filter(Boolean);
+      const summary = selector.querySelector('#serviceSelection');
+      if (summary) summary.textContent = labels.length ? labels.join(', ') : selector.dataset.emptyLabel || '';
+    });
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Node && !selector.contains(event.target)) selector.open = false;
+    });
+    selector.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') { selector.open = false; selector.querySelector('summary')?.focus(); }
+    });
+  });
+</script>

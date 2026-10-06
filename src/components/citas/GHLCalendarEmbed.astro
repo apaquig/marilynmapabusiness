@@ -1,5 +1,6 @@
 ---
 import { APP_CONFIG } from '../../services/config/appConfig';
+import { legalPaths } from '../../data/legal';
 
 interface Props {
   calendarId?: string;
@@ -40,6 +41,12 @@ const embedUrl = `https://api.leadconnectorhq.com/widget/booking/${calendarId}`;
       ></iframe>
     </div>
 
+    <p class="ghl-legal-links">
+      <a href={legalPaths[lang].privacy}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a>
+      · <a href={legalPaths[lang].terms}>{lang === 'es' ? 'Términos y Condiciones' : 'Terms and Conditions'}</a>
+      · <a href={legalPaths[lang].sms}>SMS Opt-In</a>
+    </p>
+
     <!-- Quick Help & Direct Contacts -->
     <div class="ghl-support-box">
       <div class="support-info">
@@ -70,6 +77,8 @@ const embedUrl = `https://api.leadconnectorhq.com/widget/booking/${calendarId}`;
 <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 
 <style>
+  .ghl-legal-links { text-align: center; padding: 12px 16px; font-size: .9rem; color: #334155; }
+  .ghl-legal-links a { color: #991b1b; text-decoration: underline; }
   .ghl-booking-wrapper {
     max-width: 960px;
     margin: 0 auto;

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { legalPaths } from '../data/legal';
+interface Props { lang: 'es' | 'en' }
+const { lang } = Astro.props;
+const title = lang === 'es' ? 'Consentimiento SMS / SMS Opt-In' : 'SMS Opt-In / Consent';
+const description = lang === 'es' ? 'Elige qué mensajes SMS deseas recibir de MAPA Business & Financial Services LLC.' : 'Choose the SMS messages you wish to receive from MAPA Business & Financial Services LLC.';
+const path = legalPaths[lang].sms;
+---
+<BaseLayout collectsContactInformation lang={lang} title={`${title} | MAPA Business & Financial Services LLC`} description={description} canonical={`https://marilynmapabusiness.com${path}`} currentPath={path}>
+  <div class="breadcrumb"><a href={lang === 'es' ? '/' : '/en/'}>{lang === 'es' ? 'Inicio' : 'Home'}</a><span>›</span><span>SMS Opt-In</span></div>
+  <article class="article-container" style="max-width:820px;">
+    <h1 class="article-title">{title}</h1>
+    <div class="article-body">
+      <p>{description}</p>
+      <p>{lang === 'es' ? 'Los mensajes de servicio incluyen confirmaciones y recordatorios de citas, actualizaciones de servicios solicitados y atención al cliente. Las promociones incluyen ofertas, descuentos y novedades de servicios. Puedes consultar al equipo sin autorizar SMS.' : 'Service messages include appointment confirmations and reminders, requested service updates, and customer support. Promotions include offers, discounts, and service announcements. You may contact our team without authorizing SMS.'}</p>
+      <p>{lang === 'es' ? 'Para cancelar responde STOP. Para ayuda responde HELP, llama al (862) 622-8339 o escribe a info@marilynmapabusiness.com. La frecuencia varía y pueden aplicarse tarifas de mensajes y datos. Los operadores no son responsables de mensajes retrasados o no entregados.' : 'Reply STOP to unsubscribe. Reply HELP for help, call (862) 622-8339, or email info@marilynmapabusiness.com. Frequency varies and message and data rates may apply. Carriers are not liable for delayed or undelivered messages.'}</p>
+      <p>{lang === 'es' ? 'No compartimos información móvil ni consentimiento SMS con terceros o afiliados para marketing o promociones. No envíes documentos ni datos fiscales sensibles mediante el chat.' : 'We do not share mobile information or SMS consent with third parties or affiliates for marketing or promotions. Do not submit sensitive documents or tax information through the chat.'}</p>
+    </div>
+    <ContactForm lang={lang} smsOnly />
+  </article>
+</BaseLayout>
+<style>
+  .article-body { line-height: 1.65; }
+  .article-body p { margin: 0 0 12px; }
+</style>

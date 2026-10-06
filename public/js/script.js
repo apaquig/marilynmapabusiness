@@ -18,18 +18,6 @@
     }
   });
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button[type="submit"]');
-    btn.textContent = '✅ ¡Mensaje enviado!';
-    btn.style.background = '#25d366';
-    setTimeout(() => {
-      btn.textContent = '📩 Enviar mensaje';
-      btn.style.background = '';
-      e.target.reset();
-    }, 3000);
-  }
-
   /* ── SCROLLSPY MENU HIGHLIGHT ── */
   (function () {
     function updateActiveNav() {
@@ -256,19 +244,40 @@ function handleSubmit(e) {
   const btn  = form.querySelector('button[type="submit"]');
   const success = document.getElementById('formSuccess');
 
-  const inputs = form.querySelectorAll('input, select, textarea');
-  const nombre   = inputs[0].value;
-  const telefono = inputs[1].value || 'No proporcionado';
-  const email    = inputs[2].value;
-  const servicio = inputs[3].value || 'No seleccionado';
-  const mensaje  = inputs[4].value || 'Sin mensaje';
+  const fields = new FormData(form);
+  const nombre = fields.get('full_name') || fields.get('name') || fields.get('nombre');
+  const mobile = String(fields.get('phone') || fields.get('telefono') || '').trim();
+  const telefono = mobile || 'No proporcionado';
+  const email = fields.get('email');
+  const selectedServices = fields.getAll('customer_services');
+  const servicio = selectedServices.length ? selectedServices.join(', ') : (fields.get('servicio') || 'No seleccionado');
+  const informational = fields.get('sms_informational') === 'yes';
+  const marketing = fields.get('sms_marketing') === 'yes';
+  const lang = document.documentElement.lang === 'en' ? 'en' : 'es';
+  if ((informational || marketing) && !mobile) {
+    alert(lang === 'en' ? 'Enter your mobile number to authorize SMS.' : 'Ingresa tu número móvil para autorizar SMS.');
+    return;
+  }
+  const consentBlock = form.querySelector('[data-consent-version]');
+  const consentRecord = {
+    sms_informational: informational,
+    sms_marketing: marketing,
+    consent_version: consentBlock ? consentBlock.dataset.consentVersion : null,
+    submitted_at: new Date().toISOString(),
+    source_url: window.location.origin + window.location.pathname,
+    language: lang,
+    informational_disclosure: consentBlock ? consentBlock.querySelector('[name="sms_informational"]').closest('label').textContent.trim() : '',
+    marketing_disclosure: consentBlock ? consentBlock.querySelector('[name="sms_marketing"]').closest('label').textContent.trim() : ''
+  };
+  // Preserve the record in the existing email template's message field as well.
+  const mensaje = (fields.get('mensaje') || 'Sin mensaje') + '\n\nSMS preferences / Preferencias SMS:\n' + JSON.stringify(consentRecord, null, 2);
 
-  const lang = window.i18n ? window.i18n.currentLang : 'es';
   btn.textContent = lang === 'en' ? '⏳ Sending...' : '⏳ Enviando...';
   btn.disabled = true;
 
   const templateParams = {
-    nombre, telefono, email, servicio, mensaje, reply_to: email
+    nombre, telefono, email, servicio, mensaje, reply_to: email,
+    ...consentRecord
   };
 
   emailjs.send('service_3yno2qa', 'template_t1o02hr', templateParams)
@@ -302,7 +311,10 @@ function handleSubmit(e) {
       form.style.opacity = '0';
       setTimeout(() => {
         form.style.display = 'none';
+        const panel = form.closest('.contact-panel');
+        if (panel) panel.style.removeProperty('min-height');
         success.classList.add('show');
+        success.focus({ preventScroll: true });
       }, 320);
     })
     .catch((err) => {
@@ -511,5 +523,3 @@ function handleSubmit(e) {
     }
   }, { passive: true });
 })();
-
-

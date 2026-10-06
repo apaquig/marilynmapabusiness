@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { legalContent, legalPaths } from '../data/legal';
+import { APP_CONFIG } from '../services/config/appConfig';
+interface Props { lang: 'es' | 'en'; kind: 'privacy' | 'terms' }
+const { lang, kind } = Astro.props;
+const page = legalContent[lang][kind];
+const paths = legalPaths[lang];
+const business = APP_CONFIG.business;
+---
+<BaseLayout lang={lang} title={`${page.title} | ${business.name}`} description={page.description} canonical={`https://marilynmapabusiness.com${paths[kind]}`} currentPath={paths[kind]}>
+  <div class="breadcrumb"><a href={lang === 'es' ? '/' : '/en/'}>{lang === 'es' ? 'Inicio' : 'Home'}</a><span>›</span><span>{page.title}</span></div>
+  <article class="article-container" style="max-width:900px;">
+    <h1 class="article-title">{page.title}</h1>
+    <p class="legal-date">{lang === 'es' ? 'Última actualización: 6 de octubre de 2026' : 'Last updated: October 6, 2026'} · {business.name}</p>
+    <p>{page.description}</p>
+    <nav class="legal-nav" aria-label={lang === 'es' ? 'Documentos relacionados' : 'Related documents'}>
+      <a href={paths.privacy}>{lang === 'es' ? 'Privacidad' : 'Privacy'}</a><a href={paths.terms}>{lang === 'es' ? 'Términos y Condiciones' : 'Terms and Conditions'}</a><a href={paths.sms}>SMS Opt-In</a>
+    </nav>
+    <div class="article-body">
+      {page.sections.map((section) => <section><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</section>)}
+      <h2>{lang === 'es' ? 'Contacto' : 'Contact'}</h2>
+      <p><strong>{business.name}</strong><br />{business.address}<br /><a href={`tel:+${business.phoneHref}`}>{business.phone}</a><br /><a href={`mailto:${business.email}`}>{business.email}</a></p>
+    </div>
+  </article>
+</BaseLayout>
+<style>
+  .article-body { line-height: 1.65; }
+  .article-body section { padding: 0; margin: 0 0 24px; }
+  .article-body section h2 { margin: 0 0 10px; }
+  .article-body p { margin: 0 0 12px; }
+  .article-body section p:last-child { margin-bottom: 0; }
+  .article-body > h2 { margin: 24px 0 10px; }
+  .legal-date { color: #475569; font-size: .9rem; margin-bottom: 24px; }
+  .legal-nav { display: flex; flex-wrap: wrap; gap: 14px; margin: 24px 0; padding: 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; }
+  .legal-nav a { color: #991b1b; text-decoration: underline; }
+</style>

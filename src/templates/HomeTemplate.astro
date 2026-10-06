@@ -1,4 +1,5 @@
 ---
+import ContactForm from "../components/ContactForm.astro";
 // src/templates/HomeTemplate.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { cities } from '../data/cities';
@@ -176,6 +177,7 @@ const getSlideKey = (slug: string) => {
 ---
 
 <BaseLayout
+  collectsContactInformation
   lang={lang}
   title={title}
   description={description}
@@ -252,15 +254,6 @@ const getSlideKey = (slug: string) => {
             <p class="trust-phrase">{lang === 'es' ? 'Atención profesional y personalizada' : 'Professional and personalized service'}</p>
           </div>
 
-          <!-- Micro-element badge -->
-          <div class="bilingual-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span>Español • English</span>
-          </div>
         </div>
       </div>
 
@@ -664,52 +657,7 @@ const getSlideKey = (slug: string) => {
         </div>
 
         <div class="reveal rv2" style="margin-top: 25px;">
-          <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">{lang === 'es' ? 'Nombre completo' : 'Full name'} *</label>
-                <input type="text" placeholder={t("contact.placeholder_name")} required />
-              </div>
-              <div class="form-group">
-                <label class="form-label">{lang === 'es' ? 'Teléfono' : 'Phone number'}</label>
-                <input type="tel" placeholder={t("contact.placeholder_phone")} />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">{lang === 'es' ? 'Correo electrónico' : 'Email address'} *</label>
-              <input type="email" placeholder={t("contact.placeholder_email")} required />
-            </div>
-            <div class="form-group">
-              <label class="form-label">{lang === 'es' ? '¿Qué servicio necesitas?' : 'Service needed?'} *</label>
-              <select required>
-                <option value="" disabled selected>{t("contact.placeholder_service")}</option>
-                <option>{t("contact.opt_mig")}</option>
-                <option>{t("contact.opt_corp")}</option>
-                <option>{t("contact.opt_tax")}</option>
-                <option>{t("contact.opt_mkt")}</option>
-                <option>{t("contact.opt_insurance")}</option>
-                <option>{t("contact.opt_home")}</option>
-                <option>{t("contact.opt_other")}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">{lang === 'es' ? 'Mensaje o consulta' : 'Message or inquiry'}</label>
-              <textarea placeholder={t("contact.placeholder_message")}></textarea>
-            </div>
-            <button type="submit" class="btn btn-red" style="justify-content:center;margin-top:8px;">{t("contact.btn_submit")}</button>
-            <p style="font-size:0.75rem;color:#666666;text-align:center;margin-top:6px;">{t("contact.sub_whatsapp")}</p>
-            <p class="form-legal-note">
-              ⚖️ {lang === 'es'
-                ? 'Servicio profesional de preparación de documentos y notaría. MAPA Business no es una firma de abogados.'
-                : 'Professional document preparation & notary services. MAPA Business is not a law firm.'}
-            </p>
-          </form>
-          <div class="form-success" id="formSuccess">
-            <div class="success-icon">✅</div>
-            <div class="success-title">{t("contact.success_title")}</div>
-            <p class="success-msg" set:html={t("contact.success_msg")} />
-            <a href="https://wa.me/18626228339?text=Hola%20Marilyn%2C%20acabo%20de%20enviar%20un%20formulario." target="_blank" class="success-wa">{t("contact.success_wa")}</a>
-          </div>
+          <ContactForm lang={lang} />
         </div>
       </div>
     </div>

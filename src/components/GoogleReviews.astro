@@ -194,7 +194,7 @@ function formatRelativeTime(publishTimeStr?: string, defaultDesc?: string, curre
 // ── Build-time fetch (SSG / SEO) ──────────────────────────
 let buildReviews: any[] = [];
 let buildStatus  = 'success';
-let buildStatusText = lang === 'en' ? 'Google reviews updated in real-time' : 'Opiniones de Google actualizadas en tiempo real';
+let buildStatusText = lang === 'en' ? 'Selected Google reviews · newest available first' : 'Reseñas seleccionadas de Google · más recientes disponibles primero';
 
 try {
   const urls = [
@@ -397,7 +397,7 @@ function colorClass(name: string) {
 </div>
 
 <!-- ── Client-side live refresh ───────────────────────────────────── -->
-<script define:vars={{ PLACE_ID, API_KEY, lang }}>
+<script define:vars={{ PLACE_ID, API_KEY, lang, buildReviews }}>
 (function () {
   'use strict';
 
@@ -501,7 +501,10 @@ function colorClass(name: string) {
         `https://places.googleapis.com/v1/places/${PLACE_ID}`
       ];
 
-      const reviewMap = new Map();
+      // Keep the known reviews: Places API (New) returns a relevance-based subset,
+      // so a refresh must not discard newer reviews already in the page.
+      const reviewMap = new Map(buildReviews.map(review => [review.name || review.authorAttribution?.displayName, review]));
+      let fetchedReviews = 0;
 
       for (const u of urls) {
         try {
@@ -515,6 +518,7 @@ function colorClass(name: string) {
           if (res.ok) {
             const data = await res.json();
             if (data?.reviews) {
+              fetchedReviews += data.reviews.length;
               data.reviews.forEach(r => {
                 const key = r.name || r.authorAttribution?.displayName;
                 if (key && !reviewMap.has(key)) reviewMap.set(key, r);
@@ -526,7 +530,7 @@ function colorClass(name: string) {
         }
       }
 
-      if (reviewMap.size === 0) throw new Error('empty');
+      if (fetchedReviews === 0) throw new Error('No reviews returned by Google; keeping existing reviews.');
 
       const reviews = Array.from(reviewMap.values());
       // Sort descending by publishTime (most recent first)
@@ -543,7 +547,7 @@ function colorClass(name: string) {
       track.innerHTML = reviews.map(buildCard).join('');
 
       if (statusEl) {
-        statusEl.innerHTML = `<span class="live-indicator-dot"></span> ${lang === 'en' ? 'Google reviews updated in real-time' : 'Opiniones de Google actualizadas en tiempo real'}`;
+        statusEl.innerHTML = `<span class="live-indicator-dot"></span> ${lang === 'en' ? 'Selected Google reviews · newest available first' : 'Reseñas seleccionadas de Google · más recientes disponibles primero'}`;
         statusEl.className = 'reviews-status-text success';
       }
 

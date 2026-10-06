@@ -11,6 +11,11 @@ export default defineConfig({
       filter: (page) => {
         // Exclude redirect pages and non-canonical duplicate aliases
         const excluded = [
+          'https://marilynmapabusiness.com/politica-de-privacidad/',
+          'https://marilynmapabusiness.com/terminos-y-condiciones/',
+          'https://marilynmapabusiness.com/en/privacy-policy/',
+          'https://marilynmapabusiness.com/en/terms-and-conditions/',
+          'https://marilynmapabusiness.com/en/sms-opt-in/',
           'https://marilynmapabusiness.com/citas/',
           'https://marilynmapabusiness.com/en/citas/',
           'https://marilynmapabusiness.com/estatus-juvenil-new-jersey/',

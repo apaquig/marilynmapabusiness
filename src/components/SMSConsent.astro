@@ -1,0 +1,21 @@
+---
+import { legalPaths, smsConsent, LEGAL_VERSION } from '../data/legal';
+interface Props { lang: 'es' | 'en' }
+const { lang } = Astro.props;
+const paths = legalPaths[lang];
+---
+<fieldset class="sms-consent" data-consent-version={LEGAL_VERSION}>
+  <legend>{lang === 'es' ? 'Preferencias SMS (opcionales)' : 'SMS preferences (optional)'}</legend>
+  <label><input type="checkbox" name="sms_informational" value="yes" /><span>{smsConsent[lang].informational}</span></label>
+  <label><input type="checkbox" name="sms_marketing" value="yes" /><span>{smsConsent[lang].marketing}</span></label>
+  <p>{lang === 'es' ? 'Puedes elegir una, ambas o ninguna. El consentimiento no es condición para comprar o recibir servicios. Proporcionar tu número no autoriza SMS.' : 'Choose either, both, or neither. Consent is not a condition of purchasing or receiving services. Providing your number does not authorize SMS.'}</p>
+  <p><a href={paths.privacy}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a> · <a href={paths.terms}>{lang === 'es' ? 'Términos y Condiciones' : 'Terms and Conditions'}</a> · <a href={paths.sms}>SMS Opt-In</a></p>
+</fieldset>
+<style>
+  .sms-consent { min-width: 0; margin: 20px 0; padding: 18px; border: 1px solid #cbd5e1; border-radius: 12px; color: #334155; background: #f8fafc; }
+  legend { padding: 0 6px; font-weight: 700; font-size: .95rem; }
+  label { display: flex; align-items: flex-start; gap: 12px; margin: 12px 0; font-size: .88rem; line-height: 1.6; cursor: pointer; }
+  input[type='checkbox'] { flex: 0 0 18px; width: 18px; height: 18px; padding: 0 !important; border-radius: 3px !important; margin-top: 4px; accent-color: #b91c1c; }
+  p { font-size: .85rem; line-height: 1.6; margin: 12px 0 0; }
+  a { color: #991b1b; text-decoration: underline; }
+</style>

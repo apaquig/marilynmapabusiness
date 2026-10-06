@@ -1,0 +1,50 @@
+<script>
+  function localizeMapaChat() {
+    const widget = document.querySelector('chat-widget');
+    if (!widget) return;
+    const spanish = document.documentElement.lang === 'es';
+    const attrs = spanish ? {
+      'language-code': 'es', locale: 'es', heading: '¿Cómo podemos ayudarte?',
+      'sub-heading': 'Escribe tu consulta y el equipo de MAPA te responderá.',
+      'prompt-msg': '¡Hola! Soy Marilyn. ¿En qué podemos ayudarte?',
+      'revisit-prompt-msg': '¡Hola de nuevo, {{name}}! ¿Cómo podemos ayudarte?',
+      'prefilled-message-text': 'Me gustaría recibir más información.',
+      'send-label': 'Enviar', 'thank-you-msg': '¡Gracias por contactar a MAPA!',
+      'success-msg': 'Recibimos tu mensaje. Nuestro equipo se pondrá en contacto contigo.',
+    } : {
+      'language-code': 'en', locale: 'en', heading: 'How can we help you?',
+      'sub-heading': 'Send your question and the MAPA team will get back to you.',
+      'prompt-msg': 'Hi! I’m Marilyn. How can we help you?',
+      'revisit-prompt-msg': 'Welcome back, {{name}}! How can we help you?',
+      'prefilled-message-text': 'I would like more information.',
+      'send-label': 'Send', 'thank-you-msg': 'Thank you for contacting MAPA!',
+      'success-msg': 'We received your message. Our team will contact you.',
+    };
+    for (const [key, value] of Object.entries(attrs)) widget.setAttribute(key, value);
+    const labels = spanish ? {
+      name: 'Nombre', phone: 'Teléfono', email: 'Correo electrónico', message: 'Mensaje',
+      required: 'Obligatorio', received: 'Recibido', sending: 'Enviando',
+      invalid_value: 'Valor incorrecto', send: 'Enviar', powered_by: 'Tecnología de',
+    } : {
+      name: 'Name', phone: 'Phone', email: 'Email', message: 'Message',
+      required: 'Required', received: 'Received', sending: 'Sending',
+      invalid_value: 'Invalid value', send: 'Send', powered_by: 'Powered by',
+    };
+    widget.setAttribute('i-1-8n-labels', JSON.stringify(labels));
+    // Only presentation changes: leave GHL's consent controls and disclosures intact.
+    const root = widget.shadowRoot;
+    if (root && !root.querySelector('#mapa-chat-launcher-style')) {
+      const style = document.createElement('style');
+      style.id = 'mapa-chat-launcher-style';
+      style.textContent = '#lc_text-widget--btn { border: 3px solid #fff !important; box-sizing: border-box; box-shadow: 0 4px 18px rgba(0,0,0,.2) !important; }';
+      root.appendChild(style);
+    }
+  }
+  window.addEventListener('LC_chatWidgetLoaded', localizeMapaChat);
+  document.addEventListener('langChanged', localizeMapaChat);
+  const observer = new MutationObserver(() => {
+    if (document.querySelector('chat-widget')?.shadowRoot) { localizeMapaChat(); observer.disconnect(); }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+  localizeMapaChat();
+</script>
