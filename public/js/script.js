@@ -270,19 +270,26 @@ function handleSubmit(e) {
     marketing_disclosure: consentBlock ? consentBlock.querySelector('[name="sms_marketing"]').closest('label').textContent.trim() : ''
   };
   // Preserve the record in the existing email template's message field as well.
-  const mensaje = (fields.get('mensaje') || 'Sin mensaje') + '\n\nSMS preferences / Preferencias SMS:\n' + JSON.stringify(consentRecord, null, 2);
+  const attribution = {};
+  form.querySelectorAll('[data-lp-attribution]').forEach((input) => {
+    if (input.value) attribution[input.name] = input.value;
+  });
+  const mensaje = (fields.get('mensaje') || 'Sin mensaje') + '\n\nSMS preferences / Preferencias SMS:\n' + JSON.stringify(consentRecord, null, 2)
+    + (Object.keys(attribution).length ? '\n\nGoogle Ads attribution:\n' + JSON.stringify(attribution, null, 2) : '');
 
   btn.textContent = lang === 'en' ? '⏳ Sending...' : '⏳ Enviando...';
   btn.disabled = true;
 
   const templateParams = {
     nombre, telefono, email, servicio, mensaje, reply_to: email,
-    ...consentRecord
+    ...consentRecord, ...attribution
   };
 
   emailjs.send('service_3yno2qa', 'template_t1o02hr', templateParams)
     .then(() => {
       // ── ANALYTICS CONVERSION TRACKING ──
+      // Landing forms use the thank-you page as their sole form conversion.
+      if (!form.dataset.successUrl) {
       try {
         if (typeof gtag === 'function') {
           gtag('event', 'generate_lead', {
@@ -306,7 +313,15 @@ function handleSubmit(e) {
       } catch (trackErr) {
         console.warn('Analytics tracking error:', trackErr);
       }
+      }
 
+      if (form.dataset.successUrl) {
+        const destination = new URL(form.dataset.successUrl, window.location.origin);
+        if (destination.origin === window.location.origin) {
+          window.location.assign(destination.href);
+          return;
+        }
+      }
       form.style.transition = 'opacity 0.3s ease';
       form.style.opacity = '0';
       setTimeout(() => {

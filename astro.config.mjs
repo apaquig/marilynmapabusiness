@@ -25,7 +25,7 @@ export default defineConfig({
           'https://marilynmapabusiness.com/en/about/',
           'https://marilynmapabusiness.com/en/about-mapa-business-and-financial-services/'
         ];
-        return !excluded.includes(page);
+        return !page.includes('/lp/') && !excluded.includes(page);
       }
     })
   ],

@@ -1,0 +1,9 @@
+---
+import LandingLayout from '../../../layouts/LandingLayout.astro';
+import Actions from '../../../components/lp/Actions.astro';
+import { BRAND } from '../../../components/lp/config';
+---
+<LandingLayout title={`Gracias por su solicitud | ${BRAND}`} description="Recibimos su solicitud. El equipo de MAPA le llamará en horario de oficina." path="/lp/notary-newark/gracias" thankYou>
+  <section class="thanks"><div class="check" aria-hidden="true">✓</div><p class="eyebrow">SOLICITUD RECIBIDA</p><h1>¡Gracias! Recibimos su solicitud.</h1><p>Le llamaremos en horario de oficina (Lun–Sáb 9–6).</p><p class="brand">{BRAND}</p><Actions location="gracias" /></section>
+</LandingLayout>
+<style>.thanks{max-width:760px;margin:0 auto;padding:72px 24px 88px;text-align:center;min-height:60vh}.check{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#f5f5f5;color:#cc0000;font-size:32px;margin:0 auto 24px}.eyebrow{font-size:12px;font-weight:700;color:#cc0000;letter-spacing:.12em}h1{font-size:clamp(30px,5vw,46px);margin:12px 0 20px}.thanks>p{color:#555}.brand{font-size:13px;margin:24px 0}.thanks :global(.actions){justify-content:center}</style>

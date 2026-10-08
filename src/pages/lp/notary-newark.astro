@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../../../public/marilin.webp';
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import Actions from '../../components/lp/Actions.astro';
+import HeroReview from '../../components/lp/HeroReview.astro';
+import Reviews from '../../components/lp/Reviews.astro';
+import LandingContactForm from '../../components/lp/LandingContactForm.astro';
+import { BRAND, MAPS } from '../../components/lp/config';
+const services = [
+  ['01', 'Notarización de documentos', 'Atención en español e inglés para sus documentos.'],
+  ['02', 'Poderes notariales (notarización)', 'Notarización de la firma en su poder previamente preparado.'],
+  ['03', 'Apostillas', 'Asistencia con el trámite y sus requisitos.'],
+  ['04', 'Traducciones certificadas', 'Traducciones certificadas aceptadas por USCIS.'],
+  ['05', 'Cartas y declaraciones juradas', 'Notarización de firmas en cartas y declaraciones.']
+];
+const faqs = [
+  ['¿Necesito cita?', 'Llame o escriba por WhatsApp para confirmar disponibilidad antes de visitarnos. Atención el mismo día: [COMPLETAR: confirmar].'],
+  ['¿Qué ID aceptan?', 'Traiga una identificación vigente con foto. [COMPLETAR: confirmar los documentos de identificación aceptados].'],
+  ['¿Atienden en español?', 'Sí. Le atendemos en español e inglés de lunes a sábado, de 9:00 a.m. a 6:00 p.m. Domingo cerrado.'],
+  ['¿Cuánto cuesta?', '[COMPLETAR: tarifas de cada servicio]. Llame para consultar el costo aplicable a su documento y servicio.'],
+  ['¿Hacen apostillas?', 'Ofrecemos asistencia con el trámite de apostillas. Llame para confirmar los requisitos para su documento y país de destino.'],
+  ['¿Dan asesoría legal?', 'No. Somos Notary Public, no abogados. No damos asesoría legal ni prometemos resultados legales o migratorios.']
+];
+const schema = {'@context':'https://schema.org','@type':'LocalBusiness',name:BRAND,url:'https://marilynmapabusiness.com/lp/notary-newark',telephone:'+18626228339',image:'https://marilynmapabusiness.com/marilin.webp',address:{'@type':'PostalAddress',streetAddress:'20 Bloomfield Pl',addressLocality:'Newark',addressRegion:'NJ',postalCode:'07104',addressCountry:'US'},geo:{'@type':'GeoCoordinates',latitude:40.7534611,longitude:-74.1696199},openingHoursSpecification:[{'@type':'OpeningHoursSpecification',dayOfWeek:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],opens:'09:00',closes:'18:00'}]};
+---
+<LandingLayout contactForm title={`Notary Public en Newark — Atención en Español | ${BRAND}`} description="Notary Public en Newark. Notarización de documentos, poderes, cartas, asistencia con apostillas y traducciones certificadas. Llame al (862) 622-8339." path="/lp/notary-newark" schema={schema}>
+  <section class="hero">
+    <div class="hero-grid wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">NEWARK, NEW JERSEY · ESPAÑOL E INGLÉS</p>
+        <h1>Notary Public en Newark.<br /><span>Poderes y apostillas.</span></h1>
+        <p class="hero-subtitle">Tus documentos, con atención cercana y en español. Te ayudamos con la notarización de firmas y el trámite de apostillas. Confirma los requisitos antes de tu visita.</p>
+        <div class="hero-services" aria-label="Servicios principales"><span>Notarización</span><span>Poderes</span><span>Apostillas</span></div><ul class="hero-points"><li>✔ Español e inglés</li><li>✔ 20 Bloomfield Pl, Newark</li></ul>
+        <a href="#cita" class="form-cta" data-button-location="hero">Solicitar que me contacten <span aria-hidden="true">→</span></a><p class="hero-contact-label">¿Prefieres hablar con nosotros?</p><Actions location="hero" />
+        <HeroReview />
+        <div class="brand-row"><Image src={portrait} width={52} height={52} format="webp" alt={BRAND} loading="eager" class="mobile-portrait" /><p class="brand-name">{BRAND}</p></div>
+      </div>
+      <div class="portrait"><Image src={portrait} width={540} height={600} widths={[240,480,720]} sizes="(max-width: 700px) 120px, 42vw" format="webp" alt={BRAND} loading="eager" fetchpriority="high" /><div class="portrait-label"><strong>Marilyn Paladinez</strong><span>Atención en español e inglés</span><a href="#cita">Cuéntanos qué necesitas →</a></div></div>
+    </div>
+  </section>
+  <div class="trust"><div class="wrap"><span><strong>500+</strong> clientes</span><span><strong>10+</strong> años</span><span><strong>98%</strong> satisfacción</span><span><strong>Lun–Sáb</strong> 9–6</span></div></div>
+  <section class="soft" id="cita"><div class="wrap section form-grid"><div><p class="eyebrow">HABLEMOS DE SU DOCUMENTO</p><h2>Dinos qué necesitas. Te ayudamos con el siguiente paso.</h2><p>Déjanos tus datos y cuéntanos qué documento necesitas. El equipo de {BRAND} te contactará para revisar tu consulta y confirmar disponibilidad.</p><p><strong>Lunes a sábado, 9:00 a.m. – 6:00 p.m.</strong><br />Domingo cerrado.</p><p class="form-reassurance">No necesitas autorizar SMS para enviar tu consulta.</p></div><LandingContactForm /></div></section>
+  <section class="wrap section"><p class="eyebrow">UN DOCUMENTO. UNA SOLUCIÓN CLARA.</p><h2>Un servicio para cada documento.</h2><p class="intro">Atención cercana para los documentos que importan.</p><div class="services">{services.map(([icon,name,benefit])=><article class="service"><span class="service-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg><small>{icon}</small></span><h3>{name}</h3><p>{benefit}</p><a class="service-request" href="#cita" data-request-service={name}>Consultar este servicio <span aria-hidden="true">→</span></a></article>)}</div></section>
+  <section class="soft"><div class="wrap section"><p class="eyebrow">SIMPLE, DESDE EL PRIMER PASO</p><h2>Cómo funciona</h2><ol class="steps"><li><span>1</span><h3>Llame o escríbanos</h3><p>Cuéntenos qué documento necesita y confirme disponibilidad.</p></li><li><span>2</span><h3>Traiga su ID vigente y sus documentos</h3><p>Le esperamos en 20 Bloomfield Pl, Newark.</p></li><li><span>3</span><h3>Salga con su documento notarizado</h3><p>Una vez verificada su identidad y cumplidos los requisitos aplicables.</p></li></ol><div class="bring"><h3>Qué traer</h3><ul><li>✔ Identificación vigente con foto</li><li>✔ Su documento sin firmar</li><li>✔ Testigos, si aplica <small>[COMPLETAR: confirmar requisitos]</small></li></ul><p>Espere a estar frente al Notary Public para firmar cuando el acto lo requiera.</p></div></div></section>
+  <section class="wrap section"><p class="eyebrow">LA CONFIANZA DE NUESTRA COMUNIDAD</p><h2>Reseñas de Google</h2><Reviews /></section>
+
+  <section class="wrap section location"><div><p class="eyebrow">ESTAMOS EN NEWARK</p><h2>Visítenos</h2><p><strong>{BRAND}</strong><br />20 Bloomfield Pl, Newark, NJ 07104</p><p>Lunes a sábado, 9:00 a.m. – 6:00 p.m.<br />Domingo cerrado.</p><a class="directions" href={MAPS} target="_blank" rel="noopener noreferrer">Cómo llegar ↗</a></div><iframe title="Ubicación de MAPA en 20 Bloomfield Pl, Newark" src="https://www.google.com/maps?q=20%20Bloomfield%20Pl%2C%20Newark%2C%20NJ%2007104&output=embed" width="600" height="360" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></section>
+  <section class="soft"><div class="wrap section faq"><p class="eyebrow">ANTES DE SU VISITA</p><h2>Preguntas frecuentes</h2>{faqs.map(([question,answer])=><details><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></section>
+  <section class="wrap section final"><p class="eyebrow">ATENCIÓN EN SU IDIOMA</p><h2>¿Tiene un documento que notarizar? Llámenos hoy.</h2><a href="#cita" class="form-cta" data-button-location="final">Solicitar que me contacten <span aria-hidden="true">→</span></a><Actions location="final" /></section>
+</LandingLayout>
+<style>
+.wrap{width:min(1120px,calc(100% - 40px));margin-inline:auto}.section{padding-block:56px}.eyebrow{color:#cc0000;letter-spacing:.12em;font-size:12px;font-weight:700;margin:0 0 14px}h2{font-size:clamp(28px,4vw,40px);margin:0 0 16px}h3{font-size:20px}p{color:#555}.intro{margin:0 0 28px}.hero{background:linear-gradient(120deg,#fff 45%,#f5f5f5);padding:44px 0 48px}.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center}h1{font-size:clamp(32px,4.6vw,54px);margin:0 0 18px}h1 span{color:#cc0000}.hero-subtitle{font-size:18px;line-height:1.55;max-width:560px;margin:0 0 20px}.hero-points{list-style:none;padding:0;margin:0 0 24px;font-size:15px;line-height:1.8}.hero-points small{font-size:12px;color:#666}.brand-row{display:flex;align-items:center;gap:12px;margin-top:16px}.brand-name{font-size:11px;margin:0}.mobile-portrait{display:none}.portrait{border-radius:24px;overflow:hidden;position:relative;background:#eee;max-height:510px}.portrait img{display:block;width:100%;height:510px;object-fit:cover;object-position:50% 25%}.portrait-label{position:absolute;bottom:20px;left:20px;right:20px;background:#fffffff2;border:1px solid #ddd;border-radius:12px;padding:14px 18px;display:grid;font-size:14px}.portrait-label strong{font-family:Montserrat,sans-serif}.portrait-label span{font-size:12px;color:#555}.trust{background:#cc0000;color:#fff;padding:22px 0}.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;gap:20px}.trust strong{font-family:Montserrat,sans-serif;font-size:22px}.services{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.service{border:1px solid #e5e5e5;border-radius:16px;padding:26px;display:flex;flex-direction:column;box-shadow:0 8px 28px #11111105}.service p{font-size:16px;margin:0 0 24px;flex:1}.service h3{margin:18px 0 12px}.service-icon{color:#cc0000;display:flex;justify-content:space-between;align-items:center}.service-icon small{color:#999;font-family:Montserrat,sans-serif}.soft{background:#f7f7f7}.steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin:36px 0}.steps>li>span{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:#cc0000;color:white;font-weight:700}.steps h3{margin:16px 0 12px}.steps p{margin:0}.bring{background:white;border:1px solid #e5e5e5;border-radius:16px;padding:24px 30px}.bring h3{margin:0 0 16px}.bring ul{padding:0;list-style:none;line-height:2}.bring small{font-size:13px;color:#666}.bring p{margin:0;font-size:14px}.form-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:start}.location{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center}.location iframe{width:100%;border:0;border-radius:18px}.directions{display:inline-flex;min-height:48px;align-items:center;background:#111;color:white;padding:12px 24px;border-radius:10px;text-decoration:none;font-weight:700}.faq{max-width:820px}.faq details{border-bottom:1px solid #ddd;padding:0}.faq summary{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:22px 0;cursor:pointer;font-weight:700;list-style:none;min-height:56px}.faq summary::-webkit-details-marker{display:none}.faq summary span{color:#cc0000;font-size:24px}.faq details[open] summary span{transform:rotate(45deg)}.faq details p{margin:0;padding:0 0 24px}.final{text-align:center;max-width:850px}.final :global(.actions){justify-content:center;margin-top:28px}@media(max-width:900px){.services{grid-template-columns:repeat(2,1fr)}.hero-grid{gap:24px}.form-grid{gap:32px}.portrait img{height:450px}}@media(max-width:700px){.section{padding-block:48px}.hero{padding:26px 0 30px}.hero-grid{display:block;position:relative}.hero-copy{padding-bottom:0}h1{font-size:32px}.hero-subtitle{font-size:16px;margin-bottom:14px}.hero-points{font-size:14px;margin-bottom:18px}.hero :global(.actions){flex-wrap:nowrap}.hero :global(.action){width:auto!important;flex:1;font-size:14px;padding:12px 9px;gap:6px}.portrait{display:none}.mobile-portrait{display:block;width:52px;height:52px;object-fit:cover;border-radius:50%}.trust .wrap{grid-template-columns:repeat(2,1fr);gap:12px;font-size:14px}.trust strong{font-size:18px}.steps,.form-grid,.location{grid-template-columns:1fr}.steps{gap:24px}.form-grid{gap:28px}.services{grid-template-columns:1fr}.service{padding:24px}.location{gap:24px}.bring{padding:24px}.brand-name{font-size:10px}}@media(min-width:701px){.hero-grid .hero-copy{min-width:0}}
+</style>
+
+<style>
+  .form-cta { display: inline-flex; justify-content: center; align-items: center; gap: 18px; background: #cc0000; color: white; min-height: 52px; padding: 14px 22px; border-radius: 10px; font-weight: 700; text-decoration: none; }
+  .hero-contact-label { margin: 16px 0 8px; font-size: 13px; color: #555; }
+  .hero :global(.call) { background: white; color: #111; border: 1px solid #ccc; }
+  .hero :global(.action) { min-height: 48px; font-size: 14px; padding: 10px 14px; }
+  .form-reassurance { font-size: 14px; color: #555; border-left: 3px solid #cc0000; padding-left: 12px; }
+  .service-request { display: flex; align-items: center; justify-content: space-between; min-height: 48px; gap: 12px; color: #cc0000; font-size: 14px; font-weight: 700; text-decoration: none; border-top: 1px solid #eee; padding-top: 12px; }
+  .service p { margin-bottom: 18px; }
+  .final > .form-cta { margin-top: 16px; }
+  @media(max-width:700px) { .hero .form-cta { width: 100%; } .form-grid { gap: 20px; } #cita .section { padding-block: 32px; } #cita h2 { font-size: 25px; } .form-grid > div:first-child { display: none; } .hero { padding-top: 20px; } .hero-subtitle { line-height: 1.5; } .hero-points { margin-bottom: 14px; } }
+</style>
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('[data-request-service]').forEach(link => {
+    link.addEventListener('click', () => {
+      const note = document.querySelector<HTMLTextAreaElement>('#contactMessage');
+      if (note && !note.value.trim()) {
+        note.value = `Me interesa: ${link.dataset.requestService}.`;
+        const disclosure = note.closest<HTMLDetailsElement>('details');
+        if (disclosure) disclosure.open = true;
+      }
+    });
+  });
+</script>
+
+<style>
+  .hero{background:radial-gradient(ellipse at 95% 10%,#fff0ed,transparent 55%),#fff;padding-block:48px;overflow:hidden}
+  .hero-grid{grid-template-columns:1.2fr 1fr;gap:52px}
+  h1{font-size:clamp(34px,4.5vw,56px);line-height:1.12;letter-spacing:-.035em}
+  .hero-subtitle{max-width:510px;font-size:17px}
+  .hero-services{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 16px}
+  .hero-services span{font-size:13px;font-weight:700;padding:7px 13px;background:#fff4f2;color:#a90000;border:1px solid #f3d4cf;border-radius:999px}
+  .hero-points{font-size:14px;color:#555}
+  .portrait{border-radius:160px 24px 24px 24px;background:#b90000;border-top:5px solid #d8ad58;box-shadow:0 18px 50px #50000014;max-height:560px;isolation:isolate}
+  .portrait img{height:560px;object-position:50% 20%;border-radius:150px 0 0 0}
+  .portrait-label{background:#111e;color:#fff;border:1px solid #ffffff90;bottom:20px;padding:18px 20px;border-radius:14px;backdrop-filter:blur(8px)}
+  .portrait-label strong{font-size:21px}.portrait-label span{color:#eee;margin-top:3px;font-size:13px}.portrait-label a{color:white;font-size:13px;margin-top:12px;text-underline-offset:4px}
+  .trust{background:linear-gradient(100deg,#a90000,#cc0000);padding-block:18px}
+  .service-icon{width:48px;height:48px;border-radius:50%;background:#cc0000;color:#fff;justify-content:center}.service-icon small{display:none}
+  .service{box-shadow:none;background:#fff;border-color:#e9e2df}.service h3{font-size:19px}
+  @media(max-width:900px){.hero-grid{gap:26px}.portrait img{height:510px}}
+  @media(max-width:700px){.hero{padding-block:24px 28px}.hero-grid{display:block}h1{font-size:35px;line-height:1.12}.hero-subtitle{font-size:16px}.hero-services{margin:16px 0 12px;gap:6px}.hero-services span{font-size:12px;padding:5px 10px}.portrait{display:none}.mobile-portrait{border:2px solid #cc0000;padding:2px;background:#fff;width:60px;height:60px}.brand-row{margin-top:16px}.brand-name{font-size:11px;max-width:230px}.hero-points{line-height:1.7;font-size:13px}.trust{padding-block:16px}}
+</style>

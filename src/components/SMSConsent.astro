@@ -1,13 +1,13 @@
 ---
 import { legalPaths, smsConsent, LEGAL_VERSION } from '../data/legal';
-interface Props { lang: 'es' | 'en' }
-const { lang } = Astro.props;
+interface Props { lang: 'es' | 'en'; compact?: boolean }
+const { lang, compact = false } = Astro.props;
 const paths = legalPaths[lang];
 ---
 <fieldset class="sms-consent" data-consent-version={LEGAL_VERSION}>
   <legend>{lang === 'es' ? 'Preferencias SMS (opcionales)' : 'SMS preferences (optional)'}</legend>
-  <label><input type="checkbox" name="sms_informational" value="yes" /><span>{smsConsent[lang].informational}</span></label>
-  <label><input type="checkbox" name="sms_marketing" value="yes" /><span>{smsConsent[lang].marketing}</span></label>
+  <label><input type="checkbox" name="sms_informational" value="yes" /><span>{compact && <strong class="consent-title">{lang === 'es' ? 'Citas y seguimiento' : 'Appointments and updates'}</strong>}{smsConsent[lang].informational}</span></label>
+  <label><input type="checkbox" name="sms_marketing" value="yes" /><span>{compact && <strong class="consent-title">{lang === 'es' ? 'Ofertas y novedades' : 'Offers and news'}</strong>}{smsConsent[lang].marketing}</span></label>
   <p>{lang === 'es' ? 'Puedes elegir una, ambas o ninguna. El consentimiento no es condición para comprar o recibir servicios. Proporcionar tu número no autoriza SMS.' : 'Choose either, both, or neither. Consent is not a condition of purchasing or receiving services. Providing your number does not authorize SMS.'}</p>
   <p><a href={paths.privacy}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a> · <a href={paths.terms}>{lang === 'es' ? 'Términos y Condiciones' : 'Terms and Conditions'}</a> · <a href={paths.sms}>SMS Opt-In</a></p>
 </fieldset>

@@ -1,0 +1,30 @@
+---
+import GoogleReviews from '../GoogleReviews.astro';
+import { REVIEWS } from './config';
+---
+<div class="lp-reviews"><GoogleReviews lang="es" /><a class="all-reviews" href={REVIEWS} target="_blank" rel="noopener noreferrer">Ver todas en Google ↗</a></div>
+<style>
+.lp-reviews :global(.testi-track){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;transform:none!important;will-change:auto}.lp-reviews :global(.testi-track .testimonial-card){margin:0;min-width:0;min-height:0;flex:none}.lp-reviews :global(.testimonial-card:nth-child(n+7)){display:none}.lp-reviews :global(.testi-slider-wrap){overflow:visible}.lp-reviews :global(.slider-btn){display:none}.lp-reviews :global(.review-avatar){background:#555!important}.lp-reviews :global(.review-avatar-img){width:42px;height:42px;object-fit:cover;border-radius:50%}.lp-reviews :global(.stars-icon),.lp-reviews :global(.view-on-google-link){color:#cc0000!important}.lp-reviews :global(.google-badge),.lp-reviews :global(.view-on-google-link svg){filter:grayscale(1)}.lp-reviews :global(.live-indicator-dot){background:#555!important;animation:none}.lp-reviews :global(.review-body p){font-size:15px;line-height:1.65}.all-reviews{display:inline-flex;align-items:center;min-height:48px;margin-top:24px;color:#cc0000;font-weight:700}@media(max-width:800px){.lp-reviews :global(.testi-track){grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.lp-reviews :global(.testi-track){grid-template-columns:1fr}.lp-reviews :global(.testimonial-card:nth-child(n+4)){display:none}}
+</style>
+<script>
+ const reviewTrack = document.querySelector('.lp-reviews .testi-track');
+ function deduplicateReviews() {
+   if (!reviewTrack) return;
+   const seen = new Set<string>();
+   for (const card of reviewTrack.querySelectorAll('.testimonial-card')) {
+     const key = `${card.querySelector('.review-author-name')?.textContent?.trim().toLowerCase()}|${card.querySelector('.review-date')?.textContent?.trim()}`;
+     if (seen.has(key)) card.remove(); else seen.add(key);
+   }
+ }
+ deduplicateReviews();
+ if (reviewTrack) new MutationObserver(deduplicateReviews).observe(reviewTrack, { childList: true });
+ document.addEventListener('click', (event) => {
+   if (!(event.target instanceof Element)) return;
+   const button = event.target.closest<HTMLButtonElement>('.lp-reviews .read-more-btn, .lp-reviews .read-less-btn');
+   if (!button) return;
+   const card = button.closest('.review-body');
+   const short = card?.querySelector<HTMLElement>('.review-text-short');
+   const full = card?.querySelector<HTMLElement>('.review-text-full');
+   if (short && full) { const expand = button.classList.contains('read-more-btn'); short.style.display = expand ? 'none' : 'block'; full.style.display = expand ? 'block' : 'none'; }
+ });
+</script>

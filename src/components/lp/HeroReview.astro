@@ -1,0 +1,10 @@
+---
+// Reuse the original review already stored in the site's Google review source.
+import reviewSource from '../GoogleReviews.astro?raw';
+import { REVIEWS } from './config';
+const author = reviewSource.match(/displayName:\s*"([^"]+)"/)?.[1];
+const original = reviewSource.match(/originalText:\s*\{\s*text:\s*"([^"]+)"/)?.[1];
+const excerpt = original?.split('.')[0];
+---
+{author && excerpt && <div class="hero-review"><span class="stars" aria-label="5 estrellas">★★★★★</span><strong>500+ clientes atendidos</strong><p>“{excerpt}.” <a href={REVIEWS} target="_blank" rel="noopener noreferrer">— {author}, Google</a></p></div>}
+<style>.hero-review{font-size:13px;margin-top:20px}.stars{color:#cc0000;letter-spacing:2px;margin-right:10px}.hero-review p{margin:4px 0;color:#555}.hero-review a{text-decoration:none}</style>

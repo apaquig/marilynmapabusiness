@@ -1,0 +1,51 @@
+---
+import ContactForm from '../ContactForm.astro';
+import LegalNotice from './LegalNotice.astro';
+import { ATTRIBUTION_KEYS } from './config';
+---
+<div class="landing-form">
+  <span class="eyebrow">ATENCIÓN PERSONALIZADA</span>
+  <h2>Solicita información</h2>
+  <p>Completa tus datos y te responderemos en horario de oficina. Los campos con * son obligatorios.</p>
+  <ContactForm lang="es" compact fixedService={{ label: 'Notary Public', value: 'Notary' }} successUrl="/lp/notary-newark/gracias" attributionKeys={ATTRIBUTION_KEYS} />
+  <LegalNotice />
+  <a class="privacy" href="/es/privacy-policy/" target="_blank" rel="noopener">Política de Privacidad</a>
+</div>
+<script>
+  document.querySelectorAll<HTMLInputElement>('[data-lp-attribution]').forEach(input => {
+    try { input.value = sessionStorage.getItem(`lp-notary-${input.name}`) || ''; } catch {}
+  });
+</script>
+<style>
+  .eyebrow { font-size: 11px; letter-spacing: .12em; color: #cc0000; font-weight: 700; }
+  h2 { font-family: Montserrat, sans-serif; font-size: clamp(24px, 4vw, 30px); margin: 10px 0; }
+  .landing-form > p { font-size: 15px; line-height: 1.5; color: #555; margin: 0 0 20px; }
+  .landing-form :global(.contact-panel) { border-radius: 16px; border-color: #e5e5e5; box-shadow: 0 8px 28px #11111105; }
+  .landing-form :global(.contact-form) { display: flex; flex-direction: column; gap: 0; padding: 22px; }
+  .landing-form :global(.contact-form input:not([type='checkbox']):not([type='hidden'])), .landing-form :global(textarea) { width: 100%; font-family: inherit; font-size: 16px!important; background: #fafafa; }
+  .landing-form :global(.contact-form input:focus), .landing-form :global(textarea:focus) { outline: 2px solid #cc0000; outline-offset: 2px; background: white; }
+  .landing-form :global(.contact-form label) { font-size: 13px; color: #444; margin-top: 14px; }
+  .landing-form :global(.fields label) { margin-top: 0; }
+  .landing-form :global(.fixed-service) { order: -1; align-self: flex-start; font-size: 12px; color: #555; background: #f5f5f5; border-radius: 6px; padding: 5px 10px; margin: 0 0 18px; }
+  .landing-form :global(.optional-message) { margin: 16px 0 0; }
+  .landing-form :global(.optional-message summary) { min-height: 44px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 13px; color: #555; list-style: none; }
+  .landing-form :global(.optional-message summary::-webkit-details-marker) { display: none; }
+  .landing-form :global(.optional-message summary::after) { content: '+'; font-size: 20px; }
+  .landing-form :global(.optional-message[open] summary::after) { content: '−'; }
+  .landing-form :global(.optional-message textarea) { min-height: 86px; }
+  .landing-form :global(.sms-consent) { padding: 0; margin: 10px 0 12px; border: 0; border-top: 1px solid #eee; border-radius: 0; background: transparent; color: #555; }
+  .landing-form :global(.sms-consent legend) { font-size: 12px; font-weight: 600; padding: 0 8px 0 0; }
+  .landing-form :global(.sms-consent label) { font-size: 11px; line-height: 1.45; gap: 10px; margin: 12px 0; font-weight: 400; }
+  .landing-form :global(.consent-title) { display: block; font-size: 12px; color: #333; margin-bottom: 4px; font-weight: 700; }
+  .landing-form :global(.sms-consent p) { font-size: 11px; line-height: 1.45; margin: 10px 0 0; }
+  .landing-form :global(.sms-consent input[type='checkbox']) { width: 16px; height: 16px; flex-basis: 16px; margin-top: 2px; }
+  .landing-form :global(.privacy-note) { font-size: 11px; line-height: 1.5; color: #666; margin: 10px 0 16px; }
+  .landing-form :global(button[type='submit']) { min-height: 50px; padding: 12px 20px; border-radius: 10px; background: #cc0000; border: 0; color: white; font: 700 16px Lato,sans-serif; cursor: pointer; }
+  .landing-form :global(button:disabled) { opacity: .7; cursor: wait; }
+  .landing-form :global(.form-success) { display: none; }
+  .landing-form :global(.form-success.show) { display: flex; flex-direction: column; align-items: center; text-align: center; background: #f5f5f5; }
+  .landing-form :global(.legal-notice) { margin-top: 18px; font-size: 11px; }
+  .landing-form :global(.legal-notice strong) { font-size: 11px; }
+  .privacy { display: inline-flex; align-items: center; min-height: 44px; margin-top: 6px; font-size: 12px; color: #cc0000; }
+  @media(max-width:600px) { .landing-form :global(.contact-form) { padding: 18px; } }
+</style>
