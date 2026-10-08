@@ -26,7 +26,9 @@
     const success = document.getElementById(form.id === 'sijsForm' ? 'sijsSuccess' : 'formSuccess');
     if (success) { success.style.display = 'block'; success.classList.add('show'); success.focus(); }
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'form_lead_submitted', lead_service: new FormData(form).get('servicio') || 'Consulta' });
+    const leadService = new FormData(form).get('servicio') || 'Consulta';
+    window.dataLayer.push({ event: 'form_lead_submitted', lead_service: leadService });
+    if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { lead_service: leadService, method: 'website_form' });
   }
   window.fetch = async function(input, init) {
     let submission = false;

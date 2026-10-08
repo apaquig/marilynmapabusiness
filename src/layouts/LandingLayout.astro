@@ -24,6 +24,13 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-TW289QXQ');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E9BVZ26P78" is:inline></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-E9BVZ26P78');
+  </script>
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
   <script define:vars={{ ATTRIBUTION_KEYS, thankYou }}>
     (() => {
@@ -39,6 +46,7 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
             sessionStorage.removeItem('lp-notary-confirmed-submission');
             sessionStorage.setItem('lp-notary-lead-gracias', '1');
             window.dataLayer.push({ event: 'lead_gracias', servicio: 'notary' });
+            window.gtag('event', 'generate_lead', { lead_service: 'Notary', method: 'website_form' });
           }
         } catch { /* Without session storage, avoid an un-deduplicated conversion. */ }
       }
@@ -48,12 +56,15 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
         if (!link) return;
         const url = new URL(link.href, window.location.href);
         const eventName = url.protocol === 'tel:' ? 'click_llamar' : url.hostname === 'wa.me' ? 'click_whatsapp' : null;
-        if (eventName) window.dataLayer.push({ event: eventName, servicio: 'notary', ubicacion_boton: link.dataset.buttonLocation || 'contenido' });
+        if (eventName) {
+          window.dataLayer.push({ event: eventName, servicio: 'notary', ubicacion_boton: link.dataset.buttonLocation || 'contenido' });
+          window.gtag('event', eventName, { lead_service: 'Notary', ubicacion_boton: link.dataset.buttonLocation || 'contenido' });
+        }
       });
     })();
   </script>
 </head>
-<body>
+<body data-notary-landing>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TW289QXQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="skip" href="#contenido">Ir al contenido</a>
   <header class="topbar"><div class="topbar-inner"><Image src={logo} width={146} height={52} format="webp" alt={BRAND} loading="eager" /><a href={PHONE} data-button-location="header" class="header-call">Llamar <span>(862) 622-8339</span></a></div></header>

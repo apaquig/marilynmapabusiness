@@ -367,6 +367,8 @@ function handleSubmit(e) {
 
 /* ── AUTOMATED CONVERSION TRACKING (GA4, Meta Pixel, GTM) ── */
 (function() {
+  // LandingLayout owns click tracking on dedicated landing pages.
+  if (document.querySelector('[data-notary-landing]')) return;
   document.addEventListener('click', function(e) {
     const targetLink = e.target.closest('a');
     if (!targetLink) return;
