@@ -29,7 +29,7 @@ const es = lang === 'es';
   </>}
   <SMSConsent lang={lang} compact={compact} />
   <p class="privacy-note">{es ? 'No envíes documentos fiscales, números de Seguro Social, ITIN ni información bancaria en este formulario.' : 'Do not submit tax documents, Social Security numbers, ITINs, or banking information in this form.'}</p>
-  <button type="submit" class="btn btn-red">{smsOnly ? (es ? 'Enviar mis preferencias' : 'Submit my preferences') : (compact ? (es ? 'Solicitar que me contacten' : 'Request a callback') : (es ? 'Enviar consulta' : 'Send inquiry'))}</button>
+  <button type="submit" class="btn btn-red">{smsOnly ? (es ? 'Enviar mis preferencias' : 'Submit my preferences') : (compact ? (es ? 'Solicitar información' : 'Request information') : (es ? 'Enviar consulta' : 'Send inquiry'))}</button>
 </form>
 <div class="form-success" id="formSuccess" role="status" tabindex="-1">
   <span class="confirmation-icon" aria-hidden="true">✓</span>
