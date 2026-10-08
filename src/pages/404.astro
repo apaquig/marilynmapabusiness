@@ -1,0 +1,32 @@
+---
+const title = 'Página no encontrada | MAPA Business';
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="No encontramos esta página. Vuelve al inicio o contacta al equipo de MAPA Business." />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header><a href="/" aria-label="MAPA Business — Inicio">MAPA<span>Business & Financial Services</span></a></header>
+    <main>
+      <p class="code" aria-label="Error 404">404</p>
+      <h1>No encontramos esta página</h1>
+      <p>El enlace puede haber cambiado o la dirección estar incompleta.</p>
+      <nav aria-label="Opciones para continuar">
+        <a class="primary" href="/">Volver al inicio <span aria-hidden="true">→</span></a>
+        <a class="secondary" href="/es/contacto/">Contactar a MAPA</a>
+      </nav>
+      <p class="help">¿Necesitas ayuda? <a href="tel:+18626228339">Llámanos al (862) 622-8339</a></p>
+    </main>
+    <footer>MAPA Business & Financial Services LLC · Newark, NJ</footer>
+  </body>
+</html>
+<style>
+  :global(*){box-sizing:border-box} :global(body){margin:0;min-height:100svh;display:flex;flex-direction:column;font-family:Arial,Helvetica,sans-serif;background:#fffaf8;color:#202027}
+  header{padding:28px clamp(24px,6vw,80px);border-bottom:1px solid #eadfdb;background:white}header a{display:inline-block;text-decoration:none;color:#bd0000;font-weight:800;font-size:30px;letter-spacing:-1px}header span{display:block;font-size:12px;font-weight:400;letter-spacing:0;color:#555;margin-top:3px}
+  main{flex:1;width:min(100%,720px);margin:auto;padding:64px 24px;text-align:center;display:flex;flex-direction:column;justify-content:center}.code{font-size:clamp(80px,18vw,130px);font-weight:800;line-height:1;margin:0 0 24px;color:#c00;letter-spacing:-6px}h1{font-size:clamp(26px,5vw,38px);line-height:1.2;margin:0 0 16px}main>p:not(.code){font-size:17px;line-height:1.6;color:#555;margin:0}nav{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:30px 0}nav a{display:inline-flex;align-items:center;justify-content:center;gap:20px;min-height:50px;padding:14px 24px;border-radius:10px;font-weight:700;text-decoration:none}.primary{color:white;background:#c00}.secondary{color:#202027;background:white;border:1px solid #d7ccc7}a:focus-visible{outline:3px solid #2668c8;outline-offset:5px}.primary:hover{background:#a90000}.secondary:hover{background:#f3eae6}.help a{color:#a90000;text-underline-offset:3px}footer{text-align:center;padding:24px;font-size:13px;color:#666}@media(max-width:480px){main{padding:48px 20px}nav{flex-direction:column}nav a{width:100%}.help a{display:block}}
+</style>
