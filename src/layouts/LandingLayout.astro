@@ -35,7 +35,8 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
       }
       if (thankYou) {
         try {
-          if (!sessionStorage.getItem('lp-notary-lead-gracias')) {
+          if (sessionStorage.getItem('lp-notary-confirmed-submission') === '1') {
+            sessionStorage.removeItem('lp-notary-confirmed-submission');
             sessionStorage.setItem('lp-notary-lead-gracias', '1');
             window.dataLayer.push({ event: 'lead_gracias', servicio: 'notary' });
           }
@@ -60,10 +61,9 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
   <footer><div class="footer-inner"><strong>{BRAND}</strong><p>20 Bloomfield Pl, Newark, NJ 07104</p><a href={PHONE} data-button-location="footer">(862) 622-8339</a><LegalNotice /><a href="/es/privacy-policy/" target="_blank" rel="noopener">Política de Privacidad</a></div></footer>
   <div class="sticky-actions" aria-label="Contacto rápido"><Actions location="sticky" compact /></div>
   {contactForm && <>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" is:inline></script>
-    <script is:inline>emailjs.init("T4n_e0kmxzUCnBqjJ");</script>
     <script src="/js/script.js" is:inline></script>
-    <script src="https://link.msgsndr.com/js/external-tracking.js" data-tracking-id="tk_92b14bc678ea4eb3b89a2a27dca3f16f" is:inline></script>
+    <script src="/js/ghl-form-confirmation.js" is:inline></script>
+  <script src="https://link.msgsndr.com/js/external-tracking.js" data-tracking-id="tk_92b14bc678ea4eb3b89a2a27dca3f16f" is:inline></script>
   </>}
 </body>
 </html>

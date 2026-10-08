@@ -237,110 +237,16 @@ if (document.readyState === 'loading') {
 }
 
 
-/* ── FORM SUBMIT con EmailJS ── */
+/* External Tracking owns submission transport and receipt confirmation. */
 function handleSubmit(e) {
-  e.preventDefault();
-  const form = document.getElementById('contactForm');
-  const btn  = form.querySelector('button[type="submit"]');
-  const success = document.getElementById('formSuccess');
-
-  const fields = new FormData(form);
-  const nombre = fields.get('full_name') || fields.get('name') || fields.get('nombre');
-  const mobile = String(fields.get('phone') || fields.get('telefono') || '').trim();
-  const telefono = mobile || 'No proporcionado';
-  const email = fields.get('email');
-  const selectedServices = fields.getAll('customer_services');
-  const servicio = selectedServices.length ? selectedServices.join(', ') : (fields.get('servicio') || 'No seleccionado');
-  const informational = fields.get('sms_informational') === 'yes';
-  const marketing = fields.get('sms_marketing') === 'yes';
-  const lang = document.documentElement.lang === 'en' ? 'en' : 'es';
-  if ((informational || marketing) && !mobile) {
-    alert(lang === 'en' ? 'Enter your mobile number to authorize SMS.' : 'Ingresa tu número móvil para autorizar SMS.');
-    return;
+  const form = e.currentTarget;
+  const phone = form.querySelector('[name="phone"]');
+  if (phone) {
+    const selected = form.querySelector('[name="sms_informational"]:checked, [name="sms_marketing"]:checked');
+    phone.required = !!selected;
+    if (!form.reportValidity()) { e.preventDefault(); return; }
   }
-  const consentBlock = form.querySelector('[data-consent-version]');
-  const consentRecord = {
-    sms_informational: informational,
-    sms_marketing: marketing,
-    consent_version: consentBlock ? consentBlock.dataset.consentVersion : null,
-    submitted_at: new Date().toISOString(),
-    source_url: window.location.origin + window.location.pathname,
-    language: lang,
-    informational_disclosure: consentBlock ? consentBlock.querySelector('[name="sms_informational"]').closest('label').textContent.trim() : '',
-    marketing_disclosure: consentBlock ? consentBlock.querySelector('[name="sms_marketing"]').closest('label').textContent.trim() : ''
-  };
-  // Preserve the record in the existing email template's message field as well.
-  const attribution = {};
-  form.querySelectorAll('[data-lp-attribution]').forEach((input) => {
-    if (input.value) attribution[input.name] = input.value;
-  });
-  const mensaje = (fields.get('mensaje') || 'Sin mensaje') + '\n\nSMS preferences / Preferencias SMS:\n' + JSON.stringify(consentRecord, null, 2)
-    + (Object.keys(attribution).length ? '\n\nGoogle Ads attribution:\n' + JSON.stringify(attribution, null, 2) : '');
-
-  btn.textContent = lang === 'en' ? '⏳ Sending...' : '⏳ Enviando...';
-  btn.disabled = true;
-
-  const templateParams = {
-    nombre, telefono, email, servicio, mensaje, reply_to: email,
-    ...consentRecord, ...attribution
-  };
-
-  emailjs.send('service_3yno2qa', 'template_t1o02hr', templateParams)
-    .then(() => {
-      // ── ANALYTICS CONVERSION TRACKING ──
-      // Landing forms use the thank-you page as their sole form conversion.
-      if (!form.dataset.successUrl) {
-      try {
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', {
-            event_category: 'ContactForm',
-            event_label: servicio,
-            value: 1
-          });
-        }
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead', {
-            content_name: servicio,
-            status: 'success'
-          });
-        }
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: 'form_lead_submitted',
-          lead_service: servicio,
-          lead_name: nombre
-        });
-      } catch (trackErr) {
-        console.warn('Analytics tracking error:', trackErr);
-      }
-      }
-
-      if (form.dataset.successUrl) {
-        const destination = new URL(form.dataset.successUrl, window.location.origin);
-        if (destination.origin === window.location.origin) {
-          window.location.assign(destination.href);
-          return;
-        }
-      }
-      form.style.transition = 'opacity 0.3s ease';
-      form.style.opacity = '0';
-      setTimeout(() => {
-        form.style.display = 'none';
-        const panel = form.closest('.contact-panel');
-        if (panel) panel.style.removeProperty('min-height');
-        success.classList.add('show');
-        success.focus({ preventScroll: true });
-      }, 320);
-    })
-    .catch((err) => {
-      btn.textContent = lang === 'en' ? '📩 Send message' : '📩 Enviar mensaje';
-      btn.disabled = false;
-      const errorMsg = lang === 'en'
-        ? 'There was an error sending. Please contact us directly via WhatsApp at (862) 622-8339.'
-        : 'Hubo un error al enviar. Por favor contáctanos directamente por WhatsApp al (862) 622-8339.';
-      alert(errorMsg);
-      console.error('EmailJS error:', err);
-    });
+  window.handleGhlSubmit(e);
 }
 //SLIDER DE SERVICIOS
 /* ── HERO SLIDER ── */

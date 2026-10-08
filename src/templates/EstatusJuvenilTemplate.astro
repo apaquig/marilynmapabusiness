@@ -733,42 +733,7 @@ const schema = {
   </main>
 
   <script is:inline>
-    window.handleSijsSubmit = function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('sijsSubmitBtn');
-      const form = document.getElementById('sijsForm');
-      const success = document.getElementById('sijsSuccess');
-      
-      const name = document.getElementById('sijsName').value;
-      const phone = document.getElementById('sijsPhone').value;
-      const age = document.getElementById('sijsAge').value;
-      const city = document.getElementById('sijsCity').value;
-      const message = document.getElementById('sijsMessage').value;
-      
-      if (btn) {
-        btn.disabled = true;
-        btn.innerText = "Enviando consulta...";
-      }
-
-      // Attempt EmailJS send
-      if (typeof emailjs !== 'undefined') {
-        emailjs.send('service_default', 'template_mapa', {
-          from_name: name,
-          phone_number: phone,
-          service_type: `Estatus Juvenil SIJS (Edad: ${age})`,
-          city: city,
-          message: message,
-          reply_to: phone
-        }).catch(err => {
-          console.warn('EmailJS notify note:', err);
-        });
-      }
-
-      setTimeout(() => {
-        if (form) form.style.display = 'none';
-        if (success) success.style.display = 'block';
-      }, 600);
-    };
+    window.handleSijsSubmit = function(e) { window.handleGhlSubmit(e); };
   </script>
 
   <style>
