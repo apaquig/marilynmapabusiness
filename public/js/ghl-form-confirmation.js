@@ -24,7 +24,12 @@
     }
     form.style.display = 'none';
     const success = document.getElementById(form.id === 'sijsForm' ? 'sijsSuccess' : 'formSuccess');
-    if (success) { success.style.display = 'block'; success.classList.add('show'); success.focus(); }
+    if (success) {
+      success.closest('.contact-panel')?.classList.add('success-visible');
+      success.style.display = 'block';
+      success.classList.add('show');
+      success.focus();
+    }
     window.dataLayer = window.dataLayer || [];
     const leadService = new FormData(form).get('servicio') || 'Consulta';
     window.dataLayer.push({ event: 'form_lead_submitted', lead_service: leadService });

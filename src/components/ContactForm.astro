@@ -40,6 +40,7 @@ const es = lang === 'es';
 </div>
 <style>
   .contact-panel { display: grid; border-radius: 20px; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 12px 36px rgba(15,23,42,.06); overflow: hidden; }
+  .contact-panel.success-visible { display: block; height: auto; }
   .contact-panel > form, .contact-panel > .form-success { grid-area: 1 / 1; }
   .contact-panel .contact-form { padding: 24px; background: white; margin: 0; gap: 0; }
   .contact-panel .contact-form > input { margin-bottom: 4px; }
@@ -60,7 +61,8 @@ const es = lang === 'es';
   .service-option { display: flex; align-items: center; gap: 10px; margin: 0; padding: 9px 6px; border-radius: 6px; font-weight: 400; cursor: pointer; }
   .service-option:hover { background: #f8fafc; }
   .service-option input { flex: 0 0 18px; width: 18px; height: 18px; margin: 0; padding: 0 !important; border-radius: 3px !important; accent-color: #b91c1c; }
-  .contact-panel .form-success { margin: 0; min-height: 0; height: auto; gap: 12px; padding: 32px 24px; outline: none; border: 0; border-radius: 0; background: #f0fdf4; }
+  .contact-panel .form-success { display: none; margin: 0; min-height: 0; height: auto; gap: 12px; padding: 32px 24px; outline: none; border: 0; border-radius: 0; background: #f0fdf4; }
+  .contact-panel .form-success.show { display: flex !important; }
   .confirmation-contact { margin-top: 4px; color: #166534; font-size: .85rem; text-decoration: underline; }
   .confirmation-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #dcfce7; color: #15803d; font-size: 30px; }
   .form-success h2 { font-size: 1.5rem; margin: 0; color: #14532d; }
