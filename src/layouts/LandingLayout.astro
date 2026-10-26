@@ -29,6 +29,25 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
     function gtag(){ window.dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-E9BVZ26P78');
+    gtag('config', 'AW-18488049918');
+
+    /* Google Ads conversions: form submission, WhatsApp and phone calls. */
+    (() => {
+      const conversions = {
+        form_lead_submitted: 'AW-18488049918/WYW9CLD80qodEP6B5e9E',
+        whatsapp_click: 'AW-18488049918/qiOYCLP80qodEP6B5e9E',
+        phone_call_click: 'AW-18488049918/myjaCLb80qodEP6B5e9E'
+      };
+      const nativePush = window.dataLayer.push;
+      window.dataLayer.push = function (...items) {
+        for (const item of items) {
+          if (item?.event && conversions[item.event]) {
+            gtag('event', 'conversion', { send_to: conversions[item.event] });
+          }
+        }
+        return nativePush.apply(window.dataLayer, items);
+      };
+    })();
   </script>
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
   <script define:vars={{ ATTRIBUTION_KEYS, thankYou }}>
@@ -44,7 +63,7 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
           if (sessionStorage.getItem('lp-notary-confirmed-submission') === '1') {
             sessionStorage.removeItem('lp-notary-confirmed-submission');
             sessionStorage.setItem('lp-notary-lead-gracias', '1');
-            window.dataLayer.push({ event: 'lead_gracias', servicio: 'notary' });
+            window.dataLayer.push({ event: 'form_lead_submitted', servicio: 'notary' });
             window.gtag('event', 'generate_lead', { lead_service: 'Notary', method: 'website_form' });
           }
         } catch { /* Without session storage, avoid an un-deduplicated conversion. */ }
@@ -54,7 +73,7 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
         const link = event.target.closest('a[href]');
         if (!link) return;
         const url = new URL(link.href, window.location.href);
-        const eventName = url.protocol === 'tel:' ? 'click_llamar' : url.hostname === 'wa.me' ? 'click_whatsapp' : null;
+        const eventName = url.protocol === 'tel:' ? 'phone_call_click' : url.hostname === 'wa.me' ? 'whatsapp_click' : null;
         if (eventName) {
           window.dataLayer.push({ event: eventName, servicio: 'notary', ubicacion_boton: link.dataset.buttonLocation || 'contenido' });
           window.gtag('event', eventName, { lead_service: 'Notary', ubicacion_boton: link.dataset.buttonLocation || 'contenido' });
