@@ -1,7 +1,7 @@
 ---
 import SMSConsent from './SMSConsent.astro';
 import { contactServices } from '../data/contactServices';
-interface Props { lang: 'es' | 'en'; smsOnly?: boolean; fixedService?: { label: string; value: string }; successUrl?: string; attributionKeys?: readonly string[]; compact?: boolean }
+interface Props { lang: 'es' | 'en'; smsOnly?: boolean; fixedService?: { label: string; value: string; submissionValues?: string[] }; successUrl?: string; attributionKeys?: readonly string[]; compact?: boolean }
 const { lang, smsOnly = false, fixedService, successUrl, attributionKeys = [], compact = false } = Astro.props;
 const es = lang === 'es';
 ---
@@ -15,7 +15,7 @@ const es = lang === 'es';
   <label for="contactEmail">{es ? 'Correo electrónico' : 'Email address'} *</label>
   <input id="contactEmail" name="email" type="email" autocomplete="email" required placeholder={compact ? 'nombre@correo.com' : undefined} />
   {smsOnly ? <><input type="hidden" name="servicio" value="SMS communication preferences" /><input type="hidden" name="mensaje" value="SMS preference submission" /></> : <>
-    {fixedService ? <><label for="fixedInterest">{es ? 'Servicio de interés' : 'Services of Interest'}</label><input id="fixedInterest" type="text" name="customer_services" aria-label="Services of Interest" value={fixedService.value} readonly /><input type="hidden" name="servicio" value={fixedService.label} /></> : <>
+    {fixedService ? <><label for="fixedInterest">{es ? 'Servicio de interés' : 'Services of Interest'}</label><input id="fixedInterest" type="text" name={fixedService.submissionValues?.length ? undefined : 'customer_services'} aria-label="Services of Interest" value={fixedService.value} readonly />{fixedService.submissionValues?.map((value) => <input type="hidden" name="customer_services" value={value} />)}<input type="hidden" name="servicio" value={fixedService.label} /></> : <>
     <label id="serviceLabel">{es ? 'Servicios de interés' : 'Services of Interest'}</label>
     <details class="service-selector" data-empty-label={es ? 'Selecciona tus servicios' : 'Select your services'}>
       <summary aria-labelledby="serviceLabel serviceSelection"><span id="serviceSelection">{es ? 'Selecciona tus servicios' : 'Select your services'}</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary>
