@@ -242,8 +242,6 @@ function handleSubmit(e) {
   const form = e.currentTarget;
   const phone = form.querySelector('[name="phone"]');
   if (phone) {
-    const selected = form.querySelector('[name="sms_informational"]:checked, [name="sms_marketing"]:checked');
-    phone.required = !!selected;
     if (!form.reportValidity()) { e.preventDefault(); return; }
   }
   window.handleGhlSubmit(e);

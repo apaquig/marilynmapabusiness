@@ -1,8 +1,8 @@
 ---
 import SMSConsent from './SMSConsent.astro';
 import { contactServices } from '../data/contactServices';
-interface Props { lang: 'es' | 'en'; smsOnly?: boolean; fixedService?: { label: string; value: string; submissionValues?: string[] }; successUrl?: string; attributionKeys?: readonly string[]; compact?: boolean }
-const { lang, smsOnly = false, fixedService, successUrl, attributionKeys = [], compact = false } = Astro.props;
+interface Props { lang: 'es' | 'en'; smsOnly?: boolean; requirePhone?: boolean; fixedService?: { label: string; value: string; submissionValues?: string[] }; successUrl?: string; attributionKeys?: readonly string[]; compact?: boolean }
+const { lang, smsOnly = false, requirePhone = false, fixedService, successUrl, attributionKeys = [], compact = false } = Astro.props;
 const es = lang === 'es';
 ---
 <div class="contact-panel">
@@ -10,7 +10,7 @@ const es = lang === 'es';
   {attributionKeys.map((key) => <input type="hidden" name={key} data-lp-attribution={key} />)}
   <div class="fields">
     <div><label for="contactName">{es ? 'Nombre completo' : 'Full name'} *</label><input id="contactName" name="full_name" autocomplete="name" required placeholder={compact ? (es ? 'Tu nombre' : 'Your name') : undefined} /></div>
-    <div><label for="contactPhone">{es ? 'Número móvil' : 'Mobile number'}{smsOnly ? ' *' : compact ? (es ? ' (opcional)' : ' (optional)') : ''}</label><input id="contactPhone" name="phone" type="tel" autocomplete="tel" required={smsOnly} placeholder="(862) 555-0123" /></div>
+    <div><label for="contactPhone">{es ? 'Número móvil' : 'Mobile number'}{smsOnly || requirePhone ? ' *' : compact ? (es ? ' (opcional)' : ' (optional)') : ''}</label><input id="contactPhone" name="phone" type="tel" autocomplete="tel" required={smsOnly || requirePhone} placeholder="(862) 555-0123" /></div>
   </div>
   <label for="contactEmail">{es ? 'Correo electrónico' : 'Email address'} *</label>
   <input id="contactEmail" name="email" type="email" autocomplete="email" required placeholder={compact ? 'nombre@correo.com' : undefined} />
