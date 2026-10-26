@@ -1,12 +1,11 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../../../public/logo-mapa.png';
 import heroImage from '../../../public/images/lp/marketing-construccion-hero.png';
 import ContactForm from '../../components/ContactForm.astro';
 
 const phone = 'tel:+18626228339';
 const whatsapp = `https://wa.me/18626228339?text=${encodeURIComponent('Hola, quiero información sobre marketing para mi negocio de construcción.')}`;
-const path = '/lp/marketing-construccion';
+const path = '/lp/marketing-construccion/';
 const title = 'Marketing para empresas de construcción | MAPA Business';
 const description = 'Consigue más solicitudes de cotización para tu empresa de construcción con una estrategia clara de presencia digital, anuncios y seguimiento de prospectos.';
 
@@ -24,6 +23,47 @@ const faqs = [
   ['¿Cuánto debo invertir en publicidad?', 'Depende de tu servicio, zona y objetivo. Primero definimos un plan y un presupuesto realista antes de lanzar campañas.'],
   ['¿Cuándo puedo esperar resultados?', 'El tiempo varía según la demanda, la competencia, la oferta y el presupuesto. Nuestro enfoque es medir solicitudes reales y mejorar continuamente; no prometemos resultados específicos.'],
 ];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Marketing para empresas de construcción',
+    description,
+    url: `https://marilynmapabusiness.com${path}`,
+    serviceType: 'Marketing digital para contratistas y empresas de construcción',
+    areaServed: {
+      '@type': 'State',
+      name: 'New Jersey',
+    },
+    provider: {
+      '@type': 'Organization',
+      name: 'MAPA Business & Financial Services LLC',
+      url: 'https://marilynmapabusiness.com/',
+      telephone: '+1-862-622-8339',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '20 Bloomfield Pl',
+        addressLocality: 'Newark',
+        addressRegion: 'NJ',
+        postalCode: '07104',
+        addressCountry: 'US',
+      },
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(([question, answer]) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: answer,
+      },
+    })),
+  },
+];
 ---
 
 <!doctype html>
@@ -31,14 +71,17 @@ const faqs = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={`https://marilynmapabusiness.com${path}`} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={`https://marilynmapabusiness.com${path}`} />
     <meta property="og:image" content="https://marilynmapabusiness.com/images/lp/marketing-construccion-hero.png" />
+    <meta property="og:locale" content="es_US" />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <link rel="icon" href="/logo-mapa.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -48,7 +91,7 @@ const faqs = [
     <a class="skip" href="#contenido">Ir al contenido</a>
     <header class="site-header">
       <div class="shell header-inner">
-        <a href="/" aria-label="MAPA Business, inicio"><Image src={logo} width={177} height={50} format="webp" alt="MAPA Business & Financial Services" loading="eager" /></a>
+        <a class="header-logo" href="/" aria-label="MAPA Business, inicio"><img src="/logo-mapa.png?v=20261026" width="954" height="270" alt="MAPA Business & Financial Services" loading="eager" /></a>
         <div class="header-actions">
           <span>Marketing para contratistas</span>
           <a class="button button-small" href="#consulta"><span class="desktop-label">Solicitar evaluación</span><span class="mobile-label">Evaluación</span></a>
@@ -183,7 +226,7 @@ const faqs = [
 
     <footer>
       <div class="shell footer-grid">
-        <Image src={logo} width={177} height={50} format="webp" alt="MAPA Business & Financial Services" loading="lazy" />
+        <img src="/logo-mapa.png?v=20261026" width="954" height="270" alt="MAPA Business & Financial Services" loading="lazy" />
         <div><strong>MAPA Business &amp; Financial Services LLC</strong><p>20 Bloomfield Pl, Newark, NJ 07104</p></div>
         <div><a href={phone}>(862) 622-8339</a><a href="/es/privacy-policy/">Política de privacidad</a></div>
       </div>
@@ -208,6 +251,21 @@ const faqs = [
     box-shadow: 0 26px 70px rgba(0, 0, 0, .22);
   }
   .mobile-label { display: none; }
+  .header-logo {
+    display: block;
+    flex: 0 0 150px;
+    width: 150px;
+    height: 48px;
+    overflow: visible;
+  }
+  .header-logo img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: contain !important;
+    object-position: left center !important;
+  }
   .form-card::after {
     content: '';
     position: absolute;
@@ -319,8 +377,8 @@ const faqs = [
   }
   @media (max-width: 700px) {
     .header-inner { gap: 14px; }
-    .header-inner > a:first-child { display: flex; flex: 0 1 140px; min-width: 0; }
-    .header-inner > a:first-child img { width: 140px !important; max-width: 100%; height: auto !important; }
+    .header-logo { display: block !important; flex: 0 0 140px !important; width: 140px !important; height: 42px !important; min-width: 140px; }
+    .header-logo img { width: 100% !important; height: 100% !important; max-width: none !important; object-fit: contain !important; object-position: left center !important; }
     .header-actions { flex: 0 0 auto; gap: 0; }
     .header-actions .button-small { min-width: 112px; padding-inline: 14px; }
     .header-actions .desktop-label { display: none !important; }

@@ -9,6 +9,9 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) => {
+        const indexableLandingPages = new Set([
+          'https://marilynmapabusiness.com/lp/marketing-construccion/'
+        ]);
         // Exclude redirect pages and non-canonical duplicate aliases
         const excluded = [
           'https://marilynmapabusiness.com/politica-de-privacidad/',
@@ -25,7 +28,8 @@ export default defineConfig({
           'https://marilynmapabusiness.com/en/about/',
           'https://marilynmapabusiness.com/en/about-mapa-business-and-financial-services/'
         ];
-        return !page.endsWith('/404/') && !page.endsWith('/404.html') && !page.includes('/lp/') && !excluded.includes(page);
+        const isExcludedLandingPage = page.includes('/lp/') && !indexableLandingPages.has(page);
+        return !page.endsWith('/404/') && !page.endsWith('/404.html') && !isExcludedLandingPage && !excluded.includes(page);
       }
     })
   ],

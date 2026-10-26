@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { cities } from '../data/cities';
 import { services } from '../data/services';
 import GoogleReviews from '../components/GoogleReviews.astro';
+import ContactForm from '../components/ContactForm.astro';
 import esDict from '../../public/locales/es.json';
 import enDict from '../../public/locales/en.json';
 
@@ -654,12 +655,12 @@ const getSlideKey = (slug: string) => {
           </div>
         </div>
 
-        <div class="reveal rv2" style="margin-top: 25px;">
-          <div class="contact-form-card" style="padding:32px;border:1px solid #e2e8f0;border-radius:20px;background:white;">
+        <div class="reveal rv2 home-contact-form">
+          <div class="home-contact-heading">
             <h3>{lang === 'es' ? 'Cuéntanos qué necesitas' : 'Tell us what you need'}</h3>
-            <p>{lang === 'es' ? 'Abre nuestro formulario para seleccionar tus servicios y enviar tu consulta, o utiliza el chat de esta página.' : 'Open our contact form to select your services and send your inquiry, or use the chat on this page.'}</p>
-            <a href={lang === 'es' ? '/es/contacto/' : '/en/contact/'} class="btn btn-primary">{lang === 'es' ? 'Abrir formulario de contacto' : 'Open contact form'}</a>
+            <p>{lang === 'es' ? 'Completa tus datos y selecciona los servicios que te interesan.' : 'Enter your details and select the services you are interested in.'}</p>
           </div>
+          <ContactForm lang={lang} />
         </div>
       </div>
     </div>
