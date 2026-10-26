@@ -6,21 +6,23 @@ const paths = legalPaths[lang];
 ---
 <fieldset class="sms-consent" data-consent-version={LEGAL_VERSION}>
   <legend>{lang === 'es' ? 'Preferencias SMS (opcionales)' : 'SMS preferences (optional)'}</legend>
-  <div class="consent-row">
-    <label><input type="checkbox" name="sms_informational" value="yes" /><span>{lang === 'es' ? 'Acepto SMS sobre citas y seguimiento.' : 'I agree to SMS about appointments and updates.'}</span></label>
-    <details><summary>{lang === 'es' ? 'Leer más' : 'Read more'}</summary><p>{smsConsent[lang].informational}</p></details>
+  <div class="sms-confirmation-notice">
+    <strong>{lang === 'es' ? 'Confirmación por SMS' : 'SMS confirmation'}</strong>
+    <span>{lang === 'es' ? 'Si proporcionas un número móvil, recibirás un mensaje confirmando que recibimos tu solicitud.' : 'If you provide a mobile number, you will receive a message confirming that we received your request.'}</span>
   </div>
   <div class="consent-row">
-    <label><input type="checkbox" name="sms_marketing" value="yes" /><span>{lang === 'es' ? 'Acepto SMS con ofertas y novedades.' : 'I agree to SMS with offers and news.'}</span></label>
+    <label><input type="checkbox" name="sms_marketing_permission" value="Granted" /><span>{lang === 'es' ? 'Acepto SMS con ofertas y novedades.' : 'I agree to SMS with offers and news.'}</span></label>
     <details><summary>{lang === 'es' ? 'Leer más' : 'Read more'}</summary><p>{smsConsent[lang].marketing}</p></details>
   </div>
-  <p>{lang === 'es' ? 'Puedes elegir una, ambas o ninguna. El consentimiento no es condición para comprar o recibir servicios. Proporcionar tu número no autoriza SMS.' : 'Choose either, both, or neither. Consent is not a condition of purchasing or receiving services. Providing your number does not authorize SMS.'}</p>
+  <p>{lang === 'es' ? 'La confirmación se limita a tu solicitud. Los mensajes promocionales son opcionales y no son condición para comprar o recibir servicios.' : 'The confirmation is limited to your request. Promotional messages are optional and are not a condition of purchasing or receiving services.'}</p>
   <p><a href={paths.privacy}>{lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}</a> · <a href={paths.terms}>{lang === 'es' ? 'Términos y Condiciones' : 'Terms and Conditions'}</a> · <a href={paths.sms}>SMS Opt-In</a></p>
 </fieldset>
 <style>
   .sms-consent { min-width: 0; margin: 20px 0; padding: 18px; border: 1px solid #cbd5e1; border-radius: 12px; color: #334155; background: #f8fafc; }
   legend { padding: 0 6px; font-weight: 700; font-size: .95rem; }
   .consent-row { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; column-gap: 10px; padding: 8px 0; border-bottom: 1px solid #e2e8f0; }
+  .sms-confirmation-notice { display: flex; flex-wrap: wrap; gap: 4px 8px; margin: 2px 0 8px; padding: 12px; border: 1px solid #fecaca; border-radius: 10px; background: #fff7f7; color: #111827; font-size: 10px; line-height: 1.4; }
+  .sms-confirmation-notice strong { color: #991b1b; font-size: 11px; }
   .consent-row label { display: flex; min-width: 0; align-items: center; gap: 9px; margin: 0; font-size: 8px; line-height: 1.3; cursor: pointer; }
   .consent-row label span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   input[type='checkbox'] { flex: 0 0 17px; width: 17px; height: 17px; padding: 0 !important; border-radius: 3px !important; margin: 0; accent-color: #b91c1c; }

@@ -35,13 +35,13 @@
     const root = widget.shadowRoot;
     const avatar = root?.querySelector<HTMLImageElement>('.lc_text-widget_prompt--avatar');
     if (avatar) {
-      avatar.src = '/marilin.webp';
+      avatar.src = new URL('/marilin.webp', window.location.origin).href;
       avatar.alt = 'Marilyn Paladinez';
     }
     if (root && !root.querySelector('#mapa-chat-launcher-style')) {
       const style = document.createElement('style');
       style.id = 'mapa-chat-launcher-style';
-      style.textContent = '#lc_text-widget--btn { border: 3px solid #fff !important; box-sizing: border-box; box-shadow: 0 4px 18px rgba(0,0,0,.2) !important; } .lc_text-widget_prompt--avatar { object-fit: cover !important; object-position: 50% 20% !important; }';
+      style.textContent = '#lc_text-widget--btn { border: 3px solid #fff !important; box-sizing: border-box; box-shadow: 0 4px 18px rgba(0,0,0,.2) !important; } .lc_text-widget_prompt--avatar { display:block !important; width:48px !important; height:48px !important; min-width:48px !important; flex:0 0 48px !important; border-radius:50% !important; object-fit:cover !important; object-position:50% 20% !important; }';
       root.appendChild(style);
     }
   }
