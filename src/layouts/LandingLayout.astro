@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../../public/logo-mapa.png';
 import Actions from '../components/lp/Actions.astro';
 import LegalNotice from '../components/lp/LegalNotice.astro';
 import { BRAND, PHONE, ATTRIBUTION_KEYS } from '../components/lp/config';
@@ -68,7 +66,7 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
 <body data-notary-landing>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TW289QXQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="skip" href="#contenido">Ir al contenido</a>
-  <header class="topbar"><div class="topbar-inner"><Image class="topbar-logo" src={logo} width={191} height={54} format="webp" alt={BRAND} loading="eager" /><a href={PHONE} data-button-location="header" class="header-call">Llamar <span>(862) 622-8339</span></a></div></header>
+  <header class="topbar"><div class="topbar-inner"><img class="topbar-logo" src="/logo-mapa.png" width="191" height="54" alt={BRAND} loading="eager" decoding="async" /><a href={PHONE} data-button-location="header" class="header-call">Llamar <span>(862) 622-8339</span></a></div></header>
   <main id="contenido"><slot /></main>
   <footer><div class="footer-inner"><strong>{BRAND}</strong><p>20 Bloomfield Pl, Newark, NJ 07104</p><a href={PHONE} data-button-location="footer">(862) 622-8339</a><LegalNotice /><a href="/es/privacy-policy/" target="_blank" rel="noopener">Política de Privacidad</a></div></footer>
   <div class="sticky-actions" aria-label="Contacto rápido"><Actions location="sticky" compact /></div>
