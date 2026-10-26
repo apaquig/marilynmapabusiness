@@ -32,7 +32,6 @@ const schema = {'@context':'https://schema.org','@type':'LocalBusiness',name:BRA
         <p class="eyebrow">NEWARK, NEW JERSEY · ESPAÑOL E INGLÉS</p>
         <h1>Notary Public en Newark.<br /><span>Poderes y apostillas.</span></h1>
         <p class="hero-subtitle">Tus documentos, con atención cercana y en español. Te ayudamos con la notarización de firmas y el trámite de apostillas. Confirma los requisitos antes de tu visita.</p>
-        <svg class="notary-watermark" viewBox="0 0 300 300" aria-hidden="true"><defs><path id="sealTopArc" d="M52 150a98 98 0 0 1 196 0"/><path id="sealBottomArc" d="M48 165a104 104 0 0 0 204 0"/></defs><circle cx="150" cy="150" r="132"/><circle cx="150" cy="150" r="112"/><text><textPath href="#sealTopArc" startOffset="50%" text-anchor="middle">NOTARÍA PÚBLICA</textPath></text><text><textPath href="#sealBottomArc" startOffset="50%" text-anchor="middle">NEWARK · NEW JERSEY</textPath></text><path d="M112 98h61l27 27v67a19 19 0 0 1-19 19h-69a19 19 0 0 1-19-19v-75a19 19 0 0 1 19-19Z"/><path d="M173 98v30h27M117 148h55M117 169h38"/><circle cx="177" cy="185" r="27"/><path d="m166 185 8 8 16-17"/><circle cx="50" cy="158" r="4" fill="currentColor" stroke="none"/><circle cx="250" cy="158" r="4" fill="currentColor" stroke="none"/></svg>
         <div class="hero-services" aria-label="Servicios principales"><span>Notarización</span><span>Poderes</span><span>Apostillas</span></div><ul class="hero-points"><li>✔ Español e inglés</li><li>✔ 20 Bloomfield Pl, Newark</li></ul>
         <a href="#cita" class="form-cta" data-button-location="hero">Solicitar información <span aria-hidden="true">→</span></a><p class="hero-contact-label">¿Prefieres hablar con nosotros?</p><Actions location="hero" />
         <HeroReview />
@@ -83,11 +82,9 @@ const schema = {'@context':'https://schema.org','@type':'LocalBusiness',name:BRA
 <style>
   .hero{background:#fff;padding-block:48px;overflow:hidden}
   .hero-grid{grid-template-columns:1.2fr 1fr;gap:52px}
-  .hero-copy{position:relative;isolation:isolate}.hero-copy>*:not(.notary-watermark){position:relative;z-index:1}
+  .hero-copy{position:relative}
   h1{font-size:clamp(34px,4.5vw,56px);line-height:1.12;letter-spacing:-.035em}
   .hero-subtitle{max-width:510px;font-size:17px}
-  .notary-watermark{position:absolute;z-index:0;top:-8px;right:8px;width:190px;height:auto;transform:rotate(7deg);color:#9d0000;fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;opacity:.16;pointer-events:none}
-  .notary-watermark text{fill:currentColor;stroke:none;font:800 16px Montserrat,sans-serif;letter-spacing:1.4px}
   .hero-services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:0;margin:22px 0 18px;padding:5px;background:linear-gradient(110deg,#090909 0%,#252525 52%,#080808 100%);border:1px solid #3a3a3a;border-radius:12px;box-shadow:0 10px 24px #00000020,inset 0 1px #ffffff12}
   .hero-services span{position:relative;display:grid;place-items:center;min-height:50px;padding:8px 6px;color:#fff;font-size:clamp(15px,1.5vw,19px);font-weight:900;letter-spacing:.045em;line-height:1.15;text-align:center;text-transform:uppercase;text-shadow:0 2px 5px #000}
   .hero-services span+span::before{content:"";position:absolute;left:0;top:20%;bottom:20%;width:1px;background:linear-gradient(#cc000000,#e11,#cc000000)}
@@ -101,7 +98,7 @@ const schema = {'@context':'https://schema.org','@type':'LocalBusiness',name:BRA
   .service-icon{width:48px;height:48px;border-radius:50%;background:#cc0000;color:#fff;justify-content:center}.service-icon small{display:none}
   .service{box-shadow:none;background:#fff;border-color:#e9e2df}.service h3{font-size:19px}
   @media(max-width:900px){.hero-grid{gap:26px}.portrait img{height:510px}}
-  @media(max-width:700px){.hero{padding-block:24px 28px}.hero-grid{display:block}h1{font-size:35px;line-height:1.12}.hero-subtitle{font-size:16px}.notary-watermark{top:-5px;right:-8px;width:138px;opacity:.13}.hero-services{margin:17px 0 14px;padding:4px;border-radius:10px}.hero-services span{min-height:46px;padding:7px 2px;font-size:clamp(10px,3.25vw,13px);letter-spacing:.015em}.hero-services span::after{left:18%;right:18%;bottom:2px}.portrait{display:none}.mobile-portrait{border:2px solid #cc0000;padding:2px;background:#fff;width:60px;height:60px}.brand-row{margin-top:16px}.brand-name{font-size:11px;max-width:230px}.hero-points{line-height:1.7;font-size:13px}.trust{padding-block:16px}}
+  @media(max-width:700px){.hero{padding-block:24px 28px}.hero-grid{display:block}h1{font-size:35px;line-height:1.12}.hero-subtitle{font-size:16px}.hero-services{margin:17px 0 14px;padding:4px;border-radius:10px}.hero-services span{min-height:46px;padding:7px 2px;font-size:clamp(10px,3.25vw,13px);letter-spacing:.015em}.hero-services span::after{left:18%;right:18%;bottom:2px}.portrait{display:none}.mobile-portrait{border:2px solid #cc0000;padding:2px;background:#fff;width:60px;height:60px}.brand-row{margin-top:16px}.brand-name{font-size:11px;max-width:230px}.hero-points{line-height:1.7;font-size:13px}.trust{padding-block:16px}}
 </style>
 
 <style>
