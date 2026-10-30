@@ -31,28 +31,22 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
     gtag('config', 'G-E9BVZ26P78');
     gtag('config', 'AW-18488049918');
 
-    /* Google Ads conversions: form submission, WhatsApp and phone calls. */
-    (() => {
-      const conversions = {
-        form_lead_submitted: 'AW-18488049918/WYW9CLD80qodEP6B5e9E',
-        whatsapp_click: 'AW-18488049918/qiOYCLP80qodEP6B5e9E',
-        phone_call_click: 'AW-18488049918/myjaCLb80qodEP6B5e9E'
-      };
-      const nativePush = window.dataLayer.push;
-      window.dataLayer.push = function (...items) {
-        for (const item of items) {
-          if (item?.event && conversions[item.event]) {
-            gtag('event', 'conversion', { send_to: conversions[item.event] });
-          }
-        }
-        return nativePush.apply(window.dataLayer, items);
-      };
-    })();
   </script>
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
   <script define:vars={{ ATTRIBUTION_KEYS, thankYou }}>
     (() => {
       window.dataLayer = window.dataLayer || [];
+      const adsConversions = {
+        form_lead_submitted: 'AW-18488049918/WYW9CLD80qodEP6B5e9E',
+        whatsapp_click: 'AW-18488049918/qiOYCLP80qodEP6B5e9E',
+        phone_call_click: 'AW-18488049918/myjaCLb80qodEP6B5e9E'
+      };
+      const sendAdsConversion = (eventName) => {
+        const sendTo = adsConversions[eventName];
+        if (sendTo && typeof window.gtag === 'function') {
+          window.gtag('event', 'conversion', { send_to: sendTo });
+        }
+      };
       const params = new URLSearchParams(window.location.search);
       for (const key of ATTRIBUTION_KEYS) {
         const value = params.get(key);
@@ -64,6 +58,7 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
             sessionStorage.removeItem('lp-notary-confirmed-submission');
             sessionStorage.setItem('lp-notary-lead-gracias', '1');
             window.dataLayer.push({ event: 'form_lead_submitted', servicio: 'notary' });
+            sendAdsConversion('form_lead_submitted');
             window.gtag('event', 'generate_lead', { lead_service: 'Notary', method: 'website_form' });
           }
         } catch { /* Without session storage, avoid an un-deduplicated conversion. */ }
@@ -73,9 +68,18 @@ const { title, description, path, schema, thankYou = false, contactForm = false 
         const link = event.target.closest('a[href]');
         if (!link) return;
         const url = new URL(link.href, window.location.href);
-        const eventName = url.protocol === 'tel:' ? 'phone_call_click' : url.hostname === 'wa.me' ? 'whatsapp_click' : null;
+        const digits = url.protocol === 'tel:'
+          ? url.href.replace(/\D/g, '')
+          : url.hostname === 'wa.me'
+            ? url.pathname.replace(/\D/g, '')
+            : url.searchParams.get('phone')?.replace(/\D/g, '') || '';
+        const isMapaPhone = url.protocol === 'tel:' && digits.endsWith('18626228339');
+        const isWhatsApp = ['wa.me', 'api.whatsapp.com', 'whatsapp.com'].includes(url.hostname);
+        const isMapaWhatsApp = isWhatsApp && digits.endsWith('18626228339');
+        const eventName = isMapaPhone ? 'phone_call_click' : isMapaWhatsApp ? 'whatsapp_click' : null;
         if (eventName) {
           window.dataLayer.push({ event: eventName, servicio: 'notary', ubicacion_boton: link.dataset.buttonLocation || 'contenido' });
+          sendAdsConversion(eventName);
           window.gtag('event', eventName, { lead_service: 'Notary', ubicacion_boton: link.dataset.buttonLocation || 'contenido' });
         }
       });
